@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Форматируем только изменённые PHP-файлы перед коммитом
+CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep '\.php$' || true)
+
+if [ -z "$CHANGED" ]; then
+    exit 0
+fi
+
+./vendor/bin/pint $CHANGED
+
+if [ $? -ne 0 ]; then
+    echo "Pint failed. Fix the issues and try again."
+    exit 1
+fi
+
+git add $CHANGED

@@ -1,0 +1,50 @@
+{
+    "name": "igorsmoleac/design-laravel-kit",
+    "description": "Modern Bootstrap Italia integration for Laravel — Blade components, Vite, accessibility.",
+    "keywords": ["laravel", "bootstrap-italia", "design-system", "italia", "pubblica-amministrazione", "blade-components"],
+    "homepage": "https://github.com/igorsmoleac/design-laravel-kit",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Igor Smoleac",
+            "email": "bassgarik@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.0|^13.0",
+        "illuminate/view": "^12.0|^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0",
+        "phpunit/phpunit": "^12.0",
+        "laravel/pint": "^1.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "IgorSmoleac\\DesignLaravelKit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IgorSmoleac\\DesignLaravelKit\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IgorSmoleac\\DesignLaravelKit\\DesignLaravelKitServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "phpunit",
+        "pint": "pint"
+    }
+}
