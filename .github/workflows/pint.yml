@@ -1,0 +1,22 @@
+name: Pint
+
+on:
+  pull_request:
+    paths:
+      - '**.php'
+      - 'pint.json'
+
+jobs:
+  pint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: pint
+
+      - name: Run Pint (dry-run)
+        run: pint --test
