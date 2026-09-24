@@ -1,0 +1,15 @@
+{
+    "name": "design-laravel-kit",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Build assets for design-laravel-kit package",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "bootstrap-italia": "2.18.3",
+        "sass": "^1.77.0",
+        "vite": "^5.0.0"
+    }
+}
