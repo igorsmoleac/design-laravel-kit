@@ -34,6 +34,7 @@ class PublishAssetsCommand extends Command
             return Command::SUCCESS;
         }
 
+        $this->files->deleteDirectory($destination);
         $this->files->copyDirectory($source, $destination);
 
         $this->info('Assets published to public/' . config('design-laravel-kit.assets_path', 'vendor/design-laravel-kit'));

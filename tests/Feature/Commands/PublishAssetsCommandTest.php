@@ -70,4 +70,16 @@ class PublishAssetsCommandTest extends TestCase
 
         $this->assertNotSame('modified', file_get_contents($published));
     }
+
+    public function test_force_removes_stale_files(): void
+    {
+        $this->artisan('design-laravel-kit:publish-assets')->assertSuccessful();
+
+        $stale = public_path('vendor/design-laravel-kit/fonts/legacy.woff');
+        file_put_contents($stale, 'stale');
+
+        $this->artisan('design-laravel-kit:publish-assets', ['--force' => true])->assertSuccessful();
+
+        $this->assertFileDoesNotExist($stale);
+    }
 }
