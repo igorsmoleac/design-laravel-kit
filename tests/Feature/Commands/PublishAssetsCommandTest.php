@@ -26,6 +26,7 @@ class PublishAssetsCommandTest extends TestCase
 
         $this->assertFileExists(public_path('vendor/design-laravel-kit/css/design-laravel-kit.css'));
         $this->assertFileExists(public_path('vendor/design-laravel-kit/js/design-laravel-kit.js'));
+        $this->assertFileExists(public_path('vendor/design-laravel-kit/svg/sprites.svg'));
     }
 
     public function test_fails_when_dist_is_missing(): void

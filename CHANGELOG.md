@@ -8,15 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial package skeleton
-- Abstract `BaseComponent` — unique ID generation, ARIA attributes, `$errors` binding, configurable component prefix
-- `config/design-laravel-kit.php` — `views_namespace`, `component_prefix`, `id_prefix`, `assets_path`
-- Service provider: `mergeConfigFrom`, view namespace registration, `Blade::componentNamespace` (`<x-italia::*>`), publishable config and views
-- `design-laravel-kit:publish-assets` and `design-laravel-kit:install` commands with `--force` support
-- `@designLaravelKitStyles` / `@designLaravelKitScripts` Blade directives
-- `design-laravel-kit-assets` publish tag; built assets committed to the repository
+- Asset Pipeline: commands `design-laravel-kit:install` and `design-laravel-kit:publish-assets`
+- Blade directives `@designLaravelKitStyles` and `@designLaravelKitScripts`
+- Bootstrap Italia bundled via vite-plugin-static-copy (JS + SVG sprite + fonts)
 
-### Changed
-- Generated ids are unique per component instance (`dlk-email-12345` via `spl_object_id()`) — required by WCAG 2.1 AA / Legge Stanca
-- `BaseComponent::prefix()` renamed to `idPrefix()`; error lookup decoupled from `idSeed()` into `errorField()`
+### Dependencies
+- Bootstrap Italia 2.18.3 (pinned)
+- Laravel 12/13
+- Orchestra Testbench 11.3.0
+- PHPUnit 12.x
+- Laravel Pint 1.32.x
+- PHP 8.3+
+- Node.js 20 (build only)
 
