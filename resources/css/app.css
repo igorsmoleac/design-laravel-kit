@@ -19,7 +19,12 @@
     animation: dlk-spin 0.75s linear infinite;
 }
 
-.dlk-floating input:focus ~ label {
+.dlk-floating {
+    margin-top: 2.5rem;
+}
+
+.dlk-floating input:focus ~ label,
+.dlk-floating textarea:focus ~ label {
     transform: translateY(-85%);
     font-weight: 600;
     font-size: .875rem;

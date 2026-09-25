@@ -19,11 +19,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Componente `<x-italia::icon>` con risoluzione sprite SVG e supporto ARIA
 - Componente `<x-italia::button>` con varianti, dimensioni e stati (loading, disabled, link)
 - Componente `<x-italia::input>` con binding `$errors`, ARIA, floating label e supporto error bag nominati
+- Componente `<x-italia::select>` con binding `$errors`, optgroup, placeholder, `multiple` (auto `[]`) e ARIA
+- Componente `<x-italia::textarea>` con binding `$errors`, ARIA, floating label e valore renderizzato tra i tag
 
 ### Changed
+- Logica comune dei campi form (errori, old input, label, ARIA) estratta nel trait `HandlesFormField`
 - ID dei componenti ora usano `spl_object_id()` — nessun rischio di collisione (WCAG 2.1 AA / Legge Stanca)
 - `prefix()` rinominato in `idPrefix()`
 - `fieldName()` rinominato in `errorField()`, slegato da `idSeed()`
+
+### Fixed
+- Floating label sovrappone il contenuto soprastante (es. titoli): `.dlk-floating` riserva `2.5rem` sopra il campo; tra campi consecutivi il margine collassa e resta `3rem`
 
 ### Dependencies
 - Bootstrap Italia 2.18.3 (pinned, no `^`)
