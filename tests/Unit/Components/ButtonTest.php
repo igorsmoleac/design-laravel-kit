@@ -68,7 +68,7 @@ class ButtonTest extends TestCase
     {
         $html = (string) $this->blade('<x-italia::button loading>Loading</x-italia::button>');
 
-        $this->assertStringContainsString('progress-spinner', $html);
+        $this->assertStringContainsString('dlk-spinner-inline', $html);
         $this->assertStringContainsString('aria-busy="true"', $html);
         $this->assertStringContainsString('aria-disabled="true"', $html);
     }

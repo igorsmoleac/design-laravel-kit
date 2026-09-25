@@ -1,2 +1,20 @@
 /* Import Bootstrap Italia styles */
 @import 'bootstrap-italia/dist/css/bootstrap-italia.min.css';
+
+.dlk-spinner-inline {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    vertical-align: -0.125em;
+    margin-right: 0.5rem;
+    animation: dlk-spin 0.75s linear infinite;
+}
+
+@keyframes dlk-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
