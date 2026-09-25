@@ -138,10 +138,15 @@ abstract class BaseComponent extends Component
             return null;
         }
 
+        return $this->toDotNotation((string) $name);
+    }
+
+    protected function toDotNotation(string $name): string
+    {
         $name = preg_replace('/\[\]$/', '', $name);
         $name = str_replace(['[', ']'], ['.', ''], $name);
 
-        return rtrim((string) $name, '.');
+        return rtrim($name, '.');
     }
 
     /* ------------------------------------------------------------------
