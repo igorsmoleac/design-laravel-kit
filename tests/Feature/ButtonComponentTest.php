@@ -29,7 +29,7 @@ class ButtonComponentTest extends TestCase
     public function test_button_tag_renders_loading_state(): void
     {
         $this->blade('<x-italia::button loading>Save</x-italia::button>')
-            ->assertSee('progress-spinner', false)
+            ->assertSee('dlk-spinner-inline', false)
             ->assertSee('aria-busy="true"', false);
     }
 }

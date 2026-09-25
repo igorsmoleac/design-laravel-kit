@@ -18,10 +18,7 @@
     @endif
 >
     @if ($loading)
-        <span class="progress-spinner progress-spinner-double progress-spinner-active size-sm" role="status" aria-hidden="true">
-            <span class="progress-spinner-inner"></span>
-            <span class="progress-spinner-inner"></span>
-        </span>
+        <span class="dlk-spinner-inline" role="status" aria-hidden="true"></span>
     @endif
     {{ $slot }}
 </{{ $tagName }}>
