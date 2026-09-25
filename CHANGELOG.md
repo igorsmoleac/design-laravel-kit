@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Componente `<x-italia::select>` con binding `$errors`, optgroup, placeholder, `multiple` (auto `[]`) e ARIA
 - Componente `<x-italia::textarea>` con binding `$errors`, ARIA, floating label e valore renderizzato tra i tag
 - Componente `<x-italia::header-slim>` con link, selettore lingua e login
+- Componente `<x-italia::header-center>` con brand, tagline, social links e ricerca
 
 ### Changed
 - Logica comune dei campi form (errori, old input, label, ARIA) estratta nel trait `HandlesFormField`
