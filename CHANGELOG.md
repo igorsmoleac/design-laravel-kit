@@ -28,6 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `prefix()` rinominato in `idPrefix()`
 - `fieldName()` rinominato in `errorField()`, slegato da `idSeed()`
 
+### Fixed
+- Floating label sovrappone il contenuto soprastante (es. titoli): `.dlk-floating` riserva `2.5rem` sopra il campo; tra campi consecutivi il margine collassa e resta `3rem`
+
 ### Dependencies
 - Bootstrap Italia 2.18.3 (pinned, no `^`)
 - Laravel 12/13
