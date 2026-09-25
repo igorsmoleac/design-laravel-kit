@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Componente `<x-italia::header-slim>` con link, selettore lingua e login
 - Componente `<x-italia::header-center>` con brand, tagline, social links e ricerca
 - Componente `<x-italia::header>` che combina header-slim, header-center e header-navbar in un unico wrapper
+- Componente `<x-italia::layout>` con header, main, footer e skip-link accessibile
 
 ### Changed
 - Logica comune dei campi form (errori, old input, label, ARIA) estratta nel trait `HandlesFormField`
