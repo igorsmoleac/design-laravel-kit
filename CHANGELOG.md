@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tag di pubblicazione `design-laravel-kit-assets`; asset compilati committati nel repository
 - Componente `<x-italia::icon>` con risoluzione sprite SVG e supporto ARIA
 - Componente `<x-italia::button>` con varianti, dimensioni e stati (loading, disabled, link)
+- Componente `<x-italia::input>` con binding `$errors`, ARIA, floating label e supporto error bag nominati
 
 ### Changed
 - ID dei componenti ora usano `spl_object_id()` — nessun rischio di collisione (WCAG 2.1 AA / Legge Stanca)

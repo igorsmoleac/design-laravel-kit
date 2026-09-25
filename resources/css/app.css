@@ -1,6 +1,12 @@
 /* Import Bootstrap Italia styles */
 @import 'bootstrap-italia/dist/css/bootstrap-italia.min.css';
 
+@keyframes dlk-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .dlk-spinner-inline {
     display: inline-block;
     width: 1rem;
@@ -13,8 +19,13 @@
     animation: dlk-spin 0.75s linear infinite;
 }
 
-@keyframes dlk-spin {
-    to {
-        transform: rotate(360deg);
-    }
+.dlk-floating input:focus ~ label {
+    transform: translateY(-85%);
+    font-weight: 600;
+    font-size: .875rem;
+    color: #1a1a1a;
+}
+
+.dlk-field {
+    margin-bottom: 2rem;
 }
