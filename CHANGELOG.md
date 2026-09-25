@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `fieldName()` rinominato in `errorField()`, slegato da `idSeed()`
 
 ### Fixed
+- Burger del navbar invisibile su mobile in uso standalone: `.it-header-navbar-wrapper` ha sfondo blu solo ≥992px, quindi l'icona bianca risultava su fondo bianco — su mobile l'icona del toggler ora è `#06c` (fuori da `it-header-wrapper`)
 - Floating label sovrappone il contenuto soprastante (es. titoli): `.dlk-floating` riserva `2.5rem` sopra il campo; tra campi consecutivi il margine collassa e resta `3rem`
 
 ### Dependencies
