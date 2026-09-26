@@ -264,6 +264,25 @@ Seguire lo stile del codice esistente. Per domande, aprire una Issue.
 
 Rilasciato sotto licenza **BSD-3-Clause**. Vedi [LICENSE](LICENSE).
 
+## Attribuzione dei loghi
+
+Il pacchetto include i loghi ufficiali **SPID** e **CIE** utilizzati nei
+pulsanti di accesso. Questi loghi sono **marchi registrati** dei rispettivi
+titolari e non sono coperti dalla licenza BSD-3-Clause del pacchetto:
+
+- **Logo SPID** — AgID (Agenzia per l'Italia Digitale).
+  Fonte: [italia/spid-sp-access-button](https://github.com/italia/spid-sp-access-button).
+  Utilizzato per lo scopo previsto: pulsante di accesso SPID conforme
+  alle linee guida AgID.
+
+- **Logo CIE** — Ministero dell'Interno.
+  Fonte: [idserver.servizicie.interno.gov.it](https://idserver.servizicie.interno.gov.it/idp/images/cielogo.png).
+  Utilizzato per lo scopo previsto: pulsante di accesso CIE conforme
+  alle linee guida AgID.
+
+Per l'uso dei loghi al di fuori del contesto previsto (pulsanti di
+accesso), fare riferimento alle linee guida ufficiali AgID.
+
 ## Riferimenti
 
 - [Developers Italia](https://developers.italia.it)

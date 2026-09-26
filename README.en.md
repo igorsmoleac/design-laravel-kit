@@ -262,6 +262,24 @@ Follow the existing code style. For questions, open an Issue.
 
 Released under the **BSD-3-Clause** license. See [LICENSE](LICENSE).
 
+## Logo attribution
+
+The package includes the official **SPID** and **CIE** logos used in
+the login buttons. These logos are **registered trademarks** of their
+respective owners and are not covered by the BSD-3-Clause license of
+the package:
+
+- **SPID logo** — AgID (Italian Digital Agency).
+  Source: [italia/spid-sp-access-button](https://github.com/italia/spid-sp-access-button).
+  Used for its intended purpose: SPID login button compliant with AgID guidelines.
+
+- **CIE logo** — Ministero dell'Interno (Italian Ministry of the Interior).
+  Source: [idserver.servizicie.interno.gov.it](https://idserver.servizicie.interno.gov.it/idp/images/cielogo.png).
+  Used for its intended purpose: CIE login button compliant with AgID guidelines.
+
+For use of the logos outside the intended context (login buttons),
+refer to the official AgID guidelines.
+
 ## References
 
 - [Developers Italia](https://developers.italia.it)

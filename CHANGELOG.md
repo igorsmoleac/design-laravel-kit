@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Componenti `<x-italia::alert>`, `<x-italia::badge>` e `<x-italia::spinner>` con enum `AlertVariant`
 - Componente `<x-italia::card>` con titolo, immagine, azioni e link
 - Componente `<x-italia::modal>` con ARIA completo, focus trap (BI JS) e slot footer
+- Componenti `<x-italia::spid-button>` e `<x-italia::cie-button>` con loghi ufficiali, dimensioni e stile dedicato `dlk-`
 
 ### Changed
 - Logica comune dei campi form (errori, old input, label, ARIA) estratta nel trait `HandlesFormField`
