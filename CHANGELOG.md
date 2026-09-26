@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentazione bilingue: `README.md` (italiano) e `README.en.md` (inglese)
 - Componenti `<x-italia::checkbox>` e `<x-italia::radio>` con binding degli errori di validazione
 - Componenti `<x-italia::alert>`, `<x-italia::badge>` e `<x-italia::spinner>` con enum `AlertVariant`
+- Componente `<x-italia::card>` con titolo, immagine, azioni e link
 
 ### Changed
 - Logica comune dei campi form (errori, old input, label, ARIA) estratta nel trait `HandlesFormField`
