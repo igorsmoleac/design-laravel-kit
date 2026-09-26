@@ -1,6 +1,6 @@
 {
     "name": "igorsmoleac/design-laravel-kit",
-    "description": "Modern Bootstrap Italia integration for Laravel — Blade components, Vite, accessibility.",
+    "description": "Design Laravel Kit — Modern Bootstrap Italia integration for Laravel. Blade components, Vite, accessibility.",
     "keywords": ["laravel", "bootstrap-italia", "design-system", "italia", "pubblica-amministrazione", "blade-components"],
     "homepage": "https://github.com/igorsmoleac/design-laravel-kit",
     "license": "BSD-3-Clause",

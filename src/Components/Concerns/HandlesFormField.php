@@ -55,6 +55,27 @@ trait HandlesFormField
         return is_scalar($old) ? (string) $old : null;
     }
 
+    /**
+     * Checked state for checkbox/radio: old input wins when present
+     * (re-population after failed validation), otherwise the checked prop.
+     * A checkbox without an explicit value posts "on", so that is the
+     * fallback when comparing against scalar old input.
+     */
+    public function isChecked(): bool
+    {
+        $old = session()->getOldInput($this->errorField() ?? $this->name);
+
+        if (is_array($old)) {
+            return in_array((string) $this->value, array_map(strval(...), $old), true);
+        }
+
+        if ($old !== null) {
+            return (string) $old === (string) ($this->value ?? 'on');
+        }
+
+        return $this->checked;
+    }
+
     public function hasValue(): bool
     {
         return filled($this->inputValue());

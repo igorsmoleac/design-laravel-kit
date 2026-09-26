@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Componente `<x-italia::header>` che combina header-slim, header-center e header-navbar in un unico wrapper
 - Componente `<x-italia::layout>` con header, main, footer e skip-link accessibile
 - Documentazione bilingue: `README.md` (italiano) e `README.en.md` (inglese)
+- Componenti `<x-italia::checkbox>` e `<x-italia::radio>` con binding degli errori di validazione
 
 ### Changed
 - Logica comune dei campi form (errori, old input, label, ARIA) estratta nel trait `HandlesFormField`
