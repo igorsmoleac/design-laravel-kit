@@ -22,9 +22,9 @@ class CheckboxTest extends TestCase
         $this->assertStringContainsString('type="checkbox"', $html);
     }
 
-    public function test_checked_attribute_renders(): void
+    public function test_checkbox_uses_default_when_no_old_input(): void
     {
-        $html = (string) $this->blade('<x-italia::checkbox name="terms" checked />');
+        $html = (string) $this->blade('<x-italia::checkbox name="terms" :checked="true" />');
 
         $this->assertStringContainsString('checked="checked"', $html);
     }
@@ -174,16 +174,16 @@ class CheckboxTest extends TestCase
         $this->assertStringNotContainsString('Hint text', $html);
     }
 
-    public function test_old_input_checks_checkbox(): void
+    public function test_checkbox_stays_checked_after_failed_validation(): void
     {
         $this->withSession(['_old_input' => ['terms' => '1']]);
 
-        $html = (string) $this->blade('<x-italia::checkbox name="terms" value="1" />');
+        $html = (string) $this->blade('<x-italia::checkbox name="terms" value="1" :checked="false" />');
 
         $this->assertStringContainsString('checked="checked"', $html);
     }
 
-    public function test_old_input_array_checks_matching_value(): void
+    public function test_checkbox_in_array_uses_old_input_array(): void
     {
         $this->withSession(['_old_input' => ['interests' => ['sport', 'music']]]);
 
@@ -194,11 +194,11 @@ class CheckboxTest extends TestCase
         $this->assertStringNotContainsString('checked=', $travel);
     }
 
-    public function test_old_input_unchecks_when_not_submitted(): void
+    public function test_checkbox_stays_unchecked_after_failed_validation(): void
     {
-        $this->withSession(['_old_input' => ['interests' => []]]);
+        $this->withSession(['_old_input' => []]);
 
-        $html = (string) $this->blade('<x-italia::checkbox name="interests[]" value="sport" checked />');
+        $html = (string) $this->blade('<x-italia::checkbox name="terms" value="1" :checked="true" />');
 
         $this->assertStringNotContainsString('checked=', $html);
     }

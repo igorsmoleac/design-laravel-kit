@@ -64,17 +64,17 @@ trait HandlesFormField
      */
     public function isChecked(): bool
     {
+        if (! session()->has('_old_input')) {
+            return $this->checked;
+        }
+
         $old = session()->getOldInput($this->errorField() ?? $this->name);
 
         if (is_array($old)) {
             return in_array((string) $this->value, array_map(strval(...), $old), true);
         }
 
-        if ($old !== null) {
-            return (string) $old === (string) ($this->value ?? 'on');
-        }
-
-        return $this->checked;
+        return $old !== null && (string) $old === (string) ($this->value ?? 'on');
     }
 
     public function hasValue(): bool
