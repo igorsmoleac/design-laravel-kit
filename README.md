@@ -103,8 +103,7 @@ skip-to-content link automatico, attributi ARIA.
 
 ## Componenti
 
-Tutti i componenti usano il prefisso `<x-italia::`, configurabile con
-l'opzione `component_prefix` in `config/design-laravel-kit.php`.
+Tutti i componenti usano il prefisso `<x-italia::`.
 
 ### Layout
 
