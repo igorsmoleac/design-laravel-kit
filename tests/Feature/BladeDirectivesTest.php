@@ -28,4 +28,13 @@ class BladeDirectivesTest extends TestCase
         $this->assertStringContainsString('design-laravel-kit.js', $html);
         $this->assertStringContainsString('defer', $html);
     }
+
+    public function test_scripts_directive_loads_bootstrap_italia_fonts(): void
+    {
+        $html = Blade::render('@designLaravelKitScripts' . PHP_EOL);
+
+        $this->assertStringContainsString('DOMContentLoaded', $html);
+        $this->assertStringContainsString('window.bootstrap.loadFonts(', $html);
+        $this->assertStringContainsString('vendor\\/design-laravel-kit\\/fonts', $html);
+    }
 }

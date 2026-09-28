@@ -66,6 +66,13 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
     {
         Blade::directive('designLaravelKitStyles', fn () => "<?php echo '<link rel=\"stylesheet\" href=\"' . e(asset(config('design-laravel-kit.assets_path') . '/css/design-laravel-kit.css')) . '\">'; ?>");
 
-        Blade::directive('designLaravelKitScripts', fn () => "<?php echo '<script src=\"' . e(asset(config('design-laravel-kit.assets_path') . '/js/design-laravel-kit.js')) . '\" defer></script>'; ?>");
+        Blade::directive('designLaravelKitScripts', fn () => <<<'PHP'
+<?php
+$designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
+echo '<script src="' . e(asset($designLaravelKitAssetsPath . '/js/design-laravel-kit.js')) . '" defer></script>';
+echo '<script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts(' . \Illuminate\Support\Js::from(asset($designLaravelKitAssetsPath . '/fonts')) . '); } });</script>';
+?>
+PHP
+        );
     }
 }
