@@ -43,14 +43,4 @@ class Card extends BaseComponent
     {
         return $this->imageAlt ?? $this->title ?? '';
     }
-
-    public function isLink(): bool
-    {
-        return $this->href !== null;
-    }
-
-    public function tagName(): string
-    {
-        return $this->isLink() ? 'a' : 'div';
-    }
 }
