@@ -64,12 +64,20 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
 
     protected function registerBladeDirectives(): void
     {
-        Blade::directive('designLaravelKitStyles', fn () => "<?php echo '<link rel=\"stylesheet\" href=\"' . e(asset(config('design-laravel-kit.assets_path') . '/css/design-laravel-kit.css')) . '\">'; ?>");
+        Blade::directive('designLaravelKitStyles', fn () => <<<'PHP'
+<?php
+$designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
+$designLaravelKitVersion = config('design-laravel-kit.version', '1');
+echo '<link rel="stylesheet" href="' . e(asset($designLaravelKitAssetsPath . '/css/design-laravel-kit.css') . '?v=' . $designLaravelKitVersion) . '">';
+?>
+PHP
+        );
 
         Blade::directive('designLaravelKitScripts', fn () => <<<'PHP'
 <?php
 $designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
-echo '<script src="' . e(asset($designLaravelKitAssetsPath . '/js/design-laravel-kit.js')) . '" defer></script>';
+$designLaravelKitVersion = config('design-laravel-kit.version', '1');
+echo '<script src="' . e(asset($designLaravelKitAssetsPath . '/js/design-laravel-kit.js') . '?v=' . $designLaravelKitVersion) . '" defer></script>';
 echo '<script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts(' . \Illuminate\Support\Js::from(asset($designLaravelKitAssetsPath . '/fonts')) . '); } });</script>';
 ?>
 PHP
