@@ -1,4 +1,4 @@
-<footer class="{{ $wrapperClass() }}">
+<footer {{ $attributes->class([$wrapperClass()]) }}>
     <div class="it-footer-main">
         <div class="container">
             <section>

@@ -21,6 +21,27 @@ class HeaderSlimTest extends TestCase
         $this->assertStringContainsString('container-xxl', $html);
     }
 
+    public function test_accepts_custom_id_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-slim id="test" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<div\b[^>]*\bid="test"/', $html);
+    }
+
+    public function test_accepts_custom_data_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-slim data-element="foo" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<div\b[^>]*\bdata-element="foo"/', $html);
+    }
+
+    public function test_wrapper_class_still_present(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-slim />');
+
+        $this->assertStringContainsString('class="it-header-slim-wrapper"', $html);
+    }
+
     public function test_renders_default_ente_as_span_without_link(): void
     {
         $html = (string) $this->blade('<x-italia::header-slim />');

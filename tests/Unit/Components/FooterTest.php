@@ -68,6 +68,27 @@ class FooterTest extends TestCase
         $this->assertStringContainsString('it-footer-main', $html);
     }
 
+    public function test_accepts_custom_id_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" id="test" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<footer\b[^>]*\bid="test"/', $html);
+    }
+
+    public function test_accepts_custom_data_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" data-element="foo" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<footer\b[^>]*\bdata-element="foo"/', $html);
+    }
+
+    public function test_wrapper_class_still_present(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
+
+        $this->assertStringContainsString('class="it-footer"', $html);
+    }
+
     public function test_title_renders_inside_it_brand_text(): void
     {
         $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');

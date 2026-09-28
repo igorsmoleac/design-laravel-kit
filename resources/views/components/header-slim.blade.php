@@ -1,4 +1,4 @@
-<div class="{{ $wrapperClass() }}" @if ($sticky) data-bs-toggle="sticky" @endif>
+<div {{ $attributes->class([$wrapperClass()]) }} @if ($sticky) data-bs-toggle="sticky" @endif>
     <div class="container-xxl">
         <div class="row">
             <div class="col-12">
