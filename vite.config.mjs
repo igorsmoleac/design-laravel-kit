@@ -8,7 +8,7 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: {
-                'design-laravel-kit': resolve(__dirname, 'resources/css/app.css'),
+                'design-laravel-kit': resolve(import.meta.dirname, 'resources/css/app.css'),
             },
             output: {
                 entryFileNames: 'js/[name].js',
@@ -24,15 +24,31 @@ export default defineConfig({
     plugins: [
         viteStaticCopy({
             targets: [
-                { src: 'node_modules/bootstrap-italia/dist/svg/sprites.svg', dest: 'svg' },
+                {
+                    src: 'node_modules/bootstrap-italia/dist/svg/sprites.svg',
+                    dest: 'svg',
+                    rename: { stripBase: true },
+                },
                 {
                     src: 'node_modules/bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js',
                     dest: 'js',
-                    rename: 'design-laravel-kit.js',
+                    rename: { name: 'design-laravel-kit.js', stripBase: true },
                 },
-                { src: 'node_modules/bootstrap-italia/dist/fonts/Lora/*.woff2', dest: 'fonts/Lora' },
-                { src: 'node_modules/bootstrap-italia/dist/fonts/Roboto_Mono/*.woff2', dest: 'fonts/Roboto_Mono' },
-                { src: 'node_modules/bootstrap-italia/dist/fonts/Titillium_Web/*.woff2', dest: 'fonts/Titillium_Web' },
+                {
+                    src: 'node_modules/bootstrap-italia/dist/fonts/Lora/*.woff2',
+                    dest: 'fonts/Lora',
+                    rename: { stripBase: true },
+                },
+                {
+                    src: 'node_modules/bootstrap-italia/dist/fonts/Roboto_Mono/*.woff2',
+                    dest: 'fonts/Roboto_Mono',
+                    rename: { stripBase: true },
+                },
+                {
+                    src: 'node_modules/bootstrap-italia/dist/fonts/Titillium_Web/*.woff2',
+                    dest: 'fonts/Titillium_Web',
+                    rename: { stripBase: true },
+                },
             ],
         }),
     ],
