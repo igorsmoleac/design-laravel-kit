@@ -82,4 +82,42 @@ class PublishAssetsCommandTest extends TestCase
 
         $this->assertFileDoesNotExist($stale);
     }
+
+    public function test_force_refuses_to_delete_public_root_when_assets_path_empty(): void
+    {
+        config()->set('design-laravel-kit.assets_path', '');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('assets_path is empty');
+
+        $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
+    }
+
+    public function test_force_refuses_path_with_parent_directory_traversal(): void
+    {
+        config()->set('design-laravel-kit.assets_path', 'vendor/../../etc');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('contains ".."');
+
+        $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
+    }
+
+    public function test_force_refuses_path_not_starting_with_vendor(): void
+    {
+        config()->set('design-laravel-kit.assets_path', 'custom/path');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('must start with "vendor/"');
+
+        $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
+    }
+
+    public function test_force_works_with_valid_vendor_path(): void
+    {
+        config()->set('design-laravel-kit.assets_path', 'vendor/design-laravel-kit');
+
+        $this->artisan('design-laravel-kit:publish-assets', ['--force' => true])
+            ->assertSuccessful();
+    }
 }
