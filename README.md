@@ -223,7 +223,7 @@ import { Collapse, Dropdown } from 'bootstrap-italia';
 
 ## Accessibilità
 
-Tutti i componenti sono conformi a **WCAG 2.1 AA** e alle linee guida AgID:
+Il pacchetto è progettato per essere conforme a **WCAG 2.1 AA** e alle linee guida AgID:
 
 - Skip-to-content link automatico nel layout
 - `aria-invalid`, `aria-describedby`, `aria-live="polite"` sui form con errori
@@ -233,6 +233,12 @@ Tutti i componenti sono conformi a **WCAG 2.1 AA** e alle linee guida AgID:
 
 Per i siti della PA italiana, la conformità WCAG 2.1 AA è un obbligo
 di legge (Legge Stanca 4/2004).
+
+### Limitazioni note
+
+- Il focus trap del componente Modal è delegato al JavaScript di Bootstrap Italia; non è testato dal pacchetto.
+- La connessione dell'errore al `<fieldset>` nei gruppi di radio/checkbox segue le linee guida AgID, ma alcuni screen reader più datati potrebbero non annunciarlo.
+- Il contrasto colori è ereditato da Bootstrap Italia 2.18.3; non è verificato con uno strumento automatico (axe-core, pa11y) nel CI.
 
 ## Test
 

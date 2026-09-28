@@ -41,7 +41,7 @@ class Button extends BaseComponent
             'btn',
             $this->sizeClass,
             $this->variantClass,
-            $this->block ? 'btn-block' : null,
+            $this->block ? 'w-100' : null,
             $this->isLink() && $this->isDisabled() ? 'disabled' : null,
         ])->filter()->unique()->implode(' ');
     }
