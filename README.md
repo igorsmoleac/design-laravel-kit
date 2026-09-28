@@ -242,7 +242,7 @@ composer install
 vendor/bin/phpunit
 ```
 
-Il pacchetto include 275 test con 561 asserzioni, che coprono:
+Il pacchetto include 420 test con 855 asserzioni, che coprono:
 
 - Rendering di tutti i componenti
 - Binding degli errori di validazione Laravel
@@ -259,6 +259,7 @@ Prima di aprire una Pull Request:
 4. Usare messaggi di commit nel formato `[Modulo] Verbo all'imperativo`
 
 Seguire lo stile del codice esistente. Per domande, aprire una Issue.
+Linee guida complete: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licenza
 
@@ -290,17 +291,6 @@ accesso), fare riferimento alle linee guida ufficiali AgID.
 - [Designers Italia](https://designers.italia.it)
 - [Linee guida di design](https://docs.italia.it/italia/designers-italia/design-linee-guida-docs/)
 - [Catalogo del software](https://developers.italia.it/it/software)
-
-## Roadmap
-
-- [x] Layout, Header, Footer
-- [x] Icon, Button
-- [x] Input, Select, Textarea
-- [ ] Checkbox, Radio
-- [ ] Alert, Card, Badge, Spinner
-- [ ] Modal
-- [ ] Pulsanti SPID / CIE
-- [ ] Pubblicazione nel catalogo Developers Italia
 
 ---
 
