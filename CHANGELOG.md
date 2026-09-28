@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Componente `<x-italia::card>` con titolo, immagine, azioni e link
 - Componente `<x-italia::modal>` con ARIA completo, focus trap (BI JS) e slot footer
 - Componenti `<x-italia::spid-button>` e `<x-italia::cie-button>` con loghi ufficiali, dimensioni e stile dedicato `dlk-`
+- Componenti `<x-italia::radio-group>` e `<x-italia::checkbox-group>` con fieldset, legend e singolo messaggio di errore
 
 ### Changed
 - Logica comune dei campi form (errori, old input, label, ARIA) estratta nel trait `HandlesFormField`
