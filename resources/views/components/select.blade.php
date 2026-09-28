@@ -1,6 +1,9 @@
 <div class="form-group{{ $floating ? ' dlk-floating' : '' }}">
     @if (! $floating)
-        <label class="form-label" for="{{ $fieldId() }}">{{ $labelText() }}</label>
+        <label class="form-label" for="{{ $fieldId() }}">{{ $labelText() }}@if ($required)
+            <span class="text-danger" aria-hidden="true">*</span>
+            <span class="visually-hidden">(obbligatorio)</span>
+        @endif</label>
     @endif
     <select
         id="{{ $fieldId() }}"
@@ -30,7 +33,10 @@
         @endforeach
     </select>
     @if ($floating)
-        <label for="{{ $fieldId() }}" class="active">{{ $labelText() }}</label>
+        <label for="{{ $fieldId() }}" class="active">{{ $labelText() }}@if ($required)
+            <span class="text-danger" aria-hidden="true">*</span>
+            <span class="visually-hidden">(obbligatorio)</span>
+        @endif</label>
     @endif
     @if (filled($hint))
         <small class="form-text" id="{{ $hintId() }}">{{ $hint }}</small>

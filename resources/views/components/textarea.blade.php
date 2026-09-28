@@ -13,9 +13,15 @@
                 'readonly' => $readonly,
             ]) }}
         >{{ $inputValue() }}</textarea>
-        <label for="{{ $fieldId() }}" @if ($hasValue()) class="active" @endif>{{ $labelText() }}</label>
+        <label for="{{ $fieldId() }}" @if ($hasValue()) class="active" @endif>{{ $labelText() }}@if ($required)
+            <span class="text-danger" aria-hidden="true">*</span>
+            <span class="visually-hidden">(obbligatorio)</span>
+        @endif</label>
     @else
-        <label class="form-label" for="{{ $fieldId() }}">{{ $labelText() }}</label>
+        <label class="form-label" for="{{ $fieldId() }}">{{ $labelText() }}@if ($required)
+            <span class="text-danger" aria-hidden="true">*</span>
+            <span class="visually-hidden">(obbligatorio)</span>
+        @endif</label>
         <textarea
             id="{{ $fieldId() }}"
             name="{{ $name }}"

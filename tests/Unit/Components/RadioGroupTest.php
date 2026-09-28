@@ -35,6 +35,14 @@ class RadioGroupTest extends TestCase
         $this->assertStringContainsString('<span class="visually-hidden">(obbligatorio)</span>', $html);
     }
 
+    public function test_optional_field_has_no_marker(): void
+    {
+        $html = (string) $this->blade('<x-italia::radio-group name="gender" legend="Genere" />');
+
+        $this->assertStringNotContainsString('text-danger', $html);
+        $this->assertStringNotContainsString('(obbligatorio)', $html);
+    }
+
     public function test_group_error_is_rendered_once(): void
     {
         $this->withViewErrors(['gender' => 'Seleziona un genere.']);

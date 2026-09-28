@@ -35,6 +35,14 @@ class CheckboxGroupTest extends TestCase
         $this->assertStringContainsString('<span class="visually-hidden">(obbligatorio)</span>', $html);
     }
 
+    public function test_optional_field_has_no_marker(): void
+    {
+        $html = (string) $this->blade('<x-italia::checkbox-group name="interests" legend="Interessi" />');
+
+        $this->assertStringNotContainsString('text-danger', $html);
+        $this->assertStringNotContainsString('(obbligatorio)', $html);
+    }
+
     public function test_group_error_is_rendered_once(): void
     {
         $this->withViewErrors(['interests' => 'Seleziona almeno un interesse.']);

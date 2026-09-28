@@ -15,7 +15,10 @@
             'checked' => $isChecked(),
         ]) }}
     >
-    <label class="form-check-label" for="{{ $fieldId() }}">{{ $labelText() }}</label>
+    <label class="form-check-label" for="{{ $fieldId() }}">{{ $labelText() }}@if ($required)
+        <span class="text-danger" aria-hidden="true">*</span>
+        <span class="visually-hidden">(obbligatorio)</span>
+    @endif</label>
     @if (filled($hint))
         <small class="form-text" id="{{ $hintId() }}">{{ $hint }}</small>
     @endif
