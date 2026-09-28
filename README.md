@@ -57,6 +57,26 @@ Aggiungere le direttive al proprio layout Blade:
 </body>
 ```
 
+### Aggiornamento
+
+Dopo `composer update`, ripubblicare gli asset:
+
+```bash
+php artisan design-laravel-kit:publish-assets --force
+```
+
+Oppure automatizzare con uno script in `composer.json`:
+
+```json
+{
+  "scripts": {
+    "post-update-cmd": [
+      "@php artisan design-laravel-kit:publish-assets --force"
+    ]
+  }
+}
+```
+
 ## Avvio rapido
 
 ```blade

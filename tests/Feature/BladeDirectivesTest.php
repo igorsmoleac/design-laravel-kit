@@ -13,19 +13,21 @@ class BladeDirectivesTest extends TestCase
         return [DesignLaravelKitServiceProvider::class];
     }
 
-    public function test_styles_directive_renders_link_tag(): void
+    public function test_styles_directive_includes_version_param(): void
     {
-        $html = Blade::render('@designLaravelKitStyles');
+        $html = Blade::render('@designLaravelKitStyles' . PHP_EOL . '<!-- ' . uniqid() . ' -->');
 
         $this->assertStringContainsString('design-laravel-kit.css', $html);
         $this->assertStringContainsString('vendor/design-laravel-kit', $html);
+        $this->assertStringContainsString('?v=0.1.0', $html);
     }
 
-    public function test_scripts_directive_renders_script_tag_with_defer(): void
+    public function test_scripts_directive_includes_version_param(): void
     {
-        $html = Blade::render('@designLaravelKitScripts');
+        $html = Blade::render('@designLaravelKitScripts' . PHP_EOL . '<!-- ' . uniqid() . ' -->');
 
         $this->assertStringContainsString('design-laravel-kit.js', $html);
+        $this->assertStringContainsString('?v=0.1.0', $html);
         $this->assertStringContainsString('defer', $html);
     }
 

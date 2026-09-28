@@ -56,6 +56,26 @@ Add the directives to your Blade layout:
 </body>
 ```
 
+### Updating
+
+After `composer update`, republish the assets:
+
+```bash
+php artisan design-laravel-kit:publish-assets --force
+```
+
+Or automate it with a script in `composer.json`:
+
+```json
+{
+  "scripts": {
+    "post-update-cmd": [
+      "@php artisan design-laravel-kit:publish-assets --force"
+    ]
+  }
+}
+```
+
 ## Quickstart
 
 ```blade
