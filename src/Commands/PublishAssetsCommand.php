@@ -26,7 +26,8 @@ class PublishAssetsCommand extends Command
             return Command::FAILURE;
         }
 
-        $destination = public_path(config('design-laravel-kit.assets_path', 'vendor/design-laravel-kit'));
+        $assetsPath = config('design-laravel-kit.assets_path', 'vendor/design-laravel-kit');
+        $destination = public_path($assetsPath);
 
         if ($this->files->exists($destination) && ! $this->option('force')) {
             $this->warn('Assets already published. Use --force to overwrite.');
@@ -34,11 +35,38 @@ class PublishAssetsCommand extends Command
             return Command::SUCCESS;
         }
 
-        $this->files->deleteDirectory($destination);
+        if ($this->option('force')) {
+            $this->assertSafeAssetsPath($assetsPath);
+            $this->files->deleteDirectory($destination);
+        }
+
         $this->files->copyDirectory($source, $destination);
 
-        $this->info('Assets published to public/' . config('design-laravel-kit.assets_path', 'vendor/design-laravel-kit'));
+        $this->info('Assets published to public/' . $assetsPath);
 
         return Command::SUCCESS;
+    }
+
+    protected function assertSafeAssetsPath(string $assetsPath): void
+    {
+        $normalized = trim($assetsPath, '/');
+
+        if ($normalized === '') {
+            throw new \RuntimeException(
+                'Refusing to delete public path: assets_path is empty.'
+            );
+        }
+
+        if (str_contains($normalized, '..')) {
+            throw new \RuntimeException(
+                'Refusing to delete public path: assets_path contains "..".'
+            );
+        }
+
+        if (! str_starts_with($normalized, 'vendor/')) {
+            throw new \RuntimeException(
+                'Refusing to delete public path: assets_path must start with "vendor/".'
+            );
+        }
     }
 }
