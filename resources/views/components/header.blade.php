@@ -1,4 +1,4 @@
-<header class="{{ $wrapperClass() }}" @if ($sticky) data-bs-toggle="sticky" @endif>
+<header {{ $attributes->class([$wrapperClass()]) }} @if ($sticky) data-bs-toggle="sticky" @endif>
     @if ($hasSlim())
         <x-italia::header-slim
             :ente="$slim['ente'] ?? 'Ente appartenenza'"

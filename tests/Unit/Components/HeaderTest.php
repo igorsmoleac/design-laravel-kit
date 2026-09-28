@@ -53,6 +53,27 @@ class HeaderTest extends TestCase
         $this->assertStringContainsString('it-header-wrapper', $html);
     }
 
+    public function test_accepts_custom_id_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::header id="test" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<header\b[^>]*\bid="test"/', $html);
+    }
+
+    public function test_accepts_custom_data_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::header data-element="foo" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<header\b[^>]*\bdata-element="foo"/', $html);
+    }
+
+    public function test_wrapper_class_still_present(): void
+    {
+        $html = (string) $this->blade('<x-italia::header />');
+
+        $this->assertStringContainsString('class="it-header-wrapper"', $html);
+    }
+
     public function test_sticky_adds_class_and_data_toggle(): void
     {
         $html = (string) $this->blade('<x-italia::header :center="$center" sticky />', ['center' => $this->center()]);

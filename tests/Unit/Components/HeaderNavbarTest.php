@@ -21,6 +21,27 @@ class HeaderNavbarTest extends TestCase
         $this->assertStringContainsString('<nav class="navbar navbar-expand-lg"', $html);
     }
 
+    public function test_accepts_custom_id_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" id="test" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<div\b[^>]*\bid="test"/', $html);
+    }
+
+    public function test_accepts_custom_data_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" data-element="foo" />');
+
+        $this->assertMatchesRegularExpression('/^\s*<div\b[^>]*\bdata-element="foo"/', $html);
+    }
+
+    public function test_wrapper_class_still_present(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
+
+        $this->assertStringContainsString('class="it-header-navbar-wrapper"', $html);
+    }
+
     public function test_nav_class_contains_navbar_expand_lg(): void
     {
         $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
