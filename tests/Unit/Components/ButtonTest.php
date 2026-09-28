@@ -73,6 +73,27 @@ class ButtonTest extends TestCase
         $this->assertStringContainsString('aria-disabled="true"', $html);
     }
 
+    public function test_loading_spinner_has_no_role_status(): void
+    {
+        $html = (string) $this->blade('<x-italia::button loading>Loading</x-italia::button>');
+
+        $this->assertDoesNotMatchRegularExpression('/<span[^>]*class="dlk-spinner-inline"[^>]*role="status"/', $html);
+    }
+
+    public function test_loading_spinner_is_hidden_from_screen_readers(): void
+    {
+        $html = (string) $this->blade('<x-italia::button loading>Loading</x-italia::button>');
+
+        $this->assertMatchesRegularExpression('/<span[^>]*class="dlk-spinner-inline"[^>]*aria-hidden="true"/', $html);
+    }
+
+    public function test_loading_button_has_aria_busy_true(): void
+    {
+        $html = (string) $this->blade('<x-italia::button loading>Loading</x-italia::button>');
+
+        $this->assertMatchesRegularExpression('/<button[^>]*aria-busy="true"/', $html);
+    }
+
     public function test_type_submit(): void
     {
         $html = (string) $this->blade('<x-italia::button type="submit">Send</x-italia::button>');

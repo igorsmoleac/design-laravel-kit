@@ -18,7 +18,7 @@
     @endif
 >
     @if ($loading)
-        <span class="dlk-spinner-inline" role="status" aria-hidden="true"></span>
+        <span class="dlk-spinner-inline" aria-hidden="true"></span>
     @endif
     {{ $slot }}
 </{{ $tagName }}>
