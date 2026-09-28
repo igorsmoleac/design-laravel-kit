@@ -88,6 +88,22 @@ class LayoutTest extends TestCase
         $this->assertStringContainsString('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">', $html);
     }
 
+    public function test_csrf_meta_tag_is_rendered(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout title="Test"></x-italia::layout>');
+
+        $this->assertStringContainsString('<meta name="csrf-token"', $html);
+    }
+
+    public function test_csrf_meta_tag_contains_token(): void
+    {
+        $this->withSession(['_token' => 'test-csrf-token']);
+
+        $html = (string) $this->blade('<x-italia::layout title="Test"></x-italia::layout>');
+
+        $this->assertMatchesRegularExpression('/<meta name="csrf-token" content="[^"]+">/', $html);
+    }
+
     public function test_skip_link_renders_by_default(): void
     {
         $html = (string) $this->blade('<x-italia::layout title="Home" />');
