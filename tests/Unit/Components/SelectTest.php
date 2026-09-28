@@ -71,10 +71,18 @@ class SelectTest extends TestCase
         $this->assertStringContainsString('<option value="fr" selected>Francia</option>', $html);
     }
 
-    public function test_selected_prop_wins_over_old_input(): void
+    public function test_select_uses_old_value_over_selected_when_old_exists(): void
     {
         $this->withSession(['_old_input' => ['country' => 'fr']]);
 
+        $html = (string) $this->blade('<x-italia::select name="country" :options="[\'it\' => \'Italia\', \'fr\' => \'Francia\']" selected="it" />');
+
+        $this->assertStringContainsString('<option value="fr" selected>Francia</option>', $html);
+        $this->assertStringNotContainsString('<option value="it" selected', $html);
+    }
+
+    public function test_select_falls_back_to_selected_prop_when_no_old(): void
+    {
         $html = (string) $this->blade('<x-italia::select name="country" :options="[\'it\' => \'Italia\', \'fr\' => \'Francia\']" selected="it" />');
 
         $this->assertStringContainsString('<option value="it" selected>Italia</option>', $html);

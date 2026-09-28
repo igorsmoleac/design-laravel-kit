@@ -187,6 +187,16 @@ class TextareaTest extends TestCase
         $this->assertStringContainsString('>Vecchia bio</textarea>', $html);
     }
 
+    public function test_textarea_uses_old_value_over_prop(): void
+    {
+        $this->withSession(['_old_input' => ['bio' => 'UserInput']]);
+
+        $html = (string) $this->blade('<x-italia::textarea name="bio" value="Default" />');
+
+        $this->assertStringContainsString('>UserInput</textarea>', $html);
+        $this->assertStringNotContainsString('>Default</textarea>', $html);
+    }
+
     public function test_label_has_active_class_when_value_provided(): void
     {
         $html = (string) $this->blade('<x-italia::textarea name="bio" value="Testo" />');
