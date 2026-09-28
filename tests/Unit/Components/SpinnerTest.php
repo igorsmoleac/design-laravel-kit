@@ -48,19 +48,31 @@ class SpinnerTest extends TestCase
         $this->assertStringContainsString('size-xl', $html);
     }
 
-    public function test_label_renders_status_role_and_aria_label(): void
-    {
-        $html = (string) $this->blade('<x-italia::spinner label="Caricamento in corso" />');
-
-        $this->assertStringContainsString('role="status"', $html);
-        $this->assertStringContainsString('aria-label="Caricamento in corso"', $html);
-        $this->assertStringContainsString('visually-hidden', $html);
-        $this->assertStringNotContainsString('aria-hidden', $html);
-    }
-
-    public function test_no_label_renders_decorative_spinner(): void
+    public function test_spinner_has_role_status_by_default(): void
     {
         $html = (string) $this->blade('<x-italia::spinner />');
+
+        $this->assertStringContainsString('role="status"', $html);
+    }
+
+    public function test_spinner_has_default_aria_label(): void
+    {
+        $html = (string) $this->blade('<x-italia::spinner />');
+
+        $this->assertStringContainsString('aria-label="Caricamento in corso"', $html);
+    }
+
+    public function test_custom_label_overrides_default(): void
+    {
+        $html = (string) $this->blade('<x-italia::spinner label="Salvataggio in corso" />');
+
+        $this->assertStringContainsString('aria-label="Salvataggio in corso"', $html);
+        $this->assertStringNotContainsString('aria-label="Caricamento in corso"', $html);
+    }
+
+    public function test_decorative_spinner_has_aria_hidden_and_no_role(): void
+    {
+        $html = (string) $this->blade('<x-italia::spinner :decorative="true" />');
 
         $this->assertStringContainsString('aria-hidden="true"', $html);
         $this->assertStringNotContainsString('role="status"', $html);

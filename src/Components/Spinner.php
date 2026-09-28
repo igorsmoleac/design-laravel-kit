@@ -10,6 +10,7 @@ class Spinner extends BaseComponent
         public string $size = 'md',
         public bool $double = true,
         public ?string $label = null,
+        public bool $decorative = false,
     ) {}
 
     public function render(): View
@@ -29,6 +30,6 @@ class Spinner extends BaseComponent
 
     public function isDecorative(): bool
     {
-        return $this->label === null;
+        return $this->decorative;
     }
 }
