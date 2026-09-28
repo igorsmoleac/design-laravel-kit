@@ -120,6 +120,22 @@ class AlertTest extends TestCase
         $this->assertStringContainsString('Qualcosa è andato storto.', $html);
     }
 
+    public function test_alert_content_wrapped_in_div_not_p(): void
+    {
+        $html = (string) $this->blade('<x-italia::alert>Alert content</x-italia::alert>');
+
+        $this->assertStringContainsString('<div>Alert content</div>', $html);
+        $this->assertStringNotContainsString('<p>Alert content</p>', $html);
+    }
+
+    public function test_alert_renders_list_content_without_breaking(): void
+    {
+        $html = (string) $this->blade('<x-italia::alert><ul><li>First item</li></ul></x-italia::alert>');
+
+        $this->assertStringContainsString('<div><ul><li>First item</li></ul></div>', $html);
+        $this->assertStringNotContainsString('<p><ul>', $html);
+    }
+
     public function test_custom_class_passed_through(): void
     {
         $html = (string) $this->blade('<x-italia::alert class="mb-2">x</x-italia::alert>');
