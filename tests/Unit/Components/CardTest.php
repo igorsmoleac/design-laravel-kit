@@ -25,7 +25,8 @@ class CardTest extends TestCase
     {
         $html = (string) $this->blade('<x-italia::card title="Titolo">Testo</x-italia::card>');
 
-        $this->assertStringContainsString('<h3 class="card-title h5">Titolo</h3>', $html);
+        $this->assertStringContainsString('<h3 class="card-title h5">', $html);
+        $this->assertStringContainsString('Titolo', $html);
     }
 
     public function test_subtitle_renders_as_card_subtitle(): void
@@ -78,20 +79,48 @@ class CardTest extends TestCase
         $this->assertStringContainsString('class="card"', $html);
     }
 
-    public function test_href_renders_clickable_wrapper(): void
+    public function test_renders_as_div_when_href_provided(): void
     {
         $html = (string) $this->blade('<x-italia::card title="T" href="/dettaglio">Testo</x-italia::card>');
 
-        $this->assertStringContainsString('<a class="card-wrapper" href="/dettaglio">', $html);
-        $this->assertStringNotContainsString('<div class="card-wrapper"', $html);
+        $this->assertStringContainsString('<div class="card-wrapper">', $html);
+        $this->assertStringContainsString('<div class="card">', $html);
+        $this->assertStringNotContainsString('<a class="card-wrapper"', $html);
     }
 
-    public function test_no_href_renders_div_wrapper(): void
+    public function test_renders_as_div_by_default(): void
     {
         $html = (string) $this->blade('<x-italia::card>Testo</x-italia::card>');
 
         $this->assertStringContainsString('<div class="card-wrapper">', $html);
         $this->assertStringNotContainsString('<a class="card-wrapper"', $html);
+        $this->assertStringNotContainsString('stretched-link', $html);
+    }
+
+    public function test_href_renders_stretched_link_inside_title(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="Titolo" href="/dettaglio">Testo</x-italia::card>');
+
+        $this->assertStringContainsString('<a href="/dettaglio" class="stretched-link">Titolo</a>', $html);
+    }
+
+    public function test_actions_slot_renders_inside_card_not_inside_link(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="T" href="/dettaglio">Testo<x-slot:actions><button>Azione</button><a href="/azione">Altra azione</a></x-slot:actions></x-italia::card>');
+
+        $this->assertStringContainsString('<div class="card-actions mt-3 position-relative">', $html);
+        $this->assertStringContainsString('<button>Azione</button>', $html);
+        $this->assertStringContainsString('<a href="/azione">Altra azione</a>', $html);
+        $this->assertLessThan(strpos($html, '<div class="card-actions'), strpos($html, '</a></h3>'));
+    }
+
+    public function test_card_without_title_ignores_href(): void
+    {
+        $html = (string) $this->blade('<x-italia::card href="/dettaglio">Testo</x-italia::card>');
+
+        $this->assertStringContainsString('<div class="card-wrapper">', $html);
+        $this->assertStringNotContainsString('<a ', $html);
+        $this->assertStringNotContainsString('stretched-link', $html);
     }
 
     public function test_slot_content_renders_in_card_text(): void

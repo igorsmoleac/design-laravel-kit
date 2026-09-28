@@ -1,4 +1,4 @@
-<{{ $tagName() }} {{ $attributes->merge(['href' => $href])->class([$wrapperClass()]) }}>
+<div {{ $attributes->class([$wrapperClass()]) }}>
     <div class="{{ $cardClass() }}">
         @if ($image !== null)
             <div class="img-responsive-wrapper">
@@ -11,15 +11,21 @@
         @endif
         <div class="card-body">
             @if ($title !== null)
-                <h3 class="card-title h5">{{ $title }}</h3>
+                <h3 class="card-title h5">
+                    @if ($href !== null)
+                        <a href="{{ $href }}" class="stretched-link">{{ $title }}</a>
+                    @else
+                        {{ $title }}
+                    @endif
+                </h3>
             @endif
             @if ($subtitle !== null)
                 <h6 class="card-subtitle">{{ $subtitle }}</h6>
             @endif
             <div class="card-text">{{ $slot }}</div>
             @isset($actions)
-                <div class="mt-3">{{ $actions }}</div>
+                <div class="card-actions mt-3 position-relative">{{ $actions }}</div>
             @endisset
         </div>
     </div>
-</{{ $tagName() }}>
+</div>

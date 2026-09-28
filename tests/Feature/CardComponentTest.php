@@ -15,9 +15,11 @@ class CardComponentTest extends TestCase
     public function test_renders_clickable_card_with_image_and_actions(): void
     {
         $this->blade('<x-italia::card title="Titolo" image="https://example.com/a.jpg" href="/dettaglio">Testo<x-slot:actions><button>Azione</button></x-slot:actions></x-italia::card>')
-            ->assertSee('<a class="card-wrapper" href="/dettaglio">', false)
+            ->assertSee('<div class="card-wrapper">', false)
+            ->assertDontSee('<a class="card-wrapper"', false)
             ->assertSee('card-img no-after', false)
-            ->assertSee('<h3 class="card-title h5">Titolo</h3>', false)
+            ->assertSee('<a href="/dettaglio" class="stretched-link">Titolo</a>', false)
+            ->assertSee('card-actions mt-3 position-relative', false)
             ->assertSee('Testo')
             ->assertSee('<button>Azione</button>', false);
     }
