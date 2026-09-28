@@ -44,6 +44,28 @@ class RadioTest extends TestCase
         $this->assertStringContainsString('required="required"', $html);
     }
 
+    public function test_required_field_shows_visual_marker(): void
+    {
+        $html = (string) $this->blade('<x-italia::radio name="gender" value="m" required />');
+
+        $this->assertStringContainsString('<span class="text-danger" aria-hidden="true">*</span>', $html);
+    }
+
+    public function test_required_field_has_visually_hidden_label(): void
+    {
+        $html = (string) $this->blade('<x-italia::radio name="gender" value="m" required />');
+
+        $this->assertStringContainsString('<span class="visually-hidden">(obbligatorio)</span>', $html);
+    }
+
+    public function test_optional_field_has_no_marker(): void
+    {
+        $html = (string) $this->blade('<x-italia::radio name="gender" value="m" />');
+
+        $this->assertStringNotContainsString('text-danger', $html);
+        $this->assertStringNotContainsString('(obbligatorio)', $html);
+    }
+
     public function test_label_renders_with_for_binding(): void
     {
         $html = (string) $this->blade('<x-italia::radio name="gender" value="m" label="Maschio" />');

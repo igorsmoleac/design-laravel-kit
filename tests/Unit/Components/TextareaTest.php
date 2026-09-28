@@ -57,6 +57,37 @@ class TextareaTest extends TestCase
         $this->assertStringContainsString('required="required"', $html);
     }
 
+    public function test_required_field_shows_visual_marker(): void
+    {
+        $floatingHtml = (string) $this->blade('<x-italia::textarea name="bio" required />');
+        $staticHtml = (string) $this->blade('<x-italia::textarea name="bio" required :floating="false" />');
+
+        foreach ([$floatingHtml, $staticHtml] as $html) {
+            $this->assertStringContainsString('<span class="text-danger" aria-hidden="true">*</span>', $html);
+        }
+    }
+
+    public function test_required_field_has_visually_hidden_label(): void
+    {
+        $floatingHtml = (string) $this->blade('<x-italia::textarea name="bio" required />');
+        $staticHtml = (string) $this->blade('<x-italia::textarea name="bio" required :floating="false" />');
+
+        foreach ([$floatingHtml, $staticHtml] as $html) {
+            $this->assertStringContainsString('<span class="visually-hidden">(obbligatorio)</span>', $html);
+        }
+    }
+
+    public function test_optional_field_has_no_marker(): void
+    {
+        $floatingHtml = (string) $this->blade('<x-italia::textarea name="bio" />');
+        $staticHtml = (string) $this->blade('<x-italia::textarea name="bio" :floating="false" />');
+
+        foreach ([$floatingHtml, $staticHtml] as $html) {
+            $this->assertStringNotContainsString('text-danger', $html);
+            $this->assertStringNotContainsString('(obbligatorio)', $html);
+        }
+    }
+
     public function test_renders_disabled_attribute(): void
     {
         $html = (string) $this->blade('<x-italia::textarea name="bio" disabled />');
