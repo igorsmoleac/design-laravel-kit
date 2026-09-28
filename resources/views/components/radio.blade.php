@@ -16,9 +16,10 @@
         ]) }}
     >
     <label class="form-check-label" for="{{ $fieldId() }}">{{ $labelText() }}</label>
+    @if (filled($hint))
+        <small class="form-text" id="{{ $hintId() }}">{{ $hint }}</small>
+    @endif
     @if ($hasError() && ! $grouped)
         <div class="invalid-feedback" id="{{ $errorId() }}" role="alert" aria-live="polite">{{ $errorMessage() }}</div>
-    @elseif (filled($hint))
-        <small class="form-text" id="{{ $hintId() }}">{{ $hint }}</small>
     @endif
 </div>
