@@ -194,6 +194,20 @@ Multi-line field with automatic validation error binding.
 <x-italia::textarea name="message" label="Message" :rows="5" />
 ```
 
+### Other components
+
+Other components available in the package:
+
+- `<x-italia::checkbox>` and `<x-italia::radio>` — selection fields with validation error binding
+- `<x-italia::checkbox-group>` and `<x-italia::radio-group>` — groups with `<fieldset>`, `<legend>` and a single error message
+- `<x-italia::alert>` — alert messages (info, success, warning, danger)
+- `<x-italia::badge>` — status labels
+- `<x-italia::spinner>` — accessible loading indicator
+- `<x-italia::card>` — card with title, image, actions and link
+- `<x-italia::modal>` — dialog with ARIA and focus trap (via Bootstrap Italia JS)
+- `<x-italia::spid-button>` — SPID login button with official logo
+- `<x-italia::cie-button>` — CIE login button with official logo
+
 ## Design system
 
 The package is based on **Bootstrap Italia 2.18.3**, the official stable

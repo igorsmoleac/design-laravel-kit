@@ -195,6 +195,20 @@ Campo multiriga con binding automatico degli errori di validazione.
 <x-italia::textarea name="messaggio" label="Messaggio" :rows="5" />
 ```
 
+### Altri componenti
+
+Altri componenti disponibili nel pacchetto:
+
+- `<x-italia::checkbox>` e `<x-italia::radio>` — campi di selezione con binding degli errori di validazione
+- `<x-italia::checkbox-group>` e `<x-italia::radio-group>` — gruppi con `<fieldset>`, `<legend>` e singolo messaggio di errore
+- `<x-italia::alert>` — messaggi di avviso (info, success, warning, danger)
+- `<x-italia::badge>` — etichette di stato
+- `<x-italia::spinner>` — indicatore di caricamento accessibile
+- `<x-italia::card>` — card con titolo, immagine, azioni e link
+- `<x-italia::modal>` — finestra di dialogo con ARIA e focus trap (via Bootstrap Italia JS)
+- `<x-italia::spid-button>` — pulsante di accesso SPID con logo ufficiale
+- `<x-italia::cie-button>` — pulsante di accesso CIE con logo ufficiale
+
 ## Design system
 
 Il pacchetto si basa su **Bootstrap Italia 2.18.3**, la versione stabile
