@@ -17,9 +17,9 @@
         "illuminate/view": "^12.0|^13.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^10.0|^11.0",
+        "orchestra/testbench": "^11.3.0",
         "phpunit/phpunit": "^12.0",
-        "laravel/pint": "^1.20"
+        "laravel/pint": "^1.32"
     },
     "autoload": {
         "psr-4": {
