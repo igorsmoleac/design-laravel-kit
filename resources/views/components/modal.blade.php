@@ -2,7 +2,7 @@
     id="{{ $dialogId() }}"
     tabindex="-1"
     role="dialog"
-    aria-modal="true"
+    aria-hidden="true"
     aria-labelledby="{{ $titleId() }}"
     aria-describedby="{{ $bodyId() }}"
     {{ $attributes->except('id')->class(['modal', 'fade'])->merge([
