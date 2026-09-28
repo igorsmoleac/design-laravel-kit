@@ -46,13 +46,14 @@ trait HandlesFormField
 
     public function inputValue(): ?string
     {
-        if ($this->value !== null) {
-            return $this->value;
+        $field = $this->errorField() ?? $this->name;
+        $old = session()->getOldInput($field);
+
+        if (is_scalar($old)) {
+            return (string) $old;
         }
 
-        $old = session()->getOldInput($this->errorField() ?? $this->name);
-
-        return is_scalar($old) ? (string) $old : null;
+        return $this->value;
     }
 
     /**

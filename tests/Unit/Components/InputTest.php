@@ -178,6 +178,23 @@ class InputTest extends TestCase
         $this->assertStringContainsString('value="old@example.com"', $html);
     }
 
+    public function test_input_uses_old_value_over_prop_when_old_exists(): void
+    {
+        $this->withSession(['_old_input' => ['email' => 'UserInput']]);
+
+        $html = (string) $this->blade('<x-italia::input name="email" value="Default" />');
+
+        $this->assertStringContainsString('value="UserInput"', $html);
+        $this->assertStringNotContainsString('value="Default"', $html);
+    }
+
+    public function test_input_falls_back_to_value_prop_when_no_old(): void
+    {
+        $html = (string) $this->blade('<x-italia::input name="email" value="Default" />');
+
+        $this->assertStringContainsString('value="Default"', $html);
+    }
+
     public function test_custom_class_passed_through(): void
     {
         $html = (string) $this->blade('<x-italia::input name="email" class="custom" />');

@@ -49,11 +49,9 @@ class Select extends BaseComponent
 
     public function selectedValue(): string|array|null
     {
-        if ($this->selected !== null) {
-            return $this->selected;
-        }
+        $old = session()->getOldInput($this->errorField() ?? $this->name);
 
-        return session()->getOldInput($this->errorField() ?? $this->name);
+        return $old ?? $this->selected;
     }
 
     public function isSelected(string|int $value): bool
