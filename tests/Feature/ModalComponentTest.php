@@ -16,7 +16,7 @@ class ModalComponentTest extends TestCase
     {
         $this->blade('<x-italia::modal id="demo" title="Conferma">Sei sicuro?<x-slot:footer><button>Annulla</button></x-slot:footer></x-italia::modal>')
             ->assertSee('role="dialog"', false)
-            ->assertSee('aria-modal="true"', false)
+            ->assertSee('aria-hidden="true"', false)
             ->assertSee('aria-labelledby="demo-title"', false)
             ->assertSee('<h2 class="modal-title h5" id="demo-title">Conferma</h2>', false)
             ->assertSee('Sei sicuro?')

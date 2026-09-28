@@ -28,11 +28,18 @@ class ModalTest extends TestCase
         $this->assertStringContainsString('role="dialog"', $html);
     }
 
-    public function test_aria_modal_true_is_present(): void
+    public function test_modal_has_aria_hidden_true_initially(): void
     {
         $html = (string) $this->blade('<x-italia::modal title="T">C</x-italia::modal>');
 
-        $this->assertStringContainsString('aria-modal="true"', $html);
+        $this->assertStringContainsString('aria-hidden="true"', $html);
+    }
+
+    public function test_modal_does_not_have_static_aria_modal(): void
+    {
+        $html = (string) $this->blade('<x-italia::modal title="T">C</x-italia::modal>');
+
+        $this->assertStringNotContainsString('aria-modal="true"', $html);
     }
 
     public function test_aria_labelledby_references_existing_title_id(): void
