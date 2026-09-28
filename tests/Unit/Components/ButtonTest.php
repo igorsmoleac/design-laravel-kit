@@ -116,11 +116,18 @@ class ButtonTest extends TestCase
         $this->assertStringContainsString('btn btn-primary custom', $html);
     }
 
-    public function test_block_adds_block_class(): void
+    public function test_block_adds_w100_class(): void
     {
-        $html = (string) $this->blade('<x-italia::button block>Wide</x-italia::button>');
+        $html = (string) $this->blade('<x-italia::button :block="true">Wide</x-italia::button>');
 
-        $this->assertStringContainsString('btn-block', $html);
+        $this->assertStringContainsString('w-100', $html);
+    }
+
+    public function test_no_block_has_no_w100(): void
+    {
+        $html = (string) $this->blade('<x-italia::button>Normal</x-italia::button>');
+
+        $this->assertStringNotContainsString('w-100', $html);
     }
 
     public function test_unknown_variant_falls_back_to_class_without_error(): void
