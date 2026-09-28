@@ -1,3 +1,5 @@
+@aware(['grouped' => false])
+
 <div class="form-check">
     <input
         type="checkbox"
@@ -6,7 +8,7 @@
         @if (filled($value)) value="{{ $value }}" @endif
         {{ $attributes->except('id')->class([$inputClass()])->merge([
             'aria-invalid' => $hasError() ? 'true' : null,
-            'aria-describedby' => $describedBy() ?: null,
+            'aria-describedby' => $grouped ? (filled($hint) ? $hintId() : null) : ($describedBy() ?: null),
             'aria-required' => $required ? 'true' : null,
             'required' => $required,
             'disabled' => $disabled,
@@ -14,7 +16,7 @@
         ]) }}
     >
     <label class="form-check-label" for="{{ $fieldId() }}">{{ $labelText() }}</label>
-    @if ($hasError())
+    @if ($hasError() && ! $grouped)
         <div class="invalid-feedback" id="{{ $errorId() }}" role="alert" aria-live="polite">{{ $errorMessage() }}</div>
     @elseif (filled($hint))
         <small class="form-text" id="{{ $hintId() }}">{{ $hint }}</small>
