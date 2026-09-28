@@ -102,8 +102,7 @@ automatic skip-to-content link, ARIA attributes.
 
 ## Components
 
-All components use the `<x-italia::` prefix, configurable via the
-`component_prefix` option in `config/design-laravel-kit.php`.
+All components use the `<x-italia::` prefix.
 
 ### Layout
 

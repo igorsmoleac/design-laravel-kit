@@ -24,15 +24,9 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
 
     protected function registerViews(): void
     {
-        $this->loadViewsFrom(
-            __DIR__ . '/../resources/views',
-            config('design-laravel-kit.views_namespace', 'design-laravel-kit')
-        );
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'design-laravel-kit');
 
-        Blade::componentNamespace(
-            'IgorSmoleac\\DesignLaravelKit\\Components',
-            config('design-laravel-kit.component_prefix', 'italia')
-        );
+        Blade::componentNamespace('IgorSmoleac\\DesignLaravelKit\\Components', 'italia');
     }
 
     protected function registerPublishing(): void
@@ -47,7 +41,7 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path(
-                'views/vendor/' . config('design-laravel-kit.views_namespace', 'design-laravel-kit')
+                'views/vendor/design-laravel-kit'
             ),
         ], 'design-laravel-kit-views');
 
