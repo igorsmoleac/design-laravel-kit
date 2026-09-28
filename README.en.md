@@ -240,7 +240,7 @@ composer install
 vendor/bin/phpunit
 ```
 
-The package includes 275 tests with 561 assertions, covering:
+The package includes 420 tests with 855 assertions, covering:
 
 - Rendering of all components
 - Laravel validation error binding
@@ -257,6 +257,7 @@ Before opening a Pull Request:
 4. Use commit messages in the `[Module] Imperative verb` format
 
 Follow the existing code style. For questions, open an Issue.
+Full guidelines: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
@@ -287,17 +288,6 @@ refer to the official AgID guidelines.
 - [Designers Italia](https://designers.italia.it)
 - [Design guidelines](https://docs.italia.it/italia/designers-italia/design-linee-guida-docs/)
 - [Software catalog](https://developers.italia.it/it/software)
-
-## Roadmap
-
-- [x] Layout, Header, Footer
-- [x] Icon, Button
-- [x] Input, Select, Textarea
-- [ ] Checkbox, Radio
-- [ ] Alert, Card, Badge, Spinner
-- [ ] Modal
-- [ ] SPID / CIE buttons
-- [ ] Publication in the Developers Italia catalog
 
 ---
 
