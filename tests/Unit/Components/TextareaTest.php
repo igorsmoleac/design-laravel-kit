@@ -159,15 +159,32 @@ class TextareaTest extends TestCase
         $this->assertStringContainsString('aria-describedby="dlk-bio', $html);
     }
 
-    public function test_hint_hidden_when_error_exists(): void
+    public function test_hint_and_error_are_both_rendered_when_error_exists(): void
     {
         $this->withViewErrors(['bio' => 'Required']);
 
         $html = (string) $this->blade('<x-italia::textarea name="bio" hint="Max 500 caratteri" />');
 
+        $this->assertStringContainsString('form-text', $html);
+        $this->assertStringContainsString('Max 500 caratteri', $html);
         $this->assertStringContainsString('invalid-feedback', $html);
-        $this->assertStringNotContainsString('form-text', $html);
-        $this->assertStringNotContainsString('Max 500 caratteri', $html);
+        $this->assertStringContainsString('Required', $html);
+    }
+
+    public function test_aria_describedby_includes_both_hint_and_error_ids(): void
+    {
+        $this->withViewErrors(['bio' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::textarea name="bio" hint="Max 500 caratteri" />');
+
+        preg_match('/aria-describedby="([^"]+)"/', $html, $describedBy);
+        preg_match('/id="([^"]+-hint)"/', $html, $hintId);
+        preg_match('/id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($hintId);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($hintId[1] . ' ' . $errorId[1], $describedBy[1]);
     }
 
     public function test_value_renders_between_tags_not_as_attribute(): void

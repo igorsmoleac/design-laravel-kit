@@ -94,6 +94,6 @@ trait HandlesFormField
 
     protected function hasHint(): bool
     {
-        return $this->hint !== null && ! $this->hasError();
+        return filled($this->hint);
     }
 }

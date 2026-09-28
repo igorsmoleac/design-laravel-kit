@@ -45,6 +45,22 @@ class RadioGroupTest extends TestCase
         $this->assertSame(1, substr_count($html, 'Seleziona un genere.'));
     }
 
+    public function test_fieldset_describedby_includes_hint_and_error_ids(): void
+    {
+        $this->withViewErrors(['gender' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::radio-group name="gender" hint="Choose one"><x-italia::radio name="gender" value="m" /></x-italia::radio-group>');
+
+        preg_match('/<fieldset[^>]*aria-describedby="([^"]+)"/', $html, $describedBy);
+        preg_match('/<small class="form-text" id="([^"]+-hint)"/', $html, $hintId);
+        preg_match('/<div class="invalid-feedback d-block" id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($hintId);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($hintId[1] . ' ' . $errorId[1], $describedBy[1]);
+    }
+
     public function test_child_radios_do_not_render_group_error(): void
     {
         $this->withViewErrors(['gender' => 'Seleziona un genere.']);

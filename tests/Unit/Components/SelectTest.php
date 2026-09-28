@@ -193,6 +193,33 @@ class SelectTest extends TestCase
         $this->assertStringContainsString('aria-describedby="dlk-country', $html);
     }
 
+    public function test_hint_and_error_are_both_rendered_when_error_exists(): void
+    {
+        $this->withViewErrors(['country' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::select name="country" hint="Scegli un paese" />');
+
+        $this->assertStringContainsString('Scegli un paese', $html);
+        $this->assertStringContainsString('Required', $html);
+        $this->assertStringContainsString('invalid-feedback', $html);
+    }
+
+    public function test_aria_describedby_includes_both_hint_and_error_ids(): void
+    {
+        $this->withViewErrors(['country' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::select name="country" hint="Scegli un paese" />');
+
+        preg_match('/aria-describedby="([^"]+)"/', $html, $describedBy);
+        preg_match('/id="([^"]+-hint)"/', $html, $hintId);
+        preg_match('/id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($hintId);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($hintId[1] . ' ' . $errorId[1], $describedBy[1]);
+    }
+
     public function test_renders_required_attribute(): void
     {
         $html = (string) $this->blade('<x-italia::select name="country" required />');

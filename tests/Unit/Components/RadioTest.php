@@ -126,6 +126,27 @@ class RadioTest extends TestCase
         $this->assertSame($errorId[1], $describedBy[1]);
     }
 
+    public function test_standalone_hint_and_error_are_both_rendered_and_described(): void
+    {
+        $this->withViewErrors(['gender' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::radio name="gender" value="m" hint="Choose one" />');
+
+        $this->assertStringContainsString('Choose one', $html);
+        $this->assertStringContainsString('Required', $html);
+        $this->assertStringContainsString('form-text', $html);
+        $this->assertStringContainsString('invalid-feedback', $html);
+
+        preg_match('/aria-describedby="([^"]+)"/', $html, $describedBy);
+        preg_match('/id="([^"]+-hint)"/', $html, $hintId);
+        preg_match('/id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($hintId);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($hintId[1] . ' ' . $errorId[1], $describedBy[1]);
+    }
+
     public function test_old_input_checks_matching_radio(): void
     {
         $this->withSession(['_old_input' => ['gender' => 'f']]);

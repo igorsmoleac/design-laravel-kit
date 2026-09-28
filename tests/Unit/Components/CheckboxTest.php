@@ -163,15 +163,25 @@ class CheckboxTest extends TestCase
         $this->assertStringContainsString('Seleziona almeno un interesse.', $html);
     }
 
-    public function test_hint_hidden_when_error_exists(): void
+    public function test_hint_and_error_are_both_rendered_when_error_exists(): void
     {
         $this->withViewErrors(['terms' => 'Required']);
 
         $html = (string) $this->blade('<x-italia::checkbox name="terms" hint="Hint text" />');
 
+        $this->assertStringContainsString('form-text', $html);
+        $this->assertStringContainsString('Hint text', $html);
         $this->assertStringContainsString('invalid-feedback', $html);
-        $this->assertStringNotContainsString('form-text', $html);
-        $this->assertStringNotContainsString('Hint text', $html);
+        $this->assertStringContainsString('Required', $html);
+
+        preg_match('/aria-describedby="([^"]+)"/', $html, $describedBy);
+        preg_match('/id="([^"]+-hint)"/', $html, $hintId);
+        preg_match('/id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($hintId);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($hintId[1] . ' ' . $errorId[1], $describedBy[1]);
     }
 
     public function test_checkbox_stays_checked_after_failed_validation(): void
