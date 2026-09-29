@@ -137,6 +137,34 @@ class HeaderCenterTest extends TestCase
         $this->assertStringNotContainsString('it-search-wrapper', $html);
     }
 
+    public function test_accepts_custom_class(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-center title="Comune di Roma" class="my-class" />');
+
+        $this->assertStringContainsString('my-class', $html);
+    }
+
+    public function test_accepts_custom_id(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-center title="Comune di Roma" id="custom-id" />');
+
+        $this->assertSame(1, substr_count($html, 'id="custom-id"'));
+    }
+
+    public function test_accepts_data_element(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-center title="Comune di Roma" data-element="header-center" />');
+
+        $this->assertStringContainsString('data-element="header-center"', $html);
+    }
+
+    public function test_wrapper_class_still_present(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-center title="Comune di Roma" />');
+
+        $this->assertMatchesRegularExpression('/<div[^>]*class="[^"]*it-header-center-wrapper[^"]*"/', $html);
+    }
+
     public function test_ids_are_unique_per_instance(): void
     {
         $first = (string) $this->blade('<x-italia::header-center title="Comune di Roma" />');

@@ -1,4 +1,4 @@
-<div id="{{ $id() }}" class="{{ $wrapperClass() }}">
+<div id="{{ $id() }}" {{ $attributes->except('id')->class([$wrapperClass()]) }}>
     <div class="container-xxl">
         <div class="row">
             <div class="col-12">
