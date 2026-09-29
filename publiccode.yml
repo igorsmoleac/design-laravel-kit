@@ -1,0 +1,95 @@
+publiccodeYmlVersion: "0"
+
+name: Design Laravel Kit
+url: "https://github.com/igorsmoleac/design-laravel-kit"
+releaseDate: "2026-09-29"
+softwareVersion: "0.1.0"
+developmentStatus: "development"
+softwareType: "library"
+
+platforms:
+  - web
+
+categories:
+  - design
+  - design-system
+
+usedBy:
+  - "Agenzie digitali e system integrator della Pubblica Amministrazione italiana"
+
+roadmap: "https://github.com/igorsmoleac/design-laravel-kit/issues"
+
+description:
+  it:
+    localisedName: "Design Laravel Kit"
+    shortDescription: >
+      Componenti Blade per Laravel conformi a Bootstrap Italia e alle
+      Linee guida di design per i siti e i servizi digitali della PA.
+    longDescription: >
+      Design Laravel Kit fornisce componenti Blade pronti all'uso per la
+      costruzione di siti e servizi digitali della Pubblica Amministrazione
+      italiana con Laravel 12 e 13. Il pacchetto include un header
+      istituzionale a tre livelli (slim, center, navbar), un footer
+      conforme alle linee guida AgID con attributi data-element, form
+      con binding automatico degli errori di validazione Laravel,
+      attributi ARIA e gestione del focus per la conformità WCAG 2.1 AA,
+      un layout completo per una pagina istituzionale, e pulsanti di
+      accesso SPID e CIE con i loghi ufficiali.
+
+      Gli asset CSS, JavaScript, font e sprite SVG sono distribuiti con
+      il pacchetto e pubblicati tramite un comando Artisan dedicato,
+      senza richiedere Node.js nell'applicazione finale.
+    features:
+      - "Header istituzionale a tre livelli (slim, center, navbar)"
+      - "Footer conforme AgID con attributi data-element per audit di accessibilità"
+      - "Form con binding automatico degli errori di validazione Laravel"
+      - "Attributi ARIA e progettazione per WCAG 2.1 AA"
+      - "Componenti UI: button, alert, badge, card, modal, spinner"
+      - "Pulsanti di accesso SPID e CIE con loghi ufficiali"
+      - "Layout completo per una pagina istituzionale"
+      - "Asset pipeline zero-config tramite vendor:publish"
+    videos: []
+  en:
+    localisedName: "Design Laravel Kit"
+    shortDescription: >
+      Composer package with Blade components compliant with Bootstrap
+      Italia and the Italian Public Administration design guidelines.
+    longDescription: >
+      Design Laravel Kit provides ready-to-use Blade components for
+      building Italian Public Administration websites and digital
+      services with Laravel 12 and 13. The package includes a three-tier
+      institutional header (slim, center, navbar), an AgID-compliant
+      footer with data-element attributes, forms with automatic Laravel
+      validation error binding, ARIA attributes and focus management
+      for WCAG 2.1 AA compliance, a complete layout for an institutional
+      page, and SPID and CIE login buttons with official logos.
+
+      CSS, JavaScript, font and SVG sprite assets are distributed with
+      the package and published through a dedicated Artisan command,
+      without requiring Node.js in the final application.
+    features:
+      - "Three-tier institutional header (slim, center, navbar)"
+      - "AgID-compliant footer with data-element attributes"
+      - "Forms with automatic Laravel validation error binding"
+      - "ARIA attributes designed for WCAG 2.1 AA"
+      - "UI components: button, alert, badge, card, modal, spinner"
+      - "SPID and CIE login buttons with official logos"
+      - "Complete layout for an institutional page"
+      - "Zero-config asset pipeline via vendor:publish"
+    videos: []
+
+legal:
+  license: "BSD-3-Clause"
+  mainCopyrightOwner: "Igor Smoleac"
+
+maintenance:
+  type: "community"
+  contacts:
+    - name: "Igor Smoleac"
+      email: "rekeenstudio@gmail.com"
+
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - it
+    - en
