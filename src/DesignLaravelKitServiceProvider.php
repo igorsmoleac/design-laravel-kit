@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit;
 
+use Composer\InstalledVersions;
 use IgorSmoleac\DesignLaravelKit\Commands\InstallCommand;
 use IgorSmoleac\DesignLaravelKit\Commands\PublishAssetsCommand;
 use Illuminate\Support\Facades\Blade;
@@ -12,6 +13,7 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/design-laravel-kit.php', 'design-laravel-kit');
+        config(['design-laravel-kit.version' => $this->resolveAssetVersion()]);
     }
 
     public function boot(): void
@@ -62,12 +64,30 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
         ]);
     }
 
+    protected function resolveAssetVersion(): string
+    {
+        if (! class_exists(InstalledVersions::class)) {
+            return 'dev';
+        }
+
+        try {
+            return $this->installedAssetVersion() ?? 'dev';
+        } catch (\OutOfRangeException) {
+            return 'dev';
+        }
+    }
+
+    protected function installedAssetVersion(): ?string
+    {
+        return InstalledVersions::getPrettyVersion('igorsmoleac/design-laravel-kit');
+    }
+
     protected function registerBladeDirectives(): void
     {
         Blade::directive('designLaravelKitStyles', fn () => <<<'PHP'
 <?php
 $designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
-$designLaravelKitVersion = config('design-laravel-kit.version', '1');
+$designLaravelKitVersion = config('design-laravel-kit.version');
 echo '<link rel="stylesheet" href="' . e(asset($designLaravelKitAssetsPath . '/css/design-laravel-kit.css') . '?v=' . $designLaravelKitVersion) . '">';
 ?>
 PHP
@@ -76,7 +96,7 @@ PHP
         Blade::directive('designLaravelKitScripts', fn () => <<<'PHP'
 <?php
 $designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
-$designLaravelKitVersion = config('design-laravel-kit.version', '1');
+$designLaravelKitVersion = config('design-laravel-kit.version');
 echo '<script src="' . e(asset($designLaravelKitAssetsPath . '/js/design-laravel-kit.js') . '?v=' . $designLaravelKitVersion) . '" defer></script>';
 echo '<script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts(' . \Illuminate\Support\Js::from(asset($designLaravelKitAssetsPath . '/fonts')) . '); } });</script>';
 ?>
