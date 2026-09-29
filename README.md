@@ -7,33 +7,31 @@
 
 🇮🇹 **Italiano** | [🇬🇧 English](README.en.md)
 
-Integrazione moderna di Bootstrap Italia per Laravel. Componenti Blade, Vite, accessibilità.
+Design Laravel Kit è un pacchetto Composer per applicazioni Laravel della Pubblica Amministrazione italiana. Espone componenti Blade basati su Bootstrap Italia 2.18.3 per layout istituzionali, navigazione, moduli, messaggi e accesso tramite SPID e CIE. Il bundle distribuito è circa 250 KB gzip; Node.js serve solo per compilare gli asset del pacchetto.
 
-> Pacchetto in fase di sviluppo.
+È destinato ad agenzie digitali, system integrator e sviluppatori che realizzano siti e servizi digitali per enti pubblici. Il pacchetto fornisce componenti e asset; la verifica di conformità del servizio resta a carico del progetto che lo integra.
 
-<!-- TODO: screenshots -->
+## Caratteristiche
 
-## A cosa serve
-
-Un pacchetto Composer per costruire siti e servizi digitali della Pubblica
-Amministrazione italiana con Laravel. Fornisce componenti Blade pronti
-all'uso, conformi alle Linee guida di design per i siti internet e i servizi
-digitali della PA.
-
-**Per chi è pensato:** agenzie digitali, system integrator e sviluppatori
-che lavorano su progetti per enti pubblici — comuni, scuole, aziende
-sanitarie, ministeri. L'obiettivo è ridurre il tempo di sviluppo dei
-template istituzionali da giorni a poche ore.
-
-**Cosa include:** header a tre livelli (slim, center, navbar), footer
-conforme AgID, form con binding automatico degli errori di validazione
-e attributi ARIA, layout completo per una pagina istituzionale.
+- Componenti Blade basati su Bootstrap Italia `2.18.3`
+- Header istituzionale a tre livelli: slim, center e navbar
+- Footer con sezioni, contatti e link legali con attributi `data-element`
+- Campi form con binding degli errori di validazione e del vecchio input Laravel
+- Attributi ARIA, identificativi generati e link salta-contenuto nel layout
+- Pulsanti di accesso SPID e CIE con i rispettivi loghi
+- Pubblicazione di CSS, JavaScript, font e sprite SVG tramite comando Artisan
+- Compatibilità dichiarata con Laravel 12 e 13 e PHP 8.3
 
 ## Requisiti
 
-- PHP **8.3** o superiore
-- Laravel **12** o **13**
-- Node.js 20+ (solo per compilare gli asset del pacchetto — non serve per l'uso)
+| Componente | Versione |
+|------------|----------|
+| PHP | `^8.3` |
+| Laravel | `^12.0 \| ^13.0` (`illuminate/support`, `illuminate/view`) |
+| Node.js (solo build) | `^22.0` |
+| Bootstrap Italia | `2.18.3` (versione fissata) |
+
+Node.js non è richiesto nell'applicazione Laravel in esecuzione. Serve soltanto per compilare gli asset durante lo sviluppo del pacchetto.
 
 ## Installazione
 
@@ -42,42 +40,52 @@ composer require igorsmoleac/design-laravel-kit
 php artisan design-laravel-kit:install
 ```
 
-Il comando `install` pubblica la configurazione e gli asset (CSS, JS,
-font, sprite SVG) nella cartella `public/vendor/design-laravel-kit/`.
+Il comando `install` pubblica la configurazione e gli asset CSS, JavaScript, font e sprite SVG in `public/vendor/design-laravel-kit/`.
 
-Aggiungere le direttive al proprio layout Blade:
+Aggiungere le direttive al layout Blade:
 
 ```blade
 <head>
     @designLaravelKitStyles
 </head>
 <body>
-    ...
     @designLaravelKitScripts
 </body>
 ```
 
-### Aggiornamento
+Per pubblicare separatamente la configurazione:
 
-Dopo `composer update`, ripubblicare gli asset:
+```bash
+php artisan vendor:publish --tag=design-laravel-kit-config
+```
+
+Per aggiornare il pacchetto, eseguire `composer update igorsmoleac/design-laravel-kit` e ripubblicare gli asset:
 
 ```bash
 php artisan design-laravel-kit:publish-assets --force
 ```
 
-Oppure automatizzare con uno script in `composer.json`:
+L'opzione `--force` sovrascrive gli asset già pubblicati.
 
-```json
-{
-  "scripts": {
-    "post-update-cmd": [
-      "@php artisan design-laravel-kit:publish-assets --force"
-    ]
-  }
-}
+## Configurazione
+
+Il comando `install` pubblica `config/design-laravel-kit.php`. Se il file di configurazione esiste già, Laravel non lo sovrascrive. Per forzarne la pubblicazione:
+
+```bash
+php artisan vendor:publish --tag=design-laravel-kit-config --force
 ```
 
-## Avvio rapido
+| Chiave | Tipo | Default | Descrizione |
+|--------|------|---------|-------------|
+| `id_prefix` | `string` | `'dlk'` | Prefisso degli ID HTML generati dai componenti |
+| `assets_path` | `string` | `'vendor/design-laravel-kit'` | Percorso pubblico degli asset |
+| `version` | `string` | `'0.1.0'` | Versione aggiunta agli URL degli asset per il cache-busting |
+
+## Utilizzo
+
+### Layout istituzionale
+
+Configurare l'ente, la navigazione, i link legali e il contenuto della pagina:
 
 ```blade
 <x-italia::layout
@@ -85,21 +93,16 @@ Oppure automatizzare con uno script in `composer.json`:
     :slim="[
         'ente' => 'Comune di Roma',
         'enteUrl' => 'https://www.comune.roma.it',
-        'languages' => [
-            ['code' => 'it', 'label' => 'ITA', 'active' => true],
-            ['code' => 'en', 'label' => 'ENG'],
-        ],
         'loginUrl' => '/login',
     ]"
     :center="[
         'title' => 'Comune di Roma',
         'tagline' => 'Portale istituzionale',
         'url' => '/',
-        'searchUrl' => '/search',
+        'searchUrl' => '/cerca',
     ]"
     :navbar="[
         'items' => [
-            ['text' => 'Home', 'url' => '/', 'active' => true],
             ['text' => 'Amministrazione', 'url' => '/amministrazione'],
             ['text' => 'Servizi', 'url' => '/servizi'],
         ],
@@ -112,225 +115,115 @@ Oppure automatizzare con uno script in `composer.json`:
         ],
     ]"
 >
-    <h1>Benvenuto</h1>
-    <p>Contenuto della pagina.</p>
+    <h1>Servizi comunali</h1>
+    <p>Informazioni e servizi per i cittadini.</p>
 </x-italia::layout>
 ```
 
-Questo produce una pagina completa conforme alle linee guida PA:
-header a tre livelli, footer con link legali obbligatori,
-skip-to-content link automatico, attributi ARIA.
+### Form di segnalazione
 
-## Componenti
-
-Tutti i componenti usano il prefisso `<x-italia::`.
-
-### Layout
-
-Template completo per una pagina istituzionale: header, main, footer
-e skip-to-content link.
+I componenti form collegano gli errori della sessione Laravel e ripristinano i valori inviati in precedenza:
 
 ```blade
-<x-italia::layout title="..." :slim="[...]" :center="[...]" :navbar="[...]" :footer="[...]">
-    <h1>Contenuto</h1>
-</x-italia::layout>
+<form method="POST" action="{{ route('segnalazioni.store') }}">
+    @csrf
+    <x-italia::input name="email" type="email" label="Indirizzo email" required />
+    <x-italia::textarea name="messaggio" label="Descrizione della segnalazione" :rows="5" required />
+    <x-italia::button type="submit">Invia segnalazione</x-italia::button>
+</form>
 ```
 
-### Header
+### Header in una vista esistente
 
-Header a tre livelli: slim (ente e lingue), center (brand e ricerca),
-navbar (menu di navigazione).
+Usare il componente header senza adottare il componente layout:
 
 ```blade
 <x-italia::header
-    :slim="['ente' => 'Nome della PA']"
-    :center="['title' => 'Nome del sito', 'searchUrl' => '/search']"
-    :navbar="['items' => [['text' => 'Home', 'url' => '/']]]"
+    :slim="['ente' => 'Azienda sanitaria locale']"
+    :center="['title' => 'Servizi sanitari', 'searchUrl' => '/cerca']"
+    :navbar="['items' => [['text' => 'Prenotazioni', 'url' => '/prenotazioni']]]"
 />
 ```
 
-### Footer
+### Pulsante in caricamento
 
-Footer conforme AgID con sezioni, contatti e link legali obbligatori.
-
-```blade
-<x-italia::footer
-    title="Nome della PA"
-    :sections="[...]"
-    :contacts="[...]"
-    :legal-links="[
-        ['url' => '/privacy', 'text' => 'Privacy policy', 'dataElement' => 'privacy-policy-link'],
-        ['url' => '/accessibilita', 'text' => 'Dichiarazione di accessibilità', 'dataElement' => 'accessibility-link'],
-    ]"
-/>
-```
-
-### Icon
-
-Icona dallo sprite SVG di Bootstrap Italia.
+Impostare `loading` durante l'invio di una richiesta:
 
 ```blade
-<x-italia::icon name="it-search" />
-<x-italia::icon name="it-close" size="lg" />
-<x-italia::icon name="it-user" label="Profilo utente" />
+<x-italia::button type="submit" loading>
+    Invio della richiesta in corso
+</x-italia::button>
 ```
 
-### Button
+## Componenti
 
-Pulsante con varianti, dimensioni e stati (loading, disabled, link).
+I componenti Blade usano il prefisso `<x-italia::`.
 
-```blade
-<x-italia::button>Primary</x-italia::button>
-<x-italia::button variant="secondary" size="lg">Secondary</x-italia::button>
-<x-italia::button href="/login" variant="primary">Accedi</x-italia::button>
-<x-italia::button loading>Caricamento…</x-italia::button>
-```
+| Componente | Descrizione |
+|------------|-------------|
+| `<x-italia::layout>` | Layout di pagina con header, contenuto, footer e link salta-contenuto |
+| `<x-italia::header>` | Header composto dai livelli slim, center e navbar |
+| `<x-italia::footer>` | Footer con sezioni, contatti, social link e link legali |
+| `<x-italia::icon>` | Icona dallo sprite SVG di Bootstrap Italia |
+| `<x-italia::button>` | Pulsante o link con varianti, dimensioni e stato di caricamento |
+| `<x-italia::input>` | Campo di input con label, hint e binding degli errori |
+| `<x-italia::select>` | Elenco a discesa con opzioni, optgroup e selezione multipla |
+| `<x-italia::textarea>` | Campo multiriga con binding degli errori |
+| `<x-italia::checkbox>` | Casella di controllo singola |
+| `<x-italia::radio>` | Pulsante radio singolo |
+| `<x-italia::checkbox-group>` | Gruppo di checkbox con fieldset e legend |
+| `<x-italia::radio-group>` | Gruppo di radio con fieldset e legend |
+| `<x-italia::alert>` | Messaggio di stato: info, success, warning o danger |
+| `<x-italia::badge>` | Etichetta di stato con variante configurabile |
+| `<x-italia::card>` | Card con contenuto, link e varianti |
+| `<x-italia::spinner>` | Indicatore di caricamento con etichetta accessibile configurabile |
+| `<x-italia::modal>` | Finestra di dialogo con attributi ARIA e supporto JavaScript Bootstrap Italia |
+| `<x-italia::spid-button>` | Pulsante di accesso SPID |
+| `<x-italia::cie-button>` | Pulsante di accesso CIE |
 
-### Input
-
-Campo di input con binding automatico degli errori di validazione.
-
-```blade
-<x-italia::input name="email" type="email" label="Email" required />
-<x-italia::input name="nome" label="Nome" hint="Il tuo nome completo" />
-```
-
-### Select
-
-Elenco a discesa con supporto per optgroup, `multiple` e placeholder.
-
-```blade
-<x-italia::select name="provincia" label="Provincia" :options="[
-    'rm' => 'Roma',
-    'mi' => 'Milano',
-    'na' => 'Napoli',
-]" placeholder="Seleziona…" />
-```
-
-### Textarea
-
-Campo multiriga con binding automatico degli errori di validazione.
-
-```blade
-<x-italia::textarea name="messaggio" label="Messaggio" :rows="5" />
-```
-
-### Altri componenti
-
-Altri componenti disponibili nel pacchetto:
-
-- `<x-italia::checkbox>` e `<x-italia::radio>` — campi di selezione con binding degli errori di validazione
-- `<x-italia::checkbox-group>` e `<x-italia::radio-group>` — gruppi con `<fieldset>`, `<legend>` e singolo messaggio di errore
-- `<x-italia::alert>` — messaggi di avviso (info, success, warning, danger)
-- `<x-italia::badge>` — etichette di stato
-- `<x-italia::spinner>` — indicatore di caricamento accessibile
-- `<x-italia::card>` — card con titolo, immagine, azioni e link
-- `<x-italia::modal>` — finestra di dialogo con ARIA e focus trap (via Bootstrap Italia JS)
-- `<x-italia::spid-button>` — pulsante di accesso SPID con logo ufficiale
-- `<x-italia::cie-button>` — pulsante di accesso CIE con logo ufficiale
-
-## Design system
-
-Il pacchetto si basa su **Bootstrap Italia 2.18.3**, la versione stabile
-ufficiale della libreria di design per la Pubblica Amministrazione italiana.
-
-**Perché non la v3?** La versione 3.0 è attualmente in beta e introduce
-cambiamenti sostanziali al markup e ai token CSS. La v2.18.3 è stabile,
-documentata e utilizzata in produzione dai siti della PA.
-
-**Perché non design-tokens-italia separatamente?** Bootstrap Italia include
-già i design token ufficiali nel proprio CSS. Aggiungerli separatamente
-creerebbe duplicazione e conflitti.
-
-## Prestazioni
-
-Il pacchetto pubblica il bundle completo di Bootstrap Italia (~1 MB,
-~250-300 KB gzip). Questo è il prezzo del zero-config: nessuna
-configurazione Vite richiesta.
-
-Se serve un bundle più piccolo, è possibile importare solo i componenti
-necessari nel proprio progetto Vite e non usare `@designLaravelKitScripts`:
-
-```js
-import { Collapse, Dropdown } from 'bootstrap-italia';
-```
+Gli esempi d'uso dei componenti sono nel [catalogo del playground](https://github.com/igorsmoleac/design-laravel-kit/blob/main/playground/resources/views/catalog.blade.php), usato per lo sviluppo.
 
 ## Accessibilità
 
-Il pacchetto è progettato per essere conforme a **WCAG 2.1 AA** e alle linee guida AgID:
+I componenti includono link salta-contenuto, label associate ai campi, attributi ARIA per gli errori dei form e attributi `data-element` per i link legali del footer. Il riferimento normativo per l'accessibilità dei servizi digitali della PA è la [Legge 9 gennaio 2004, n. 4 (Legge Stanca)](https://www.normattiva.it/eli/id/2004/01/17/004G0015/CONSOLIDATED/20231118). WCAG 2.1 livello AA è il criterio di riferimento dichiarato; il pacchetto non certifica la conformità del sito o del servizio che lo integra.
 
-- Skip-to-content link automatico nel layout
-- `aria-invalid`, `aria-describedby`, `aria-live="polite"` sui form con errori
-- `data-element="privacy-policy-link"` e `data-element="accessibility-link"` nel footer
-- Focus visibile su tutti gli elementi interattivi
-- Contrasto colori conforme
-
-Per i siti della PA italiana, la conformità WCAG 2.1 AA è un obbligo
-di legge (Legge Stanca 4/2004).
-
-### Limitazioni note
-
-- Il focus trap del componente Modal è delegato al JavaScript di Bootstrap Italia; non è testato dal pacchetto.
-- La connessione dell'errore al `<fieldset>` nei gruppi di radio/checkbox segue le linee guida AgID, ma alcuni screen reader più datati potrebbero non annunciarlo.
-- Il contrasto colori è ereditato da Bootstrap Italia 2.18.3; non è verificato con uno strumento automatico (axe-core, pa11y) nel CI.
+<a id="limitazioni-note"></a>Limitazioni note: il focus trap del modal è gestito dal JavaScript di Bootstrap Italia e non è testato dal pacchetto; l'annuncio degli errori associati ai fieldset può variare con screen reader meno recenti; il contrasto ereditato da Bootstrap Italia 2.18.3 non è verificato automaticamente nel CI con axe-core o pa11y.
 
 ## Test
 
+Eseguire dalla directory del pacchetto:
+
 ```bash
-composer install
 vendor/bin/phpunit
+vendor/bin/pint --test
 ```
 
-Il pacchetto include 420 test con 855 asserzioni, che coprono:
-
-- Rendering di tutti i componenti
-- Binding degli errori di validazione Laravel
-- Attributi ARIA e conformità WCAG
-- Generazione di ID univoci
+La suite verifica il rendering dei componenti, il binding di errori e vecchi valori Laravel, gli attributi ARIA, la generazione degli ID, i comandi di pubblicazione e le direttive Blade per gli asset.
 
 ## Contribuire
 
-Prima di aprire una Pull Request:
+Consultare le [linee guida per contribuire](CONTRIBUTING.md) prima di inviare modifiche.
 
-1. Eseguire `vendor/bin/pint` per la formattazione automatica
-2. Eseguire `vendor/bin/phpunit` — tutti i test devono passare
-3. Scrivere test per le nuove funzionalità
-4. Usare messaggi di commit nel formato `[Modulo] Verbo all'imperativo`
+## Sicurezza
 
-Seguire lo stile del codice esistente. Per domande, aprire una Issue.
-Linee guida complete: [CONTRIBUTING.md](CONTRIBUTING.md).
+Per segnalare una vulnerabilità, seguire le istruzioni in [SECURITY.md](SECURITY.md).
+
+## Changelog
+
+La cronologia delle modifiche è disponibile in [CHANGELOG.md](CHANGELOG.md).
 
 ## Licenza
 
-Rilasciato sotto licenza **BSD-3-Clause**. Vedi [LICENSE](LICENSE).
+Il codice del pacchetto è rilasciato con licenza [BSD-3-Clause](LICENSE), che consente l'uso, la modifica e la ridistribuzione nel rispetto delle condizioni della licenza.
 
-## Attribuzione dei loghi
-
-Il pacchetto include i loghi ufficiali **SPID** e **CIE** utilizzati nei
-pulsanti di accesso. Questi loghi sono **marchi registrati** dei rispettivi
-titolari e non sono coperti dalla licenza BSD-3-Clause del pacchetto:
-
-- **Logo SPID** — AgID (Agenzia per l'Italia Digitale).
-  Fonte: [italia/spid-sp-access-button](https://github.com/italia/spid-sp-access-button).
-  Utilizzato per lo scopo previsto: pulsante di accesso SPID conforme
-  alle linee guida AgID.
-
-- **Logo CIE** — Ministero dell'Interno.
-  Fonte: [idserver.servizicie.interno.gov.it](https://idserver.servizicie.interno.gov.it/idp/images/cielogo.png).
-  Utilizzato per lo scopo previsto: pulsante di accesso CIE conforme
-  alle linee guida AgID.
-
-Per l'uso dei loghi al di fuori del contesto previsto (pulsanti di
-accesso), fare riferimento alle linee guida ufficiali AgID.
+I loghi SPID e CIE inclusi nei rispettivi pulsanti sono marchi dei titolari, non coperti dalla BSD-3-Clause: il logo SPID è fornito da [AgID](https://github.com/italia/spid-sp-access-button) e il logo CIE dal [Ministero dell'Interno](https://idserver.servizicie.interno.gov.it/idp/images/cielogo.png). Il loro uso è limitato al contesto previsto dalle indicazioni dei titolari.
 
 ## Riferimenti
 
-- [Developers Italia](https://developers.italia.it)
-- [Bootstrap Italia](https://italia.github.io/bootstrap-italia)
-- [Designers Italia](https://designers.italia.it)
-- [Linee guida di design](https://docs.italia.it/italia/designers-italia/design-linee-guida-docs/)
-- [Catalogo del software](https://developers.italia.it/it/software)
+- Il design system incluso è [Bootstrap Italia 2.18.3](https://italia.github.io/bootstrap-italia).
+- [Developers Italia](https://developers.italia.it) e [Catalogo del software](https://developers.italia.it/it/software)
+- [Designers Italia](https://designers.italia.it) e [Linee guida di design](https://docs.italia.it/italia/designers-italia/design-linee-guida-docs/)
 
 ---
 
-Sviluppato da [Igor Smoleac](https://github.com/igorsmoleac).
+Sviluppato da [Igor Smoleac](https://github.com/igorsmoleac) — [rekeenstudio@gmail.com](mailto:rekeenstudio@gmail.com)
