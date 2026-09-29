@@ -14,6 +14,8 @@ class RadioGroup extends BaseComponent
 
     public bool $grouped = true;
 
+    public ?string $groupErrorId = null;
+
     public function __construct(
         public string $name,
         public ?string $legend = null,
@@ -26,6 +28,8 @@ class RadioGroup extends BaseComponent
 
     public function render(): View
     {
+        $this->groupErrorId = $this->hasError() ? $this->errorId() : null;
+
         return view('design-laravel-kit::components.radio-group');
     }
 

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Select: opzione con chiave vuota non viene più marcata come `selected` in assenza di selezione; supporto per `Collection` e `Arrayable` in `:options`.
+- Radio e checkbox in gruppo: l'ID dell'errore del gruppo ora è incluso nell'`aria-describedby` degli input figli, per garantire l'annuncio dello stato di errore da parte degli screen reader.
 
 ## [0.1.0] - 2026-09-29
 

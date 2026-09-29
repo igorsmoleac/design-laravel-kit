@@ -69,6 +69,20 @@ class CheckboxGroupTest extends TestCase
         $this->assertSame($hintId[1] . ' ' . $errorId[1], $describedBy[1]);
     }
 
+    public function test_child_checkboxes_include_group_error_id_in_aria_describedby(): void
+    {
+        $this->withViewErrors(['interests' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::checkbox-group name="interests"><x-italia::checkbox name="interests[]" value="sport" /></x-italia::checkbox-group>');
+
+        preg_match('/<input[^>]*aria-describedby="([^"]+)"[^>]*>/s', $html, $describedBy);
+        preg_match('/<div class="invalid-feedback d-block" id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($errorId[1], $describedBy[1]);
+    }
+
     public function test_child_checkboxes_do_not_render_group_error(): void
     {
         $this->withViewErrors(['interests' => 'Seleziona almeno un interesse.']);

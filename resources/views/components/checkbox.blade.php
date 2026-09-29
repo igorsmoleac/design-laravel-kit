@@ -1,4 +1,10 @@
-@aware(['grouped' => false])
+@aware(['grouped' => false, 'groupErrorId' => null])
+
+@php
+    $describedByIds = $grouped
+        ? collect([$groupErrorId, filled($hint) ? $hintId() : null])->filter()->implode(' ')
+        : ($describedBy() ?: null);
+@endphp
 
 <div class="form-check">
     <input
@@ -8,7 +14,7 @@
         @if (filled($value)) value="{{ $value }}" @endif
         {{ $attributes->except('id')->class([$inputClass()])->merge([
             'aria-invalid' => $hasError() ? 'true' : null,
-            'aria-describedby' => $grouped ? (filled($hint) ? $hintId() : null) : ($describedBy() ?: null),
+            'aria-describedby' => $describedByIds,
             'aria-required' => $required ? 'true' : null,
             'required' => $required,
             'disabled' => $disabled,
