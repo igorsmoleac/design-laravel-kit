@@ -148,6 +148,20 @@ class RadioTest extends TestCase
         $this->assertSame($errorId[1], $describedBy[1]);
     }
 
+    public function test_standalone_radio_still_uses_own_error_id(): void
+    {
+        $this->withViewErrors(['gender' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::radio name="gender" value="m" />');
+
+        preg_match('/<input[^>]*aria-describedby="([^"]+)"[^>]*>/s', $html, $describedBy);
+        preg_match('/<div class="invalid-feedback" id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($errorId[1], $describedBy[1]);
+    }
+
     public function test_standalone_hint_and_error_are_both_rendered_and_described(): void
     {
         $this->withViewErrors(['gender' => 'Required']);

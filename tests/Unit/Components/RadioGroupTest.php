@@ -69,6 +69,36 @@ class RadioGroupTest extends TestCase
         $this->assertSame($hintId[1] . ' ' . $errorId[1], $describedBy[1]);
     }
 
+    public function test_child_radios_include_group_error_id_in_aria_describedby(): void
+    {
+        $this->withViewErrors(['gender' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::radio-group name="gender"><x-italia::radio name="gender" value="m" /></x-italia::radio-group>');
+
+        preg_match('/<input[^>]*aria-describedby="([^"]+)"[^>]*>/s', $html, $describedBy);
+        preg_match('/<div class="invalid-feedback d-block" id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($errorId[1], $describedBy[1]);
+    }
+
+    public function test_child_with_hint_includes_both_error_and_hint_ids(): void
+    {
+        $this->withViewErrors(['gender' => 'Required']);
+
+        $html = (string) $this->blade('<x-italia::radio-group name="gender"><x-italia::radio name="gender" value="m" hint="Choose one" /></x-italia::radio-group>');
+
+        preg_match('/<input[^>]*aria-describedby="([^"]+)"[^>]*>/s', $html, $describedBy);
+        preg_match('/<small class="form-text" id="([^"]+-hint)"/', $html, $hintId);
+        preg_match('/<div class="invalid-feedback d-block" id="([^"]+-error)"/', $html, $errorId);
+
+        $this->assertNotEmpty($describedBy);
+        $this->assertNotEmpty($hintId);
+        $this->assertNotEmpty($errorId);
+        $this->assertSame($errorId[1] . ' ' . $hintId[1], $describedBy[1]);
+    }
+
     public function test_child_radios_do_not_render_group_error(): void
     {
         $this->withViewErrors(['gender' => 'Seleziona un genere.']);
