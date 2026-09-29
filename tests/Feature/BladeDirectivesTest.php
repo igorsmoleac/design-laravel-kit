@@ -19,7 +19,7 @@ class BladeDirectivesTest extends TestCase
 
         $this->assertStringContainsString('design-laravel-kit.css', $html);
         $this->assertStringContainsString('vendor/design-laravel-kit', $html);
-        $this->assertStringContainsString('?v=0.1.0', $html);
+        $this->assertMatchesRegularExpression('/\?v=[^\"]+/', $html);
     }
 
     public function test_scripts_directive_includes_version_param(): void
@@ -27,8 +27,26 @@ class BladeDirectivesTest extends TestCase
         $html = Blade::render('@designLaravelKitScripts' . PHP_EOL . '<!-- ' . uniqid() . ' -->');
 
         $this->assertStringContainsString('design-laravel-kit.js', $html);
-        $this->assertStringContainsString('?v=0.1.0', $html);
+        $this->assertMatchesRegularExpression('/\?v=[^\"]+/', $html);
         $this->assertStringContainsString('defer', $html);
+    }
+
+    public function test_asset_version_falls_back_to_dev_in_testbench(): void
+    {
+        $provider = new class($this->app) extends DesignLaravelKitServiceProvider
+        {
+            protected function installedAssetVersion(): ?string
+            {
+                return null;
+            }
+
+            public function assetVersion(): string
+            {
+                return $this->resolveAssetVersion();
+            }
+        };
+
+        $this->assertSame('dev', $provider->assetVersion());
     }
 
     public function test_scripts_directive_loads_bootstrap_italia_fonts(): void
