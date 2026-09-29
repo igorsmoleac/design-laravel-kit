@@ -2,7 +2,9 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Select;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Testbench\TestCase;
 
 class SelectTest extends TestCase
@@ -27,6 +29,53 @@ class SelectTest extends TestCase
 
         $this->assertStringContainsString('<option value="it">Italia</option>', $html);
         $this->assertStringContainsString('<option value="fr">Francia</option>', $html);
+    }
+
+    public function test_empty_option_is_not_selected_when_nothing_selected(): void
+    {
+        $html = (string) $this->blade('<x-italia::select name="country" :options="[\'\' => \'Seleziona...\', \'it\' => \'Italia\']" />');
+
+        $this->assertStringContainsString('<option value="">Seleziona...</option>', $html);
+        $this->assertStringNotContainsString('<option value="" selected>', $html);
+    }
+
+    public function test_placeholder_and_empty_option_do_not_both_get_selected(): void
+    {
+        $html = (string) $this->blade('<x-italia::select name="country" :options="[\'\' => \'Seleziona...\', \'it\' => \'Italia\']" placeholder="Scegli un paese" />');
+
+        $this->assertStringContainsString('<option value="" disabled selected>Scegli un paese</option>', $html);
+        $this->assertSame(1, substr_count($html, ' selected'));
+    }
+
+    public function test_options_accepts_laravel_collection(): void
+    {
+        $component = new Select(name: 'country', options: collect(['it' => 'Italia']));
+
+        $this->assertSame(['it' => 'Italia'], $component->options);
+    }
+
+    public function test_options_accepts_arrayable(): void
+    {
+        $options = new class(['it' => 'Italia']) implements Arrayable
+        {
+            public function __construct(private array $options) {}
+
+            public function toArray(): array
+            {
+                return $this->options;
+            }
+        };
+
+        $component = new Select(name: 'country', options: $options);
+
+        $this->assertSame(['it' => 'Italia'], $component->options);
+    }
+
+    public function test_is_selected_returns_false_for_null(): void
+    {
+        $component = new Select(name: 'country', options: ['' => 'Seleziona...']);
+
+        $this->assertFalse($component->isSelected(''));
     }
 
     public function test_renders_optgroup_for_nested_options(): void
