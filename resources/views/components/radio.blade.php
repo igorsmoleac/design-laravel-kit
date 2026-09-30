@@ -23,7 +23,7 @@
     >
     <label class="form-check-label" for="{{ $fieldId() }}">{{ $labelText() }}@if ($required)
         <span class="text-danger" aria-hidden="true">*</span>
-        <span class="visually-hidden">(obbligatorio)</span>
+        <span class="visually-hidden">{{ __('design-laravel-kit::(obbligatorio)') }}</span>
     @endif</label>
     @if (filled($hint))
         <small class="form-text" id="{{ $hintId() }}">{{ $hint }}</small>

@@ -15,7 +15,7 @@
             <div class="modal-header">
                 <h2 class="modal-title h5" id="{{ $titleId() }}">{{ $title }}</h2>
                 @if ($dismissible)
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('design-laravel-kit::Chiudi finestra modale') }}"></button>
                 @endif
             </div>
             <div class="modal-body" id="{{ $bodyId() }}">

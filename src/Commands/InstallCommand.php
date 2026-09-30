@@ -13,6 +13,7 @@ class InstallCommand extends Command
     public function handle(): int
     {
         $this->call('vendor:publish', ['--tag' => 'design-laravel-kit-config']);
+        $this->call('vendor:publish', ['--tag' => 'design-laravel-kit-lang']);
         $this->call('design-laravel-kit:publish-assets');
 
         $this->info('Next steps:');

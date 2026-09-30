@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - La versione negli URL degli asset (`?v=`) ora è risolta automaticamente da `Composer\InstalledVersions` invece che da un valore hardcoded nel file di configurazione.
+- Tutte le stringhe UI ora passano attraverso `__()` con namespace `design-laravel-kit::`; aggiunti file `lang/it.json` e `lang/en.json` traducibili via `vendor:publish --tag=design-laravel-kit-lang`.
 
 ### Fixed
 - Select: opzione con chiave vuota non viene più marcata come `selected` in assenza di selezione; supporto per `Collection` e `Arrayable` in `:options`.

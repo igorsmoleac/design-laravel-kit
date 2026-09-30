@@ -6,6 +6,8 @@ use Illuminate\Contracts\View\View;
 
 class Layout extends BaseComponent
 {
+    public string $skipLabel;
+
     public function __construct(
         public string $title = '',
         public ?string $description = null,
@@ -17,10 +19,12 @@ class Layout extends BaseComponent
         public bool $light = false,
         public bool $sticky = false,
         public bool $skipToContent = true,
-        public string $skipLabel = 'Vai al contenuto principale',
+        ?string $skipLabel = null,
         public string $bodyClass = '',
         public ?string $mainClass = null,
-    ) {}
+    ) {
+        $this->skipLabel = $skipLabel ?? __('design-laravel-kit::Vai al contenuto principale');
+    }
 
     public function render(): View
     {

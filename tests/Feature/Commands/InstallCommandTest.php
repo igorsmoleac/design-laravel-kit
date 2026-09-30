@@ -37,6 +37,7 @@ class InstallCommandTest extends TestCase
             ->assertSuccessful();
 
         $this->assertFileExists(config_path('design-laravel-kit.php'));
+        $this->assertFileExists(lang_path('vendor/design-laravel-kit/it.json'));
         $this->assertFileExists(public_path('vendor/design-laravel-kit/css/design-laravel-kit.css'));
         $this->assertFileExists(public_path('vendor/design-laravel-kit/js/design-laravel-kit.js'));
     }
