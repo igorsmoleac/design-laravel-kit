@@ -33,11 +33,20 @@ Please include:
 ## Scope
 
 This package is a **UI component library**. It does not perform
-authentication, store data, or process user input on the server side.
+authentication, persist user data, or execute user input as code.
 
-However, we take the following categories seriously:
+However, it **does render user-provided data** in Blade templates:
 
-- **XSS** in component rendering (unescaped user input in Blade templates)
+- Form components read `session()->getOldInput()` and `$errors` from
+  the session and reflect them in HTML attributes (`value`, `checked`,
+  `selected`).
+- Components that accept `href`, `image`, or similar props render
+  user-provided URLs.
+
+We take the following categories seriously:
+
+- **XSS** in component rendering — unescaped user input in Blade
+  templates, `{!! !!}` usage, or attribute injection
 - **CSRF** — bypasses or omissions in layout meta tags
 - **Path traversal** in asset publishing commands
 - **Open redirects** in components that render `href` attributes
