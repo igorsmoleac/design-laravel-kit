@@ -53,7 +53,7 @@
                     <div class="row">
                         @if ($hasContacts())
                             <div class="col-lg-4 col-md-4 pb-2">
-                                <h4>{{ __('Contatti') }}</h4>
+                                <h4>{{ __('design-laravel-kit::Contatti') }}</h4>
                                 @foreach ($contacts as $contact)
                                     @if ($isAddress($contact))
                                         <p>
@@ -83,7 +83,7 @@
                         @if ($hasSocialLinks())
                             <div class="col-lg-4 col-md-4 pb-2">
                                 <div class="pb-2">
-                                    <h4>{{ __('Seguici su') }}</h4>
+                                    <h4>{{ __('design-laravel-kit::Seguici su') }}</h4>
                                     <ul class="list-inline text-left social">
                                         @foreach ($socialLinks as $social)
                                             <li class="list-inline-item">
@@ -112,7 +112,7 @@
         <div class="it-footer-small-prints clearfix">
             <div class="container">
                 @if ($hasLegalLinks())
-                    <h3 class="visually-hidden">{{ __('Link utili') }}</h3>
+                    <h3 class="visually-hidden">{{ __('design-laravel-kit::Link utili') }}</h3>
                     <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
                         @foreach ($legalLinks as $link)
                             <li class="list-inline-item">

@@ -8,7 +8,7 @@
             {{ $legendText() }}
             @if ($required)
                 <span class="text-danger" aria-hidden="true">*</span>
-                <span class="visually-hidden">(obbligatorio)</span>
+                <span class="visually-hidden">{{ __('design-laravel-kit::(obbligatorio)') }}</span>
             @endif
         </legend>
     @endif

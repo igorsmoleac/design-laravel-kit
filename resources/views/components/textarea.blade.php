@@ -15,12 +15,12 @@
         >{{ $inputValue() }}</textarea>
         <label for="{{ $fieldId() }}" @if ($hasValue()) class="active" @endif>{{ $labelText() }}@if ($required)
             <span class="text-danger" aria-hidden="true">*</span>
-            <span class="visually-hidden">(obbligatorio)</span>
+            <span class="visually-hidden">{{ __('design-laravel-kit::(obbligatorio)') }}</span>
         @endif</label>
     @else
         <label class="form-label" for="{{ $fieldId() }}">{{ $labelText() }}@if ($required)
             <span class="text-danger" aria-hidden="true">*</span>
-            <span class="visually-hidden">(obbligatorio)</span>
+            <span class="visually-hidden">{{ __('design-laravel-kit::(obbligatorio)') }}</span>
         @endif</label>
         <textarea
             id="{{ $fieldId() }}"

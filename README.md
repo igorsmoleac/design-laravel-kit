@@ -82,6 +82,16 @@ php artisan vendor:publish --tag=design-laravel-kit-config --force
 | `assets_path` | `string` | `'vendor/design-laravel-kit'` | Percorso pubblico degli asset |
 | `version` | `string` | `'0.1.0'` | Versione aggiunta agli URL degli asset per il cache-busting |
 
+### Traduzioni
+
+Il pacchetto include file di traduzione in italiano e inglese. Per personalizzarli o aggiungere altre lingue:
+
+```bash
+php artisan vendor:publish --tag=design-laravel-kit-lang
+```
+
+I file saranno copiati in `lang/vendor/design-laravel-kit/`.
+
 ## Utilizzo
 
 ### Layout istituzionale

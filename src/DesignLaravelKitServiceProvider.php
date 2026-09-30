@@ -19,9 +19,17 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerViews();
+        $this->registerTranslations();
         $this->registerPublishing();
         $this->registerCommands();
         $this->registerBladeDirectives();
+    }
+
+    protected function registerTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'design-laravel-kit');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
+        $this->loadJsonTranslationsFrom(lang_path('vendor/design-laravel-kit'));
     }
 
     protected function registerViews(): void
@@ -40,6 +48,10 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/design-laravel-kit.php' => config_path('design-laravel-kit.php'),
         ], 'design-laravel-kit-config');
+
+        $this->publishes([
+            __DIR__ . '/../lang' => lang_path('vendor/design-laravel-kit'),
+        ], 'design-laravel-kit-lang');
 
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path(

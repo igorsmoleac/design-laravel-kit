@@ -2,7 +2,7 @@
     @if (! $floating)
         <label class="form-label" for="{{ $fieldId() }}">{{ $labelText() }}@if ($required)
             <span class="text-danger" aria-hidden="true">*</span>
-            <span class="visually-hidden">(obbligatorio)</span>
+            <span class="visually-hidden">{{ __('design-laravel-kit::(obbligatorio)') }}</span>
         @endif</label>
     @endif
     <select
@@ -35,7 +35,7 @@
     @if ($floating)
         <label for="{{ $fieldId() }}" class="active">{{ $labelText() }}@if ($required)
             <span class="text-danger" aria-hidden="true">*</span>
-            <span class="visually-hidden">(obbligatorio)</span>
+            <span class="visually-hidden">{{ __('design-laravel-kit::(obbligatorio)') }}</span>
         @endif</label>
     @endif
     @if (filled($hint))

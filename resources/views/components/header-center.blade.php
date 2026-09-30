@@ -23,7 +23,7 @@
                         <div class="it-right-zone">
                             @if ($hasSocialLinks())
                                 <div class="it-socials d-none d-md-flex">
-                                    <span>{{ __('Seguici su') }}</span>
+                                    <span>{{ __('design-laravel-kit::Seguici su') }}</span>
                                     <ul>
                                         @foreach ($socialLinks as $social)
                                             <li>
@@ -37,8 +37,8 @@
                             @endif
                             @if ($hasSearch())
                                 <div class="it-search-wrapper">
-                                    <span class="d-none d-md-block">{{ __('Cerca') }}</span>
-                                    <a class="search-link rounded-icon" href="{{ $searchUrl }}" aria-label="{{ __('Cerca') }}">
+                                    <span class="d-none d-md-block">{{ __('design-laravel-kit::Cerca') }}</span>
+                                    <a class="search-link rounded-icon" href="{{ $searchUrl }}" aria-label="{{ __('design-laravel-kit::Cerca') }}">
                                         <x-italia::icon name="it-search" />
                                     </a>
                                 </div>
