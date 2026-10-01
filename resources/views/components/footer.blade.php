@@ -118,7 +118,9 @@
                             <li class="list-inline-item">
                                 <a
                                     href="{{ $link['url'] ?? '#' }}"
-                                    @if (filled($link['dataElement'] ?? null)) data-element="{{ $link['dataElement'] }}" @endif
+                                    @if (($dataElement = $legalLinkDataElement($link)) !== null)
+                                        data-element="{{ $dataElement }}"
+                                    @endif
                                 >{{ $link['text'] ?? '' }}</a>
                             </li>
                         @endforeach
