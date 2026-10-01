@@ -1,0 +1,20 @@
+# Exclude dev files from Composer dist archive
+/.github/**           export-ignore
+/tests/**             export-ignore
+/tool/**              export-ignore
+/playground/**        export-ignore
+/package.json         export-ignore
+/package-lock.json    export-ignore
+/vite.config.mjs      export-ignore
+/phpunit.xml          export-ignore
+/pint.json            export-ignore
+/.editorconfig        export-ignore
+/.gitignore           export-ignore
+/.gitattributes       export-ignore
+
+# Docs: keep screenshots for README, not the full demo site
+/docs/index.html      export-ignore
+/docs/vendor/**       export-ignore
+
+# Line endings
+* text=auto eol=lf
