@@ -21,19 +21,43 @@ class CardTest extends TestCase
         $this->assertStringContainsString('card-body', $html);
     }
 
-    public function test_title_renders_as_card_title(): void
+    public function test_default_heading_is_h3(): void
     {
         $html = (string) $this->blade('<x-italia::card title="Titolo">Testo</x-italia::card>');
 
         $this->assertStringContainsString('<h3 class="card-title h5">', $html);
-        $this->assertStringContainsString('Titolo', $html);
+        $this->assertStringContainsString('</h3>', $html);
     }
 
-    public function test_subtitle_renders_as_card_subtitle(): void
+    public function test_heading_level_h2(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="Titolo" :heading-level="2">Testo</x-italia::card>');
+
+        $this->assertStringContainsString('<h2 class="card-title h5">', $html);
+        $this->assertStringContainsString('</h2>', $html);
+    }
+
+    public function test_heading_level_h4(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="Titolo" :heading-level="4">Testo</x-italia::card>');
+
+        $this->assertStringContainsString('<h4 class="card-title h5">', $html);
+        $this->assertStringContainsString('</h4>', $html);
+    }
+
+    public function test_heading_level_out_of_range_falls_back_to_h3(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="Titolo" :heading-level="1">Testo</x-italia::card>');
+
+        $this->assertStringContainsString('<h3 class="card-title h5">', $html);
+    }
+
+    public function test_subtitle_is_p_not_h6(): void
     {
         $html = (string) $this->blade('<x-italia::card title="T" subtitle="Sottotitolo">Testo</x-italia::card>');
 
-        $this->assertStringContainsString('<h6 class="card-subtitle">Sottotitolo</h6>', $html);
+        $this->assertStringContainsString('<p class="card-subtitle">Sottotitolo</p>', $html);
+        $this->assertStringNotContainsString('<h6', $html);
     }
 
     public function test_no_title_renders_no_heading(): void
@@ -102,6 +126,15 @@ class CardTest extends TestCase
         $html = (string) $this->blade('<x-italia::card title="Titolo" href="/dettaglio">Testo</x-italia::card>');
 
         $this->assertStringContainsString('<a href="/dettaglio" class="stretched-link">Titolo</a>', $html);
+    }
+
+    public function test_stretched_link_renders_inside_dynamic_heading(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="Titolo" href="/dettaglio" :heading-level="4">Testo</x-italia::card>');
+
+        $this->assertStringContainsString('<h4 class="card-title h5">', $html);
+        $this->assertStringContainsString('<a href="/dettaglio" class="stretched-link">Titolo</a>', $html);
+        $this->assertMatchesRegularExpression('/<\/a>\s*<\/h4>/', $html);
     }
 
     public function test_actions_slot_renders_inside_card_not_inside_link(): void
