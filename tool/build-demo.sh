@@ -76,6 +76,24 @@ html = re.sub(r"http:\\/\\/127\.0\.0\.1:\d+\\/vendor\\/", "vendor/", html)
 html = re.sub(r"http:\\/\\/127\.0\.0\.1:\d+\\/", "./", html)
 html = html.replace('href="/catalog"', 'href="./"')
 html = html.replace('action="/catalog"', 'action="./"')
+html = html.replace(
+    "</style>",
+    """            #card .catalog-example,
+            #select .catalog-example {
+                background: transparent;
+                border: 0;
+                padding: 0;
+            }
+            #card .catalog-example .card-wrapper,
+            #select .catalog-example .form-group {
+                background: #fff;
+                border: 1px solid var(--bs-border-color, #e0e0e0);
+                border-radius: 4px;
+                padding: 24px;
+            }
+        </style>""",
+    1,
+)
 
 if "127.0.0.1" in html:
     raise SystemExit("ERROR: localhost URLs remain in generated HTML")
