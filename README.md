@@ -6,6 +6,8 @@
 [![Tests](https://github.com/igorsmoleac/design-laravel-kit/actions/workflows/tests.yml/badge.svg)](https://github.com/igorsmoleac/design-laravel-kit/actions)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/igorsmoleac/design-laravel-kit.svg?style=flat-square)](https://packagist.org/packages/igorsmoleac/design-laravel-kit)
 
+🌐 **[Demo interattiva](https://igorsmoleac.github.io/design-laravel-kit/)**
+
 🇮🇹 **Italiano** | [🇬🇧 English](README.en.md)
 
 Design Laravel Kit è un pacchetto Composer per applicazioni Laravel della Pubblica Amministrazione italiana. Espone componenti Blade basati su Bootstrap Italia 2.18.3 per layout istituzionali, navigazione, moduli, messaggi e accesso tramite SPID e CIE. Il bundle distribuito è circa 250 KB gzip; Node.js serve solo per compilare gli asset del pacchetto.
