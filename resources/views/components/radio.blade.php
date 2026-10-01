@@ -11,7 +11,7 @@
         type="radio"
         id="{{ $fieldId() }}"
         name="{{ $name }}"
-        @if (filled($value)) value="{{ $value }}" @endif
+        @if (filled($normalizeValue($value))) value="{{ $normalizeValue($value) }}" @endif
         {{ $attributes->except('id')->class([$inputClass()])->merge([
             'aria-invalid' => $hasError() ? 'true' : null,
             'aria-describedby' => $describedByIds,
