@@ -35,3 +35,29 @@ jobs:
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit --colors=always
+
+  assets:
+    runs-on: ubuntu-latest
+    name: Assets in sync
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Check for drift
+        run: |
+          if ! git diff --exit-code resources/dist/; then
+            echo ""
+            echo "resources/dist/ is out of sync with sources."
+            echo "Run 'npm run build' locally and commit the changes."
+            exit 1
+          fi
