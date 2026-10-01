@@ -53,6 +53,6 @@ class Card extends BaseComponent
 
     public function imageAltText(): string
     {
-        return $this->imageAlt ?? $this->title ?? '';
+        return $this->imageAlt ?? '';
     }
 }
