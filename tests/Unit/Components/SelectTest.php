@@ -7,6 +7,11 @@ use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Testbench\TestCase;
 
+enum SelectTestStatus: string
+{
+    case Approved = 'approved';
+}
+
 class SelectTest extends TestCase
 {
     protected function getPackageProviders($app): array
@@ -109,6 +114,13 @@ class SelectTest extends TestCase
 
         $this->assertStringContainsString('<option value="fr" selected>Francia</option>', $html);
         $this->assertStringNotContainsString('<option value="it" selected', $html);
+    }
+
+    public function test_select_accepts_backed_enum_value(): void
+    {
+        $html = (string) $this->blade('@php($status = \\IgorSmoleac\\DesignLaravelKit\\Tests\\Unit\\Components\\SelectTestStatus::Approved)<x-italia::select name="status" :options="[\'approved\' => \'Approved\']" :selected="$status" />');
+
+        $this->assertStringContainsString('<option value="approved" selected>Approved</option>', $html);
     }
 
     public function test_selected_from_old_input_when_no_selected_prop(): void

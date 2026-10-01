@@ -13,7 +13,7 @@ class Input extends BaseFormComponent
         public string $name,
         public string $type = 'text',
         public ?string $label = null,
-        public ?string $value = null,
+        public string|int|float|\BackedEnum|null $value = null,
         public ?string $hint = null,
         public bool $required = false,
         public bool $disabled = false,

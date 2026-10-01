@@ -5,6 +5,16 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Orchestra\Testbench\TestCase;
 
+enum InputTestStatus: string
+{
+    case Shipped = 'shipped';
+}
+
+enum InputTestPriority: int
+{
+    case High = 2;
+}
+
 class InputTest extends TestCase
 {
     protected function getPackageProviders($app): array
@@ -215,6 +225,20 @@ class InputTest extends TestCase
         $html = (string) $this->blade('<x-italia::input name="email" value="test@example.com" />');
 
         $this->assertStringContainsString('value="test@example.com"', $html);
+    }
+
+    public function test_input_accepts_backed_enum_value(): void
+    {
+        $html = (string) $this->blade('@php($status = \\IgorSmoleac\\DesignLaravelKit\\Tests\\Unit\\Components\\InputTestStatus::Shipped)<x-italia::input name="status" :value="$status" />');
+
+        $this->assertStringContainsString('value="shipped"', $html);
+    }
+
+    public function test_input_accepts_int_backed_enum_value(): void
+    {
+        $html = (string) $this->blade('@php($priority = \\IgorSmoleac\\DesignLaravelKit\\Tests\\Unit\\Components\\InputTestPriority::High)<x-italia::input name="priority" :value="$priority" />');
+
+        $this->assertStringContainsString('value="2"', $html);
     }
 
     public function test_old_value_is_used_when_no_value_prop(): void
