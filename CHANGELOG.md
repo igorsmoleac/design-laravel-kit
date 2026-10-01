@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Documentazione sulle limitazioni degli ID generati (`spl_object_id`): stabili solo all'interno dello stesso render.
 - CI: verifica che `resources/dist/` sia sincronizzato con le sorgenti (fallisce se manca `npm run build` dopo modifiche a CSS/JS).
+- Documentazione sull'implementazione dei pulsanti SPID/CIE: non sono 1:1 con il kit ufficiale `italia/spid-sp-access-button`.
 
 ### Changed
 - Aggiunta la dipendenza esplicita `illuminate/console` in `composer.json` (era usata transitivamente).

@@ -194,6 +194,15 @@ I componenti Blade usano il prefisso `<x-italia::`.
 | `<x-italia::spid-button>` | Pulsante di accesso SPID |
 | `<x-italia::cie-button>` | Pulsante di accesso CIE |
 
+### Nota sui pulsanti SPID e CIE
+
+I pulsanti `<x-italia::spid-button>` e `<x-italia::cie-button>` forniscono un'implementazione autonoma con colori, dimensioni e spaziature ragionevoli, basata sui loghi ufficiali AgID. **Non sono 1:1 con il kit ufficiale [spid-sp-access-button](https://github.com/italia/spid-sp-access-button)**, che specifica dimensioni, colori per ogni stato (normal/hover/focus/pressed) e loghi per stato.
+
+Per una conformità AgID rigorosa su siti PA in produzione:
+
+- usare la libreria ufficiale `italia/spid-sp-access-button` insieme a questo pacchetto, oppure
+- sovrascrivere le classi `.dlk-spid-button` e `.dlk-cie-button` con CSS personalizzato conforme alla specifica ufficiale.
+
 ### Note sugli ID
 
 I componenti generano ID HTML univoci tramite `spl_object_id()`. Gli ID sono **stabili all'interno di un singolo render** ma **non tra richieste diverse**. Se il rendering di un componente viene cachato separatamente (es. `Cache::remember`), possono verificarsi collisioni di ID. In questo caso passare un ID esplicito via attributo `id="..."`. Con il morphing DOM di Livewire, passare un ID esplicito se i riferimenti ARIA devono restare stabili tra i render.

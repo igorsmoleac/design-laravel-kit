@@ -45,7 +45,19 @@
     margin-bottom: 2rem;
 }
 
-/* SPID / CIE access buttons — not part of Bootstrap Italia, minimal dlk- styles */
+/*
+ * SPID and CIE login buttons — approximation of the official AgID kit.
+ *
+ * This is a self-contained implementation with reasonable defaults (colors,
+ * padding, sizes). It does NOT aim to be 1:1 with the official
+ * italia/spid-sp-access-button kit, which has strictly regulated sizes,
+ * colors for every state (normal/hover/focus/pressed) and state-specific
+ * logos.
+ *
+ * For strict AgID compliance on production PA sites, either:
+ *  - use the official italia/spid-sp-access-button library alongside this package, or
+ *  - override these classes with your own CSS that matches the official spec.
+ */
 .dlk-spid-button,
 .dlk-cie-button {
     display: inline-flex;
