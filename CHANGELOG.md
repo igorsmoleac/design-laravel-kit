@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+- Footer: le legal link accettano ora `dataElement`, `data-element` e `data_element` per l'attributo HTML `data-element` (prima era supportato solo camelCase).
 
 ## [0.3.0] - 2026-10-01
 

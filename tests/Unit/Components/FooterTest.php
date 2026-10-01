@@ -233,6 +233,42 @@ class FooterTest extends TestCase
         $this->assertMatchesRegularExpression('/<a[^>]*href="\/note-legali"[^>]*>(?:(?!data-element).)*<\/a>/s', $html);
     }
 
+    public function test_legal_link_accepts_camel_case_data_element(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
+            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy', 'dataElement' => 'privacy-policy-link']],
+        ]);
+
+        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*data-element="privacy-policy-link"[^>]*>/', $html);
+    }
+
+    public function test_legal_link_accepts_kebab_case_data_element(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
+            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy', 'data-element' => 'privacy-policy-link']],
+        ]);
+
+        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*data-element="privacy-policy-link"[^>]*>/', $html);
+    }
+
+    public function test_legal_link_accepts_snake_case_data_element(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
+            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy', 'data_element' => 'privacy-policy-link']],
+        ]);
+
+        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*data-element="privacy-policy-link"[^>]*>/', $html);
+    }
+
+    public function test_legal_link_without_data_element_has_no_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
+            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy']],
+        ]);
+
+        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*>(?:(?!data-element).)*<\/a>/s', $html);
+    }
+
     public function test_copyright_renders_in_small_prints_not_in_main(): void
     {
         $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" copyright="© 2026 Comune di Roma — Tutti i diritti riservati" />');

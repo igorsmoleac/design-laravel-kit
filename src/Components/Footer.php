@@ -45,6 +45,14 @@ class Footer extends BaseComponent
         return $this->legalLinks !== [];
     }
 
+    public function legalLinkDataElement(array $link): ?string
+    {
+        return $link['dataElement']
+            ?? $link['data-element']
+            ?? $link['data_element']
+            ?? null;
+    }
+
     public function hasLogo(): bool
     {
         return $this->logo !== null;
