@@ -194,6 +194,31 @@ Blade components use the `<x-italia::` prefix.
 | `<x-italia::spid-button>` | SPID login button |
 | `<x-italia::cie-button>` | CIE login button |
 
+### Modal
+
+Dialog with ARIA attributes and automatic focus trap (via Bootstrap Italia JavaScript). The `id` parameter is **required** to link the `data-bs-target` trigger.
+
+```blade
+<x-italia::button data-bs-toggle="modal" data-bs-target="#confirm-modal">
+    Open confirmation
+</x-italia::button>
+
+<x-italia::modal
+    id="confirm-modal"
+    title="Confirm action"
+    description="This operation cannot be undone."
+>
+    Are you sure you want to proceed?
+
+    <x-slot:footer>
+        <x-italia::button variant="primary">Confirm</x-italia::button>
+        <x-italia::button variant="outline" data-bs-dismiss="modal">Cancel</x-italia::button>
+    </x-slot:footer>
+</x-italia::modal>
+```
+
+Without `id`, the component generates a unique ID (`dlk-modal-...`) that cannot be referenced by a static `data-bs-target` trigger.
+
 Component examples are in the [playground catalog](https://github.com/igorsmoleac/design-laravel-kit/blob/main/playground/resources/views/catalog.blade.php), which is used during development.
 
 ## Accessibility

@@ -53,15 +53,28 @@ class ModalTest extends TestCase
         $this->assertSame($titleId[1], $labelledBy[1]);
     }
 
-    public function test_aria_describedby_references_existing_body_id(): void
+    public function test_modal_without_description_has_no_aria_describedby(): void
     {
         $html = (string) $this->blade('<x-italia::modal title="T">C</x-italia::modal>');
 
-        preg_match('/aria-describedby="([^"]+)"/', $html, $describedBy);
-        preg_match('/id="([^"]+-body)"/', $html, $bodyId);
+        $this->assertStringNotContainsString('aria-describedby=', $html);
+        $this->assertStringNotContainsString('modal-description', $html);
+    }
 
-        $this->assertNotEmpty($describedBy);
-        $this->assertSame($bodyId[1], $describedBy[1]);
+    public function test_modal_with_description_has_aria_describedby(): void
+    {
+        $html = (string) $this->blade('<x-italia::modal id="test" title="T" description="Descrizione">C</x-italia::modal>');
+
+        $this->assertStringContainsString('aria-describedby="test-description"', $html);
+        $this->assertStringContainsString('<p id="test-description">Descrizione</p>', $html);
+    }
+
+    public function test_modal_with_description_renders_description_text(): void
+    {
+        $html = (string) $this->blade('<x-italia::modal title="T" description="This operation cannot be undone.">C</x-italia::modal>');
+
+        $this->assertStringContainsString('<p id="dlk-modal-', $html);
+        $this->assertStringContainsString('>This operation cannot be undone.</p>', $html);
     }
 
     public function test_title_renders_in_modal_title(): void
@@ -129,7 +142,7 @@ class ModalTest extends TestCase
         $this->assertStringContainsString('data-bs-keyboard="false"', $html);
     }
 
-    public function test_explicit_id_is_used(): void
+    public function test_modal_uses_explicit_id_when_provided(): void
     {
         $html = (string) $this->blade('<x-italia::modal id="my-modal" title="T">C</x-italia::modal>');
 
@@ -139,7 +152,7 @@ class ModalTest extends TestCase
         $this->assertStringContainsString('aria-labelledby="my-modal-title"', $html);
     }
 
-    public function test_generated_id_is_unique_per_instance(): void
+    public function test_modal_generates_unique_id_when_not_provided(): void
     {
         $html = (string) $this->blade('<x-italia::modal title="A">C</x-italia::modal><x-italia::modal title="B">C</x-italia::modal>');
 
