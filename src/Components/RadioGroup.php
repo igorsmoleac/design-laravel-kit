@@ -6,11 +6,9 @@ use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFormField;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 
-class RadioGroup extends BaseComponent
+class RadioGroup extends BaseFormComponent
 {
     use HandlesFormField;
-
-    protected string $bag;
 
     public bool $grouped = true;
 
@@ -21,9 +19,9 @@ class RadioGroup extends BaseComponent
         public ?string $legend = null,
         public ?string $hint = null,
         public bool $required = false,
-        public string $errorBag = 'default',
+        string $bag = 'default',
     ) {
-        $this->bag = $this->errorBag;
+        $this->bag = $bag;
     }
 
     public function render(): View

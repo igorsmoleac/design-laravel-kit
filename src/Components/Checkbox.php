@@ -5,7 +5,7 @@ namespace IgorSmoleac\DesignLaravelKit\Components;
 use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFormField;
 use Illuminate\Contracts\View\View;
 
-class Checkbox extends BaseComponent
+class Checkbox extends BaseFormComponent
 {
     use HandlesFormField;
 

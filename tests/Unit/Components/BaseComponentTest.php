@@ -3,10 +3,7 @@
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\Components\BaseComponent;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
-use Illuminate\Support\ViewErrorBag;
 use Illuminate\View\ComponentAttributeBag;
 use Orchestra\Testbench\TestCase;
 
@@ -18,20 +15,7 @@ class DummyComponent extends BaseComponent
     }
 }
 
-class DummyHintComponent extends BaseComponent
-{
-    public function render(): string
-    {
-        return 'dummy';
-    }
-
-    protected function hasHint(): bool
-    {
-        return true;
-    }
-}
-
-class DummyCheckboxComponent extends BaseComponent
+class DummyCustomIdComponent extends BaseComponent
 {
     public function render(): string
     {
@@ -88,7 +72,6 @@ class BaseComponentTest extends TestCase
         $component = $this->makeComponent(['id' => 'custom-id', 'name' => 'email']);
 
         $this->assertSame('custom-id', $component->id());
-        $this->assertSame('custom-id-error', $component->errorId());
     }
 
     public function test_id_is_stable_across_multiple_calls(): void
@@ -111,94 +94,11 @@ class BaseComponentTest extends TestCase
         $this->assertMatchesRegularExpression('/^dlk-dummy-component-\d+$/', $this->makeComponent()->id());
     }
 
-    public function test_error_and_hint_ids_derive_from_id(): void
+    public function test_id_uses_overridden_seed(): void
     {
-        $component = $this->makeComponent(['name' => 'email']);
-
-        $this->assertSame($component->id() . '-error', $component->errorId());
-        $this->assertSame($component->id() . '-hint', $component->hintId());
-    }
-
-    public function test_no_errors_by_default(): void
-    {
-        $component = $this->makeComponent(['name' => 'email']);
-
-        $this->assertFalse($component->hasError());
-        $this->assertNull($component->errorMessage());
-        $this->assertSame([], $component->ariaAttributes());
-    }
-
-    public function test_binds_shared_errors(): void
-    {
-        $this->shareErrors(['email' => 'The email field is required.']);
-
-        $component = $this->makeComponent(['name' => 'email']);
-
-        $this->assertTrue($component->hasError());
-        $this->assertSame('The email field is required.', $component->errorMessage());
-    }
-
-    public function test_error_lookup_uses_dot_notation(): void
-    {
-        $this->shareErrors(['user.email' => 'The email is invalid.']);
-
-        $component = $this->makeComponent(['name' => 'user[email]']);
-
-        $this->assertTrue($component->hasError());
-        $this->assertSame('The email is invalid.', $component->errorMessage());
-    }
-
-    public function test_overridden_id_seed_does_not_break_error_binding(): void
-    {
-        $this->shareErrors(['roles' => 'The roles field is required.']);
-
-        $component = new DummyCheckboxComponent;
+        $component = new DummyCustomIdComponent;
         $component->attributes = new ComponentAttributeBag(['name' => 'roles[]', 'value' => 'admin']);
 
-        $this->assertTrue($component->hasError());
-        $this->assertSame('The roles field is required.', $component->errorMessage());
         $this->assertMatchesRegularExpression('/^dlk-roles-admin-\d+$/', $component->id());
-    }
-
-    public function test_aria_attributes_on_error(): void
-    {
-        $this->shareErrors(['email' => 'The email field is required.']);
-
-        $component = $this->makeComponent(['name' => 'email', 'required' => true]);
-
-        $this->assertSame([
-            'aria-invalid' => 'true',
-            'aria-required' => 'true',
-            'aria-describedby' => $component->errorId(),
-        ], $component->ariaAttributes());
-    }
-
-    public function test_described_by_includes_hint_and_error(): void
-    {
-        $this->shareErrors(['email' => 'The email field is required.']);
-
-        $component = new DummyHintComponent;
-        $component->attributes = new ComponentAttributeBag(['name' => 'email']);
-
-        $this->assertSame(
-            $component->hintId() . ' ' . $component->errorId(),
-            $component->describedBy()
-        );
-    }
-
-    public function test_component_without_name_has_no_error_state(): void
-    {
-        $this->shareErrors(['email' => 'The email field is required.']);
-
-        $component = $this->makeComponent();
-
-        $this->assertFalse($component->hasError());
-        $this->assertNull($component->errorMessage());
-        $this->assertSame([], $component->ariaAttributes());
-    }
-
-    private function shareErrors(array $messages): void
-    {
-        View::share('errors', (new ViewErrorBag)->put('default', new MessageBag($messages)));
     }
 }

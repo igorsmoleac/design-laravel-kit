@@ -5,7 +5,7 @@ namespace IgorSmoleac\DesignLaravelKit\Components;
 use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFormField;
 use Illuminate\Contracts\View\View;
 
-class Input extends BaseComponent
+class Input extends BaseFormComponent
 {
     use HandlesFormField;
 

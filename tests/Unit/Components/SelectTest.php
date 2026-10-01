@@ -363,7 +363,7 @@ class SelectTest extends TestCase
         $this->assertMatchesRegularExpression('/<label[^>]*>.*<\/label>\s*<select/', $html);
     }
 
-    public function test_named_error_bag_is_respected(): void
+    public function test_named_bag_is_respected(): void
     {
         $this->withViewErrors(['country' => 'Bag error.'], 'custom');
 

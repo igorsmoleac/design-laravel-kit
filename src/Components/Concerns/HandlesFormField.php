@@ -15,23 +15,6 @@ trait HandlesFormField
         return $this->id();
     }
 
-    public function hasError(): bool
-    {
-        return ($field = $this->errorField()) !== null
-            && $this->errors()->getBag($this->bag)->has($field);
-    }
-
-    public function errorMessage(): ?string
-    {
-        $field = $this->errorField();
-
-        if ($field === null) {
-            return null;
-        }
-
-        return $this->errors()->getBag($this->bag)->first($field) ?: null;
-    }
-
     public function inputClass(): string
     {
         return collect(['form-control', $this->hasError() ? 'is-invalid' : null])
@@ -80,20 +63,5 @@ trait HandlesFormField
     public function hasValue(): bool
     {
         return filled($this->inputValue());
-    }
-
-    protected function idSeed(): ?string
-    {
-        return $this->name;
-    }
-
-    protected function errorField(): ?string
-    {
-        return $this->toDotNotation($this->name);
-    }
-
-    protected function hasHint(): bool
-    {
-        return filled($this->hint);
     }
 }

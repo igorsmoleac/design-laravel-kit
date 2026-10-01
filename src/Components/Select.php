@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 
-class Select extends BaseComponent
+class Select extends BaseFormComponent
 {
     use HandlesFormField;
 
