@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.4.1] - 2026-10-01
+
+### Fixed
+- Ricostruita la demo statica per GitHub Pages con il catalogo aggiornato (stile `.catalog-example`, layout Card/Select).
+
 ## [0.4.0] - 2026-10-01
 
 ### Added
