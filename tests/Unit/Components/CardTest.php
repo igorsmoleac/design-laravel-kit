@@ -79,11 +79,11 @@ class CardTest extends TestCase
         $this->assertStringContainsString('src="https://example.com/a.jpg"', $html);
     }
 
-    public function test_image_alt_defaults_to_title(): void
+    public function test_image_without_explicit_alt_has_empty_alt(): void
     {
         $html = (string) $this->blade('<x-italia::card title="Titolo" image="https://example.com/a.jpg">Testo</x-italia::card>');
 
-        $this->assertStringContainsString('alt="Titolo"', $html);
+        $this->assertStringContainsString('alt=""', $html);
     }
 
     public function test_image_alt_can_be_overridden(): void
