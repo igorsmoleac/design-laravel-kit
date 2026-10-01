@@ -194,6 +194,10 @@ Blade components use the `<x-italia::` prefix.
 | `<x-italia::spid-button>` | SPID login button |
 | `<x-italia::cie-button>` | CIE login button |
 
+### ID notes
+
+Components generate unique HTML IDs via `spl_object_id()`. IDs are **stable within a single render** but **not across requests**. If a component's HTML is cached separately (e.g. `Cache::remember`), ID collisions may occur. In that case, pass an explicit `id="..."` attribute. With Livewire DOM morphing, pass an explicit ID if ARIA references must remain stable across renders.
+
 ### Modal
 
 Dialog with ARIA attributes and automatic focus trap (via Bootstrap Italia JavaScript). The `id` parameter is **required** to link the `data-bs-target` trigger.

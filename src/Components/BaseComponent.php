@@ -44,9 +44,12 @@ abstract class BaseComponent extends Component
     }
 
     /**
-     * spl_object_id() guarantees unique ids per instance within a single
-     * render — duplicate ids violate WCAG 2.1 AA (Legge Stanca) and break
-     * label/for binding when the same field name appears twice on a page.
+     * Builds a unique ID for this component instance.
+     *
+     * `spl_object_id()` guarantees uniqueness within a single render. IDs are not
+     * stable across requests and must not be cached separately from the parent
+     * view: PHP may reuse object IDs after garbage collection, causing collisions
+     * in concurrent caches.
      */
     protected function buildBaseId(): string
     {

@@ -194,6 +194,10 @@ I componenti Blade usano il prefisso `<x-italia::`.
 | `<x-italia::spid-button>` | Pulsante di accesso SPID |
 | `<x-italia::cie-button>` | Pulsante di accesso CIE |
 
+### Note sugli ID
+
+I componenti generano ID HTML univoci tramite `spl_object_id()`. Gli ID sono **stabili all'interno di un singolo render** ma **non tra richieste diverse**. Se il rendering di un componente viene cachato separatamente (es. `Cache::remember`), possono verificarsi collisioni di ID. In questo caso passare un ID esplicito via attributo `id="..."`. Con il morphing DOM di Livewire, passare un ID esplicito se i riferimenti ARIA devono restare stabili tra i render.
+
 ### Modal
 
 Finestra di dialogo con attributi ARIA e focus trap automatico (tramite il JavaScript di Bootstrap Italia). Il parametro `id` è **obbligatorio** per collegare il trigger `data-bs-target`.
