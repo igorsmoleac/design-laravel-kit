@@ -251,7 +251,7 @@ class CheckboxTest extends TestCase
         $this->assertStringContainsString('for="my-terms"', $html);
     }
 
-    public function test_named_error_bag_is_respected(): void
+    public function test_named_bag_is_respected(): void
     {
         $this->withViewErrors(['terms' => 'Bag error.'], 'custom');
 

@@ -210,7 +210,7 @@ class RadioTest extends TestCase
         $this->assertStringContainsString('for="my-gender"', $html);
     }
 
-    public function test_named_error_bag_is_respected(): void
+    public function test_named_bag_is_respected(): void
     {
         $this->withViewErrors(['gender' => 'Bag error.'], 'custom');
 

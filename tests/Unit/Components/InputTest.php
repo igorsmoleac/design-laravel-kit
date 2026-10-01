@@ -280,7 +280,7 @@ class InputTest extends TestCase
         $this->assertStringNotContainsString('class="active"', $html);
     }
 
-    public function test_named_error_bag_is_respected(): void
+    public function test_named_bag_is_respected(): void
     {
         $this->withViewErrors(['email' => 'Bag error.'], 'custom');
 

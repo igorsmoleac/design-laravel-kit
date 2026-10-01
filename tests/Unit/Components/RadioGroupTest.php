@@ -130,11 +130,11 @@ class RadioGroupTest extends TestCase
         $this->assertStringNotContainsString('form-text', $html);
     }
 
-    public function test_error_bag_selects_group_validation_message(): void
+    public function test_bag_selects_group_validation_message(): void
     {
         $this->withViewErrors(['gender' => 'Custom bag error.'], 'custom');
 
-        $html = (string) $this->blade('<x-italia::radio-group name="gender" error-bag="custom" />');
+        $html = (string) $this->blade('<x-italia::radio-group name="gender" bag="custom" />');
 
         $this->assertStringContainsString('Custom bag error.', $html);
     }

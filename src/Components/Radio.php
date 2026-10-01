@@ -5,7 +5,7 @@ namespace IgorSmoleac\DesignLaravelKit\Components;
 use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFormField;
 use Illuminate\Contracts\View\View;
 
-class Radio extends BaseComponent
+class Radio extends BaseFormComponent
 {
     use HandlesFormField;
 

@@ -290,7 +290,7 @@ class TextareaTest extends TestCase
         $this->assertStringContainsString('form-label', $html);
     }
 
-    public function test_named_error_bag_is_respected(): void
+    public function test_named_bag_is_respected(): void
     {
         $this->withViewErrors(['bio' => 'Bag error.'], 'custom');
 
