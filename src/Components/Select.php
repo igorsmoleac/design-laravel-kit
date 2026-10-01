@@ -18,7 +18,7 @@ class Select extends BaseFormComponent
         array|Collection|Arrayable $options = [],
         public ?string $label = null,
         public ?string $placeholder = null,
-        public string|array|null $selected = null,
+        public string|int|float|\BackedEnum|array|null $selected = null,
         public ?string $hint = null,
         public bool $multiple = false,
         public bool $required = false,
@@ -64,9 +64,13 @@ class Select extends BaseFormComponent
 
     public function selectedValue(): string|array|null
     {
-        $old = session()->getOldInput($this->errorField() ?? $this->name);
+        $selected = session()->getOldInput($this->errorField() ?? $this->name) ?? $this->selected;
 
-        return $old ?? $this->selected;
+        if (is_array($selected)) {
+            return array_map(fn ($value) => $this->normalizeValue($value), $selected);
+        }
+
+        return $this->normalizeValue($selected);
     }
 
     public function isSelected(string|int $value): bool
@@ -88,6 +92,6 @@ class Select extends BaseFormComponent
     {
         $selected = $this->selectedValue();
 
-        return $selected !== null && $selected !== [];
+        return is_array($selected) ? $selected !== [] : $this->normalizeValue($selected) !== null;
     }
 }

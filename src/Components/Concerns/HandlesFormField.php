@@ -27,16 +27,25 @@ trait HandlesFormField
         return $this->label ?? Str::headline(str_replace(['[', ']'], ' ', $this->name));
     }
 
+    public function normalizeValue(mixed $value): ?string
+    {
+        if ($value instanceof \BackedEnum) {
+            return (string) $value->value;
+        }
+
+        return is_scalar($value) ? (string) $value : null;
+    }
+
     public function inputValue(): ?string
     {
         $field = $this->errorField() ?? $this->name;
         $old = session()->getOldInput($field);
 
         if (is_scalar($old)) {
-            return (string) $old;
+            return $this->normalizeValue($old);
         }
 
-        return $this->value;
+        return $this->normalizeValue($this->value);
     }
 
     /**
@@ -54,14 +63,14 @@ trait HandlesFormField
         $old = session()->getOldInput($this->errorField() ?? $this->name);
 
         if (is_array($old)) {
-            return in_array((string) $this->value, array_map(strval(...), $old), true);
+            return in_array($this->normalizeValue($this->value) ?? '', array_map(fn ($value) => $this->normalizeValue($value) ?? '', $old), true);
         }
 
-        return $old !== null && (string) $old === (string) ($this->value ?? 'on');
+        return $old !== null && $this->normalizeValue($old) === ($this->normalizeValue($this->value) ?? 'on');
     }
 
     public function hasValue(): bool
     {
-        return filled($this->inputValue());
+        return filled($this->normalizeValue($this->inputValue()));
     }
 }

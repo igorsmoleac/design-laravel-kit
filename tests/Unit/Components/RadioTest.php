@@ -5,6 +5,11 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Orchestra\Testbench\TestCase;
 
+enum RadioTestStatus: string
+{
+    case Active = 'active';
+}
+
 class RadioTest extends TestCase
 {
     protected function getPackageProviders($app): array
@@ -100,6 +105,16 @@ class RadioTest extends TestCase
         $html = (string) $this->blade('<x-italia::radio name="gender" value="m" />');
 
         $this->assertStringContainsString('value="m"', $html);
+    }
+
+    public function test_radio_accepts_backed_enum_value(): void
+    {
+        $this->withSession(['_old_input' => ['gender' => 'active']]);
+
+        $html = (string) $this->blade('@php($status = \\IgorSmoleac\\DesignLaravelKit\\Tests\\Unit\\Components\\RadioTestStatus::Active)<x-italia::radio name="gender" :value="$status" />');
+
+        $this->assertStringContainsString('value="active"', $html);
+        $this->assertStringContainsString('checked="checked"', $html);
     }
 
     public function test_ids_are_unique_per_instance(): void

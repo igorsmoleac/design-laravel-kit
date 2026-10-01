@@ -5,6 +5,11 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Orchestra\Testbench\TestCase;
 
+enum CheckboxTestStatus: string
+{
+    case Accepted = 'accepted';
+}
+
 class CheckboxTest extends TestCase
 {
     protected function getPackageProviders($app): array
@@ -107,6 +112,16 @@ class CheckboxTest extends TestCase
         $html = (string) $this->blade('<x-italia::checkbox name="newsletter" value="yes" />');
 
         $this->assertStringContainsString('value="yes"', $html);
+    }
+
+    public function test_checkbox_accepts_backed_enum_value(): void
+    {
+        $this->withSession(['_old_input' => ['terms' => 'accepted']]);
+
+        $html = (string) $this->blade('@php($status = \\IgorSmoleac\\DesignLaravelKit\\Tests\\Unit\\Components\\CheckboxTestStatus::Accepted)<x-italia::checkbox name="terms" :value="$status" />');
+
+        $this->assertStringContainsString('value="accepted"', $html);
+        $this->assertStringContainsString('checked="checked"', $html);
     }
 
     public function test_no_value_attribute_when_not_provided(): void

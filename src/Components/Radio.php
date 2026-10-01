@@ -11,7 +11,7 @@ class Radio extends BaseFormComponent
 
     public function __construct(
         public string $name,
-        public ?string $value = null,
+        public string|int|float|\BackedEnum|null $value = null,
         public ?string $label = null,
         public bool $checked = false,
         public bool $disabled = false,
