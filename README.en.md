@@ -194,6 +194,15 @@ Blade components use the `<x-italia::` prefix.
 | `<x-italia::spid-button>` | SPID login button |
 | `<x-italia::cie-button>` | CIE login button |
 
+### SPID and CIE buttons note
+
+The `<x-italia::spid-button>` and `<x-italia::cie-button>` components provide a self-contained implementation with reasonable colors, sizes and paddings, based on the official AgID logos. **They are NOT 1:1 with the official [spid-sp-access-button](https://github.com/italia/spid-sp-access-button) kit**, which specifies sizes, colors for every state (normal/hover/focus/pressed) and state-specific logos.
+
+For strict AgID compliance on production PA sites:
+
+- use the official `italia/spid-sp-access-button` library alongside this package, or
+- override the `.dlk-spid-button` and `.dlk-cie-button` classes with custom CSS matching the official spec.
+
 ### ID notes
 
 Components generate unique HTML IDs via `spl_object_id()`. IDs are **stable within a single render** but **not across requests**. If a component's HTML is cached separately (e.g. `Cache::remember`), ID collisions may occur. In that case, pass an explicit `id="..."` attribute. With Livewire DOM morphing, pass an explicit ID if ARIA references must remain stable across renders.
