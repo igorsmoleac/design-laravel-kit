@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Documentazione sulle limitazioni degli ID generati (`spl_object_id`): stabili solo all'interno dello stesso render.
 
 ### Changed
 - Aggiunta la dipendenza esplicita `illuminate/console` in `composer.json` (era usata transitivamente).
