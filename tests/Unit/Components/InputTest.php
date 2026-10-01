@@ -281,6 +281,14 @@ class InputTest extends TestCase
         $this->assertStringContainsString('wire:model="email"', $html);
     }
 
+    public function test_label_is_active_when_placeholder_is_set(): void
+    {
+        $html = (string) $this->blade('<x-italia::input name="cf" label="Codice Fiscale" placeholder="RSSMRA80A01H501U" />');
+
+        $this->assertStringContainsString('placeholder="RSSMRA80A01H501U"', $html);
+        $this->assertStringContainsString('class="active"', $html);
+    }
+
     public function test_label_has_active_class_when_value_provided(): void
     {
         $html = (string) $this->blade('<x-italia::input name="email" value="test@example.com" />');

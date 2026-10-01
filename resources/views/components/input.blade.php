@@ -14,7 +14,7 @@
                 'readonly' => $readonly,
             ]) }}
         >
-        <label for="{{ $fieldId() }}" @if ($hasValue()) class="active" @endif>{{ $labelText() }}@if ($required)
+        <label for="{{ $fieldId() }}" @if ($hasValue() || filled($attributes->get('placeholder'))) class="active" @endif>{{ $labelText() }}@if ($required)
             <span class="text-danger" aria-hidden="true">*</span>
             <span class="visually-hidden">{{ __('design-laravel-kit::(obbligatorio)') }}</span>
         @endif</label>

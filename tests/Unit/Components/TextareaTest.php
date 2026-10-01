@@ -245,6 +245,14 @@ class TextareaTest extends TestCase
         $this->assertStringNotContainsString('>Default</textarea>', $html);
     }
 
+    public function test_label_is_active_when_placeholder_is_set(): void
+    {
+        $html = (string) $this->blade('<x-italia::textarea name="message" label="Message" placeholder="Write a message" />');
+
+        $this->assertStringContainsString('placeholder="Write a message"', $html);
+        $this->assertStringContainsString('class="active"', $html);
+    }
+
     public function test_label_has_active_class_when_value_provided(): void
     {
         $html = (string) $this->blade('<x-italia::textarea name="bio" value="Testo" />');
