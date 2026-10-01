@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="Eg57KGHqExFAgTckDxLXiIRZ2feS3gqDEnt6cwnB">
+    <title>Catalogo dei componenti — design-laravel-kit</title>
+            <meta name="description" content="Catalogo di tutti i componenti di design-laravel-kit">
+        <link rel="stylesheet" href="vendor/design-laravel-kit/css/design-laravel-kit.css">            <style>
+            html { scroll-behavior: smooth; }
+            .catalog-section { scroll-margin-top: 80px; }
+            .catalog-nav {
+                position: sticky;
+                top: 80px;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+                background: var(--bs-gray-100, #f5f5f5);
+                border-radius: 4px;
+                padding: 16px;
+            }
+            .catalog-section {
+                border-top: 1px solid var(--bs-border-color, #e0e0e0);
+                padding-top: 32px;
+                margin-top: 32px;
+            }
+            .catalog-section:first-of-type {
+                border-top: none;
+                padding-top: 0;
+                margin-top: 0;
+            }
+            .catalog-example {
+                background: #fff;
+                border: 1px solid var(--bs-border-color, #e0e0e0);
+                border-radius: 4px;
+                padding: 24px;
+                margin: 16px 0;
+            }
+            .catalog-code { margin: 16px 0; }
+            .catalog-code summary {
+                cursor: pointer;
+                padding: 8px 12px;
+                background: var(--bs-gray-100, #f5f5f5);
+                border-radius: 4px;
+                font-weight: 600;
+            }
+            .catalog-code pre {
+                background: #1c1c1c;
+                color: #f5f5f5;
+                padding: 20px;
+                border-radius: 4px;
+                overflow-x: auto;
+                font-family: ui-monospace, 'Roboto Mono', Menlo, Monaco, monospace;
+                font-size: 13px;
+                line-height: 1.6;
+                white-space: pre;
+            }
+            .catalog-code pre code {
+                color: inherit;
+                font-size: inherit;
+            }
+            .catalog-icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 16px; }
+            .catalog-icon-grid .catalog-icon-item { text-align: center; }
+        </style>
+    </head>
+<body class="bg-white">
+            <a class="visually-hidden-focusable" href="#main">Skip to main content</a>
+    
+    <header class="it-header-wrapper" >
+            <div class="it-header-slim-wrapper" >
+    <div class="container-xxl">
+        <div class="row">
+            <div class="col-12">
+                <div class="it-header-slim-wrapper-content">
+                                            <a class="d-none d-lg-block navbar-brand" href="https://github.com/igorsmoleac/design-laravel-kit">design-laravel-kit</a>
+                                                                <div class="nav-mobile">
+                            <nav aria-label="Secondary navigation">
+                                <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#dlk-header-slim-436-mobile-menu" role="button" aria-expanded="false" aria-controls="dlk-header-slim-436-mobile-menu">
+                                    <span>design-laravel-kit</span>
+                                    <svg
+    class="icon"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-expand"></use>
+</svg>
+                                </a>
+                                <div class="link-list-wrapper collapse" id="dlk-header-slim-436-mobile-menu">
+                                    <ul class="link-list">
+                                                                                    <li>
+                                                <a
+                                                    class="dropdown-item list-item"
+                                                    href="./"
+                                                                                                    >Catalogo</a>
+                                            </li>
+                                                                            </ul>
+                                </div>
+                            </nav>
+                        </div>
+                                                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+            <div class="it-nav-wrapper">
+                            <div id="dlk-header-center-540" class="it-header-center-wrapper">
+    <div class="container-xxl">
+        <div class="row">
+            <div class="col-12">
+                <div class="it-header-center-content-wrapper">
+                    <div class="it-brand-wrapper">
+                        <a href="./">
+                                                            <img class="icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjIiIGZpbGw9IjAwNjZjYyIvPjwvc3ZnPg==" alt="design-laravel-kit">
+                                                        <div class="it-brand-text">
+                                <div class="it-brand-title">design-laravel-kit</div>
+                                                                    <div class="it-brand-tagline d-none d-md-block">Componenti Bootstrap Italia per Laravel</div>
+                                                            </div>
+                        </a>
+                    </div>
+
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+            
+                            <div class="it-header-navbar-wrapper" >
+        <div class="container-xxl">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" aria-label="Main menu">
+                        <button
+                            class="custom-navbar-toggler"
+                            type="button"
+                            aria-controls="dlk-header-navbar-541-menu"
+                            aria-expanded="false"
+                            aria-label="Open menu"
+                            data-bs-toggle="navbarcollapsible"
+                            data-bs-target="#dlk-header-navbar-541-menu"
+                        >
+                            <svg
+    class="icon"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-burger"></use>
+</svg>
+                        </button>
+                        <div class="navbar-collapsable" id="dlk-header-navbar-541-menu">
+                            <div class="overlay"></div>
+                            <div class="close-div">
+                                <button class="btn close-menu" type="button">
+                                    <svg
+    class="icon"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-close"></use>
+</svg>
+                                    <span>Close</span>
+                                </button>
+                            </div>
+                            <div class="menu-wrapper">
+                                <ul class="navbar-nav">
+                                                                                                                        <li class="nav-item">
+                                                <a
+                                                    class="nav-link active"
+                                                    href="./"
+                                                     aria-current="page"                                                 ><span>Catalogo</span></a>
+                                            </li>
+                                                                                                            </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+                    </div>
+    </header>
+
+    
+
+    <main id="main" class="container my-4">
+        <div class="row g-4">
+        <div class="col-lg-3 d-none d-lg-block">
+            <nav class="catalog-nav link-list-wrapper" aria-label="Componenti">
+                <h4 class="mb-3">Componenti</h4>
+                <ul class="link-list">
+                    <li><a class="list-item" href="#layout">Layout</a></li>
+                    <li><a class="list-item" href="#header">Header</a></li>
+                    <li><a class="list-item" href="#footer">Footer</a></li>
+                    <li><a class="list-item" href="#alert">Alert</a></li>
+                    <li><a class="list-item" href="#badge">Badge</a></li>
+                    <li><a class="list-item" href="#card">Card</a></li>
+                    <li><a class="list-item" href="#modal">Modal</a></li>
+                    <li><a class="list-item" href="#spid-button">Pulsante SPID</a></li>
+                    <li><a class="list-item" href="#cie-button">Pulsante CIE</a></li>
+                    <li><a class="list-item" href="#button">Button</a></li>
+                    <li><a class="list-item" href="#spinner">Spinner</a></li>
+                    <li><a class="list-item" href="#icon">Icon</a></li>
+                    <li><a class="list-item" href="#input">Input</a></li>
+                    <li><a class="list-item" href="#select">Select</a></li>
+                    <li><a class="list-item" href="#textarea">Textarea</a></li>
+                    <li><a class="list-item" href="#checkbox">Checkbox</a></li>
+                    <li><a class="list-item" href="#checkbox-group">Gruppo checkbox</a></li>
+                    <li><a class="list-item" href="#radio">Radio</a></li>
+                    <li><a class="list-item" href="#radio-group">Gruppo radio</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="col-lg-9">
+            <header class="mb-5">
+                <h1 class="display-4 mb-3">
+                    Catalogo dei componenti
+                    <small class="text-muted d-block mt-2" style="font-size: 0.4em;"><!-- RELEASE_VERSION --></small>
+                </h1>
+                <p class="lead">Tutti i componenti di <code>design-laravel-kit</code>. Questa pagina è realizzata interamente con i componenti del pacchetto.</p>
+            </header>
+
+            <section id="layout" class="catalog-section">
+                <h2 class="h3 mb-3">Layout</h2>
+                <p>Pagina completa: <code><x-italia::layout></code> combina l'header (slim + center + navbar), un contenitore principale con skip link accessibile e un footer. Questa pagina è renderizzata tramite <code>&lt;x-italia::layout&gt;</code>: l'header in alto e il footer in fondo sono demo interattive.</p>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::layout title=&quot;Titolo della pagina&quot; :slim=&quot;[...]&quot; :center=&quot;[...]&quot; :navbar=&quot;[...]&quot; :footer=&quot;[...]&quot;&gt;
+    &lt;x-slot:breadcrumbs&gt;...&lt;/x-slot:breadcrumbs&gt;
+    Contenuto della pagina
+&lt;/x-italia::layout&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="header" class="catalog-section">
+                <h2 class="h3 mb-3">Header</h2>
+                <p>Header a tre livelli: <strong>HeaderSlim</strong> (ente + link + lingue + accesso), <strong>HeaderCenter</strong> (brand + tagline + social + ricerca), <strong>HeaderNavbar</strong> (menu con dropdown). L'header in cima a questa pagina mostra i tre livelli combinati tramite <code>&lt;x-italia::header&gt;</code>.</p>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::header-slim ente=&quot;Comune di Roma&quot; :links=&quot;[...]&quot; :languages=&quot;[...]&quot; loginUrl=&quot;/login&quot; /&gt;
+&lt;x-italia::header-center title=&quot;Comune di Roma&quot; tagline=&quot;Portale istituzionale&quot; :logo=&quot;...&quot; :socialLinks=&quot;[...]&quot; searchUrl=&quot;/search&quot; /&gt;
+&lt;x-italia::header-navbar :items=&quot;[[&#039;text&#039; =&gt; &#039;Home&#039;, &#039;url&#039; =&gt; &#039;/&#039;, &#039;active&#039; =&gt; true], [..., &#039;dropdown&#039; =&gt; [...]]]&quot; /&gt;
+
+// Oppure combina tutti e tre insieme:
+&lt;x-italia::header :slim=&quot;[...]&quot; :center=&quot;[...]&quot; :navbar=&quot;[...]&quot; /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="footer" class="catalog-section">
+                <h2 class="h3 mb-3">Footer</h2>
+                <p>Footer istituzionale con sezioni di link, contatti (indirizzo, telefono, email, PEC), social e barra legale. Il footer in fondo a questa pagina è una demo interattiva.</p>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::footer
+    title=&quot;Comune di Roma&quot;
+    subtitle=&quot;Portale istituzionale&quot;
+    :sections=&quot;[[&#039;title&#039; =&gt; &#039;Amministrazione&#039;, &#039;links&#039; =&gt; [...]]]&quot;
+    :contacts=&quot;[[&#039;type&#039; =&gt; &#039;address&#039;, &#039;value&#039; =&gt; &#039;...&#039;], [&#039;type&#039; =&gt; &#039;phone&#039;, &#039;value&#039; =&gt; &#039;...&#039;], [&#039;type&#039; =&gt; &#039;email&#039;, &#039;value&#039; =&gt; &#039;...&#039;], [&#039;type&#039; =&gt; &#039;pec&#039;, &#039;value&#039; =&gt; &#039;...&#039;]]&quot;
+    :social-links=&quot;[[&#039;url&#039; =&gt; &#039;...&#039;, &#039;icon&#039; =&gt; &#039;it-facebook&#039;, &#039;label&#039; =&gt; &#039;Facebook&#039;]]&quot;
+    :legal-links=&quot;[[&#039;url&#039; =&gt; &#039;/privacy&#039;, &#039;text&#039; =&gt; &#039;Informativa sulla privacy&#039;, &#039;dataElement&#039; =&gt; &#039;privacy-policy-link&#039;]]&quot;
+/&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="alert" class="catalog-section">
+                <h2 class="h3 mb-3">Alert</h2>
+                <p>Messaggi di notifica con quattro varianti, titolo opzionale e versione chiudibile. L'icona della variante è resa dal CSS di Bootstrap Italia.</p>
+                <div class="catalog-example">
+                    <div role="alert" class="alert alert-info">
+            <div>Informazione importante.</div>
+    </div>
+                    <div role="alert" class="alert alert-success">
+                <h4 class="alert-heading">Fatto!</h4>
+        <div>Operazione completata.</div>
+    </div>
+                    <div role="alert" class="alert alert-warning">
+            <div>Attenzione a questo elemento.</div>
+    </div>
+                    <div role="alert" class="alert alert-danger alert-dismissible fade show">
+                <h4 class="alert-heading">Errore</h4>
+        <div>Qualcosa è andato storto.</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::alert variant=&quot;info&quot;&gt;Informazione importante.&lt;/x-italia::alert&gt;
+&lt;x-italia::alert variant=&quot;success&quot; title=&quot;Fatto!&quot;&gt;Operazione completata.&lt;/x-italia::alert&gt;
+&lt;x-italia::alert variant=&quot;warning&quot;&gt;Attenzione a questo elemento.&lt;/x-italia::alert&gt;
+&lt;x-italia::alert variant=&quot;danger&quot; title=&quot;Errore&quot; dismissible&gt;Qualcosa è andato storto.&lt;/x-italia::alert&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="badge" class="catalog-section">
+                <h2 class="h3 mb-3">Badge</h2>
+                <p>Etichette di stato in otto varianti, formato pillola e versione link.</p>
+                <div class="catalog-example">
+                    <span class="badge bg-primary">Principale</span>
+                    <span class="badge bg-secondary">Secondario</span>
+                    <span class="badge bg-success">Successo</span>
+                    <span class="badge bg-danger">Pericolo</span>
+                    <span class="badge bg-warning">Avviso</span>
+                    <span class="badge bg-info">Informazione</span>
+                    <span class="badge bg-light">Chiaro</span>
+                    <span class="badge bg-dark">Scuro</span>
+                </div>
+                <div class="catalog-example">
+                    <span class="badge rounded-pill bg-danger">3 nuovi</span>
+                    <a class="badge bg-info" href="/foo">Badge con link</a>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::badge&gt;Principale&lt;/x-italia::badge&gt;
+&lt;x-italia::badge variant=&quot;success&quot;&gt;Successo&lt;/x-italia::badge&gt;
+&lt;x-italia::badge variant=&quot;danger&quot; pill&gt;3 nuovi&lt;/x-italia::badge&gt;
+&lt;x-italia::badge variant=&quot;info&quot; href=&quot;/foo&quot;&gt;Badge con link&lt;/x-italia::badge&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="card" class="catalog-section">
+                <h2 class="h3 mb-3">Card</h2>
+                <p>Contenitore flessibile per i contenuti: titolo, sottotitolo, immagine, azioni e variante completamente cliccabile. La card con immagine utilizza la struttura <code>img-responsive-wrapper</code> di Bootstrap Italia (ritaglio 31:19).</p>
+                <div class="catalog-example">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card-wrapper">
+    <div class="card">
+                <div class="card-body">
+                            <h3 class="card-title h5">
+                                            Titolo della card
+                                    </h3>
+                                        <h6 class="card-subtitle">Sottotitolo</h6>
+                        <div class="card-text">Contenuto della card con testo descrittivo.</div>
+                    </div>
+    </div>
+</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-wrapper">
+    <div class="card card-img no-after">
+                    <div class="img-responsive-wrapper">
+                <div class="img-responsive">
+                    <figure class="img-wrapper">
+                        <img src="data:image/svg+xml,%3Csvg xmlns=&#039;http://www.w3.org/2000/svg&#039; viewBox=&#039;0 0 800 600&#039;%3E%3Crect width=&#039;800&#039; height=&#039;600&#039; fill=&#039;%230066cc&#039;/%3E%3C/svg%3E" alt="Immagine di esempio">
+                    </figure>
+                </div>
+            </div>
+                <div class="card-body">
+                            <h3 class="card-title h5">
+                                            Card con immagine
+                                    </h3>
+                                    <div class="card-text">Testo della card con immagine sopra.</div>
+                    </div>
+    </div>
+</div>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <div class="card-wrapper">
+    <div class="card">
+                <div class="card-body">
+                            <h3 class="card-title h5">
+                                            Card con azioni
+                                    </h3>
+                                    <div class="card-text">Card con slot per azioni in fondo.</div>
+                            <div class="card-actions mt-3 position-relative"><button
+    class="btn btn-sm btn-primary"
+            type="button"
+                >
+        Azione
+</button>
+                                    <button
+    class="btn btn-sm btn-outline-secondary"
+            type="button"
+                >
+        Annulla
+</button></div>
+                    </div>
+    </div>
+</div>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <div class="card-wrapper">
+    <div class="card">
+                <div class="card-body">
+                            <h3 class="card-title h5">
+                                            <a href="./" class="stretched-link">Card link</a>
+                                    </h3>
+                                    <div class="card-text">Cliccabile nella sua interezza.</div>
+                    </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::card title=&quot;Titolo della card&quot; subtitle=&quot;Sottotitolo&quot;&gt;
+    Contenuto della card con testo descrittivo.
+&lt;/x-italia::card&gt;
+
+&lt;x-italia::card title=&quot;Card con immagine&quot; image=&quot;https://...&quot; imageAlt=&quot;Descrizione&quot;&gt;
+    Testo della card con immagine sopra.
+&lt;/x-italia::card&gt;
+
+&lt;x-italia::card title=&quot;Card con azioni&quot;&gt;
+    Card con slot per azioni in fondo.
+    &lt;x-slot:actions&gt;
+        &lt;x-italia::button size=&quot;sm&quot;&gt;Azione&lt;/x-italia::button&gt;
+        &lt;x-italia::button variant=&quot;outline&quot; size=&quot;sm&quot;&gt;Annulla&lt;/x-italia::button&gt;
+    &lt;/x-slot:actions&gt;
+&lt;/x-italia::card&gt;
+
+&lt;x-italia::card title=&quot;Card link&quot; href=&quot;/catalog&quot;&gt;
+    Cliccabile nella sua interezza.
+&lt;/x-italia::card&gt;
+
+// Varianti
+&lt;x-italia::card big&gt;Card grande&lt;/x-italia::card&gt;
+&lt;x-italia::card teaser&gt;Card teaser&lt;/x-italia::card&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="modal" class="catalog-section">
+                <h2 class="h3 mb-3">Modal</h2>
+                <p>Finestra di dialogo con focus trap automatico (JS di Bootstrap Italia) e supporto ARIA completo. Si apre con <code>data-bs-toggle="modal"</code> e <code>data-bs-target="#id"</code> su qualsiasi pulsante o link.</p>
+
+                <div class="catalog-example">
+                    <button
+    class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#demo-modal"
+            type="button"
+                >
+        Apri modal
+</button>
+
+                    <button
+    class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#demo-modal-large"
+            type="button"
+                >
+        Apri modal grande
+</button>
+
+                    <div
+    id="demo-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    aria-labelledby="demo-modal-title"
+    aria-describedby="demo-modal-body"
+    class="modal fade"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="demo-modal-title">Conferma azione</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close modal window"></button>
+                            </div>
+            <div class="modal-body" id="demo-modal-body">
+                Sei sicuro di voler procedere con questa operazione?
+            </div>
+                            <div class="modal-footer"><button
+    class="btn btn-primary"
+            type="button"
+                >
+        Conferma
+</button>
+                            <button
+    class="btn btn-outline-secondary" data-bs-dismiss="modal"
+            type="button"
+                >
+        Annulla
+</button></div>
+                    </div>
+    </div>
+</div>
+
+                    <div
+    id="demo-modal-large"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    aria-labelledby="demo-modal-large-title"
+    aria-describedby="demo-modal-large-body"
+    class="modal fade"
+>
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="demo-modal-large-title">Modal grande</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close modal window"></button>
+                            </div>
+            <div class="modal-body" id="demo-modal-large-body">
+                Contenuto più ampio della modal standard.
+            </div>
+                            <div class="modal-footer"><button
+    class="btn btn-outline-secondary" data-bs-dismiss="modal"
+            type="button"
+                >
+        Chiudi
+</button></div>
+                    </div>
+    </div>
+</div>
+                </div>
+
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::button data-bs-toggle=&quot;modal&quot; data-bs-target=&quot;#my-modal&quot;&gt;Apri&lt;/x-italia::button&gt;
+
+&lt;x-italia::modal id=&quot;my-modal&quot; title=&quot;Conferma&quot;&gt;
+    Sei sicuro?
+    &lt;x-slot:footer&gt;
+        &lt;x-italia::button&gt;Conferma&lt;/x-italia::button&gt;
+        &lt;x-italia::button variant=&quot;outline&quot; data-bs-dismiss=&quot;modal&quot;&gt;Annulla&lt;/x-italia::button&gt;
+    &lt;/x-slot:footer&gt;
+&lt;/x-italia::modal&gt;
+
+// Varianti
+&lt;x-italia::modal title=&quot;...&quot; size=&quot;lg&quot; centered /&gt;
+&lt;x-italia::modal title=&quot;...&quot; size=&quot;xl&quot; scrollable /&gt;
+&lt;x-italia::modal title=&quot;...&quot; static /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="spid-button" class="catalog-section">
+                <h2 class="h3 mb-3">Pulsante SPID</h2>
+                <p>Pulsante di accesso SPID, compatibile con <code>italia/spid-laravel</code> (percorso predefinito <code>/spid/login</code>). Include il testo ufficiale AgID «Entra con SPID» e un logo ufficiale integrato.</p>
+
+                <div class="catalog-example">
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-m" aria-label="Entra con SPID">
+        <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
+            <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
+            <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
+            <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
+        </svg>
+        <span class="dlk-spid-label">Entra con SPID</span>
+    </a>
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-s" aria-label="Entra con SPID">
+        <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
+            <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
+            <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
+            <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
+        </svg>
+        <span class="dlk-spid-label">Entra con SPID</span>
+    </a>
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-l" aria-label="Entra con SPID">
+        <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
+            <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
+            <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
+            <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
+        </svg>
+        <span class="dlk-spid-label">Entra con SPID</span>
+    </a>
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-xl" aria-label="Entra con SPID">
+        <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
+            <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
+            <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
+            <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
+        </svg>
+        <span class="dlk-spid-label">Entra con SPID</span>
+    </a>
+                </div>
+                <div class="catalog-example">
+                    <a href="/custom-spid-login" class="dlk-spid-button dlk-spid-button-m" aria-label="Accedi con SPID">
+        <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
+            <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
+            <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
+            <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
+        </svg>
+        <span class="dlk-spid-label">Accedi con SPID</span>
+    </a>
+                </div>
+                <div class="catalog-example">
+                    <p class="mb-2"><strong>Menu a discesa degli Identity Provider</strong> (lista statica; chi integra il pacchetto collega il JavaScript)</p>
+                    <div class="dropdown" >
+        <button type="button" class="dlk-spid-button dlk-spid-button-m" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+            <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
+                <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
+                <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
+                <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
+            </svg>
+            <span class="dlk-spid-label">Entra con SPID</span>
+        </button>
+        <ul class="dropdown-menu" aria-label="Identity Provider SPID">
+                            <li><a class="dropdown-item" href="/spid/login/aruba">Aruba ID</a></li>
+                            <li><a class="dropdown-item" href="/spid/login/poste">Poste ID</a></li>
+                        <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it">Maggiori informazioni</a></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">Non hai SPID?</a></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">Serve aiuto?</a></li>
+        </ul>
+    </div>
+                </div>
+            </section>
+
+            <section id="cie-button" class="catalog-section">
+                <h2 class="h3 mb-3">Pulsante CIE</h2>
+                <p>Pulsante di accesso CIE (Carta d'Identità Elettronica), con percorso predefinito <code>/cie/login</code>.</p>
+
+                <div class="catalog-example">
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-m" aria-label="Entra con CIE">
+    <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <span class="dlk-cie-label">Entra con CIE</span>
+</a>
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-s" aria-label="Entra con CIE">
+    <img class="dlk-cie-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAt1BMVEUEAgQ0YsR0ksRUesSUqtyMnsRshsRMbsSEnsykttxkhsSElsSkrrxEbsR8mtRkgsR8ksRcgsxsjtRMdsSkstxEasRcesSsrrwsWrw8asR0isSEotystsxUdsQ8ZsR0ktScpsRsisSEotRkisx8ltRcfsSsssw0XsSsutw0ZsR0ksxUesycqsyUptRMcsSEntRkhsyEmsSkrsREcsR8lsR0jsRMdsysssQsXsSsttRUdsxsisxcfsznU2azAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAG20lEQVR42u1aC2/bRgwW4XZF0qpOkRzWGxaiQWN4lzVunKGIgfz//zXdi0eeTrYkW84wiM7LsS3ySN5H8jtV1SyzzDLLLP9zWfz9ltoRDBqAN9JeAxpE1IhvoX0DYJVrrRoLrs+tfbVDoxvtdvXu+6zaX5u4o/YP5azQ+Hw27Q9ggnpl1fvfza/zaH+X1q6C9+PjHOoNeJVu6dbx/m9vy2Jq7Rpowf7L+l8lH+DE2rnrXdYpHgs1aQyatYNGSvoUAvqHf0wFNxgzXYdFhwjQLghGTOGCxdrwHY8x6+JvJLPss18n1v7UQG3aZSop07T05JWTu+DBAj1XH40Ipgg71Kmh4PMO0gLp8or9lHZEKDhd6NFV2VhoSGs0Jlmlp0SCS2+Dpq2HyeHSjumQ4LkORkQQjEZkdkxZDn55GGCozwCAB2VCLETCH8qDwi5QY3Lg3bL55OonPbctnmk3mM9Wu+J5EJNf4uPw4mpLTKOxUQuwsgbYtWF5X5APWAhkYq4GttNs/9hv8AbojoVYSE77QbQFcSu+DNH/FQSqhBTCPaGsGfJnIQhGDGzoqcLFlbgc2BdKbGUfD8GwFAByPgbUcwvozAGyIFs6C8EgD9yDj+QdT/U+rQmiXDorRYM8EBJwHCTwNoiFQA0ywH1yOaY94+tWwhk4aCFlB/y08pme3jRjr5WFzB4+EbB9NMCAG9Ox3XZW3Tp2BaET1ijQUdQGVgs1vu9twBeX9ZtyaKJn7BSSEt2kZDUJvVhLjEOmM3BDzXZvaDbg1q5jNU4W+A5IJxzxPhiyDXbOAy9Fy2Jo/J9BlN1/mZlpSqI/bnvnYIPqRXtBRSQMqPd7AGGZsyZkgQs9pcCANOxEXKDLANeZGyBaIT4sQ38PdBvgXzCivmJWbSHfAnEzYu8kLBcvqoaPknkyGdCsMBsMaUjHvoDa4YH4wjUKbIU8ySF1AYKo6OkD0x2C8MLOBTdKG2oXEf78VmRtO/zoYcC6q4unEKz9akha1Q7EZM7atV5osHPv/rYnBEA5jokX4e9UaWRie9F999gKC2fyck8IgCBW6zibq1ZzIlyQHuagAY/QARsUgl0IKROzynes2Id8P9ajy3EKwUECuM7GMj61wMEG3XRkIYXg0kHNoUWolg9CqTY9kKjIKqW23F1qs38RbR+ovpP6AssFPBWJw5cBSVrEwhCSxxyMgdu0ZnNhn13c1zsA0ZB4H5kP9ImL+1KHrHP2gryx6dFfR6RpJsOw3BSCS+NXZNzcaKfHXXaJLWbEDW/VDuOR4bWE/M3qNHKYL8YDJYWlOCb0oM+NoLrDwnlPmMA1jW5VCY3TMiQeHBwPhQU+bdbIOmBKcx8r3e4qpA+U5PUy5CzJx3jcgnjrW+qHu98aoTdc0+vLb0XQUNIHEg8nP0EARlpkhqizHGGA5+05jc3pizN4QKdDI8Ek+r04dPR0ex18t+C4qggB9V+dbY1MQ8624PBTLCD0AGpEfJCbGa1zxObzEStLekQAvC4yIHSDYXnQ9QmVMWVpV49LqeQBTb2Y6moNTIvKpzzo0ZLsqcQQz+SCEV0rQsESsTwYd3rkcsBUrW6oxjIQV48Gc6Iu/BxLCFMl1nJu8nrqQk+mWxmgxp/hgotdVegHt2VYAWxxpeqYwztkSZjhqCkCK2jd4kqbp+/H4xrhQN6x1sUrY2H1zePuCA8IIOKclnspoz9qk/SyUjy+AriRPQJRxp+UunjwHInMfzWEp+kc2dtjU2mOycu/4q3duByI/isY0L4w5gORoP1HekBpSEh4wACQHRAjz8d7IPFThz3wRfIDipME1amRsGQA8AOzVJDtP+sjkFD39cAT8vObOA24Z9fH4EAHElYtbhvYyT0jSfT49XOKsIWElVFy1nI3USnpgxHHJt0eKOEA9y04Gln6gKBgAiT0tWArB4IuH+AEtSD7x9oE9C/5AD9Ux+NAbkBWjgMElH1QH5MDFAKZhCCZL0glqO2D8foZNZDhQKCFP3FzFBvd+QH6EfplR6RQLb+/fn99MnQDWXjbVyMHcumDoye95AFteRtIPG1KQMWZFemDowxI96YCu1GTqg0nmbMjAhaC4zyQqmG8W4va7j/osCu7gSUVwuNDYN0NYeqVcssacVKu+MntngGut2ysuCyuN/9soqyu6HDvBui4TunCzXz2x9WEdIQG5nLeiAlqbFJCSHLiKj8lmJSVMdDK/OzuJjWpASDv53KatcqPSqa8r/TP20AVKHl3pzorNXil+QmW7AinvpuM5NMKI22iCndyLKuzyLZGzLPiPNQkl7vkCULsujqzvMSAqIG3cJxUfqxCQD5Ws8wyyyyzzDLLf1b+BeLK6T3k03tEAAAAAElFTkSuQmCC" alt="" aria-hidden="true">
+    <span class="dlk-cie-label">Entra con CIE</span>
+</a>
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-l" aria-label="Entra con CIE">
+    <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <span class="dlk-cie-label">Entra con CIE</span>
+</a>
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-xl" aria-label="Entra con CIE">
+    <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <span class="dlk-cie-label">Entra con CIE</span>
+</a>
+                </div>
+                <div class="catalog-example">
+                    <a href="/custom-cie-login" class="dlk-cie-button dlk-cie-button-m" aria-label="Accedi con CIE">
+    <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <span class="dlk-cie-label">Accedi con CIE</span>
+</a>
+                </div>
+            </section>
+
+            <section id="button" class="catalog-section">
+                <h2 class="h3 mb-3">Button</h2>
+                <p>Cinque varianti, tre dimensioni, stati disabilitato/in caricamento e variante link.</p>
+                <div class="catalog-example">
+                    <button
+    class="btn btn-primary"
+            type="button"
+                >
+        Principale
+</button>
+                    <button
+    class="btn btn-secondary"
+            type="button"
+                >
+        Secondario
+</button>
+                    <button
+    class="btn btn-danger"
+            type="button"
+                >
+        Pericolo
+</button>
+                    <button
+    class="btn btn-outline-secondary"
+            type="button"
+                >
+        Outline
+</button>
+                    <button
+    class="btn btn-link"
+            type="button"
+                >
+        Link
+</button>
+                </div>
+                <div class="catalog-example">
+                    <button
+    class="btn btn-sm btn-primary"
+            type="button"
+                >
+        Piccolo
+</button>
+                    <button
+    class="btn btn-primary"
+            type="button"
+                >
+        Medio
+</button>
+                    <button
+    class="btn btn-lg btn-primary"
+            type="button"
+                >
+        Grande
+</button>
+                </div>
+                <div class="catalog-example">
+                    <button
+    class="btn btn-primary"
+            type="button"
+                    disabled
+            aria-disabled="true"
+                >
+        Disabilitato
+</button>
+                    <button
+    class="btn btn-primary"
+            type="button"
+                    disabled
+            aria-disabled="true"
+                        aria-busy="true"
+    >
+            <span class="dlk-spinner-inline" aria-hidden="true"></span>
+        Caricamento…
+</button>
+                    <a
+    class="btn btn-primary"
+            href="./"
+                >
+        Link con aspetto da pulsante
+</a>
+                    <a
+    class="btn btn-primary disabled"
+            href="./"
+                    aria-disabled="true"
+            tabindex="-1"
+                >
+        Link disabilitato
+</a>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::button&gt;Principale&lt;/x-italia::button&gt;
+&lt;x-italia::button variant=&quot;secondary&quot;&gt;Secondario&lt;/x-italia::button&gt;
+&lt;x-italia::button variant=&quot;danger&quot;&gt;Pericolo&lt;/x-italia::button&gt;
+&lt;x-italia::button variant=&quot;outline&quot;&gt;Outline&lt;/x-italia::button&gt;
+&lt;x-italia::button variant=&quot;link&quot;&gt;Link&lt;/x-italia::button&gt;
+&lt;x-italia::button size=&quot;sm&quot;&gt;Piccolo&lt;/x-italia::button&gt;
+&lt;x-italia::button size=&quot;lg&quot;&gt;Grande&lt;/x-italia::button&gt;
+&lt;x-italia::button disabled&gt;Disabilitato&lt;/x-italia::button&gt;
+&lt;x-italia::button loading&gt;Caricamento…&lt;/x-italia::button&gt;
+&lt;x-italia::button href=&quot;/catalog&quot;&gt;Link con aspetto da pulsante&lt;/x-italia::button&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="spinner" class="catalog-section">
+                <h2 class="h3 mb-3">Spinner</h2>
+                <p>Indicatore di caricamento in quattro dimensioni, cerchio doppio come impostazione predefinita, con etichetta per screen reader.</p>
+                <div class="catalog-example">
+                    <div role="status" aria-label="Loading" class="progress-spinner progress-spinner-active progress-spinner-double size-sm">
+            <div class="progress-spinner-inner"></div>
+        <div class="progress-spinner-inner"></div>
+                <span class="visually-hidden">Loading</span>
+    </div>
+                    <div role="status" aria-label="Loading" class="progress-spinner progress-spinner-active progress-spinner-double size-md">
+            <div class="progress-spinner-inner"></div>
+        <div class="progress-spinner-inner"></div>
+                <span class="visually-hidden">Loading</span>
+    </div>
+                    <div role="status" aria-label="Loading" class="progress-spinner progress-spinner-active progress-spinner-double size-lg">
+            <div class="progress-spinner-inner"></div>
+        <div class="progress-spinner-inner"></div>
+                <span class="visually-hidden">Loading</span>
+    </div>
+                    <div role="status" aria-label="Caricamento in corso" class="progress-spinner progress-spinner-active progress-spinner-double size-xl">
+            <div class="progress-spinner-inner"></div>
+        <div class="progress-spinner-inner"></div>
+                <span class="visually-hidden">Caricamento in corso</span>
+    </div>
+                </div>
+                <div class="catalog-example">
+                    <div role="status" aria-label="Loading" class="progress-spinner progress-spinner-active size-lg">
+                <span class="visually-hidden">Loading</span>
+    </div>
+                    <span class="ms-3">Cerchio singolo (<code>:double="false"</code>)</span>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::spinner size=&quot;sm&quot; /&gt;
+&lt;x-italia::spinner /&gt;
+&lt;x-italia::spinner size=&quot;lg&quot; /&gt;
+&lt;x-italia::spinner size=&quot;xl&quot; label=&quot;Caricamento in corso&quot; /&gt;
+&lt;x-italia::spinner :double=&quot;false&quot; size=&quot;lg&quot; /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="icon" class="catalog-section">
+                <h2 class="h3 mb-3">Icon</h2>
+                <p>Icone dallo sprite SVG di Bootstrap Italia. Dimensioni: sm, md (predefinita), lg e xl.</p>
+                <div class="catalog-example">
+                    <svg
+    class="icon"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-search"></use>
+</svg>
+                    <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-search"></use>
+</svg>
+                    <svg
+    class="icon icon-xl"
+            role="img"
+        aria-label="Cerca"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-search"></use>
+</svg>
+                    <svg
+    class="icon icon-right"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-close"></use>
+</svg>
+                </div>
+                <div class="catalog-example">
+                    <div class="catalog-icon-grid">
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-search"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-search</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-close"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-close</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-check"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-check</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-check-circle"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-check-circle</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-info-circle"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-info-circle</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-warning"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-warning</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-error"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-error</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-calendar"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-calendar</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-clock"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-clock</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-user"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-user</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-settings"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-settings</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-mail"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-mail</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-telephone"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-telephone</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-pin"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-pin</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-link"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-link</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-external-link"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-external-link</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-download"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-download</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-upload"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-upload</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-copy"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-copy</div>
+                            </div>
+                                                    <div class="catalog-icon-item">
+                                <svg
+    class="icon icon-lg"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-delete"></use>
+</svg>
+                                <div class="small text-muted mt-1">it-delete</div>
+                            </div>
+                                            </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::icon name=&quot;it-search&quot; /&gt;
+&lt;x-italia::icon name=&quot;it-search&quot; size=&quot;lg&quot; /&gt;
+&lt;x-italia::icon name=&quot;it-search&quot; size=&quot;xl&quot; label=&quot;Cerca&quot; /&gt;
+&lt;x-italia::icon name=&quot;it-close&quot; spacing=&quot;right&quot; /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="input" class="catalog-section">
+                <h2 class="h3 mb-3">Input</h2>
+                <p>Campi di testo con etichetta flottante, vari tipi di input, suggerimenti, stato obbligatorio e gestione degli errori di validazione.</p>
+                <div class="catalog-example">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group dlk-floating">
+            <input
+            type="text"
+            id="dlk-nome-446"
+            name="nome"
+            value=""
+            class="form-control"
+        >
+        <label for="dlk-nome-446" >Nome</label>
+            </div>
+                            <div class="form-group dlk-floating">
+            <input
+            type="email"
+            id="dlk-email-453"
+            name="email"
+            value=""
+            aria-describedby="dlk-email-453-hint" aria-required="true" required="required" class="form-control"
+        >
+        <label for="dlk-email-453" >Email            <span class="text-danger" aria-hidden="true">*</span>
+            <span class="visually-hidden">(required)</span>
+        </label>
+                <small class="form-text" id="dlk-email-453-hint">name@example.com</small>
+        </div>
+                            <div class="form-group dlk-floating">
+            <input
+            type="password"
+            id="dlk-password-424"
+            name="password"
+            value=""
+            class="form-control"
+        >
+        <label for="dlk-password-424" >Password</label>
+            </div>
+                            <div class="form-group dlk-floating">
+            <input
+            type="number"
+            id="dlk-eta-474"
+            name="eta"
+            value=""
+            aria-describedby="dlk-eta-474-hint" class="form-control"
+        >
+        <label for="dlk-eta-474" >Età</label>
+                <small class="form-text" id="dlk-eta-474-hint">Minimo 18 anni</small>
+        </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group dlk-floating">
+            <input
+            type="text"
+            id="dlk-demo-455"
+            name="demo"
+            value=""
+            aria-invalid="true" aria-describedby="dlk-demo-455-hint dlk-demo-455-error" class="form-control is-invalid"
+        >
+        <label for="dlk-demo-455" >Con errore di validazione</label>
+                <small class="form-text" id="dlk-demo-455-hint">Questo suggerimento viene nascosto quando compare un errore</small>
+                <div class="invalid-feedback" id="dlk-demo-455-error" role="alert" aria-live="polite">Esempio di messaggio di errore di validazione.</div>
+    </div>
+                            <div class="form-group">
+            <label class="form-label" for="dlk-semplice-429">Senza etichetta flottante</label>
+        <input
+            type="text"
+            id="dlk-semplice-429"
+            name="semplice"
+            value=""
+            class="form-control"
+        >
+            </div>
+                        </div>
+                    </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::input name=&quot;nome&quot; label=&quot;Nome&quot; /&gt;
+&lt;x-italia::input name=&quot;email&quot; type=&quot;email&quot; label=&quot;Email&quot; hint=&quot;name@example.com&quot; required /&gt;
+&lt;x-italia::input name=&quot;password&quot; type=&quot;password&quot; label=&quot;Password&quot; /&gt;
+&lt;x-italia::input name=&quot;eta&quot; type=&quot;number&quot; label=&quot;Età&quot; hint=&quot;Minimo 18 anni&quot; /&gt;
+&lt;x-italia::input name=&quot;semplice&quot; label=&quot;Senza etichetta flottante&quot; :floating=&quot;false&quot; /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="select" class="catalog-section">
+                <h2 class="h3 mb-3">Select</h2>
+                <p>Menu a discesa: semplice, con optgroup, selezione multipla e placeholder.</p>
+                <div class="catalog-example">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group dlk-floating">
+        <select
+        id="dlk-paese-469"
+        name="paese"
+        aria-describedby="dlk-paese-469-hint" aria-required="true" required="required" class="form-select"
+    >
+                    <option value="" disabled selected>Seleziona...</option>
+                                            <option value="it">Italia</option>
+                                                <option value="fr">Francia</option>
+                                                <option value="de">Germania</option>
+                        </select>
+            <label for="dlk-paese-469" class="active">Paese            <span class="text-danger" aria-hidden="true">*</span>
+            <span class="visually-hidden">(required)</span>
+        </label>
+                <small class="form-text" id="dlk-paese-469-hint">Seleziona il paese di residenza</small>
+        </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group dlk-floating">
+        <select
+        id="dlk-citta-464"
+        name="citta"
+        class="form-select"
+    >
+                                            <optgroup label="Nord">
+                                            <option value="mi">Milano</option>
+                                            <option value="to">Torino</option>
+                                    </optgroup>
+                                                <optgroup label="Sud">
+                                            <option value="na">Napoli</option>
+                                            <option value="pa">Palermo</option>
+                                    </optgroup>
+                        </select>
+            <label for="dlk-citta-464" class="active">Città (optgroup)</label>
+            </div>
+                        </div>
+                    </div>
+                    <div class="form-group dlk-floating">
+        <select
+        id="dlk-ruoli-414"
+        name="ruoli[]"
+        multiple="multiple" aria-describedby="dlk-ruoli-414-hint" class="form-select"
+    >
+                                            <option value="admin">Amministratore</option>
+                                                <option value="editor">Editor</option>
+                                                <option value="viewer">Visualizzatore</option>
+                        </select>
+            <label for="dlk-ruoli-414" class="active">Ruoli (selezione multipla)</label>
+                <small class="form-text" id="dlk-ruoli-414-hint">Ctrl+clic per selezionare più ruoli</small>
+        </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::select name=&quot;paese&quot; label=&quot;Paese&quot; required :options=&quot;[&#039;it&#039; =&gt; &#039;Italia&#039;, ...]&quot; placeholder=&quot;Seleziona...&quot; /&gt;
+&lt;x-italia::select name=&quot;citta&quot; label=&quot;Città&quot; :options=&quot;[&#039;Nord&#039; =&gt; [&#039;mi&#039; =&gt; &#039;Milano&#039;, ...], ...]&quot; /&gt;
+&lt;x-italia::select name=&quot;ruoli&quot; label=&quot;Ruoli&quot; :options=&quot;[...]&quot; multiple /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="textarea" class="catalog-section">
+                <h2 class="h3 mb-3">Textarea</h2>
+                <p>Area di testo con numero di righe configurabile e suggerimento.</p>
+                <div class="catalog-example">
+                    <div class="form-group dlk-floating">
+            <textarea
+            id="dlk-bio-466"
+            name="bio"
+            rows="3"
+            aria-describedby="dlk-bio-466-hint" class="form-control"
+        ></textarea>
+        <label for="dlk-bio-466" >Biografia</label>
+                <small class="form-text" id="dlk-bio-466-hint">Max 500 caratteri</small>
+        </div>
+                    <div class="form-group dlk-floating">
+            <textarea
+            id="dlk-note-419"
+            name="note"
+            rows="5"
+            class="form-control"
+        ></textarea>
+        <label for="dlk-note-419" >Note (5 righe)</label>
+            </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::textarea name=&quot;bio&quot; label=&quot;Biografia&quot; hint=&quot;Max 500 caratteri&quot; /&gt;
+&lt;x-italia::textarea name=&quot;note&quot; label=&quot;Note&quot; :rows=&quot;5&quot; /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="checkbox" class="catalog-section">
+                <h2 class="h3 mb-3">Checkbox</h2>
+                <p>Checkbox: singola, preselezionata, disabilitata o raggruppata con un nome array.</p>
+                <div class="catalog-example">
+                    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-termini-422"
+        name="termini"
+                aria-required="true" required="required" class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-termini-422">Accetto i termini        <span class="text-danger" aria-hidden="true">*</span>
+        <span class="visually-hidden">(required)</span>
+    </label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-newsletter-488"
+        name="newsletter"
+         value="yes"         class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-newsletter-488">Iscriviti alla newsletter</label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-promo-486"
+        name="promo"
+                checked="checked" class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-promo-486">Pre-selezionata</label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-sms-395"
+        name="sms"
+                disabled="disabled" class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-sms-395">Disabilitata</label>
+        </div>
+                </div>
+                <div class="catalog-example">
+                    <p class="mb-2"><strong>Gruppo (<code>interessi[]</code>)</strong></p>
+                    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-interessi-400"
+        name="interessi[]"
+         value="sport"         class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-interessi-400">Sport</label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-interessi-482"
+        name="interessi[]"
+         value="musica"         class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-interessi-482">Musica</label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-interessi-489"
+        name="interessi[]"
+         value="viaggi"         class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-interessi-489">Viaggi</label>
+        </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::checkbox name=&quot;termini&quot; label=&quot;Accetto i termini&quot; required /&gt;
+&lt;x-italia::checkbox name=&quot;newsletter&quot; label=&quot;Iscriviti alla newsletter&quot; value=&quot;yes&quot; /&gt;
+&lt;x-italia::checkbox name=&quot;promo&quot; label=&quot;Pre-selezionata&quot; checked /&gt;
+&lt;x-italia::checkbox name=&quot;sms&quot; label=&quot;Disabilitata&quot; disabled /&gt;
+
+// Gruppo: usa [] nel nome per un array
+&lt;x-italia::checkbox name=&quot;interessi[]&quot; value=&quot;sport&quot; label=&quot;Sport&quot; /&gt;
+&lt;x-italia::checkbox name=&quot;interessi[]&quot; value=&quot;musica&quot; label=&quot;Musica&quot; /&gt;
+&lt;x-italia::checkbox name=&quot;interessi[]&quot; value=&quot;viaggi&quot; label=&quot;Viaggi&quot; /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="checkbox-group" class="catalog-section">
+                <h2 class="h3 mb-3">Gruppo checkbox</h2>
+                <p>Gruppo di checkbox in un fieldset con un solo messaggio di errore di validazione.</p>
+                <form method="get" action="./" class="catalog-example">
+                    <fieldset id="dlk-demo-386" class="form-group"
+     aria-invalid="true"      aria-describedby="dlk-demo-386-hint dlk-demo-386-error"
+    >
+            <legend>
+            Interessi
+                    </legend>
+    
+            <small class="form-text" id="dlk-demo-386-hint">Seleziona uno o più interessi</small>
+    
+    <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-demo-404"
+        name="demo[]"
+         value="sport"         aria-invalid="true" aria-describedby="dlk-demo-386-error" class="form-check-input is-invalid"
+    >
+    <label class="form-check-label" for="dlk-demo-404">Sport</label>
+        </div>
+                        <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-demo-417"
+        name="demo[]"
+         value="musica"         aria-invalid="true" aria-describedby="dlk-demo-386-error" class="form-check-input is-invalid"
+    >
+    <label class="form-check-label" for="dlk-demo-417">Musica</label>
+        </div>
+                        <div class="form-check">
+    <input
+        type="checkbox"
+        id="dlk-demo-480"
+        name="demo[]"
+         value="viaggi"         aria-invalid="true" aria-describedby="dlk-demo-386-error" class="form-check-input is-invalid"
+    >
+    <label class="form-check-label" for="dlk-demo-480">Viaggi</label>
+        </div>
+
+            <div class="invalid-feedback d-block" id="dlk-demo-386-error" role="alert" aria-live="polite">
+            Esempio di messaggio di errore di validazione.
+        </div>
+    </fieldset>
+                    <button class="btn btn-primary mt-3" type="submit">Invia</button>
+                </form>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;form method=&quot;get&quot; action=&quot;/catalog&quot;&gt;
+    &lt;x-italia::checkbox-group name=&quot;demo&quot; legend=&quot;Interessi&quot; hint=&quot;Seleziona uno o più interessi&quot;&gt;
+        &lt;x-italia::checkbox name=&quot;demo[]&quot; value=&quot;sport&quot; label=&quot;Sport&quot; /&gt;
+        &lt;x-italia::checkbox name=&quot;demo[]&quot; value=&quot;musica&quot; label=&quot;Musica&quot; /&gt;
+        &lt;x-italia::checkbox name=&quot;demo[]&quot; value=&quot;viaggi&quot; label=&quot;Viaggi&quot; /&gt;
+    &lt;/x-italia::checkbox-group&gt;
+&lt;/form&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="radio" class="catalog-section">
+                <h2 class="h3 mb-3">Radio</h2>
+                <p>Gruppo di radio con lo stesso <code>name</code>: è possibile selezionare una sola opzione.</p>
+                <div class="catalog-example">
+                    <div class="form-check">
+    <input
+        type="radio"
+        id="dlk-genere-501"
+        name="genere"
+         value="m"         class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-genere-501">Maschio</label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="radio"
+        id="dlk-genere-491"
+        name="genere"
+         value="f"         class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-genere-491">Femmina</label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="radio"
+        id="dlk-genere-500"
+        name="genere"
+         value="o"         class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-genere-500">Altro</label>
+        </div>
+                    <div class="form-check">
+    <input
+        type="radio"
+        id="dlk-genere-430"
+        name="genere"
+         value="x"         disabled="disabled" class="form-check-input"
+    >
+    <label class="form-check-label" for="dlk-genere-430">Disabilitata</label>
+        </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::radio name=&quot;genere&quot; value=&quot;m&quot; label=&quot;Maschio&quot; /&gt;
+&lt;x-italia::radio name=&quot;genere&quot; value=&quot;f&quot; label=&quot;Femmina&quot; /&gt;
+&lt;x-italia::radio name=&quot;genere&quot; value=&quot;o&quot; label=&quot;Altro&quot; /&gt;
+&lt;x-italia::radio name=&quot;genere&quot; value=&quot;x&quot; label=&quot;Disabilitata&quot; disabled /&gt;</code></pre>
+                </details>
+            </section>
+
+            <section id="radio-group" class="catalog-section">
+                <h2 class="h3 mb-3">Gruppo radio</h2>
+                <p>Gruppo di radio accessibile con fieldset, legend e un unico messaggio di errore.</p>
+                <form method="get" action="./" class="catalog-example">
+                    <fieldset id="dlk-demo-497" class="form-group"
+     aria-invalid="true"      aria-describedby="dlk-demo-497-hint dlk-demo-497-error"
+    >
+            <legend>
+            Genere
+                            <span class="text-danger" aria-hidden="true">*</span>
+                <span class="visually-hidden">(required)</span>
+                    </legend>
+    
+            <small class="form-text" id="dlk-demo-497-hint">Seleziona un&#039;opzione</small>
+    
+    <div class="form-check">
+    <input
+        type="radio"
+        id="dlk-demo-389"
+        name="demo"
+         value="m"         aria-invalid="true" aria-describedby="dlk-demo-497-error" class="form-check-input is-invalid"
+    >
+    <label class="form-check-label" for="dlk-demo-389">Maschio</label>
+        </div>
+                        <div class="form-check">
+    <input
+        type="radio"
+        id="dlk-demo-489"
+        name="demo"
+         value="f"         aria-invalid="true" aria-describedby="dlk-demo-497-error" class="form-check-input is-invalid"
+    >
+    <label class="form-check-label" for="dlk-demo-489">Femmina</label>
+        </div>
+                        <div class="form-check">
+    <input
+        type="radio"
+        id="dlk-demo-403"
+        name="demo"
+         value="o"         aria-invalid="true" aria-describedby="dlk-demo-497-error" class="form-check-input is-invalid"
+    >
+    <label class="form-check-label" for="dlk-demo-403">Altro</label>
+        </div>
+
+            <div class="invalid-feedback d-block" id="dlk-demo-497-error" role="alert" aria-live="polite">
+            Esempio di messaggio di errore di validazione.
+        </div>
+    </fieldset>
+                    <button class="btn btn-primary mt-3" type="submit">Invia</button>
+                </form>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;form method=&quot;get&quot; action=&quot;/catalog&quot;&gt;
+    &lt;x-italia::radio-group name=&quot;demo&quot; legend=&quot;Genere&quot; hint=&quot;Seleziona un&#039;opzione&quot; required&gt;
+        &lt;x-italia::radio name=&quot;demo&quot; value=&quot;m&quot; label=&quot;Maschio&quot; /&gt;
+        &lt;x-italia::radio name=&quot;demo&quot; value=&quot;f&quot; label=&quot;Femmina&quot; /&gt;
+        &lt;x-italia::radio name=&quot;demo&quot; value=&quot;o&quot; label=&quot;Altro&quot; /&gt;
+    &lt;/x-italia::radio-group&gt;
+&lt;/form&gt;</code></pre>
+                </details>
+            </section>
+        </div>
+    </div>
+    </main>
+
+    <footer class="it-footer">
+    <div class="it-footer-main">
+        <div class="container">
+            <section>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="it-brand-wrapper">
+                            <a href="./">
+                                                                    <svg
+    class="icon"
+            aria-hidden="true"
+    >
+    <use href="vendor/design-laravel-kit/svg/sprites.svg#it-code-circle"></use>
+</svg>
+                                                                <div class="it-brand-text">
+                                    <h2 class="no_toc">design-laravel-kit</h2>
+                                                                            <h3 class="no_toc d-none d-md-block">Componenti Bootstrap Italia per Laravel</h3>
+                                                                    </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                            <section>
+                    <div class="row">
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
+                                <h4>
+                                                                            Risorse
+                                                                    </h4>
+                                <div class="link-list-wrapper">
+                                    <ul class="footer-list link-list clearfix">
+                                                                                    <li><a class="list-item" href="https://italia.github.io/bootstrap-italia/">Documentazione Bootstrap Italia</a></li>
+                                                                                    <li><a class="list-item" href="https://github.com/igorsmoleac/design-laravel-kit">GitHub</a></li>
+                                                                            </ul>
+                                </div>
+                            </div>
+                                            </div>
+                </section>
+            
+                    </div>
+    </div>
+
+            <div class="it-footer-small-prints clearfix">
+            <div class="container">
+                                    <h3 class="visually-hidden">Useful links</h3>
+                    <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
+                                                    <li class="list-inline-item">
+                                <a
+                                    href="./"
+                                                                    >Catalogo dei componenti</a>
+                            </li>
+                                            </ul>
+                                                    <p class="mb-0 px-3 pb-4">© 2026 design-laravel-kit</p>
+                            </div>
+        </div>
+    </footer>
+
+    <script src="vendor/design-laravel-kit/js/design-laravel-kit.js" defer></script><script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts('vendor/design-laravel-kit\/fonts'); } });</script>    </body>
+</html>
