@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Card: aggiunto il parametro `headingLevel` (default `3`, range `2-6`) per controllare il livello del titolo; il sottotitolo ora è un `<p class="card-subtitle">` invece di `<h6>`, per evitare salti nella gerarchia dei titoli (WCAG 1.3.1).
+- Modal: l'attributo `aria-describedby` è ora opzionale e viene emesso solo quando il parametro `description` è specificato, per evitare la lettura completa del `modal-body` da parte degli screen reader. Aggiunto il parametro `description` e documentato l'uso obbligatorio di `id` con un esempio in README.
 
 ### Fixed
 - Footer: le legal link accettano ora `dataElement`, `data-element` e `data_element` per l'attributo HTML `data-element` (prima era supportato solo camelCase).

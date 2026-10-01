@@ -4,7 +4,7 @@
     role="dialog"
     aria-hidden="true"
     aria-labelledby="{{ $titleId() }}"
-    aria-describedby="{{ $bodyId() }}"
+    @if ($hasDescription()) aria-describedby="{{ $descriptionId() }}" @endif
     {{ $attributes->except('id')->class(['modal', 'fade'])->merge([
         'data-bs-backdrop' => $static ? 'static' : null,
         'data-bs-keyboard' => $static ? 'false' : null,
@@ -19,6 +19,9 @@
                 @endif
             </div>
             <div class="modal-body" id="{{ $bodyId() }}">
+                @if ($hasDescription())
+                    <p id="{{ $descriptionId() }}">{{ $description }}</p>
+                @endif
                 {{ $slot }}
             </div>
             @isset($footer)

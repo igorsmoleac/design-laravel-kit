@@ -194,6 +194,31 @@ I componenti Blade usano il prefisso `<x-italia::`.
 | `<x-italia::spid-button>` | Pulsante di accesso SPID |
 | `<x-italia::cie-button>` | Pulsante di accesso CIE |
 
+### Modal
+
+Finestra di dialogo con attributi ARIA e focus trap automatico (tramite il JavaScript di Bootstrap Italia). Il parametro `id` è **obbligatorio** per collegare il trigger `data-bs-target`.
+
+```blade
+<x-italia::button data-bs-toggle="modal" data-bs-target="#confirm-modal">
+    Apri conferma
+</x-italia::button>
+
+<x-italia::modal
+    id="confirm-modal"
+    title="Conferma azione"
+    description="Questa operazione non può essere annullata."
+>
+    Sei sicuro di voler procedere?
+
+    <x-slot:footer>
+        <x-italia::button variant="primary">Conferma</x-italia::button>
+        <x-italia::button variant="outline" data-bs-dismiss="modal">Annulla</x-italia::button>
+    </x-slot:footer>
+</x-italia::modal>
+```
+
+Senza `id`, il componente genera un ID univoco (`dlk-modal-...`) che non può essere collegato a un trigger statico `data-bs-target`.
+
 Gli esempi d'uso dei componenti sono nel [catalogo del playground](https://github.com/igorsmoleac/design-laravel-kit/blob/main/playground/resources/views/catalog.blade.php), usato per lo sviluppo.
 
 ## Accessibilità
