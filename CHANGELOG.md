@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modal: l'attributo `aria-describedby` è ora opzionale e viene emesso solo quando il parametro `description` è specificato, per evitare la lettura completa del `modal-body` da parte degli screen reader. Aggiunto il parametro `description` e documentato l'uso obbligatorio di `id` con un esempio in README.
 
 ### Fixed
+- Input e Textarea: il label floating viene ora attivato anche quando è presente un `placeholder`, evitando la sovrapposizione con il testo di esempio.
 - Footer: le legal link accettano ora `dataElement`, `data-element` e `data_element` per l'attributo HTML `data-element` (prima era supportato solo camelCase).
 
 ## [0.3.0] - 2026-10-01
