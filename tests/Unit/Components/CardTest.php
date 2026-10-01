@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Card;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -112,16 +113,17 @@ class CardTest extends TestCase
         $this->assertStringNotContainsString('<a class="card-wrapper"', $html);
     }
 
-    public function test_renders_as_div_by_default(): void
+    public function test_card_renders_without_link_when_no_href_no_title(): void
     {
         $html = (string) $this->blade('<x-italia::card>Testo</x-italia::card>');
 
         $this->assertStringContainsString('<div class="card-wrapper">', $html);
+        $this->assertStringContainsString('<div class="card">', $html);
         $this->assertStringNotContainsString('<a class="card-wrapper"', $html);
         $this->assertStringNotContainsString('stretched-link', $html);
     }
 
-    public function test_href_renders_stretched_link_inside_title(): void
+    public function test_card_renders_link_when_href_and_title(): void
     {
         $html = (string) $this->blade('<x-italia::card title="Titolo" href="/dettaglio">Testo</x-italia::card>');
 
@@ -147,12 +149,18 @@ class CardTest extends TestCase
         $this->assertLessThan(strpos($html, '<div class="card-actions'), strpos($html, '</a></h3>'));
     }
 
-    public function test_card_without_title_ignores_href(): void
+    public function test_card_throws_exception_when_href_without_title(): void
     {
-        $html = (string) $this->blade('<x-italia::card href="/dettaglio">Testo</x-italia::card>');
+        $this->expectException(\InvalidArgumentException::class);
 
-        $this->assertStringContainsString('<div class="card-wrapper">', $html);
-        $this->assertStringNotContainsString('<a ', $html);
+        (new Card(href: '/foo'))->render();
+    }
+
+    public function test_card_renders_without_link_when_no_href(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="Title">Text</x-italia::card>');
+
+        $this->assertStringContainsString('Title', $html);
         $this->assertStringNotContainsString('stretched-link', $html);
     }
 

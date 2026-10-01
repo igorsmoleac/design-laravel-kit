@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Aggiunta la dipendenza esplicita `illuminate/console` in `composer.json` (era usata transitivamente).
 - Input, Radio, Checkbox, Select: il parametro `value` / `selected` ora accetta `string|int|float|\BackedEnum|null` invece del solo `string`.
+- Card: specificare `href` senza `title` ora genera `InvalidArgumentException`. Prima `href` veniva silenziosamente ignorato. Passare sempre `title` insieme a `href`.
 - Card: aggiunto il parametro `headingLevel` (default `3`, range `2-6`) per controllare il livello del titolo; il sottotitolo ora è un `<p class="card-subtitle">` invece di `<h6>`, per evitare salti nella gerarchia dei titoli (WCAG 1.3.1).
 - Modal: l'attributo `aria-describedby` è ora opzionale e viene emesso solo quando il parametro `description` è specificato, per evitare la lettura completa del `modal-body` da parte degli screen reader. Aggiunto il parametro `description` e documentato l'uso obbligatorio di `id` con un esempio in README.
 

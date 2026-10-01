@@ -30,6 +30,13 @@ class Card extends BaseComponent
 
     public function render(): View
     {
+        if ($this->href !== null && $this->title === null) {
+            throw new \InvalidArgumentException(
+                'Card: `href` requires `title` — the link is rendered as a stretched-link inside the heading. '
+                . 'Either pass a `title`, or omit `href`.'
+            );
+        }
+
         return view('design-laravel-kit::components.card');
     }
 
