@@ -11,16 +11,16 @@
         @endif
         <div class="card-body">
             @if ($title !== null)
-                <h3 class="card-title h5">
+                <{{ $headingTag() }} class="card-title h5">
                     @if ($href !== null)
                         <a href="{{ $href }}" class="stretched-link">{{ $title }}</a>
                     @else
                         {{ $title }}
                     @endif
-                </h3>
+                </{{ $headingTag() }}>
             @endif
             @if ($subtitle !== null)
-                <h6 class="card-subtitle">{{ $subtitle }}</h6>
+                <p class="card-subtitle">{{ $subtitle }}</p>
             @endif
             <div class="card-text">{{ $slot }}</div>
             @isset($actions)

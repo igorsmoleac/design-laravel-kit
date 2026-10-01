@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+- Card: aggiunto il parametro `headingLevel` (default `3`, range `2-6`) per controllare il livello del titolo; il sottotitolo ora è un `<p class="card-subtitle">` invece di `<h6>`, per evitare salti nella gerarchia dei titoli (WCAG 1.3.1).
 
 ### Fixed
 - Footer: le legal link accettano ora `dataElement`, `data-element` e `data_element` per l'attributo HTML `data-element` (prima era supportato solo camelCase).
