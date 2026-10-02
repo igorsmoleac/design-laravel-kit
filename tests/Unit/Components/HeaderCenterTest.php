@@ -172,4 +172,20 @@ BLADE);
 
         $this->assertLessThan(strpos($html, 'aria-label="Mastodon"'), strpos($html, 'aria-label="Facebook"'));
     }
+
+    public function test_empty_logo_uses_fallback_icon(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-center title="Comune" logo="" />');
+
+        $this->assertStringContainsString('sprites.svg#it-code-circle', $html);
+        $this->assertStringNotContainsString('<img', $html);
+    }
+
+    public function test_data_image_logo_renders_as_image(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-center title="Comune" logo="data:image/svg+xml;base64,PHN2Zy8+" />');
+
+        $this->assertStringContainsString('src="data:image/svg+xml;base64,PHN2Zy8+"', $html);
+        $this->assertStringContainsString('<img class="icon"', $html);
+    }
 }

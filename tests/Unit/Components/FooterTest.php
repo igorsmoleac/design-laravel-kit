@@ -292,4 +292,28 @@ BLADE);
         $this->assertStringContainsString('Named privacy', $html);
         $this->assertStringNotContainsString('Default link', $html);
     }
+
+    public function test_footer_without_logo_uses_fallback_icon(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune" />');
+
+        $this->assertStringContainsString('sprites.svg#it-code-circle', $html);
+        $this->assertStringNotContainsString('<img', $html);
+    }
+
+    public function test_footer_empty_logo_uses_fallback_icon(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune" logo="" />');
+
+        $this->assertStringContainsString('sprites.svg#it-code-circle', $html);
+        $this->assertStringNotContainsString('<img', $html);
+    }
+
+    public function test_footer_data_image_logo_renders_as_image(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune" logo="data:image/svg+xml;base64,PHN2Zy8+" />');
+
+        $this->assertStringContainsString('src="data:image/svg+xml;base64,PHN2Zy8+"', $html);
+        $this->assertStringContainsString('<img class="icon"', $html);
+    }
 }
