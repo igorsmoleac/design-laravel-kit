@@ -6,6 +6,10 @@ use Illuminate\Contracts\View\View;
 
 class HeaderSlim extends BaseComponent
 {
+    /**
+     * @param  list<array<string, mixed>>  $links
+     * @param  list<array<string, mixed>>  $languages
+     */
     public function __construct(
         public string $ente = 'Ente appartenenza',
         public ?string $enteUrl = null,
@@ -19,7 +23,7 @@ class HeaderSlim extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.header-slim');
+        return $this->componentView('design-laravel-kit::components.header-slim');
     }
 
     public function hasEnteLink(): bool
@@ -61,11 +65,17 @@ class HeaderSlim extends BaseComponent
         return $active['label'] ?? $this->languages[0]['label'] ?? '';
     }
 
+    /**
+     * @param  array<string, mixed>  $link
+     */
     public function isLinkActive(array $link): bool
     {
         return (bool) ($link['active'] ?? false);
     }
 
+    /**
+     * @param  array<string, mixed>  $language
+     */
     public function isLanguageActive(array $language): bool
     {
         return (bool) ($language['active'] ?? false);

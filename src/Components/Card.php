@@ -37,7 +37,7 @@ class Card extends BaseComponent
             );
         }
 
-        return view('design-laravel-kit::components.card');
+        return $this->componentView('design-laravel-kit::components.card');
     }
 
     public function wrapperClass(): string

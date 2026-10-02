@@ -15,7 +15,7 @@ class Spinner extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.spinner');
+        return $this->componentView('design-laravel-kit::components.spinner');
     }
 
     public function cssClass(): string

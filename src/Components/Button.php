@@ -32,7 +32,7 @@ class Button extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.button');
+        return $this->componentView('design-laravel-kit::components.button');
     }
 
     public function cssClass(): string

@@ -6,6 +6,11 @@ use Illuminate\Contracts\View\View;
 
 class Header extends BaseComponent
 {
+    /**
+     * @param  array<string, mixed>  $slim
+     * @param  array<string, mixed>  $center
+     * @param  array<string, mixed>  $navbar
+     */
     public function __construct(
         public array $slim = [],
         public array $center = [],
@@ -17,7 +22,7 @@ class Header extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.header');
+        return $this->componentView('design-laravel-kit::components.header');
     }
 
     public function hasSlim(): bool
@@ -45,6 +50,9 @@ class Header extends BaseComponent
         ])->filter()->implode(' ');
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function mergeSlimProps(): array
     {
         return array_merge($this->slim, [
@@ -53,6 +61,9 @@ class Header extends BaseComponent
         ]);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function mergeCenterProps(): array
     {
         return array_merge($this->center, [
@@ -61,6 +72,9 @@ class Header extends BaseComponent
         ]);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function mergeNavbarProps(): array
     {
         return array_merge($this->navbar, [

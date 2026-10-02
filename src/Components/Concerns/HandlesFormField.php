@@ -10,6 +10,16 @@ use Illuminate\Support\Str;
  */
 trait HandlesFormField
 {
+    protected function baseFieldName(): string
+    {
+        return $this->name;
+    }
+
+    protected function baseFieldHint(): ?string
+    {
+        return $this->hint;
+    }
+
     public function fieldId(): string
     {
         return $this->id();
@@ -34,43 +44,5 @@ trait HandlesFormField
         }
 
         return is_scalar($value) ? (string) $value : null;
-    }
-
-    public function inputValue(): ?string
-    {
-        $field = $this->errorField() ?? $this->name;
-        $old = session()->getOldInput($field);
-
-        if (is_scalar($old)) {
-            return $this->normalizeValue($old);
-        }
-
-        return $this->normalizeValue($this->value);
-    }
-
-    /**
-     * Checked state for checkbox/radio: old input wins when present
-     * (re-population after failed validation), otherwise the checked prop.
-     * A checkbox without an explicit value posts "on", so that is the
-     * fallback when comparing against scalar old input.
-     */
-    public function isChecked(): bool
-    {
-        if (! session()->has('_old_input')) {
-            return $this->checked;
-        }
-
-        $old = session()->getOldInput($this->errorField() ?? $this->name);
-
-        if (is_array($old)) {
-            return in_array($this->normalizeValue($this->value) ?? '', array_map(fn ($value) => $this->normalizeValue($value) ?? '', $old), true);
-        }
-
-        return $old !== null && $this->normalizeValue($old) === ($this->normalizeValue($this->value) ?? 'on');
-    }
-
-    public function hasValue(): bool
-    {
-        return filled($this->normalizeValue($this->inputValue()));
     }
 }

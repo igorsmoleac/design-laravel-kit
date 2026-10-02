@@ -28,7 +28,7 @@ class RadioGroup extends BaseFormComponent
     {
         $this->groupErrorId = $this->hasError() ? $this->errorId() : null;
 
-        return view('design-laravel-kit::components.radio-group');
+        return $this->componentView('design-laravel-kit::components.radio-group');
     }
 
     public function legendText(): string

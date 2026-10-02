@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
@@ -18,6 +19,11 @@ abstract class BaseComponent extends Component
     public static function idPrefix(): string
     {
         return (string) config('design-laravel-kit.id_prefix', 'dlk');
+    }
+
+    protected function componentView(string $viewName): View
+    {
+        return view()->make($viewName);
     }
 
     /* ------------------------------------------------------------------

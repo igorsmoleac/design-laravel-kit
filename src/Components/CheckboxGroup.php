@@ -28,7 +28,7 @@ class CheckboxGroup extends BaseFormComponent
     {
         $this->groupErrorId = $this->hasError() ? $this->errorId() : null;
 
-        return view('design-laravel-kit::components.checkbox-group');
+        return $this->componentView('design-laravel-kit::components.checkbox-group');
     }
 
     public function legendText(): string

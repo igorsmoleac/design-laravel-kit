@@ -6,6 +6,9 @@ use Illuminate\Contracts\View\View;
 
 class SpidButton extends BaseComponent
 {
+    /**
+     * @param  list<array<string, mixed>>  $providers
+     */
     public function __construct(
         public ?string $href = null,
         public string $size = 'm',
@@ -16,7 +19,7 @@ class SpidButton extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.spid-button');
+        return $this->componentView('design-laravel-kit::components.spid-button');
     }
 
     public function cssClass(): string

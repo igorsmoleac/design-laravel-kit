@@ -14,7 +14,7 @@ class Badge extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.badge');
+        return $this->componentView('design-laravel-kit::components.badge');
     }
 
     public function cssClass(): string

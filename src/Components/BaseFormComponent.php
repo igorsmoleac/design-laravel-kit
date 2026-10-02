@@ -9,6 +9,10 @@ abstract class BaseFormComponent extends BaseComponent
 {
     protected string $bag = 'default';
 
+    abstract protected function baseFieldName(): string;
+
+    abstract protected function baseFieldHint(): ?string;
+
     public function errorId(): string
     {
         return $this->id() . '-error';
@@ -21,7 +25,7 @@ abstract class BaseFormComponent extends BaseComponent
 
     protected function idSeed(): ?string
     {
-        return $this->name;
+        return $this->baseFieldName();
     }
 
     public function hasError(): bool
@@ -50,11 +54,11 @@ abstract class BaseFormComponent extends BaseComponent
 
     protected function errorField(): ?string
     {
-        if ($this->name === '') {
+        if ($this->baseFieldName() === '') {
             return null;
         }
 
-        return $this->toDotNotation($this->name);
+        return $this->toDotNotation($this->baseFieldName());
     }
 
     protected function toDotNotation(string $name): string
@@ -75,6 +79,6 @@ abstract class BaseFormComponent extends BaseComponent
 
     protected function hasHint(): bool
     {
-        return filled($this->hint);
+        return filled($this->baseFieldHint());
     }
 }

@@ -11,8 +11,13 @@ class Select extends BaseFormComponent
 {
     use HandlesFormField;
 
+    /** @var array<array-key, mixed> */
     public array $options;
 
+    /**
+     * @param  array<array-key, mixed>|Collection<array-key, mixed>|Arrayable<array-key, mixed>  $options
+     * @param  array<array-key, mixed>  $selected
+     */
     public function __construct(
         public string $name,
         array|Collection|Arrayable $options = [],
@@ -29,6 +34,10 @@ class Select extends BaseFormComponent
         $this->options = $this->normalizeOptions($options);
     }
 
+    /**
+     * @param  array<array-key, mixed>|Collection<array-key, mixed>|Arrayable<array-key, mixed>  $options
+     * @return array<array-key, mixed>
+     */
     protected function normalizeOptions(array|Collection|Arrayable $options): array
     {
         if (is_array($options)) {
@@ -40,7 +49,7 @@ class Select extends BaseFormComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.select');
+        return $this->componentView('design-laravel-kit::components.select');
     }
 
     public function inputClass(): string
@@ -62,6 +71,9 @@ class Select extends BaseFormComponent
         return $this->name . '[]';
     }
 
+    /**
+     * @return string|array<array-key, string|null>|null
+     */
     public function selectedValue(): string|array|null
     {
         $selected = session()->getOldInput($this->errorField() ?? $this->name) ?? $this->selected;
