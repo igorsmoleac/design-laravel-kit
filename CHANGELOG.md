@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Accessibilità: uniformato l'uso di `role="alert"` e `aria-live` nei blocchi di errore; rimossa la combinazione contraddittoria.
 
 ### Fixed
+- Layout: ripristinato il passaggio completo dei parametri al footer (subtitle, logo, url, sections, contacts, social, legal-links, copyright) tramite slot e attributi nominati. Regressione introdotta nel refactoring 0.5.0.
 
 ## [0.4.3] - 2026-10-02
 

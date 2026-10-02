@@ -98,7 +98,7 @@ I file saranno copiati in `lang/vendor/design-laravel-kit/`.
 
 ### Layout istituzionale
 
-Configurare l'ente, la navigazione, i link legali e il contenuto della pagina:
+Configurare l'ente, la navigazione, i dati del footer, i suoi slot per sezioni, contatti, social e link legali, e il contenuto della pagina:
 
 ```blade
 <x-italia::layout title="Comune di Roma — Portale istituzionale">
@@ -117,10 +117,34 @@ Configurare l'ente, la navigazione, i link legali e il contenuto della pagina:
         <x-italia::header-nav-item text="Amministrazione" url="/amministrazione" />
         <x-italia::header-nav-item text="Servizi" url="/servizi" />
     </x-slot:navbar>
-    <x-slot:footer title="Comune di Roma">
+
+    <x-slot:footer
+        title="Comune di Roma"
+        subtitle="Portale istituzionale"
+        logo="/images/stemma.svg"
+        logo-alt="Stemma comunale"
+        url="/"
+        copyright="© 2026 Comune di Roma"
+    ></x-slot:footer>
+    <x-slot:footer-sections>
+        <x-italia::footer-section title="Amministrazione" url="/amministrazione">
+            <li><a class="list-item" href="/amministrazione/giunta">Giunta comunale</a></li>
+        </x-italia::footer-section>
+    </x-slot:footer-sections>
+    <x-slot:footer-contacts>
+        <div class="col-lg-4 col-md-4 pb-2">
+            <p>Via Roma 1, 00100 Roma</p>
+            <a href="tel:+39060000000">+39 06 0000000</a>
+            <a href="mailto:info@comune.it">info@comune.it</a>
+        </div>
+    </x-slot:footer-contacts>
+    <x-slot:footer-social>
+        <x-italia::footer-social-link url="https://facebook.com" icon="it-facebook" label="Facebook" />
+    </x-slot:footer-social>
+    <x-slot:footer-legal-links>
         <x-italia::footer-legal-link url="/privacy" text="Privacy policy" data-element="privacy-policy-link" />
         <x-italia::footer-legal-link url="/accessibilita" text="Dichiarazione di accessibilità" data-element="accessibility-link" />
-    </x-slot:footer>
+    </x-slot:footer-legal-links>
 
     <h1>Servizi comunali</h1>
     <p>Informazioni e servizi per i cittadini.</p>
