@@ -3,7 +3,7 @@
         <x-italia::icon :name="$iconName()" />
     @endif
     @if ($title)
-        <h4 class="alert-heading">{{ $title }}</h4>
+        <h3 class="alert-heading">{{ $title }}</h3>
     @endif
     <div>{{ $slot }}</div>
     @if ($dismissible)

@@ -16,7 +16,7 @@ class AlertComponentTest extends TestCase
     {
         $this->blade('<x-italia::alert variant="danger" title="Errore" dismissible>Qualcosa è andato storto.</x-italia::alert>')
             ->assertSee('alert alert-danger alert-dismissible fade show', false)
-            ->assertSee('<h4 class="alert-heading">Errore</h4>', false)
+            ->assertSee('<h3 class="alert-heading">Errore</h3>', false)
             ->assertSee('Qualcosa è andato storto.')
             ->assertSee('data-bs-dismiss="alert"', false)
             ->assertSee('role="alert"', false);
