@@ -165,7 +165,7 @@ class InputTest extends TestCase
         $html = (string) $this->blade('<x-italia::input name="email" />');
 
         $this->assertStringContainsString('role="alert"', $html);
-        $this->assertStringContainsString('aria-live="polite"', $html);
+        $this->assertStringNotContainsString('aria-live', $html);
         $this->assertStringContainsString('The email field is required.', $html);
     }
 
@@ -272,6 +272,14 @@ class InputTest extends TestCase
         $html = (string) $this->blade('<x-italia::input name="email" class="custom" />');
 
         $this->assertStringContainsString('form-control custom', $html);
+    }
+
+    public function test_wrapper_class_is_applied_to_container(): void
+    {
+        $html = (string) $this->blade('<x-italia::input name="email" wrapper-class="col-md-6" class="custom" :floating="false" />');
+
+        $this->assertStringContainsString('<div class="form-group col-md-6">', $html);
+        $this->assertStringContainsString('class="form-control custom"', $html);
     }
 
     public function test_wire_model_passed_through(): void

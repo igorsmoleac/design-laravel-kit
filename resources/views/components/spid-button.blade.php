@@ -10,10 +10,12 @@
             <span class="dlk-spid-label">{{ $label }}</span>
         </button>
         <ul class="dropdown-menu" aria-label="Identity Provider SPID">
-            @foreach ($providers as $provider)
+            @foreach ($providerList() as $provider)
                 <li><a class="dropdown-item" href="{{ $provider['url'] }}">{{ $provider['name'] }}</a></li>
             @endforeach
-            <li><hr class="dropdown-divider"></li>
+            @if ($providerList() !== [])
+                <li><hr class="dropdown-divider"></li>
+            @endif
             <li><a class="dropdown-item" href="https://www.spid.gov.it">Maggiori informazioni</a></li>
             <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">Non hai SPID?</a></li>
             <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">Serve aiuto?</a></li>

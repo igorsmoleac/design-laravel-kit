@@ -135,12 +135,12 @@ Configurare l'ente, la navigazione, i link legali e il contenuto della pagina:
 
 ### Form di segnalazione
 
-I componenti form collegano gli errori della sessione Laravel e ripristinano i valori inviati in precedenza:
+I componenti form collegano gli errori della sessione Laravel e ripristinano i valori inviati in precedenza. `wrapper-class` applica classi al contenitore; `class` resta sul controllo:
 
 ```blade
 <form method="POST" action="{{ route('segnalazioni.store') }}">
     @csrf
-    <x-italia::input name="email" type="email" label="Indirizzo email" required />
+    <x-italia::input name="email" type="email" label="Indirizzo email" wrapper-class="col-md-6" required />
     <x-italia::textarea name="messaggio" label="Descrizione della segnalazione" :rows="5" required />
     <x-italia::button type="submit">Invia segnalazione</x-italia::button>
 </form>
@@ -202,6 +202,22 @@ Per una conformità AgID rigorosa su siti PA in produzione:
 
 - usare la libreria ufficiale `italia/spid-sp-access-button` insieme a questo pacchetto, oppure
 - sovrascrivere le classi `.dlk-spid-button` e `.dlk-cie-button` con CSS personalizzato conforme alla specifica ufficiale.
+
+#### Dropdown SPID
+
+Con `dropdown` attivo e `providers` vuoto, viene usato `config('design-laravel-kit.spid.providers')`. È possibile sostituire l'elenco e adattare gli URL alle route SPID dell'applicazione:
+
+```php
+'spid' => [
+    'providers' => [
+        ['name' => 'Poste Italiane', 'url' => '/spid/login/poste'],
+    ],
+],
+```
+
+```blade
+<x-italia::spid-button dropdown />
+```
 
 ### Note sugli ID
 

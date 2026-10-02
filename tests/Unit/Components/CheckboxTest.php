@@ -174,6 +174,7 @@ class CheckboxTest extends TestCase
 
         $this->assertStringContainsString('invalid-feedback', $html);
         $this->assertStringContainsString('role="alert"', $html);
+        $this->assertStringNotContainsString('aria-live', $html);
         $this->assertStringContainsString('Devi accettare i termini.', $html);
     }
 

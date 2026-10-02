@@ -37,4 +37,20 @@ class SpidButton extends BaseComponent
     {
         return $this->dropdown;
     }
+
+    /** @return array<array-key, mixed> */
+    public function providerList(): array
+    {
+        if (! $this->dropdown) {
+            return [];
+        }
+
+        if ($this->providers !== []) {
+            return $this->providers;
+        }
+
+        $providers = config('design-laravel-kit.spid.providers', []);
+
+        return is_array($providers) ? $providers : [];
+    }
 }

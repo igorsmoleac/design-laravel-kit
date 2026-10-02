@@ -22,7 +22,10 @@ class Input extends BaseFormComponent
         public bool $readonly = false,
         public bool $floating = true,
         public string $bag = 'default',
-    ) {}
+        ?string $wrapperClass = null,
+    ) {
+        $this->wrapperClass = $wrapperClass;
+    }
 
     public function render(): View
     {

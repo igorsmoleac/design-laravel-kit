@@ -1,4 +1,4 @@
-<fieldset {{ $attributes->merge(['id' => $id(), 'class' => 'form-group']) }}
+<fieldset {{ $attributes->merge(['id' => $id(), 'class' => 'form-group'])->class([$wrapperClass => filled($wrapperClass)]) }}
     @if ($hasError()) aria-invalid="true" @endif
     @if (filled($hint)) aria-describedby="{{ $hintId() }}{{ $hasError() ? ' ' . $errorId() : '' }}"
     @elseif ($hasError()) aria-describedby="{{ $errorId() }}" @endif
@@ -20,7 +20,7 @@
     {{ $slot }}
 
     @if ($hasError())
-        <div class="invalid-feedback d-block" id="{{ $errorId() }}" role="alert" aria-live="polite">
+        <div class="invalid-feedback d-block" id="{{ $errorId() }}" role="alert">
             {{ $errorMessage() }}
         </div>
     @endif

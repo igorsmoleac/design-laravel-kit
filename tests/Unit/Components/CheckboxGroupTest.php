@@ -50,6 +50,7 @@ class CheckboxGroupTest extends TestCase
         $html = (string) $this->blade('<x-italia::checkbox-group name="interests"><x-italia::checkbox name="interests[]" value="sport" /><x-italia::checkbox name="interests[]" value="music" /></x-italia::checkbox-group>');
 
         $this->assertSame(1, substr_count($html, 'role="alert"'));
+        $this->assertStringNotContainsString('aria-live', $html);
         $this->assertSame(1, substr_count($html, 'Seleziona almeno un interesse.'));
     }
 

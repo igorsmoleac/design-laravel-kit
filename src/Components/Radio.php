@@ -20,7 +20,10 @@ class Radio extends BaseFormComponent
         public bool $required = false,
         public ?string $hint = null,
         public string $bag = 'default',
-    ) {}
+        ?string $wrapperClass = null,
+    ) {
+        $this->wrapperClass = $wrapperClass;
+    }
 
     public function render(): View
     {
