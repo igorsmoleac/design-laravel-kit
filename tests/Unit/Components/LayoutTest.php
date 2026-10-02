@@ -262,4 +262,117 @@ BLADE);
 
         $this->assertLessThan(strpos($html, '<body'), strpos($html, 'design-laravel-kit.css'));
     }
+
+    public function test_footer_slot_title_overrides_layout_footer_attributes(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout
+    footer-title="Layout footer"
+    footer-subtitle="Portale istituzionale"
+    footer-logo="/images/stemma.svg"
+    footer-logo-alt="Stemma comunale"
+    footer-url="/"
+    footer-copyright="© 2026 Comune di Roma"
+>
+    <x-slot:footer title="Comune di Roma"></x-slot:footer>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringContainsString('<h2 class="no_toc">Comune di Roma</h2>', $html);
+        $this->assertStringNotContainsString('<h2 class="no_toc">Layout footer</h2>', $html);
+        $this->assertStringContainsString('<h3 class="no_toc d-none d-md-block">Portale istituzionale</h3>', $html);
+        $this->assertStringContainsString('src="/images/stemma.svg" alt="Stemma comunale"', $html);
+        $this->assertStringContainsString('<a href="/">', $html);
+        $this->assertStringContainsString('© 2026 Comune di Roma', $html);
+    }
+
+    public function test_footer_subtitle_attribute_is_forwarded_from_named_slot(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout><x-slot:footer title="Comune" subtitle="Servizi ai cittadini"></x-slot:footer></x-italia::layout>');
+
+        $this->assertStringContainsString('<h3 class="no_toc d-none d-md-block">Servizi ai cittadini</h3>', $html);
+    }
+
+    public function test_footer_logo_and_alt_attributes_are_forwarded_from_named_slot(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout><x-slot:footer title="Comune" logo="/images/logo.svg" logo-alt="Stemma"></x-slot:footer></x-italia::layout>');
+
+        $this->assertStringContainsString('src="/images/logo.svg" alt="Stemma"', $html);
+    }
+
+    public function test_footer_url_attribute_is_forwarded_from_named_slot(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout><x-slot:footer title="Comune" url="/comune"></x-slot:footer></x-italia::layout>');
+
+        $this->assertStringContainsString('<a href="/comune">', $html);
+    }
+
+    public function test_footer_copyright_attribute_is_forwarded_from_named_slot(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout><x-slot:footer title="Comune" copyright="© Comune"></x-slot:footer></x-italia::layout>');
+
+        $this->assertStringContainsString('© Comune', $html);
+    }
+
+    public function test_footer_sections_slot_is_forwarded_to_nested_footer(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout>
+    <x-slot:footer title="Comune"></x-slot:footer>
+    <x-slot:footer-sections>
+        <x-italia::footer-section title="Amministrazione" url="/amministrazione">
+            <li><a href="/uffici">Uffici</a></li>
+        </x-italia::footer-section>
+    </x-slot:footer-sections>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringContainsString('<a href="/amministrazione">Amministrazione</a>', $html);
+        $this->assertStringContainsString('<li><a href="/uffici">Uffici</a></li>', $html);
+    }
+
+    public function test_footer_contacts_slot_is_forwarded_as_content(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout>
+    <x-slot:footer title="Comune"></x-slot:footer>
+    <x-slot:footer-contacts>
+        <div class="col-lg-4"><p>Via Roma 1</p><a href="tel:+39060000000">+39 06 0000000</a></div>
+    </x-slot:footer-contacts>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringContainsString('<p>Via Roma 1</p>', $html);
+        $this->assertStringContainsString('href="tel:+39060000000"', $html);
+    }
+
+    public function test_footer_social_slot_is_forwarded_to_nested_footer(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout>
+    <x-slot:footer title="Comune"></x-slot:footer>
+    <x-slot:footer-social>
+        <x-italia::footer-social-link url="https://facebook.com" icon="it-facebook" label="Facebook" />
+    </x-slot:footer-social>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringContainsString('aria-label="Facebook"', $html);
+        $this->assertStringContainsString('sprites.svg#it-facebook', $html);
+    }
+
+    public function test_footer_legal_links_slot_preserves_data_element(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout>
+    <x-slot:footer title="Comune"></x-slot:footer>
+    <x-slot:footer-legal-links>
+        <x-italia::footer-legal-link url="/privacy" text="Privacy" data-element="privacy-policy-link" />
+    </x-slot:footer-legal-links>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringContainsString('href="/privacy"', $html);
+        $this->assertStringContainsString('data-element="privacy-policy-link"', $html);
+    }
 }

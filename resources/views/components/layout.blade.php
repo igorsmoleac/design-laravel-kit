@@ -61,7 +61,20 @@
         :url="$footerConfig->url"
         :copyright="$footerConfig->copyright"
         :light="$light || $footerConfig->light"
-    >{{ $footer ?? '' }}</x-italia::footer>
+    >
+        @isset($footerSections)
+            <x-slot:sections>{{ $footerSections }}</x-slot:sections>
+        @endisset
+        @isset($footerContacts)
+            <x-slot:contacts>{{ $footerContacts }}</x-slot:contacts>
+        @endisset
+        @isset($footerSocial)
+            <x-slot:social>{{ $footerSocial }}</x-slot:social>
+        @endisset
+        @isset($footerLegalLinks)
+            <x-slot:legal-links>{{ $footerLegalLinks }}</x-slot:legal-links>
+        @endisset
+    </x-italia::footer>
 
     @designLaravelKitScripts
     @stack('scripts')

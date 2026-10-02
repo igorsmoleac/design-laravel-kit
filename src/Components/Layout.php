@@ -31,6 +31,12 @@ class Layout extends BaseComponent
         ?string $skipLabel = null,
         public string $bodyClass = '',
         public ?string $mainClass = null,
+        public ?string $footerTitle = null,
+        public ?string $footerSubtitle = null,
+        public ?string $footerLogo = null,
+        public ?string $footerLogoAlt = null,
+        public ?string $footerUrl = null,
+        public ?string $footerCopyright = null,
     ) {
         $this->skipLabel = $skipLabel ?? __('design-laravel-kit::Vai al contenuto principale');
     }
@@ -48,9 +54,19 @@ class Layout extends BaseComponent
             $this->slimConfig = $slim === null ? null : SlimConfig::fromArray($slim);
             $this->centerConfig = $center === null ? null : CenterConfig::fromArray($center);
             $this->navbarConfig = $navbar === null ? null : NavbarConfig::fromArray($navbar);
-            $this->footerConfig = $footer === null
-                ? FooterConfig::fromArray(['title' => (string) config('app.name')])
-                : FooterConfig::fromArray($footer);
+            $footerDefaults = [
+                'title' => $this->footerTitle ?? (string) config('app.name'),
+                'subtitle' => $this->footerSubtitle,
+                'logo' => $this->footerLogo,
+                'logoAlt' => $this->footerLogoAlt,
+                'url' => $this->footerUrl,
+                'copyright' => $this->footerCopyright,
+            ];
+            $this->footerConfig = FooterConfig::fromArray(array_merge($footerDefaults, $footer ?? []));
+            $footerSections = $data['footerSections'] ?? $data['footer-sections'] ?? null;
+            $footerContacts = $data['footerContacts'] ?? $data['footer-contacts'] ?? null;
+            $footerSocial = $data['footerSocial'] ?? $data['footer-social'] ?? null;
+            $footerLegalLinks = $data['footerLegalLinks'] ?? $data['footer-legal-links'] ?? $data['footer'] ?? null;
 
             return $this->componentView('design-laravel-kit::components.layout')
                 ->with($data)
@@ -59,6 +75,10 @@ class Layout extends BaseComponent
                     'centerConfig' => $this->centerConfig,
                     'navbarConfig' => $this->navbarConfig,
                     'footerConfig' => $this->footerConfig,
+                    'footerSections' => $footerSections,
+                    'footerContacts' => $footerContacts,
+                    'footerSocial' => $footerSocial,
+                    'footerLegalLinks' => $footerLegalLinks,
                 ]);
         };
     }
