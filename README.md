@@ -101,33 +101,27 @@ I file saranno copiati in `lang/vendor/design-laravel-kit/`.
 Configurare l'ente, la navigazione, i link legali e il contenuto della pagina:
 
 ```blade
-<x-italia::layout
-    title="Comune di Roma — Portale istituzionale"
-    :slim="[
-        'ente' => 'Comune di Roma',
-        'enteUrl' => 'https://www.comune.roma.it',
-        'loginUrl' => '/login',
-    ]"
-    :center="[
-        'title' => 'Comune di Roma',
-        'tagline' => 'Portale istituzionale',
-        'url' => '/',
-        'searchUrl' => '/cerca',
-    ]"
-    :navbar="[
-        'items' => [
-            ['text' => 'Amministrazione', 'url' => '/amministrazione'],
-            ['text' => 'Servizi', 'url' => '/servizi'],
-        ],
-    ]"
-    :footer="[
-        'title' => 'Comune di Roma',
-        'legalLinks' => [
-            ['url' => '/privacy', 'text' => 'Privacy policy', 'dataElement' => 'privacy-policy-link'],
-            ['url' => '/accessibilita', 'text' => 'Dichiarazione di accessibilità', 'dataElement' => 'accessibility-link'],
-        ],
-    ]"
->
+<x-italia::layout title="Comune di Roma — Portale istituzionale">
+    <x-slot:slim
+        ente="Comune di Roma"
+        ente-url="https://www.comune.roma.it"
+        login-url="/login"
+    ></x-slot:slim>
+    <x-slot:center
+        title="Comune di Roma"
+        tagline="Portale istituzionale"
+        url="/"
+        search-url="/cerca"
+    ></x-slot:center>
+    <x-slot:navbar>
+        <x-italia::header-nav-item text="Amministrazione" url="/amministrazione" />
+        <x-italia::header-nav-item text="Servizi" url="/servizi" />
+    </x-slot:navbar>
+    <x-slot:footer title="Comune di Roma">
+        <x-italia::footer-legal-link url="/privacy" text="Privacy policy" data-element="privacy-policy-link" />
+        <x-italia::footer-legal-link url="/accessibilita" text="Dichiarazione di accessibilità" data-element="accessibility-link" />
+    </x-slot:footer>
+
     <h1>Servizi comunali</h1>
     <p>Informazioni e servizi per i cittadini.</p>
 </x-italia::layout>
@@ -151,11 +145,33 @@ I componenti form collegano gli errori della sessione Laravel e ripristinano i v
 Usare il componente header senza adottare il componente layout:
 
 ```blade
-<x-italia::header
-    :slim="['ente' => 'Azienda sanitaria locale']"
-    :center="['title' => 'Servizi sanitari', 'searchUrl' => '/cerca']"
-    :navbar="['items' => [['text' => 'Prenotazioni', 'url' => '/prenotazioni']]]"
-/>
+<x-italia::header>
+    <x-slot:slim ente="Azienda sanitaria locale"></x-slot:slim>
+    <x-slot:center title="Servizi sanitari" search-url="/cerca"></x-slot:center>
+    <x-slot:navbar>
+        <x-italia::header-nav-item text="Prenotazioni" url="/prenotazioni" />
+    </x-slot:navbar>
+</x-italia::header>
+```
+
+### Megamenu con link raggruppati
+
+Usare `header-megamenu` dentro lo slot navbar e raggruppare i link in sezioni:
+
+```blade
+<x-italia::header-navbar>
+    <x-italia::header-nav-item text="Home" url="/" active />
+    <x-italia::header-megamenu text="Servizi" url="/servizi">
+        <x-italia::header-megamenu-section heading="Anagrafe">
+            <x-italia::header-nav-item text="Certificati" url="/certificati" />
+            <x-italia::header-nav-item text="Residenza" url="/residenza" />
+        </x-italia::header-megamenu-section>
+        <x-italia::header-megamenu-section heading="Tributi">
+            <x-italia::header-nav-item text="IMU" url="/imu" />
+        </x-italia::header-megamenu-section>
+    </x-italia::header-megamenu>
+    <x-italia::header-nav-item text="Novità" url="/novita" />
+</x-italia::header-navbar>
 ```
 
 ### Pulsante in caricamento
@@ -193,6 +209,23 @@ I componenti Blade usano il prefisso `<x-italia::`.
 | `<x-italia::modal>` | Finestra di dialogo con attributi ARIA e supporto JavaScript Bootstrap Italia |
 | `<x-italia::spid-button>` | Pulsante di accesso SPID |
 | `<x-italia::cie-button>` | Pulsante di accesso CIE |
+| `<x-italia::header-nav-item>` | Voce di navigazione per lo slot navbar |
+| `<x-italia::header-social-link>` | Link social per HeaderCenter |
+| `<x-italia::footer-legal-link>` | Link legale per il footer |
+| `<x-italia::footer-section>` | Sezione del footer con contenuto nello slot |
+| `<x-italia::footer-social-link>` | Link social per il footer |
+
+Gli slot `slim`, `center`, `navbar`, `footer`, `sections`, `social` e `legal-links` usano attributi Blade nominati, non array. Anche `HeaderSlim`, `HeaderCenter` e `HeaderNavbar` autonomi usano attributi scalari e slot, non array. I DTO readonly (`SlimConfig`, `CenterConfig`, ecc.) sono dettagli interni: non vanno passati dai template.
+
+## Migrazione da 0.4.x
+
+I componenti `Layout`, `Header` e `Footer` non accettano più array di configurazione. Sostituire gli attributi array con slot e componenti helper:
+
+| Componente | Prima (0.4.x) | Ora |
+|---|---|---|
+| Layout | `<x-italia::layout :slim="$slim" :center="$center" :navbar="$navbar" :footer="$footer" />` | `<x-italia::layout><x-slot:slim ente="Comune di Roma"></x-slot:slim><x-slot:center title="Comune di Roma"></x-slot:center><x-slot:navbar><x-italia::header-nav-item text="Servizi" url="/servizi" /></x-slot:navbar><x-slot:footer title="Comune di Roma"><x-italia::footer-legal-link url="/privacy" text="Privacy" /></x-slot:footer></x-italia::layout>` |
+| Header | `<x-italia::header :slim="$slim" :center="$center" :navbar="$navbar" />` | `<x-italia::header><x-slot:slim ente="Comune di Roma"></x-slot:slim><x-slot:center title="Comune di Roma"></x-slot:center><x-slot:navbar><x-italia::header-nav-item text="Servizi" url="/servizi" /></x-slot:navbar></x-italia::header>` |
+| Footer | `<x-italia::footer title="Comune" :legal-links="$legal" />` | `<x-italia::footer title="Comune"><x-slot:legal-links><x-italia::footer-legal-link url="/privacy" text="Privacy" /></x-slot:legal-links></x-italia::footer>` |
 
 ### Nota sui pulsanti SPID e CIE
 

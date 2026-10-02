@@ -2,26 +2,29 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use Closure;
+use IgorSmoleac\DesignLaravelKit\DTO\CenterConfig;
+use IgorSmoleac\DesignLaravelKit\DTO\FooterConfig;
+use IgorSmoleac\DesignLaravelKit\DTO\NavbarConfig;
+use IgorSmoleac\DesignLaravelKit\DTO\SlimConfig;
 use Illuminate\Contracts\View\View;
 
 class Layout extends BaseComponent
 {
     public string $skipLabel;
 
-    /**
-     * @param  array<string, mixed>  $slim
-     * @param  array<string, mixed>  $center
-     * @param  array<string, mixed>  $navbar
-     * @param  array<string, mixed>  $footer
-     */
+    protected ?SlimConfig $slimConfig = null;
+
+    protected ?CenterConfig $centerConfig = null;
+
+    protected ?NavbarConfig $navbarConfig = null;
+
+    protected ?FooterConfig $footerConfig = null;
+
     public function __construct(
         public string $title = '',
         public ?string $description = null,
         public ?string $lang = null,
-        public array $slim = [],
-        public array $center = [],
-        public array $navbar = [],
-        public array $footer = [],
         public bool $light = false,
         public bool $sticky = false,
         public bool $skipToContent = true,
@@ -32,9 +35,32 @@ class Layout extends BaseComponent
         $this->skipLabel = $skipLabel ?? __('design-laravel-kit::Vai al contenuto principale');
     }
 
-    public function render(): View
+    public function render(): Closure
     {
-        return $this->componentView('design-laravel-kit::components.layout');
+        return function (array $data): View {
+            $this->rejectArrayAttributes(['slim', 'center', 'navbar', 'footer']);
+
+            $slim = $this->slotAttributes($data, 'slim');
+            $center = $this->slotAttributes($data, 'center');
+            $navbar = $this->slotAttributes($data, 'navbar');
+            $footer = $this->slotAttributes($data, 'footer');
+
+            $this->slimConfig = $slim === null ? null : SlimConfig::fromArray($slim);
+            $this->centerConfig = $center === null ? null : CenterConfig::fromArray($center);
+            $this->navbarConfig = $navbar === null ? null : NavbarConfig::fromArray($navbar);
+            $this->footerConfig = $footer === null
+                ? FooterConfig::fromArray(['title' => (string) config('app.name')])
+                : FooterConfig::fromArray($footer);
+
+            return $this->componentView('design-laravel-kit::components.layout')
+                ->with($data)
+                ->with([
+                    'slimConfig' => $this->slimConfig,
+                    'centerConfig' => $this->centerConfig,
+                    'navbarConfig' => $this->navbarConfig,
+                    'footerConfig' => $this->footerConfig,
+                ]);
+        };
     }
 
     public function pageTitle(): string

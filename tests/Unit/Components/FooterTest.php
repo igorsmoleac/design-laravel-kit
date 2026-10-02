@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\Components\Footer;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class FooterTest extends TestCase
@@ -13,341 +14,282 @@ class FooterTest extends TestCase
         return [DesignLaravelKitServiceProvider::class];
     }
 
-    private function sections(): array
+    public function test_renders_brand_and_copyright_from_named_attributes(): void
     {
-        return [
-            [
-                'title' => 'Amministrazione',
-                'links' => [
-                    ['url' => '/organi', 'text' => 'Organi di governo'],
-                    ['url' => '/uffici', 'text' => 'Uffici'],
-                ],
-            ],
-            [
-                'title' => 'Novità',
-                'links' => [
-                    ['url' => '/notizie', 'text' => 'Notizie'],
-                ],
-            ],
-        ];
-    }
-
-    private function contacts(): array
-    {
-        return [
-            ['type' => 'address', 'value' => 'Piazza del Campidoglio, 1 — 00186 Roma'],
-            ['type' => 'phone', 'value' => '+39 06 0606', 'label' => 'Telefono'],
-            ['type' => 'email', 'value' => 'protocollo@comune.roma.it'],
-            ['type' => 'pec', 'value' => 'protocollo@pec.comune.roma.it', 'label' => 'PEC'],
-        ];
-    }
-
-    private function socialLinks(): array
-    {
-        return [
-            ['url' => 'https://facebook.com', 'icon' => 'it-facebook', 'label' => 'Facebook'],
-            ['url' => 'https://twitter.com', 'icon' => 'it-twitter', 'label' => 'Twitter'],
-        ];
-    }
-
-    private function legalLinks(): array
-    {
-        return [
-            ['url' => '/privacy', 'text' => 'Privacy policy', 'dataElement' => 'privacy-policy-link'],
-            ['url' => '/note-legali', 'text' => 'Note legali'],
-            ['url' => '/accessibilita', 'text' => 'Dichiarazione di accessibilità', 'dataElement' => 'accessibility-link'],
-            ['url' => '/segnala', 'text' => 'Segnala un problema'],
-        ];
-    }
-
-    public function test_renders_it_footer(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
-
-        $this->assertStringContainsString('<footer class="it-footer">', $html);
-        $this->assertStringContainsString('it-footer-main', $html);
-    }
-
-    public function test_accepts_custom_id_attribute(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" id="test" />');
-
-        $this->assertMatchesRegularExpression('/^\s*<footer\b[^>]*\bid="test"/', $html);
-    }
-
-    public function test_accepts_custom_data_attribute(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" data-element="foo" />');
-
-        $this->assertMatchesRegularExpression('/^\s*<footer\b[^>]*\bdata-element="foo"/', $html);
-    }
-
-    public function test_wrapper_class_still_present(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
+        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" subtitle="Portale istituzionale" url="/home" copyright="© 2026 Comune di Roma" />');
 
         $this->assertStringContainsString('class="it-footer"', $html);
+        $this->assertStringContainsString('<a href="/home">', $html);
+        $this->assertStringContainsString('<h2 class="no_toc">Comune di Roma</h2>', $html);
+        $this->assertStringContainsString('Portale istituzionale', $html);
+        $this->assertStringContainsString('© 2026 Comune di Roma', $html);
     }
 
-    public function test_title_renders_inside_it_brand_text(): void
+    public function test_named_slots_render_sections_social_and_legal_links(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::footer title="Comune di Roma">
+    <x-slot:sections>
+        <x-italia::footer-section title="Amministrazione" url="/amministrazione">
+            <li><a class="list-item" href="/organi">Organi di governo</a></li>
+        </x-italia::footer-section>
+    </x-slot:sections>
+    <x-slot:social>
+        <x-italia::footer-social-link url="https://facebook.com" label="Facebook" icon="it-facebook" />
+    </x-slot:social>
+    <x-slot:legal-links>
+        <x-italia::footer-legal-link url="/privacy" text="Privacy policy" data-element="privacy-policy-link" />
+    </x-slot:legal-links>
+</x-italia::footer>
+BLADE);
 
-        $this->assertMatchesRegularExpression('/it-brand-text[^>]*>\s*<h2 class="no_toc">Comune di Roma<\/h2>/s', $html);
-    }
-
-    public function test_subtitle_renders_when_provided(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" subtitle="Portale istituzionale" />');
-
-        $this->assertStringContainsString('<h3 class="no_toc d-none d-md-block">Portale istituzionale</h3>', $html);
-    }
-
-    public function test_subtitle_is_omitted_when_null(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
-
-        $this->assertStringNotContainsString('<h3', $html);
-    }
-
-    public function test_logo_renders_as_img_with_alt(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" logo="https://example.com/logo.svg" logo-alt="Stemma del Comune" />');
-
-        $this->assertStringContainsString('<img class="icon" src="https://example.com/logo.svg" alt="Stemma del Comune">', $html);
-    }
-
-    public function test_logo_alt_defaults_to_title(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" logo="https://example.com/logo.svg" />');
-
-        $this->assertStringContainsString('alt="Comune di Roma"', $html);
-    }
-
-    public function test_fallback_icon_without_logo(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
-
-        $this->assertStringContainsString('sprites.svg#it-code-circle', $html);
-        $this->assertStringNotContainsString('<img', $html);
-    }
-
-    public function test_brand_url_defaults_to_hash(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
-
-        $this->assertStringContainsString('<a href="#">', $html);
-    }
-
-    public function test_brand_url_uses_provided_url(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" url="/" />');
-
-        $this->assertStringContainsString('<a href="/">', $html);
-    }
-
-    public function test_sections_render_in_columns(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :sections="$sections" />', ['sections' => $this->sections()]);
-
-        $this->assertStringContainsString('col-lg-3 col-md-3 col-sm-6', $html);
-        $this->assertSame(2, substr_count($html, 'col-lg-3 col-md-3 col-sm-6'));
-        $this->assertStringContainsString('Organi di governo', $html);
-        $this->assertStringContainsString('href="/notizie"', $html);
-        $this->assertStringContainsString('footer-list link-list clearfix', $html);
-    }
-
-    public function test_section_title_renders_as_link_when_url_provided(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :sections="$sections" />', [
-            'sections' => [['title' => 'Amministrazione', 'url' => '/amministrazione', 'links' => [['url' => '/organi', 'text' => 'Organi']]]],
-        ]);
-
-        $this->assertStringContainsString('<h4>', $html);
-        $this->assertStringContainsString('<a href="/amministrazione">Amministrazione</a>', $html);
-    }
-
-    public function test_contacts_render_with_link_list(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :contacts="$contacts" />', ['contacts' => $this->contacts()]);
-
-        $this->assertStringContainsString('footer-list link-list clearfix', $html);
-        $this->assertStringContainsString('Piazza del Campidoglio, 1 — 00186 Roma', $html);
-        $this->assertStringContainsString('href="tel:+39060606"', $html);
-        $this->assertStringContainsString('href="mailto:protocollo@comune.roma.it"', $html);
-        $this->assertStringContainsString('href="mailto:protocollo@pec.comune.roma.it"', $html);
-        $this->assertStringContainsString('Telefono: +39 06 0606', $html);
-        $this->assertStringContainsString('sprites.svg#it-telephone', $html);
-        $this->assertStringContainsString('sprites.svg#it-mail', $html);
-    }
-
-    public function test_address_renders_as_paragraph_not_link(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :contacts="$contacts" />', ['contacts' => $this->contacts()]);
-
-        $this->assertMatchesRegularExpression('/<p>\s*Piazza del Campidoglio/s', $html);
-        $this->assertStringNotContainsString('href="Piazza', $html);
-    }
-
-    public function test_social_links_render_with_aria_label_and_target_blank(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :social-links="$social" />', ['social' => $this->socialLinks()]);
-
+        $this->assertStringContainsString('Amministrazione', $html);
+        $this->assertStringContainsString('href="/organi"', $html);
         $this->assertStringContainsString('aria-label="Facebook"', $html);
-        $this->assertStringContainsString('aria-label="Twitter"', $html);
-        $this->assertStringContainsString('target="_blank"', $html);
-        $this->assertStringContainsString('rel="noopener noreferrer"', $html);
         $this->assertStringContainsString('sprites.svg#it-facebook', $html);
-        $this->assertStringContainsString('sprites.svg#it-twitter', $html);
+        $this->assertStringContainsString('href="/privacy"', $html);
+        $this->assertStringContainsString('data-element="privacy-policy-link"', $html);
     }
 
-    public function test_legal_links_render_in_small_prints_list(): void
+    public function test_default_slot_accepts_legal_link_helpers(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', ['legal' => $this->legalLinks()]);
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::footer title="Comune di Roma">
+    <x-italia::footer-legal-link url="/privacy" text="Privacy policy" />
+</x-italia::footer>
+BLADE);
 
-        $this->assertStringContainsString('it-footer-small-prints', $html);
         $this->assertStringContainsString('it-footer-small-prints-list', $html);
         $this->assertStringContainsString('href="/privacy"', $html);
-        $this->assertStringContainsString('href="/note-legali"', $html);
-        $this->assertStringContainsString('href="/segnala"', $html);
     }
 
-    public function test_privacy_link_has_agid_data_element(): void
+    public function test_missing_required_title_is_rejected(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', ['legal' => $this->legalLinks()]);
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'title'");
 
-        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*data-element="privacy-policy-link"[^>]*>/', $html);
+        $this->blade('<x-italia::footer />');
     }
 
-    public function test_accessibility_link_has_agid_data_element(): void
+    public function test_invalid_brand_url_is_rejected(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', ['legal' => $this->legalLinks()]);
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'url'");
 
-        $this->assertMatchesRegularExpression('/<a[^>]*href="\/accessibilita"[^>]*data-element="accessibility-link"[^>]*>/', $html);
+        $this->blade('<x-italia::footer title="Comune" url="bad url" />');
     }
 
-    public function test_legal_link_without_data_element_renders_no_attribute(): void
+    public function test_old_array_attributes_are_rejected(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', ['legal' => $this->legalLinks()]);
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("The 'sections' array attribute is no longer supported");
 
-        $this->assertMatchesRegularExpression('/<a[^>]*href="\/note-legali"[^>]*>(?:(?!data-element).)*<\/a>/s', $html);
+        $this->blade('<x-italia::footer title="Comune" :sections="[]" />');
     }
 
-    public function test_legal_link_accepts_camel_case_data_element(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
-            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy', 'dataElement' => 'privacy-policy-link']],
-        ]);
-
-        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*data-element="privacy-policy-link"[^>]*>/', $html);
-    }
-
-    public function test_legal_link_accepts_kebab_case_data_element(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
-            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy', 'data-element' => 'privacy-policy-link']],
-        ]);
-
-        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*data-element="privacy-policy-link"[^>]*>/', $html);
-    }
-
-    public function test_legal_link_accepts_snake_case_data_element(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
-            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy', 'data_element' => 'privacy-policy-link']],
-        ]);
-
-        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*data-element="privacy-policy-link"[^>]*>/', $html);
-    }
-
-    public function test_legal_link_without_data_element_has_no_attribute(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" :legal-links="$legal" />', [
-            'legal' => [['url' => '/privacy', 'text' => 'Privacy policy']],
-        ]);
-
-        $this->assertMatchesRegularExpression('/<a[^>]*href="\/privacy"[^>]*>(?:(?!data-element).)*<\/a>/s', $html);
-    }
-
-    public function test_copyright_renders_in_small_prints_not_in_main(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" copyright="© 2026 Comune di Roma — Tutti i diritti riservati" />');
-
-        $main = substr($html, 0, (int) strpos($html, 'it-footer-small-prints'));
-        $smallPrints = substr($html, (int) strpos($html, 'it-footer-small-prints'));
-
-        $this->assertStringContainsString('it-footer-small-prints', $html);
-        $this->assertStringContainsString('© 2026 Comune di Roma — Tutti i diritti riservati', $smallPrints);
-        $this->assertStringNotContainsString('© 2026 Comune di Roma — Tutti i diritti riservati', $main);
-    }
-
-    public function test_copyright_renders_in_small_prints_without_legal_links(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
-
-        $smallPrints = substr($html, (int) strpos($html, 'it-footer-small-prints'));
-
-        $this->assertStringContainsString('it-footer-small-prints', $html);
-        $this->assertStringContainsString('© ' . date('Y') . ' Comune di Roma', $smallPrints);
-        $this->assertStringNotContainsString('it-footer-small-prints-list', $html);
-    }
-
-    public function test_empty_copyright_without_legal_links_renders_no_small_prints(): void
-    {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" copyright="" />');
-
-        $this->assertStringNotContainsString('it-footer-small-prints', $html);
-    }
-
-    public function test_copyright_text_generates_default(): void
+    public function test_copyright_helpers_work_for_direct_instances(): void
     {
         $footer = new Footer(title: 'Comune di Roma');
 
         $this->assertSame('© ' . date('Y') . ' Comune di Roma', $footer->copyrightText());
-    }
-
-    public function test_current_year_returns_integer(): void
-    {
-        $footer = new Footer(title: 'Comune di Roma');
-
         $this->assertSame((int) date('Y'), $footer->currentYear());
-        $this->assertIsInt($footer->currentYear());
     }
 
-    public function test_light_renders_theme_light(): void
+    public function test_contact_slot_accepts_markup_without_array_props(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" light />');
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::footer title="Comune di Roma">
+    <x-slot:contacts><div class="col-lg-4"><p>Piazza del Campidoglio</p><a href="tel:+39060606">Telefono: +39 06 0606</a></div></x-slot:contacts>
+</x-italia::footer>
+BLADE);
 
-        $this->assertStringContainsString('<footer class="it-footer theme-light">', $html);
+        $this->assertStringContainsString('Piazza del Campidoglio', $html);
+        $this->assertStringContainsString('href="tel:+39060606"', $html);
     }
 
-    public function test_empty_arrays_do_not_break_render(): void
+    public function test_logo_alt_and_light_theme_are_preserved(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="Comune di Roma" />');
+        $html = (string) $this->blade('<x-italia::footer title="Comune" logo="/logo.svg" logo-alt="Stemma" light />');
 
-        $this->assertStringContainsString('it-footer-main', $html);
-        $this->assertStringNotContainsString('footer-list', $html);
-        $this->assertStringNotContainsString('list-inline text-left social', $html);
+        $this->assertStringContainsString('it-footer theme-light', $html);
+        $this->assertStringContainsString('src="/logo.svg" alt="Stemma"', $html);
     }
 
-    public function test_full_footer_renders_all_parts(): void
+    public function test_empty_optional_slots_are_not_rendered(): void
     {
-        $html = (string) $this->blade(
-            '<x-italia::footer title="Comune di Roma" subtitle="Portale istituzionale" :sections="$sections" :contacts="$contacts" :social-links="$social" :legal-links="$legal" />',
-            [
-                'sections' => $this->sections(),
-                'contacts' => $this->contacts(),
-                'social' => $this->socialLinks(),
-                'legal' => $this->legalLinks(),
-            ]
-        );
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::footer title="Comune">
+    <x-slot:sections></x-slot:sections>
+    <x-slot:contacts></x-slot:contacts>
+    <x-slot:social></x-slot:social>
+    <x-slot:legal-links></x-slot:legal-links>
+</x-italia::footer>
+BLADE);
 
-        $this->assertStringContainsString('it-brand-wrapper', $html);
-        $this->assertStringContainsString('Portale istituzionale', $html);
-        $this->assertStringContainsString('footer-list link-list clearfix', $html);
-        $this->assertStringContainsString('list-inline text-left social', $html);
-        $this->assertStringContainsString('it-footer-small-prints-list', $html);
-        $this->assertStringContainsString('data-element="privacy-policy-link"', $html);
-        $this->assertStringContainsString('data-element="accessibility-link"', $html);
+        $this->assertStringNotContainsString('link-list-wrapper', $html);
+        $this->assertStringNotContainsString('Seguici su', $html);
+        $this->assertStringContainsString('it-footer-small-prints', $html);
+        $this->assertStringContainsString('© ' . date('Y') . ' Comune', $html);
+    }
+
+    public function test_footer_section_renders_linked_and_unlinked_titles_and_escapes_content(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::footer title="Comune">
+    <x-slot:sections>
+        <x-italia::footer-section title="<script>Admin</script>" url="/admin">
+            <li><a href="/organi">Organi</a></li>
+        </x-italia::footer-section>
+        <x-italia::footer-section title="Contatti"><li>Uffici</li></x-italia::footer-section>
+    </x-slot:sections>
+</x-italia::footer>
+BLADE);
+
+        $this->assertStringContainsString('<a href="/admin">&lt;script&gt;Admin&lt;/script&gt;</a>', $html);
+        $this->assertStringContainsString('Contatti', $html);
+        $this->assertStringNotContainsString('<a href="#">Contatti</a>', $html);
+        $this->assertStringNotContainsString('<script>Admin</script>', $html);
+        $this->assertStringContainsString('href="/organi"', $html);
+    }
+
+    public function test_footer_section_requires_title_and_validates_url(): void
+    {
+        try {
+            $this->blade('<x-italia::footer title="Comune"><x-slot:sections><x-italia::footer-section /></x-slot:sections></x-italia::footer>');
+            $this->fail('A footer section without a title must be rejected.');
+        } catch (ViewException $exception) {
+            $this->assertStringContainsString("Field 'title'", $exception->getMessage());
+        }
+
+        try {
+            $this->blade('<x-italia::footer title="Comune"><x-slot:sections><x-italia::footer-section title="Servizi" url="bad url" /></x-slot:sections></x-italia::footer>');
+            $this->fail('A footer section with an invalid URL must be rejected.');
+        } catch (ViewException $exception) {
+            $this->assertStringContainsString("Field 'url'", $exception->getMessage());
+        }
+    }
+
+    public function test_footer_legal_link_supports_camel_case_data_element(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune"><x-italia::footer-legal-link url="/privacy" text="Privacy" dataElement="privacy-camel" /></x-italia::footer>');
+
+        $this->assertStringContainsString('data-element="privacy-camel"', $html);
+    }
+
+    public function test_footer_legal_link_supports_kebab_case_data_element(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune"><x-italia::footer-legal-link url="/privacy" text="Privacy" data-element="privacy-kebab" /></x-italia::footer>');
+
+        $this->assertStringContainsString('data-element="privacy-kebab"', $html);
+    }
+
+    public function test_footer_legal_link_supports_snake_case_data_element(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune"><x-italia::footer-legal-link url="/privacy" text="Privacy" data_element="privacy-snake" /></x-italia::footer>');
+
+        $this->assertStringContainsString('data-element="privacy-snake"', $html);
+    }
+
+    public function test_footer_legal_link_requires_text_and_escapes_it(): void
+    {
+        try {
+            $this->blade('<x-italia::footer title="Comune"><x-italia::footer-legal-link url="/privacy" text="" /></x-italia::footer>');
+            $this->fail('A legal link without text must be rejected.');
+        } catch (ViewException $exception) {
+            $this->assertStringContainsString("Field 'text'", $exception->getMessage());
+        }
+
+        $html = (string) $this->blade('<x-italia::footer title="Comune"><x-italia::footer-legal-link url="/privacy" text="<script>Privacy</script>" /></x-italia::footer>');
+
+        $this->assertStringContainsString('&lt;script&gt;Privacy&lt;/script&gt;', $html);
+        $this->assertStringNotContainsString('<script>Privacy</script>', $html);
+    }
+
+    public function test_footer_social_link_renders_accessible_icon_and_requires_label(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune"><x-slot:social><x-italia::footer-social-link url="https://example.com" label="Community" icon="it-facebook" /></x-slot:social></x-italia::footer>');
+
+        $this->assertStringContainsString('aria-label="Community"', $html);
+        $this->assertStringContainsString('target="_blank" rel="noopener noreferrer"', $html);
+        $this->assertStringContainsString('sprites.svg#it-facebook', $html);
+
+        try {
+            $this->blade('<x-italia::footer title="Comune"><x-slot:social><x-italia::footer-social-link url="https://example.com" /></x-slot:social></x-italia::footer>');
+            $this->fail('A social link without a label must be rejected.');
+        } catch (ViewException $exception) {
+            $this->assertStringContainsString("Field 'label'", $exception->getMessage());
+        }
+    }
+
+    public function test_footer_copyright_defaults_to_current_year_and_is_suppressed_when_empty(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune" />');
+        $empty = (string) $this->blade('<x-italia::footer title="Comune" copyright="" />');
+
+        $this->assertStringContainsString('© ' . date('Y') . ' Comune', $html);
+        $this->assertStringNotContainsString('it-footer-small-prints', $empty);
+    }
+
+    public function test_footer_places_copyright_in_small_prints_with_legal_links(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune" copyright="© Comune"><x-italia::footer-legal-link url="/privacy" text="Privacy" /></x-italia::footer>');
+        $smallPrints = substr($html, (int) strpos($html, 'it-footer-small-prints'));
+
+        $this->assertStringContainsString('href="/privacy"', $smallPrints);
+        $this->assertStringContainsString('© Comune', $smallPrints);
+        $this->assertStringNotContainsString('© Comune', substr($html, 0, (int) strpos($html, 'it-footer-small-prints')));
+    }
+
+    public function test_footer_logo_alt_defaults_to_title_and_brand_url_defaults_to_hash(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune" logo="/crest.svg" />');
+
+        $this->assertStringContainsString('src="/crest.svg" alt="Comune"', $html);
+        $this->assertStringContainsString('<a href="#">', $html);
+    }
+
+    public function test_footer_accepts_custom_id_and_data_attributes(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune" id="site-footer" data-element="footer" />');
+
+        $this->assertStringContainsString('id="site-footer"', $html);
+        $this->assertStringContainsString('data-element="footer"', $html);
+    }
+
+    public function test_footer_social_link_requires_valid_url(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'url'");
+
+        $this->blade('<x-italia::footer title="Comune"><x-slot:social><x-italia::footer-social-link url="javascript:alert(1)" label="Social" /></x-slot:social></x-italia::footer>');
+    }
+
+    public function test_footer_social_link_requires_icon_when_explicitly_empty(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'icon'");
+
+        $this->blade('<x-italia::footer title="Comune"><x-slot:social><x-italia::footer-social-link url="https://example.com" label="Social" icon="" /></x-slot:social></x-italia::footer>');
+    }
+
+    public function test_footer_section_slots_render_without_array_configuration(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="Comune"><x-slot:sections><x-italia::footer-section title="Amministrazione" url="/amministrazione"><li>Uffici</li></x-italia::footer-section></x-slot:sections></x-italia::footer>');
+
+        $this->assertStringContainsString('href="/amministrazione"', $html);
+        $this->assertStringContainsString('<li>Uffici</li>', $html);
+    }
+
+    public function test_named_legal_links_slot_takes_precedence_over_default_slot(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::footer title="Comune">
+    <x-slot:legal-links><x-italia::footer-legal-link url="/privacy" text="Named privacy" /></x-slot:legal-links>
+    <x-italia::footer-legal-link url="/other" text="Default link" />
+</x-italia::footer>
+BLADE);
+
+        $this->assertStringContainsString('Named privacy', $html);
+        $this->assertStringNotContainsString('Default link', $html);
     }
 }

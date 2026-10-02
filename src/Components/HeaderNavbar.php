@@ -2,27 +2,45 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use Closure;
+use IgorSmoleac\DesignLaravelKit\DTO\NavbarConfig;
 use Illuminate\Contracts\View\View;
 
 class HeaderNavbar extends BaseComponent
 {
-    /**
-     * @param  list<array<string, mixed>>  $items
-     */
+    protected ?NavbarConfig $navbarConfig = null;
+
+    private bool $itemsPresent = false;
+
+    private bool $megamenuPresent = false;
+
     public function __construct(
-        public array $items = [],
         public bool $light = false,
         public bool $sticky = false,
     ) {}
 
-    public function render(): View
+    public function render(): Closure
     {
-        return $this->componentView('design-laravel-kit::components.header-navbar');
+        return function (array $data): View {
+            $this->rejectArrayAttributes(['items']);
+            $this->navbarConfig = NavbarConfig::fromArray([
+                'light' => $this->light,
+                'sticky' => $this->sticky,
+            ]);
+
+            $slotHtml = (string) ($data['slot'] ?? '');
+            $this->itemsPresent = trim($slotHtml) !== '';
+            $this->megamenuPresent = str_contains($slotHtml, 'dropdown megamenu');
+
+            return $this->componentView('design-laravel-kit::components.header-navbar')
+                ->with($data)
+                ->with(['navbarConfig' => $this->navbarConfig]);
+        };
     }
 
     public function hasItems(): bool
     {
-        return $this->items !== [];
+        return $this->itemsPresent;
     }
 
     public function menuId(): string
@@ -40,23 +58,6 @@ class HeaderNavbar extends BaseComponent
 
     public function navClass(): string
     {
-        return collect([
-            'navbar',
-            'navbar-expand-lg',
-            $this->hasMegamenu() ? 'has-megamenu' : null,
-        ])->filter()->implode(' ');
-    }
-
-    public function hasMegamenu(): bool
-    {
-        return collect($this->items)->contains(fn ($item) => filled($item['megamenu'] ?? null));
-    }
-
-    /**
-     * @param  array<string, mixed>  $item
-     */
-    public function isItemActive(array $item): bool
-    {
-        return (bool) ($item['active'] ?? false);
+        return 'navbar navbar-expand-lg' . ($this->megamenuPresent ? ' has-megamenu' : '');
     }
 }

@@ -24,15 +24,7 @@
                             @if ($hasSocialLinks())
                                 <div class="it-socials d-none d-md-flex">
                                     <span>{{ __('design-laravel-kit::Seguici su') }}</span>
-                                    <ul>
-                                        @foreach ($socialLinks as $social)
-                                            <li>
-                                                <a href="{{ $social['url'] ?? '#' }}" aria-label="{{ $social['label'] ?? '' }}" target="_blank" rel="noopener noreferrer">
-                                                    <x-italia::icon :name="$social['icon'] ?? 'it-link'" />
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                    <ul>{{ $socialLinks ?? $slot }}</ul>
                                 </div>
                             @endif
                             @if ($hasSearch())
