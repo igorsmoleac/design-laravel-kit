@@ -63,7 +63,7 @@ class HeaderCenter extends BaseComponent
 
     public function hasLogo(): bool
     {
-        return $this->logo !== null;
+        return $this->logo !== null && $this->logo !== '';
     }
 
     public function hasSocialLinks(): bool

@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="f3hfVW3wDKanagJh33sOCAd7vBUvEECxWwTRDcwn">
+    <meta name="csrf-token" content="NrSU6AJd9MoO9Xbk62lX8Gwlro7FWwX8oebckDMM">
     <title>Catalogo dei componenti — design-laravel-kit</title>
             <meta name="description" content="Catalogo di tutti i componenti di design-laravel-kit">
-        <link rel="stylesheet" href="vendor/design-laravel-kit/css/design-laravel-kit.css">            <style>
+        <link rel="stylesheet" href="vendor/design-laravel-kit/css/design-laravel-kit.css?v=dev-dev">            <style>
             html { scroll-behavior: smooth; }
             .catalog-section { scroll-margin-top: 80px; }
             .catalog-nav {
@@ -76,7 +76,7 @@
                                             <a class="d-none d-lg-block navbar-brand" href="https://github.com/igorsmoleac/design-laravel-kit">design-laravel-kit</a>
                                                                 <div class="nav-mobile">
                             <nav aria-label="Secondary navigation">
-                                <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#dlk-header-slim-478-mobile-menu" role="button" aria-expanded="false" aria-controls="dlk-header-slim-478-mobile-menu">
+                                <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#dlk-header-slim-511-mobile-menu" role="button" aria-expanded="false" aria-controls="dlk-header-slim-511-mobile-menu">
                                     <span>design-laravel-kit</span>
                                     <svg
     class="icon"
@@ -85,15 +85,8 @@
     <use href="vendor/design-laravel-kit/svg/sprites.svg#it-expand"></use>
 </svg>
                                 </a>
-                                <div class="link-list-wrapper collapse" id="dlk-header-slim-478-mobile-menu">
-                                    <ul class="link-list">
-                                                                                    <li>
-                                                <a
-                                                    class="dropdown-item list-item"
-                                                    href="./"
-                                                                                                    >Catalogo</a>
-                                            </li>
-                                                                            </ul>
+                                <div class="link-list-wrapper collapse" id="dlk-header-slim-511-mobile-menu">
+                                    <ul class="link-list"><li><a href="./">Catalogo</a></li></ul>
                                 </div>
                             </nav>
                         </div>
@@ -104,7 +97,7 @@
 </div>
     
             <div class="it-nav-wrapper">
-                            <div id="dlk-header-center-532" class="it-header-center-wrapper">
+                            <div id="dlk-header-center-541" class="it-header-center-wrapper">
     <div class="container-xxl">
         <div class="row">
             <div class="col-12">
@@ -133,11 +126,11 @@
                         <button
                             class="custom-navbar-toggler"
                             type="button"
-                            aria-controls="dlk-header-navbar-533-menu"
+                            aria-controls="dlk-header-navbar-540-menu"
                             aria-expanded="false"
                             aria-label="Open menu"
                             data-bs-toggle="navbarcollapsible"
-                            data-bs-target="#dlk-header-navbar-533-menu"
+                            data-bs-target="#dlk-header-navbar-540-menu"
                         >
                             <svg
     class="icon"
@@ -146,7 +139,7 @@
     <use href="vendor/design-laravel-kit/svg/sprites.svg#it-burger"></use>
 </svg>
                         </button>
-                        <div class="navbar-collapsable" id="dlk-header-navbar-533-menu">
+                        <div class="navbar-collapsable" id="dlk-header-navbar-540-menu">
                             <div class="overlay"></div>
                             <div class="close-div">
                                 <button class="btn close-menu" type="button">
@@ -160,14 +153,12 @@
                                 </button>
                             </div>
                             <div class="menu-wrapper">
-                                <ul class="navbar-nav">
-                                                                                                                        <li class="nav-item">
-                                                <a
-                                                    class="nav-link active"
-                                                    href="./"
-                                                     aria-current="page"                                                 ><span>Catalogo</span></a>
-                                            </li>
-                                                                                                            </ul>
+                                <ul class="navbar-nav"><li class="nav-item">
+        <a
+            class="nav-link active"
+            href="./"
+             aria-current="page"         ><span>Catalogo</span></a>
+    </li></ul>
                             </div>
                         </div>
                     </nav>
@@ -223,7 +214,18 @@
                 <p>Pagina completa: <code>&lt;x-italia::layout&gt;</code> combina l'header (slim + center + navbar), un contenitore principale con skip link accessibile e un footer. Questa pagina è renderizzata tramite <code>&lt;x-italia::layout&gt;</code>: l'header in alto e il footer in fondo sono demo interattive.</p>
                                 <details class="catalog-code">
                     <summary>Mostra il codice</summary>
-                    <pre><code>&lt;x-italia::layout title=&quot;Titolo della pagina&quot; :slim=&quot;[...]&quot; :center=&quot;[...]&quot; :navbar=&quot;[...]&quot; :footer=&quot;[...]&quot;&gt;
+                    <pre><code>&lt;x-italia::layout title=&quot;Titolo della pagina&quot;&gt;
+    &lt;x-slot:slim ente=&quot;Comune di Roma&quot; ente-url=&quot;/&quot; login-url=&quot;/login&quot;&gt;&lt;/x-slot:slim&gt;
+    &lt;x-slot:center title=&quot;Comune di Roma&quot; tagline=&quot;Portale istituzionale&quot; url=&quot;/&quot; search-url=&quot;/cerca&quot;&gt;
+        &lt;x-italia::header-social-link url=&quot;https://facebook.com&quot; icon=&quot;it-facebook&quot; label=&quot;Facebook&quot; /&gt;
+    &lt;/x-slot:center&gt;
+    &lt;x-slot:navbar&gt;
+        &lt;x-italia::header-nav-item text=&quot;Amministrazione&quot; url=&quot;/amministrazione&quot; /&gt;
+        &lt;x-italia::header-nav-item text=&quot;Servizi&quot; url=&quot;/servizi&quot; /&gt;
+    &lt;/x-slot:navbar&gt;
+    &lt;x-slot:footer title=&quot;Comune di Roma&quot;&gt;
+        &lt;x-italia::footer-legal-link url=&quot;/privacy&quot; text=&quot;Privacy policy&quot; data-element=&quot;privacy-policy-link&quot; /&gt;
+    &lt;/x-slot:footer&gt;
     &lt;x-slot:breadcrumbs&gt;...&lt;/x-slot:breadcrumbs&gt;
     Contenuto della pagina
 &lt;/x-italia::layout&gt;</code></pre>
@@ -235,12 +237,34 @@
                 <p>Header a tre livelli: <strong>HeaderSlim</strong> (ente + link + lingue + accesso), <strong>HeaderCenter</strong> (brand + tagline + social + ricerca), <strong>HeaderNavbar</strong> (menu con dropdown). L'header in cima a questa pagina mostra i tre livelli combinati tramite <code>&lt;x-italia::header&gt;</code>.</p>
                                 <details class="catalog-code">
                     <summary>Mostra il codice</summary>
-                    <pre><code>&lt;x-italia::header-slim ente=&quot;Comune di Roma&quot; :links=&quot;[...]&quot; :languages=&quot;[...]&quot; loginUrl=&quot;/login&quot; /&gt;
-&lt;x-italia::header-center title=&quot;Comune di Roma&quot; tagline=&quot;Portale istituzionale&quot; :logo=&quot;...&quot; :socialLinks=&quot;[...]&quot; searchUrl=&quot;/search&quot; /&gt;
-&lt;x-italia::header-navbar :items=&quot;[[&#039;text&#039; =&gt; &#039;Home&#039;, &#039;url&#039; =&gt; &#039;/&#039;, &#039;active&#039; =&gt; true], [..., &#039;dropdown&#039; =&gt; [...]]]&quot; /&gt;
+                    <pre><code>&lt;x-italia::header-slim ente=&quot;Comune di Roma&quot; login-url=&quot;/login&quot;&gt;
+    &lt;x-slot:links&gt;&lt;li&gt;&lt;a href=&quot;/servizi&quot;&gt;Servizi&lt;/a&gt;&lt;/li&gt;&lt;/x-slot:links&gt;
+    &lt;x-slot:languages&gt;&lt;li&gt;&lt;a href=&quot;/en&quot;&gt;English&lt;/a&gt;&lt;/li&gt;&lt;/x-slot:languages&gt;
+&lt;/x-italia::header-slim&gt;
+
+&lt;x-italia::header-center title=&quot;Comune di Roma&quot; tagline=&quot;Portale istituzionale&quot; search-url=&quot;/search&quot;&gt;
+    &lt;x-slot:social-links&gt;
+        &lt;x-italia::header-social-link url=&quot;https://facebook.com&quot; icon=&quot;it-facebook&quot; label=&quot;Facebook&quot; /&gt;
+    &lt;/x-slot:social-links&gt;
+&lt;/x-italia::header-center&gt;
+
+&lt;x-italia::header-navbar&gt;
+    &lt;x-italia::header-nav-item text=&quot;Home&quot; url=&quot;/&quot; active /&gt;
+    &lt;x-italia::header-nav-item text=&quot;Servizi&quot; url=&quot;/servizi&quot; dropdown&gt;
+        &lt;li&gt;&lt;a class=&quot;dropdown-item list-item&quot; href=&quot;/anagrafe&quot;&gt;Anagrafe&lt;/a&gt;&lt;/li&gt;
+    &lt;/x-italia::header-nav-item&gt;
+&lt;/x-italia::header-navbar&gt;
 
 // Oppure combina tutti e tre insieme:
-&lt;x-italia::header :slim=&quot;[...]&quot; :center=&quot;[...]&quot; :navbar=&quot;[...]&quot; /&gt;</code></pre>
+&lt;x-italia::header&gt;
+    &lt;x-slot:slim ente=&quot;Comune di Roma&quot; login-url=&quot;/login&quot;&gt;&lt;/x-slot:slim&gt;
+    &lt;x-slot:center title=&quot;Comune di Roma&quot; search-url=&quot;/search&quot;&gt;
+        &lt;x-italia::header-social-link url=&quot;https://facebook.com&quot; icon=&quot;it-facebook&quot; label=&quot;Facebook&quot; /&gt;
+    &lt;/x-slot:center&gt;
+    &lt;x-slot:navbar&gt;
+        &lt;x-italia::header-nav-item text=&quot;Home&quot; url=&quot;/&quot; active /&gt;
+    &lt;/x-slot:navbar&gt;
+&lt;/x-italia::header&gt;</code></pre>
                 </details>
             </section>
 
@@ -249,14 +273,31 @@
                 <p>Footer istituzionale con sezioni di link, contatti (indirizzo, telefono, email, PEC), social e barra legale. Il footer in fondo a questa pagina è una demo interattiva.</p>
                                 <details class="catalog-code">
                     <summary>Mostra il codice</summary>
-                    <pre><code>&lt;x-italia::footer
-    title=&quot;Comune di Roma&quot;
-    subtitle=&quot;Portale istituzionale&quot;
-    :sections=&quot;[[&#039;title&#039; =&gt; &#039;Amministrazione&#039;, &#039;links&#039; =&gt; [...]]]&quot;
-    :contacts=&quot;[[&#039;type&#039; =&gt; &#039;address&#039;, &#039;value&#039; =&gt; &#039;...&#039;], [&#039;type&#039; =&gt; &#039;phone&#039;, &#039;value&#039; =&gt; &#039;...&#039;], [&#039;type&#039; =&gt; &#039;email&#039;, &#039;value&#039; =&gt; &#039;...&#039;], [&#039;type&#039; =&gt; &#039;pec&#039;, &#039;value&#039; =&gt; &#039;...&#039;]]&quot;
-    :social-links=&quot;[[&#039;url&#039; =&gt; &#039;...&#039;, &#039;icon&#039; =&gt; &#039;it-facebook&#039;, &#039;label&#039; =&gt; &#039;Facebook&#039;]]&quot;
-    :legal-links=&quot;[[&#039;url&#039; =&gt; &#039;/privacy&#039;, &#039;text&#039; =&gt; &#039;Informativa sulla privacy&#039;, &#039;dataElement&#039; =&gt; &#039;privacy-policy-link&#039;]]&quot;
-/&gt;</code></pre>
+                    <pre><code>&lt;x-italia::footer title=&quot;Comune di Roma&quot; subtitle=&quot;Portale istituzionale&quot;&gt;
+    &lt;x-slot:sections&gt;
+        &lt;x-italia::footer-section title=&quot;Amministrazione&quot;&gt;
+            &lt;li&gt;&lt;a class=&quot;list-item&quot; href=&quot;/amministrazione&quot;&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/x-italia::footer-section&gt;
+    &lt;/x-slot:sections&gt;
+    &lt;x-slot:contacts&gt;
+        &lt;div class=&quot;col-lg-4&quot;&gt;
+            &lt;p&gt;...&lt;/p&gt;
+            &lt;a href=&quot;tel:...&quot;&gt;Telefono: ...&lt;/a&gt;
+            &lt;a href=&quot;mailto:...&quot;&gt;Email: ...&lt;/a&gt;
+            &lt;a href=&quot;mailto:...&quot;&gt;PEC: ...&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/x-slot:contacts&gt;
+    &lt;x-slot:social&gt;
+        &lt;x-italia::footer-social-link url=&quot;https://facebook.com&quot; icon=&quot;it-facebook&quot; label=&quot;Facebook&quot; /&gt;
+    &lt;/x-slot:social&gt;
+    &lt;x-slot:legal-links&gt;
+        &lt;x-italia::footer-legal-link
+            url=&quot;/privacy&quot;
+            text=&quot;Informativa sulla privacy&quot;
+            data-element=&quot;privacy-policy-link&quot;
+        /&gt;
+    &lt;/x-slot:legal-links&gt;
+&lt;/x-italia::footer&gt;</code></pre>
                 </details>
             </section>
 
@@ -628,8 +669,8 @@
         <ul class="dropdown-menu" aria-label="Identity Provider SPID">
                             <li><a class="dropdown-item" href="/spid/login/aruba">Aruba ID</a></li>
                             <li><a class="dropdown-item" href="/spid/login/poste">Poste ID</a></li>
-                        <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="https://www.spid.gov.it">Maggiori informazioni</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://www.spid.gov.it">Maggiori informazioni</a></li>
             <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">Non hai SPID?</a></li>
             <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">Serve aiuto?</a></li>
         </ul>
@@ -1036,76 +1077,76 @@
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-nome-357"
+            id="dlk-nome-455"
             name="nome"
             value=""
             class="form-control"
         >
-        <label for="dlk-nome-357" >Nome</label>
+        <label for="dlk-nome-455" >Nome</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-cf_demo-452"
+            id="dlk-cf_demo-405"
             name="cf_demo"
             value=""
             class="form-control" placeholder="RSSMRA80A01H501U"
         >
-        <label for="dlk-cf_demo-452"  class="active" >Codice Fiscale (demo)</label>
+        <label for="dlk-cf_demo-405"  class="active" >Codice Fiscale (demo)</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="email"
-            id="dlk-email-359"
+            id="dlk-email-417"
             name="email"
             value=""
-            aria-describedby="dlk-email-359-hint" aria-required="true" required="required" class="form-control"
+            aria-describedby="dlk-email-417-hint" aria-required="true" required="required" class="form-control"
         >
-        <label for="dlk-email-359" >Email            <span class="text-danger" aria-hidden="true">*</span>
+        <label for="dlk-email-417" >Email            <span class="text-danger" aria-hidden="true">*</span>
             <span class="visually-hidden">(required)</span>
         </label>
-                <small class="form-text" id="dlk-email-359-hint">name@example.com</small>
+                <small class="form-text" id="dlk-email-417-hint">name@example.com</small>
         </div>
                             <div class="form-group dlk-floating">
             <input
             type="password"
-            id="dlk-password-470"
+            id="dlk-password-484"
             name="password"
             value=""
             class="form-control"
         >
-        <label for="dlk-password-470" >Password</label>
+        <label for="dlk-password-484" >Password</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="number"
-            id="dlk-eta-439"
+            id="dlk-eta-466"
             name="eta"
             value=""
-            aria-describedby="dlk-eta-439-hint" class="form-control"
+            aria-describedby="dlk-eta-466-hint" class="form-control"
         >
-        <label for="dlk-eta-439" >Età</label>
-                <small class="form-text" id="dlk-eta-439-hint">Minimo 18 anni</small>
+        <label for="dlk-eta-466" >Età</label>
+                <small class="form-text" id="dlk-eta-466-hint">Minimo 18 anni</small>
         </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-demo-406"
+            id="dlk-demo-411"
             name="demo"
             value=""
-            aria-invalid="true" aria-describedby="dlk-demo-406-hint dlk-demo-406-error" class="form-control is-invalid"
+            aria-invalid="true" aria-describedby="dlk-demo-411-hint dlk-demo-411-error" class="form-control is-invalid"
         >
-        <label for="dlk-demo-406" >Con errore di validazione</label>
-                <small class="form-text" id="dlk-demo-406-hint">Questo suggerimento viene nascosto quando compare un errore</small>
-                <div class="invalid-feedback" id="dlk-demo-406-error" role="alert" aria-live="polite">Esempio di messaggio di errore di validazione.</div>
+        <label for="dlk-demo-411" >Con errore di validazione</label>
+                <small class="form-text" id="dlk-demo-411-hint">Questo suggerimento viene nascosto quando compare un errore</small>
+                <div class="invalid-feedback" id="dlk-demo-411-error" role="alert">Esempio di messaggio di errore di validazione.</div>
     </div>
                             <div class="form-group">
-            <label class="form-label" for="dlk-semplice-467">Senza etichetta flottante</label>
+            <label class="form-label" for="dlk-semplice-480">Senza etichetta flottante</label>
         <input
             type="text"
-            id="dlk-semplice-467"
+            id="dlk-semplice-480"
             name="semplice"
             value=""
             class="form-control"
@@ -1133,25 +1174,25 @@
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-paese-384"
+        id="dlk-paese-492"
         name="paese"
-        aria-describedby="dlk-paese-384-hint" aria-required="true" required="required" class="form-select"
+        aria-describedby="dlk-paese-492-hint" aria-required="true" required="required" class="form-select"
     >
                     <option value="" disabled selected>Seleziona...</option>
                                             <option value="it">Italia</option>
                                                 <option value="fr">Francia</option>
                                                 <option value="de">Germania</option>
                         </select>
-            <label for="dlk-paese-384" class="active">Paese            <span class="text-danger" aria-hidden="true">*</span>
+            <label for="dlk-paese-492" class="active">Paese            <span class="text-danger" aria-hidden="true">*</span>
             <span class="visually-hidden">(required)</span>
         </label>
-                <small class="form-text" id="dlk-paese-384-hint">Seleziona il paese di residenza</small>
+                <small class="form-text" id="dlk-paese-492-hint">Seleziona il paese di residenza</small>
         </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-citta-385"
+        id="dlk-citta-393"
         name="citta"
         class="form-select"
     >
@@ -1164,7 +1205,7 @@
                                             <option value="pa">Palermo</option>
                                     </optgroup>
                         </select>
-            <label for="dlk-citta-385" class="active">Città (optgroup)</label>
+            <label for="dlk-citta-393" class="active">Città (optgroup)</label>
             </div>
                         </div>
                     </div>
@@ -1172,16 +1213,16 @@
                 <div class="catalog-example">
                     <div class="form-group dlk-floating">
         <select
-        id="dlk-ruoli-394"
+        id="dlk-ruoli-421"
         name="ruoli[]"
-        multiple="multiple" aria-describedby="dlk-ruoli-394-hint" class="form-select"
+        multiple="multiple" aria-describedby="dlk-ruoli-421-hint" class="form-select"
     >
                                             <option value="admin">Amministratore</option>
                                                 <option value="editor">Editor</option>
                                                 <option value="viewer">Visualizzatore</option>
                         </select>
-            <label for="dlk-ruoli-394" class="active">Ruoli (selezione multipla)</label>
-                <small class="form-text" id="dlk-ruoli-394-hint">Ctrl+clic per selezionare più ruoli</small>
+            <label for="dlk-ruoli-421" class="active">Ruoli (selezione multipla)</label>
+                <small class="form-text" id="dlk-ruoli-421-hint">Ctrl+clic per selezionare più ruoli</small>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1198,22 +1239,22 @@
                 <div class="catalog-example">
                     <div class="form-group dlk-floating">
             <textarea
-            id="dlk-bio-479"
+            id="dlk-bio-488"
             name="bio"
             rows="3"
-            aria-describedby="dlk-bio-479-hint" class="form-control"
+            aria-describedby="dlk-bio-488-hint" class="form-control"
         ></textarea>
-        <label for="dlk-bio-479" >Biografia</label>
-                <small class="form-text" id="dlk-bio-479-hint">Max 500 caratteri</small>
+        <label for="dlk-bio-488" >Biografia</label>
+                <small class="form-text" id="dlk-bio-488-hint">Max 500 caratteri</small>
         </div>
                     <div class="form-group dlk-floating">
             <textarea
-            id="dlk-note-465"
+            id="dlk-note-455"
             name="note"
             rows="5"
             class="form-control"
         ></textarea>
-        <label for="dlk-note-465" >Note (5 righe)</label>
+        <label for="dlk-note-455" >Note (5 righe)</label>
             </div>
                 </div>
                                 <details class="catalog-code">
@@ -1230,68 +1271,68 @@
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-termini-439"
+        id="dlk-termini-479"
         name="termini"
                 aria-required="true" required="required" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-termini-439">Accetto i termini        <span class="text-danger" aria-hidden="true">*</span>
+    <label class="form-check-label" for="dlk-termini-479">Accetto i termini        <span class="text-danger" aria-hidden="true">*</span>
         <span class="visually-hidden">(required)</span>
     </label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-newsletter-485"
+        id="dlk-newsletter-498"
         name="newsletter"
          value="yes"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-newsletter-485">Iscriviti alla newsletter</label>
+    <label class="form-check-label" for="dlk-newsletter-498">Iscriviti alla newsletter</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-promo-385"
+        id="dlk-promo-392"
         name="promo"
                 checked="checked" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-promo-385">Pre-selezionata</label>
+    <label class="form-check-label" for="dlk-promo-392">Pre-selezionata</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-sms-381"
+        id="dlk-sms-382"
         name="sms"
                 disabled="disabled" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-sms-381">Disabilitata</label>
+    <label class="form-check-label" for="dlk-sms-382">Disabilitata</label>
         </div>
                     <p class="mb-2"><strong>Gruppo (<code>interessi[]</code>)</strong></p>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-455"
+        id="dlk-interessi-349"
         name="interessi[]"
          value="sport"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-455">Sport</label>
+    <label class="form-check-label" for="dlk-interessi-349">Sport</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-468"
+        id="dlk-interessi-389"
         name="interessi[]"
          value="musica"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-468">Musica</label>
+    <label class="form-check-label" for="dlk-interessi-389">Musica</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-392"
+        id="dlk-interessi-493"
         name="interessi[]"
          value="viaggi"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-392">Viaggi</label>
+    <label class="form-check-label" for="dlk-interessi-493">Viaggi</label>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1312,44 +1353,44 @@
                 <h2 class="h3 mb-3">Gruppo checkbox</h2>
                 <p>Gruppo di checkbox in un fieldset con un solo messaggio di errore di validazione.</p>
                 <form method="get" action="./" class="catalog-example">
-                    <fieldset id="dlk-demo-485" class="form-group"
-     aria-invalid="true"      aria-describedby="dlk-demo-485-hint dlk-demo-485-error"
+                    <fieldset class="form-group" id="dlk-demo-393"
+     aria-invalid="true"      aria-describedby="dlk-demo-393-hint dlk-demo-393-error"
     >
             <legend>
             Interessi
                     </legend>
     
-            <small class="form-text" id="dlk-demo-485-hint">Seleziona uno o più interessi</small>
+            <small class="form-text" id="dlk-demo-393-hint">Seleziona uno o più interessi</small>
     
     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-458"
+        id="dlk-demo-484"
         name="demo[]"
-         value="sport"         aria-invalid="true" aria-describedby="dlk-demo-485-error" class="form-check-input is-invalid"
+         value="sport"         aria-invalid="true" aria-describedby="dlk-demo-393-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-458">Sport</label>
+    <label class="form-check-label" for="dlk-demo-484">Sport</label>
         </div>
                         <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-389"
+        id="dlk-demo-447"
         name="demo[]"
-         value="musica"         aria-invalid="true" aria-describedby="dlk-demo-485-error" class="form-check-input is-invalid"
+         value="musica"         aria-invalid="true" aria-describedby="dlk-demo-393-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-389">Musica</label>
+    <label class="form-check-label" for="dlk-demo-447">Musica</label>
         </div>
                         <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-410"
+        id="dlk-demo-469"
         name="demo[]"
-         value="viaggi"         aria-invalid="true" aria-describedby="dlk-demo-485-error" class="form-check-input is-invalid"
+         value="viaggi"         aria-invalid="true" aria-describedby="dlk-demo-393-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-410">Viaggi</label>
+    <label class="form-check-label" for="dlk-demo-469">Viaggi</label>
         </div>
 
-            <div class="invalid-feedback d-block" id="dlk-demo-485-error" role="alert" aria-live="polite">
+            <div class="invalid-feedback d-block" id="dlk-demo-393-error" role="alert">
             Esempio di messaggio di errore di validazione.
         </div>
     </fieldset>
@@ -1374,38 +1415,38 @@
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-488"
+        id="dlk-genere-502"
         name="genere"
          value="m"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-488">Maschio</label>
+    <label class="form-check-label" for="dlk-genere-502">Maschio</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-470"
+        id="dlk-genere-478"
         name="genere"
          value="f"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-470">Femmina</label>
+    <label class="form-check-label" for="dlk-genere-478">Femmina</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-450"
+        id="dlk-genere-432"
         name="genere"
          value="o"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-450">Altro</label>
+    <label class="form-check-label" for="dlk-genere-432">Altro</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-454"
+        id="dlk-genere-475"
         name="genere"
          value="x"         disabled="disabled" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-454">Disabilitata</label>
+    <label class="form-check-label" for="dlk-genere-475">Disabilitata</label>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1421,8 +1462,8 @@
                 <h2 class="h3 mb-3">Gruppo radio</h2>
                 <p>Gruppo di radio accessibile con fieldset, legend e un unico messaggio di errore.</p>
                 <form method="get" action="./" class="catalog-example">
-                    <fieldset id="dlk-demo-474" class="form-group"
-     aria-invalid="true"      aria-describedby="dlk-demo-474-hint dlk-demo-474-error"
+                    <fieldset class="form-group" id="dlk-demo-494"
+     aria-invalid="true"      aria-describedby="dlk-demo-494-hint dlk-demo-494-error"
     >
             <legend>
             Genere
@@ -1430,37 +1471,37 @@
                 <span class="visually-hidden">(required)</span>
                     </legend>
     
-            <small class="form-text" id="dlk-demo-474-hint">Seleziona un&#039;opzione</small>
+            <small class="form-text" id="dlk-demo-494-hint">Seleziona un&#039;opzione</small>
     
     <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-469"
+        id="dlk-demo-485"
         name="demo"
-         value="m"         aria-invalid="true" aria-describedby="dlk-demo-474-error" class="form-check-input is-invalid"
+         value="m"         aria-invalid="true" aria-describedby="dlk-demo-494-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-469">Maschio</label>
+    <label class="form-check-label" for="dlk-demo-485">Maschio</label>
         </div>
                         <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-465"
+        id="dlk-demo-426"
         name="demo"
-         value="f"         aria-invalid="true" aria-describedby="dlk-demo-474-error" class="form-check-input is-invalid"
+         value="f"         aria-invalid="true" aria-describedby="dlk-demo-494-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-465">Femmina</label>
+    <label class="form-check-label" for="dlk-demo-426">Femmina</label>
         </div>
                         <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-471"
+        id="dlk-demo-388"
         name="demo"
-         value="o"         aria-invalid="true" aria-describedby="dlk-demo-474-error" class="form-check-input is-invalid"
+         value="o"         aria-invalid="true" aria-describedby="dlk-demo-494-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-471">Altro</label>
+    <label class="form-check-label" for="dlk-demo-388">Altro</label>
         </div>
 
-            <div class="invalid-feedback d-block" id="dlk-demo-474-error" role="alert" aria-live="polite">
+            <div class="invalid-feedback d-block" id="dlk-demo-494-error" role="alert">
             Esempio di messaggio di errore di validazione.
         </div>
     </fieldset>
@@ -1505,39 +1546,25 @@
                 </div>
             </section>
 
-                            <section>
-                    <div class="row">
-                                                    <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
-                                <h4>
-                                                                            Risorse
-                                                                    </h4>
-                                <div class="link-list-wrapper">
-                                    <ul class="footer-list link-list clearfix">
-                                                                                    <li><a class="list-item" href="https://italia.github.io/bootstrap-italia/">Documentazione Bootstrap Italia</a></li>
-                                                                                    <li><a class="list-item" href="https://github.com/igorsmoleac/design-laravel-kit">GitHub</a></li>
-                                                                            </ul>
-                                </div>
-                            </div>
-                                            </div>
-                </section>
+            
             
                     </div>
     </div>
 
-            <div class="it-footer-small-prints clearfix">
+                <div class="it-footer-small-prints clearfix">
             <div class="container">
                                     <h3 class="visually-hidden">Useful links</h3>
                     <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
-                                                    <li class="list-inline-item">
-                                <a
-                                    href="./"
-                                                                    >Catalogo dei componenti</a>
-                            </li>
-                                            </ul>
+                        <li class="list-inline-item">
+    <a
+        href="./"
+            >Catalogo dei componenti</a>
+</li>
+                    </ul>
                                                     <p class="mb-0 px-3 pb-4">© 2026 design-laravel-kit</p>
                             </div>
         </div>
     </footer>
 
-    <script src="vendor/design-laravel-kit/js/design-laravel-kit.js" defer></script><script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts('vendor/design-laravel-kit\/fonts'); } });</script>    </body>
+    <script src="vendor/design-laravel-kit/js/design-laravel-kit.js?v=dev-dev" defer></script><script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts('vendor/design-laravel-kit\/fonts'); } });</script>    </body>
 </html>
