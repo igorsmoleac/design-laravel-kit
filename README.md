@@ -178,6 +178,8 @@ Usare il componente header senza adottare il componente layout:
 </x-italia::header>
 ```
 
+Per `logo` di HeaderCenter e Footer sono accettati URL HTTP(S), percorsi root-relative e URI `data:image/*`.
+
 ### Megamenu con link raggruppati
 
 Usare `header-megamenu` dentro lo slot navbar e raggruppare i link in sezioni:

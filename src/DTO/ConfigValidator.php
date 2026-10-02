@@ -96,6 +96,21 @@ final class ConfigValidator
         }
     }
 
+    public static function logoUrl(string $value, string $field): string
+    {
+        if ($value === '') {
+            throw new InvalidArgumentException("Field '{$field}' must be a valid HTTP(S) URL, root-relative path, or data:image/* URI.");
+        }
+
+        if (preg_match('/^data:image\/[a-z0-9][a-z0-9!#$&^_.+-]*(?:;[a-z0-9!#$&^_.+-]+(?:=[^;,]*)?)*,/i', $value) === 1) {
+            return $value;
+        }
+
+        self::assertUrl($value, $field);
+
+        return $value;
+    }
+
     /** @param array<string, mixed> $data */
     public static function optionalUrl(array $data, string $field): ?string
     {

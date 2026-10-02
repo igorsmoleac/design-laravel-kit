@@ -178,6 +178,8 @@ Use the header component without adopting the layout component:
 </x-italia::header>
 ```
 
+For the HeaderCenter and Footer `logo` fields, HTTP(S) URLs, root-relative paths, and `data:image/*` URIs are accepted.
+
 ### Megamenu with grouped links
 
 Use `header-megamenu` inside the navbar slot and group links into sections:

@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Accessibilità: uniformato l'uso di `role="alert"` e `aria-live` nei blocchi di errore; rimossa la combinazione contraddittoria.
 
 ### Fixed
+- ConfigValidator: accetta data:image/* URI per il campo logo (ripristina la compatibilità con 0.4.x); gli altri campi URL restano limitati a http(s) e percorsi root-relative.
 - Layout: ripristinato il passaggio completo dei parametri al footer (subtitle, logo, url, sections, contacts, social, legal-links, copyright) tramite slot e attributi nominati. Regressione introdotta nel refactoring 0.5.0.
 
 ## [0.4.3] - 2026-10-02

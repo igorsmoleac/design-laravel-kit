@@ -29,7 +29,10 @@ final readonly class FooterConfig
             throw new InvalidArgumentException("Field 'title' must be a non-empty string.");
         }
 
-        ConfigValidator::assertUrl($this->logo, 'logo');
+        if ($this->logo !== null && $this->logo !== '') {
+            ConfigValidator::logoUrl($this->logo, 'logo');
+        }
+
         ConfigValidator::assertUrl($this->url, 'url');
 
         foreach ($this->legalLinks as $legalLink) {
@@ -53,7 +56,7 @@ final readonly class FooterConfig
         return new self(
             title: ConfigValidator::requiredString($data, 'title'),
             subtitle: ConfigValidator::optionalString($data, 'subtitle'),
-            logo: ConfigValidator::optionalUrl($data, 'logo'),
+            logo: ConfigValidator::optionalString($data, 'logo'),
             logoAlt: ConfigValidator::optionalString($data, 'logoAlt'),
             url: ConfigValidator::optionalUrl($data, 'url'),
             legalLinks: self::legalLinks(ConfigValidator::list($data, 'legalLinks')),
