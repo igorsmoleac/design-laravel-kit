@@ -1,4 +1,4 @@
-<div class="form-group{{ $floating ? ' dlk-floating' : '' }}">
+<div @class(['form-group', 'dlk-floating' => $floating, $wrapperClass => filled($wrapperClass)])>
     @if (! $floating)
         <label class="form-label" for="{{ $fieldId() }}">{{ $labelText() }}@if ($required)
             <span class="text-danger" aria-hidden="true">*</span>
@@ -42,6 +42,6 @@
         <small class="form-text" id="{{ $hintId() }}">{{ $hint }}</small>
     @endif
     @if ($hasError())
-        <div class="invalid-feedback" id="{{ $errorId() }}" role="alert" aria-live="polite">{{ $errorMessage() }}</div>
+        <div class="invalid-feedback" id="{{ $errorId() }}" role="alert">{{ $errorMessage() }}</div>
     @endif
 </div>

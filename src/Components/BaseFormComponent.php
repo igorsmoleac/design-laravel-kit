@@ -9,6 +9,8 @@ abstract class BaseFormComponent extends BaseComponent
 {
     protected string $bag = 'default';
 
+    public ?string $wrapperClass = null;
+
     abstract protected function baseFieldName(): string;
 
     abstract protected function baseFieldHint(): ?string;

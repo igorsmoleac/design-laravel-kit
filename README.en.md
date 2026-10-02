@@ -135,12 +135,12 @@ Configure the institution, navigation, legal links, and page content:
 
 ### Service request form
 
-Form components bind Laravel session errors and restore previous input after an invalid submission:
+Form components bind Laravel session errors and restore previous input after an invalid submission. `wrapper-class` adds classes to the wrapper; `class` remains on the control:
 
 ```blade
 <form method="POST" action="{{ route('segnalazioni.store') }}">
     @csrf
-    <x-italia::input name="email" type="email" label="Indirizzo email" required />
+    <x-italia::input name="email" type="email" label="Indirizzo email" wrapper-class="col-md-6" required />
     <x-italia::textarea name="messaggio" label="Descrizione della segnalazione" :rows="5" required />
     <x-italia::button type="submit">Invia segnalazione</x-italia::button>
 </form>
@@ -202,6 +202,22 @@ For strict AgID compliance on production PA sites:
 
 - use the official `italia/spid-sp-access-button` library alongside this package, or
 - override the `.dlk-spid-button` and `.dlk-cie-button` classes with custom CSS matching the official spec.
+
+#### SPID dropdown
+
+When `dropdown` is enabled and `providers` is empty, the component uses `config('design-laravel-kit.spid.providers')`. Replace the list and adapt its URLs to your application's SPID routes as needed:
+
+```php
+'spid' => [
+    'providers' => [
+        ['name' => 'Poste Italiane', 'url' => '/spid/login/poste'],
+    ],
+],
+```
+
+```blade
+<x-italia::spid-button dropdown />
+```
 
 ### ID notes
 

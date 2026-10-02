@@ -20,8 +20,10 @@ class RadioGroup extends BaseFormComponent
         public ?string $hint = null,
         public bool $required = false,
         string $bag = 'default',
+        ?string $wrapperClass = null,
     ) {
         $this->bag = $bag;
+        $this->wrapperClass = $wrapperClass;
     }
 
     public function render(): View

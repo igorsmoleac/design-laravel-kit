@@ -30,8 +30,10 @@ class Select extends BaseFormComponent
         public bool $disabled = false,
         public bool $floating = true,
         public string $bag = 'default',
+        ?string $wrapperClass = null,
     ) {
         $this->options = $this->normalizeOptions($options);
+        $this->wrapperClass = $wrapperClass;
     }
 
     /**

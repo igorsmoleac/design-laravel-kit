@@ -231,7 +231,7 @@ class SelectTest extends TestCase
         $html = (string) $this->blade('<x-italia::select name="country" />');
 
         $this->assertStringContainsString('role="alert"', $html);
-        $this->assertStringContainsString('aria-live="polite"', $html);
+        $this->assertStringNotContainsString('aria-live', $html);
         $this->assertStringContainsString('The country field is required.', $html);
     }
 
@@ -357,6 +357,14 @@ class SelectTest extends TestCase
         $html = (string) $this->blade('<x-italia::select name="country" class="custom" />');
 
         $this->assertStringContainsString('form-select custom', $html);
+    }
+
+    public function test_wrapper_class_is_applied_to_container(): void
+    {
+        $html = (string) $this->blade('<x-italia::select name="country" wrapper-class="col-md-6" class="custom" :floating="false" />');
+
+        $this->assertStringContainsString('<div class="form-group col-md-6">', $html);
+        $this->assertStringContainsString('class="form-select custom"', $html);
     }
 
     public function test_wire_model_passed_through(): void
