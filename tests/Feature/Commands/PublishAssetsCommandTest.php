@@ -17,7 +17,9 @@ class PublishAssetsCommandTest extends TestCase
     {
         parent::setUp();
 
-        $this->app->make(Filesystem::class)->deleteDirectory(public_path('vendor/design-laravel-kit'));
+        $files = $this->app->make(Filesystem::class);
+        $files->deleteDirectory(public_path('vendor/design-laravel-kit'));
+        $files->deleteDirectory(public_path('assets/design-laravel-kit'));
     }
 
     public function test_publishes_assets_to_public_directory(): void
@@ -93,22 +95,32 @@ class PublishAssetsCommandTest extends TestCase
         $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
     }
 
-    public function test_force_refuses_path_with_parent_directory_traversal(): void
+    public function test_refuses_path_with_parent_directory_traversal(): void
     {
-        config()->set('design-laravel-kit.assets_path', 'vendor/../../etc');
+        config()->set('design-laravel-kit.assets_path', '../etc/passwd');
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('contains ".."');
 
-        $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
+        $this->artisan('design-laravel-kit:publish-assets');
     }
 
-    public function test_force_refuses_path_not_starting_with_vendor(): void
+    public function test_refuses_absolute_assets_path(): void
+    {
+        config()->set('design-laravel-kit.assets_path', '/etc/');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('absolute path');
+
+        $this->artisan('design-laravel-kit:publish-assets');
+    }
+
+    public function test_refuses_path_without_an_allowed_prefix(): void
     {
         config()->set('design-laravel-kit.assets_path', 'custom/path');
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('must start with "vendor/"');
+        $this->expectExceptionMessage('must start with "vendor/", "assets/" or "build/"');
 
         $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
     }
@@ -119,5 +131,14 @@ class PublishAssetsCommandTest extends TestCase
 
         $this->artisan('design-laravel-kit:publish-assets', ['--force' => true])
             ->assertSuccessful();
+    }
+
+    public function test_publishes_assets_to_custom_assets_path(): void
+    {
+        config()->set('design-laravel-kit.assets_path', 'assets/design-laravel-kit');
+
+        $this->artisan('design-laravel-kit:publish-assets')->assertSuccessful();
+
+        $this->assertFileExists(public_path('assets/design-laravel-kit/css/design-laravel-kit.css'));
     }
 }

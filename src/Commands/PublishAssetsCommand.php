@@ -27,6 +27,7 @@ class PublishAssetsCommand extends Command
         }
 
         $assetsPath = config('design-laravel-kit.assets_path', 'vendor/design-laravel-kit');
+        $this->assertSafeAssetsPath($assetsPath);
         $destination = public_path($assetsPath);
 
         if ($this->files->exists($destination) && ! $this->option('force')) {
@@ -36,7 +37,6 @@ class PublishAssetsCommand extends Command
         }
 
         if ($this->option('force')) {
-            $this->assertSafeAssetsPath($assetsPath);
             $this->files->deleteDirectory($destination);
         }
 
@@ -49,24 +49,38 @@ class PublishAssetsCommand extends Command
 
     protected function assertSafeAssetsPath(string $assetsPath): void
     {
-        $normalized = trim($assetsPath, '/');
-
-        if ($normalized === '') {
+        if ($assetsPath === '') {
             throw new \RuntimeException(
-                'Refusing to delete public path: assets_path is empty.'
+                'Refusing to publish assets: assets_path is empty.'
             );
         }
 
-        if (str_contains($normalized, '..')) {
+        if (
+            str_starts_with($assetsPath, '/')
+            || str_starts_with($assetsPath, '\\')
+            || preg_match('/^[A-Za-z]:/', $assetsPath) === 1
+        ) {
             throw new \RuntimeException(
-                'Refusing to delete public path: assets_path contains "..".'
+                'Refusing to publish assets to an absolute path.'
             );
         }
 
-        if (! str_starts_with($normalized, 'vendor/')) {
+        if (str_contains($assetsPath, '..')) {
             throw new \RuntimeException(
-                'Refusing to delete public path: assets_path must start with "vendor/".'
+                'Refusing to publish assets: assets_path contains "..".'
             );
         }
+
+        $allowedPrefixes = ['vendor/', 'assets/', 'build/'];
+
+        foreach ($allowedPrefixes as $prefix) {
+            if (str_starts_with($assetsPath, $prefix)) {
+                return;
+            }
+        }
+
+        throw new \RuntimeException(
+            'Refusing to publish assets: assets_path must start with "vendor/", "assets/" or "build/".'
+        );
     }
 }

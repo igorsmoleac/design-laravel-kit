@@ -25,4 +25,10 @@ class IconComponentTest extends TestCase
             ->assertSee('icon-xl', false)
             ->assertSee('aria-label="Cerca"', false);
     }
+
+    public function test_icon_tag_renders_extra_small_size(): void
+    {
+        $this->blade('<x-italia::icon name="search" size="xs" />')
+            ->assertSee('icon-xs', false);
+    }
 }

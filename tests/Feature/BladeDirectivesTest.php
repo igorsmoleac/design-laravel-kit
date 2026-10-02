@@ -19,7 +19,7 @@ class BladeDirectivesTest extends TestCase
 
         $this->assertStringContainsString('design-laravel-kit.css', $html);
         $this->assertStringContainsString('vendor/design-laravel-kit', $html);
-        $this->assertMatchesRegularExpression('/\?v=[^\"]+/', $html);
+        $this->assertMatchesRegularExpression('/\?v=[^"&]+/', $html);
     }
 
     public function test_scripts_directive_includes_version_param(): void
@@ -27,7 +27,7 @@ class BladeDirectivesTest extends TestCase
         $html = Blade::render('@designLaravelKitScripts' . PHP_EOL . '<!-- ' . uniqid() . ' -->');
 
         $this->assertStringContainsString('design-laravel-kit.js', $html);
-        $this->assertMatchesRegularExpression('/\?v=[^\"]+/', $html);
+        $this->assertMatchesRegularExpression('/\?v=[^"&]+/', $html);
         $this->assertStringContainsString('defer', $html);
     }
 
