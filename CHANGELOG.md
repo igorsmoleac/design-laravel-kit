@@ -8,8 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Analisi statica con Larastan a livello 6 su `src/` e `config/`; comando `composer analyse` e step dedicato nella matrice CI PHP/Laravel.
 
 ### Changed
+- `HandlesFormField` suddiviso in tre trait: `HandlesFormField` (label, ID, ARIA), `HandlesCheckableField` (checkbox/radio), `HandlesFieldValue` (valori e old input).
+- Risoluzione delle view dei componenti centralizzata in `BaseComponent::resolveView()`; i componenti non duplicano più il percorso.
+- Tipi PHP esplicitati in docblock e firme per soddisfare Larastan livello 6 (nessun cambio di API pubblica).
 
 ### Fixed
 
