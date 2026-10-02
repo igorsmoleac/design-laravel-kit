@@ -75,7 +75,25 @@ class SpidButtonTest extends TestCase
         $this->assertStringContainsString('aria-hidden="true"', $html);
     }
 
-    public function test_dropdown_renders_provider_list(): void
+    public function test_dropdown_uses_default_providers_when_list_is_empty(): void
+    {
+        $html = (string) $this->blade('<x-italia::spid-button :dropdown="true" :providers="[]" />');
+
+        $this->assertStringContainsString('dropdown-menu', $html);
+        $this->assertStringContainsString('Poste Italiane', $html);
+        $this->assertStringContainsString('Aruba PEC', $html);
+        $this->assertStringContainsString('href="/spid/login/poste"', $html);
+    }
+
+    public function test_dropdown_uses_default_providers_when_provider_prop_is_omitted(): void
+    {
+        $html = (string) $this->blade('<x-italia::spid-button dropdown />');
+
+        $this->assertStringContainsString('Poste Italiane', $html);
+        $this->assertStringContainsString('Aruba PEC', $html);
+    }
+
+    public function test_dropdown_renders_explicit_provider_list_instead_of_defaults(): void
     {
         $providers = [['name' => 'Aruba ID', 'url' => '/spid/login/aruba']];
 
@@ -87,15 +105,22 @@ class SpidButtonTest extends TestCase
         $this->assertStringContainsString('dropdown-menu', $html);
         $this->assertStringContainsString('Aruba ID', $html);
         $this->assertStringContainsString('href="/spid/login/aruba"', $html);
+        $this->assertStringNotContainsString('Poste Italiane', $html);
         $this->assertStringContainsString('data-bs-toggle="dropdown"', $html);
         $this->assertStringContainsString('Maggiori informazioni', $html);
     }
 
-    public function test_no_dropdown_renders_simple_link(): void
+    public function test_no_dropdown_ignores_provided_providers(): void
     {
-        $html = (string) $this->blade('<x-italia::spid-button />');
+        $providers = [['name' => 'Custom IdP', 'url' => '/custom-login']];
+
+        $html = (string) $this->blade(
+            '<x-italia::spid-button :providers="$providers" />',
+            ['providers' => $providers],
+        );
 
         $this->assertStringNotContainsString('dropdown-menu', $html);
+        $this->assertStringNotContainsString('Custom IdP', $html);
         $this->assertStringContainsString('<a href="/spid/login"', $html);
     }
 
