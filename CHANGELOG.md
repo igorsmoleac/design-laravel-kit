@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tipi PHP esplicitati in docblock e firme per soddisfare Larastan livello 6 (nessun cambio di API pubblica).
 
 ### Fixed
+- Componente Alert: corretto il livello del titolo da `<h4>` a `<h3>` per rispettare la gerarchia dei titoli.
 
 ## [0.4.1] - 2026-10-01
 

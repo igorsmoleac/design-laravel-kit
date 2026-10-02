@@ -45,7 +45,7 @@ class AlertTest extends TestCase
     {
         $html = (string) $this->blade('<x-italia::alert title="Errore">x</x-italia::alert>');
 
-        $this->assertStringContainsString('<h4 class="alert-heading">Errore</h4>', $html);
+        $this->assertStringContainsString('<h3 class="alert-heading">Errore</h3>', $html);
     }
 
     public function test_no_heading_without_title(): void
@@ -53,7 +53,7 @@ class AlertTest extends TestCase
         $html = (string) $this->blade('<x-italia::alert>x</x-italia::alert>');
 
         $this->assertStringNotContainsString('alert-heading', $html);
-        $this->assertStringNotContainsString('<h4', $html);
+        $this->assertStringNotContainsString('<h3', $html);
     }
 
     public function test_dismissible_renders_close_button(): void
