@@ -33,6 +33,9 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
           composer update --prefer-dist --no-interaction --no-progress
 
+      - name: Run Larastan
+        run: composer analyse
+
       - name: Run PHPUnit
         run: vendor/bin/phpunit --colors=always
 

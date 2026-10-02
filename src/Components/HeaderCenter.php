@@ -6,6 +6,9 @@ use Illuminate\Contracts\View\View;
 
 class HeaderCenter extends BaseComponent
 {
+    /**
+     * @param  list<array<string, mixed>>  $socialLinks
+     */
     public function __construct(
         public string $title,
         public ?string $tagline = null,
@@ -20,7 +23,7 @@ class HeaderCenter extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.header-center');
+        return $this->componentView('design-laravel-kit::components.header-center');
     }
 
     public function hasTagline(): bool

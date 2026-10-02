@@ -20,7 +20,7 @@ class Icon extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.icon');
+        return $this->componentView('design-laravel-kit::components.icon');
     }
 
     public function iconName(): string

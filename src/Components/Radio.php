@@ -2,11 +2,13 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesCheckableField;
 use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFormField;
 use Illuminate\Contracts\View\View;
 
 class Radio extends BaseFormComponent
 {
+    use HandlesCheckableField;
     use HandlesFormField;
 
     public function __construct(
@@ -22,7 +24,7 @@ class Radio extends BaseFormComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.radio');
+        return $this->componentView('design-laravel-kit::components.radio');
     }
 
     public function inputClass(): string

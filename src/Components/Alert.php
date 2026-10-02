@@ -22,7 +22,7 @@ class Alert extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.alert');
+        return $this->componentView('design-laravel-kit::components.alert');
     }
 
     public function variant(): AlertVariant

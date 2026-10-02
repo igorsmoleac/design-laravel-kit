@@ -6,6 +6,9 @@ use Illuminate\Contracts\View\View;
 
 class HeaderNavbar extends BaseComponent
 {
+    /**
+     * @param  list<array<string, mixed>>  $items
+     */
     public function __construct(
         public array $items = [],
         public bool $light = false,
@@ -14,7 +17,7 @@ class HeaderNavbar extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.header-navbar');
+        return $this->componentView('design-laravel-kit::components.header-navbar');
     }
 
     public function hasItems(): bool
@@ -49,6 +52,9 @@ class HeaderNavbar extends BaseComponent
         return collect($this->items)->contains(fn ($item) => filled($item['megamenu'] ?? null));
     }
 
+    /**
+     * @param  array<string, mixed>  $item
+     */
     public function isItemActive(array $item): bool
     {
         return (bool) ($item['active'] ?? false);

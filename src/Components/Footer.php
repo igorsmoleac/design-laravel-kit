@@ -6,6 +6,12 @@ use Illuminate\Contracts\View\View;
 
 class Footer extends BaseComponent
 {
+    /**
+     * @param  list<array<string, mixed>>  $sections
+     * @param  list<array<string, mixed>>  $contacts
+     * @param  list<array<string, mixed>>  $socialLinks
+     * @param  list<array<string, mixed>>  $legalLinks
+     */
     public function __construct(
         public string $title,
         public ?string $subtitle = null,
@@ -22,7 +28,7 @@ class Footer extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.footer');
+        return $this->componentView('design-laravel-kit::components.footer');
     }
 
     public function hasSections(): bool
@@ -45,6 +51,9 @@ class Footer extends BaseComponent
         return $this->legalLinks !== [];
     }
 
+    /**
+     * @param  array<string, mixed>  $link
+     */
     public function legalLinkDataElement(array $link): ?string
     {
         return $link['dataElement']
@@ -94,6 +103,9 @@ class Footer extends BaseComponent
             ->implode(' ');
     }
 
+    /**
+     * @param  array<string, mixed>  $section
+     */
     public function sectionUrl(array $section): ?string
     {
         $url = $section['url'] ?? null;
@@ -101,16 +113,25 @@ class Footer extends BaseComponent
         return filled($url) ? (string) $url : null;
     }
 
+    /**
+     * @param  array<string, mixed>  $contact
+     */
     public function isAddress(array $contact): bool
     {
         return ($contact['type'] ?? '') === 'address';
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public function linkableContacts(): array
     {
         return array_values(array_filter($this->contacts, fn ($contact) => ! $this->isAddress($contact)));
     }
 
+    /**
+     * @param  array<string, mixed>  $contact
+     */
     public function contactIcon(array $contact): string
     {
         return match ($contact['type'] ?? '') {
@@ -120,6 +141,9 @@ class Footer extends BaseComponent
         };
     }
 
+    /**
+     * @param  array<string, mixed>  $contact
+     */
     public function contactHref(array $contact): string
     {
         $value = (string) ($contact['value'] ?? '');
@@ -131,6 +155,9 @@ class Footer extends BaseComponent
         };
     }
 
+    /**
+     * @param  array<string, mixed>  $contact
+     */
     public function contactLabel(array $contact): string
     {
         $label = $contact['label'] ?? null;

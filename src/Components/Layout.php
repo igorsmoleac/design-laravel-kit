@@ -8,6 +8,12 @@ class Layout extends BaseComponent
 {
     public string $skipLabel;
 
+    /**
+     * @param  array<string, mixed>  $slim
+     * @param  array<string, mixed>  $center
+     * @param  array<string, mixed>  $navbar
+     * @param  array<string, mixed>  $footer
+     */
     public function __construct(
         public string $title = '',
         public ?string $description = null,
@@ -28,7 +34,7 @@ class Layout extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.layout');
+        return $this->componentView('design-laravel-kit::components.layout');
     }
 
     public function pageTitle(): string

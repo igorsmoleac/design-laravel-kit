@@ -2,11 +2,13 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFieldValue;
 use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFormField;
 use Illuminate\Contracts\View\View;
 
 class Input extends BaseFormComponent
 {
+    use HandlesFieldValue;
     use HandlesFormField;
 
     public function __construct(
@@ -24,6 +26,6 @@ class Input extends BaseFormComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.input');
+        return $this->componentView('design-laravel-kit::components.input');
     }
 }

@@ -14,7 +14,7 @@ class CieButton extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.cie-button');
+        return $this->componentView('design-laravel-kit::components.cie-button');
     }
 
     public function cssClass(): string

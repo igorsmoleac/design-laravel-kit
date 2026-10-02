@@ -18,7 +18,7 @@ class Modal extends BaseComponent
 
     public function render(): View
     {
-        return view('design-laravel-kit::components.modal');
+        return $this->componentView('design-laravel-kit::components.modal');
     }
 
     /**
