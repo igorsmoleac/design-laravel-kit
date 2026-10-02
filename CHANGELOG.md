@@ -8,12 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.4.3] - 2026-10-02
+
+### Added
 - IconSize: aggiunto il valore `xs` (16px), allineato a Bootstrap Italia 2.18.3.
 
 ### Changed
 - PublishAssetsCommand: ampliati i prefissi di pubblicazione consentiti (`vendor/`, `assets/`, `build/`); la protezione contro path traversal resta attiva.
-
-### Fixed
 
 ## [0.4.2] - 2026-10-02
 
