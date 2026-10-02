@@ -238,7 +238,10 @@ Gli esempi d'uso dei componenti sono nel [catalogo del playground](https://githu
 
 I componenti includono link salta-contenuto, label associate ai campi, attributi ARIA per gli errori dei form e attributi `data-element` per i link legali del footer. Il riferimento normativo per l'accessibilità dei servizi digitali della PA è la [Legge 9 gennaio 2004, n. 4 (Legge Stanca)](https://www.normattiva.it/eli/id/2004/01/17/004G0015/CONSOLIDATED/20231118). WCAG 2.1 livello AA è il criterio di riferimento dichiarato; il pacchetto non certifica la conformità del sito o del servizio che lo integra.
 
-<a id="limitazioni-note"></a>Limitazioni note: il focus trap del modal è gestito dal JavaScript di Bootstrap Italia e non è testato dal pacchetto; l'annuncio degli errori associati ai fieldset può variare con screen reader meno recenti; il contrasto ereditato da Bootstrap Italia 2.18.3 non è verificato automaticamente nel CI con axe-core o pa11y.
+<a id="limitazioni-note"></a>Limitazioni note:
+- Il contrasto cromatico ereditato da Bootstrap Italia 2.18.3 può richiedere una verifica manuale: axe-core segnala alcuni nodi come controllo incompleto perché non riesce a determinare il colore di sfondo.
+- Il focus trap del modal è gestito dal JavaScript di Bootstrap Italia e non è testato dal pacchetto.
+- L'annuncio degli errori associati ai fieldset può variare con screen reader meno recenti.
 
 ## Test
 

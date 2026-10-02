@@ -238,7 +238,10 @@ Component examples are in the [playground catalog](https://github.com/igorsmolea
 
 Components include skip-to-content links, labels associated with form fields, ARIA attributes for form errors, and `data-element` attributes for footer legal links. WCAG 2.1 Level AA is the stated reference criterion; these features do not certify the compliance of the integrating site or service. The applicable Italian legal reference for digital-service accessibility is [Law No. 4 of 9 January 2004 (Legge Stanca)](https://www.normattiva.it/eli/id/2004/01/17/004G0015/CONSOLIDATED/20231118).
 
-<a id="limitazioni-note"></a>Known limitations: the modal focus trap is handled by Bootstrap Italia JavaScript and is not tested by this package; older screen readers may vary in how they announce errors associated with fieldsets; color contrast inherited from Bootstrap Italia 2.18.3 is not automatically checked in CI with axe-core or pa11y.
+<a id="limitazioni-note"></a>Known limitations:
+- Color contrast inherited from Bootstrap Italia 2.18.3 may require manual review: axe-core flags some nodes as an incomplete check because it cannot determine the background color.
+- The modal focus trap is handled by Bootstrap Italia JavaScript and is not tested by this package.
+- Older screen readers may vary in how they announce errors associated with fieldsets.
 
 ## Tests
 
