@@ -19,6 +19,11 @@ class IconTest extends TestCase
         $this->assertSame('icon', (new Icon('search'))->svgClass());
     }
 
+    public function test_extra_small_size_renders_base_and_modifier_classes(): void
+    {
+        $this->assertSame('icon icon-xs', (new Icon('search', IconSize::ExtraSmall))->svgClass());
+    }
+
     public function test_small_size_renders_base_and_modifier_classes(): void
     {
         $this->assertSame('icon icon-sm', (new Icon('search', IconSize::Small))->svgClass());

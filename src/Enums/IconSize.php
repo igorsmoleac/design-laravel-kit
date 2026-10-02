@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Enums;
 
 enum IconSize: string
 {
+    case ExtraSmall = 'xs';
     case Small = 'sm';
     case Medium = 'md';
     case Large = 'lg';
