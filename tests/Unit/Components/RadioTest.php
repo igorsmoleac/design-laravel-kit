@@ -147,6 +147,7 @@ class RadioTest extends TestCase
         $this->assertStringContainsString('form-check-input is-invalid', $html);
         $this->assertStringContainsString('aria-invalid="true"', $html);
         $this->assertStringContainsString('role="alert"', $html);
+        $this->assertStringNotContainsString('aria-live', $html);
         $this->assertStringContainsString('Seleziona una opzione.', $html);
     }
 

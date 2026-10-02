@@ -50,6 +50,7 @@ class RadioGroupTest extends TestCase
         $html = (string) $this->blade('<x-italia::radio-group name="gender"><x-italia::radio name="gender" value="m" /><x-italia::radio name="gender" value="f" /><x-italia::radio name="gender" value="o" /></x-italia::radio-group>');
 
         $this->assertSame(1, substr_count($html, 'role="alert"'));
+        $this->assertStringNotContainsString('aria-live', $html);
         $this->assertSame(1, substr_count($html, 'Seleziona un genere.'));
     }
 

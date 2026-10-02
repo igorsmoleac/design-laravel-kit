@@ -154,7 +154,7 @@ class TextareaTest extends TestCase
         $html = (string) $this->blade('<x-italia::textarea name="bio" />');
 
         $this->assertStringContainsString('role="alert"', $html);
-        $this->assertStringContainsString('aria-live="polite"', $html);
+        $this->assertStringNotContainsString('aria-live', $html);
         $this->assertStringContainsString('The bio field is required.', $html);
     }
 

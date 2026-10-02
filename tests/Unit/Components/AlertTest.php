@@ -18,6 +18,7 @@ class AlertTest extends TestCase
 
         $this->assertStringContainsString('alert alert-info', $html);
         $this->assertStringContainsString('role="alert"', $html);
+        $this->assertStringNotContainsString('aria-live', $html);
     }
 
     public function test_renders_all_variants_with_correct_classes(): void
