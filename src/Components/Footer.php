@@ -2,64 +2,61 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use Closure;
+use IgorSmoleac\DesignLaravelKit\DTO\FooterConfig;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\ComponentSlot;
 
 class Footer extends BaseComponent
 {
-    /**
-     * @param  list<array<string, mixed>>  $sections
-     * @param  list<array<string, mixed>>  $contacts
-     * @param  list<array<string, mixed>>  $socialLinks
-     * @param  list<array<string, mixed>>  $legalLinks
-     */
+    protected ?FooterConfig $footerConfig = null;
+
+    private bool $hasLegalLinkContent = false;
+
     public function __construct(
-        public string $title,
+        public string $title = '',
         public ?string $subtitle = null,
         public ?string $logo = null,
         public ?string $logoAlt = null,
         public ?string $url = null,
-        public array $sections = [],
-        public array $contacts = [],
-        public array $socialLinks = [],
-        public array $legalLinks = [],
         public ?string $copyright = null,
         public bool $light = false,
     ) {}
 
-    public function render(): View
+    public function render(): Closure
     {
-        return $this->componentView('design-laravel-kit::components.footer');
+        return function (array $data): View {
+            $this->rejectArrayAttributes(['sections', 'contacts', 'social', 'social-links', 'legalLinks', 'legal-links']);
+            $this->footerConfig = FooterConfig::fromArray([
+                'title' => $this->title,
+                'subtitle' => $this->subtitle,
+                'logo' => $this->logo,
+                'logoAlt' => $this->logoAlt,
+                'url' => $this->url,
+                'copyright' => $this->copyright,
+                'light' => $this->light,
+            ]);
+
+            $legalLinks = $data['legalLinks'] ?? $data['legal-links'] ?? null;
+            $slot = $data['slot'] ?? null;
+            $this->hasLegalLinkContent = $this->hasSlotContent($legalLinks) || $this->hasSlotContent($slot);
+
+            return $this->componentView('design-laravel-kit::components.footer')
+                ->with($data)
+                ->with(['footerConfig' => $this->footerConfig]);
+        };
     }
 
-    public function hasSections(): bool
+    private function hasSlotContent(mixed $slot): bool
     {
-        return $this->sections !== [];
-    }
-
-    public function hasContacts(): bool
-    {
-        return $this->contacts !== [];
-    }
-
-    public function hasSocialLinks(): bool
-    {
-        return $this->socialLinks !== [];
+        return $slot instanceof ComponentSlot
+            ? $slot->isNotEmpty()
+            : trim((string) $slot) !== '';
     }
 
     public function hasLegalLinks(): bool
     {
-        return $this->legalLinks !== [];
-    }
-
-    /**
-     * @param  array<string, mixed>  $link
-     */
-    public function legalLinkDataElement(array $link): ?string
-    {
-        return $link['dataElement']
-            ?? $link['data-element']
-            ?? $link['data_element']
-            ?? null;
+        return $this->hasLegalLinkContent;
     }
 
     public function hasLogo(): bool
@@ -89,11 +86,9 @@ class Footer extends BaseComponent
 
     public function copyrightClass(): string
     {
-        return collect([
-            'mb-0',
-            'px-3',
-            $this->hasLegalLinks() ? 'pb-4' : 'py-4',
-        ])->filter()->implode(' ');
+        return collect(['mb-0', 'px-3', $this->hasLegalLinks() ? 'pb-4' : 'py-4'])
+            ->filter()
+            ->implode(' ');
     }
 
     public function wrapperClass(): string
@@ -101,67 +96,5 @@ class Footer extends BaseComponent
         return collect(['it-footer', $this->light ? 'theme-light' : null])
             ->filter()
             ->implode(' ');
-    }
-
-    /**
-     * @param  array<string, mixed>  $section
-     */
-    public function sectionUrl(array $section): ?string
-    {
-        $url = $section['url'] ?? null;
-
-        return filled($url) ? (string) $url : null;
-    }
-
-    /**
-     * @param  array<string, mixed>  $contact
-     */
-    public function isAddress(array $contact): bool
-    {
-        return ($contact['type'] ?? '') === 'address';
-    }
-
-    /**
-     * @return list<array<string, mixed>>
-     */
-    public function linkableContacts(): array
-    {
-        return array_values(array_filter($this->contacts, fn ($contact) => ! $this->isAddress($contact)));
-    }
-
-    /**
-     * @param  array<string, mixed>  $contact
-     */
-    public function contactIcon(array $contact): string
-    {
-        return match ($contact['type'] ?? '') {
-            'phone' => 'it-telephone',
-            'email', 'pec' => 'it-mail',
-            default => 'it-link',
-        };
-    }
-
-    /**
-     * @param  array<string, mixed>  $contact
-     */
-    public function contactHref(array $contact): string
-    {
-        $value = (string) ($contact['value'] ?? '');
-
-        return match ($contact['type'] ?? '') {
-            'phone' => 'tel:' . preg_replace('/[^+\d]/', '', $value),
-            'email', 'pec' => 'mailto:' . $value,
-            default => '#',
-        };
-    }
-
-    /**
-     * @param  array<string, mixed>  $contact
-     */
-    public function contactLabel(array $contact): string
-    {
-        $label = $contact['label'] ?? null;
-
-        return filled($label) ? $label . ': ' . ($contact['value'] ?? '') : (string) ($contact['value'] ?? '');
     }
 }

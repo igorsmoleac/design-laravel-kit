@@ -16,17 +16,7 @@
                                     <x-italia::icon name="it-expand" />
                                 </a>
                                 <div class="link-list-wrapper collapse" id="{{ $menuId() }}">
-                                    <ul class="link-list">
-                                        @foreach ($links as $link)
-                                            <li>
-                                                <a
-                                                    class="dropdown-item list-item{{ $isLinkActive($link) ? ' active' : '' }}"
-                                                    href="{{ $link['url'] ?? '#' }}"
-                                                    @if ($isLinkActive($link)) aria-current="page" @endif
-                                                >{{ $link['text'] ?? '' }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                    <ul class="link-list">{{ $links ?? $slot }}</ul>
                                 </div>
                             </nav>
                         </div>
@@ -37,22 +27,14 @@
                                 <div class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="visually-hidden">{{ __('design-laravel-kit::Selezione lingua: lingua selezionata') }}</span>
-                                        <span>{{ $currentLanguageLabel() }}</span>
+                                        <span>{{ $languageLabel ?? '' }}</span>
                                         <x-italia::icon name="it-expand" class="d-none d-lg-block" />
                                     </a>
                                     <div class="dropdown-menu">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="link-list-wrapper">
-                                                    <ul class="link-list">
-                                                        @foreach ($languages as $language)
-                                                            <li>
-                                                                <a class="dropdown-item list-item" href="{{ $language['url'] ?? '#' }}">
-                                                                    <span>{{ $language['label'] ?? '' }} @if ($isLanguageActive($language))<span class="visually-hidden">{{ __('design-laravel-kit::selezionata') }}</span>@endif</span>
-                                                                </a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
+                                                    <ul class="link-list">{{ $languages }}</ul>
                                                 </div>
                                             </div>
                                         </div>

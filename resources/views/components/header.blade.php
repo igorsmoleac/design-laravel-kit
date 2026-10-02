@@ -1,39 +1,35 @@
 <header {{ $attributes->class([$wrapperClass()]) }} @if ($sticky) data-bs-toggle="sticky" @endif>
-    @if ($hasSlim())
+    @if ($slimConfig)
         <x-italia::header-slim
-            :ente="$slim['ente'] ?? 'Ente appartenenza'"
-            :ente-url="$slim['enteUrl'] ?? null"
-            :links="$slim['links'] ?? []"
-            :languages="$slim['languages'] ?? []"
-            :login-url="$slim['loginUrl'] ?? null"
-            :login-label="$slim['loginLabel'] ?? 'Accedi'"
-            :light="$light"
+            :ente="$slimConfig->ente"
+            :ente-url="$slimConfig->enteUrl"
+            :login-url="$slimConfig->loginUrl"
+            :login-label="$slimConfig->loginLabel"
+            :light="$light || $slimConfig->light"
             :sticky="false"
-        />
+        >{{ $slim ?? '' }}</x-italia::header-slim>
     @endif
 
-    @if ($hasCenter() || $hasNavbar())
+    @if ($centerConfig || $navbarConfig)
         <div class="it-nav-wrapper">
-            @if ($hasCenter())
+            @if ($centerConfig)
                 <x-italia::header-center
-                    :title="$center['title'] ?? ''"
-                    :tagline="$center['tagline'] ?? null"
-                    :logo="$center['logo'] ?? null"
-                    :logo-alt="$center['logoAlt'] ?? null"
-                    :url="$center['url'] ?? null"
-                    :social-links="$center['socialLinks'] ?? []"
-                    :search-url="$center['searchUrl'] ?? null"
-                    :small="$small || (bool) ($center['small'] ?? false)"
-                    :light="$light"
-                />
+                    :title="$centerConfig->title"
+                    :tagline="$centerConfig->tagline"
+                    :logo="$centerConfig->logo"
+                    :logo-alt="$centerConfig->logoAlt"
+                    :url="$centerConfig->url"
+                    :search-url="$centerConfig->searchUrl"
+                    :small="$small || $centerConfig->small"
+                    :light="$light || $centerConfig->light"
+                >{{ $center ?? '' }}</x-italia::header-center>
             @endif
 
-            @if ($hasNavbar())
+            @if ($navbarConfig)
                 <x-italia::header-navbar
-                    :items="$navbar['items'] ?? []"
-                    :light="$light"
+                    :light="$light || $navbarConfig->light"
                     :sticky="false"
-                />
+                >{{ $navbar ?? '' }}</x-italia::header-navbar>
             @endif
         </div>
     @endif

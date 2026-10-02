@@ -16,13 +16,36 @@
         <a class="visually-hidden-focusable" href="#main">{{ $skipLabel }}</a>
     @endif
 
-    <x-italia::header
-        :slim="$slim"
-        :center="$center"
-        :navbar="$navbar"
-        :light="$light"
-        :sticky="$sticky"
-    />
+    <x-italia::header :light="$light" :sticky="$sticky">
+        @if ($slimConfig)
+            <x-slot:slim
+                :ente="$slimConfig->ente"
+                :ente-url="$slimConfig->enteUrl"
+                :login-url="$slimConfig->loginUrl"
+                :login-label="$slimConfig->loginLabel"
+                :light="$light || $slimConfig->light"
+                :sticky="$slimConfig->sticky"
+            >{{ $slim }}</x-slot:slim>
+        @endif
+        @if ($centerConfig)
+            <x-slot:center
+                :title="$centerConfig->title"
+                :tagline="$centerConfig->tagline"
+                :logo="$centerConfig->logo"
+                :logo-alt="$centerConfig->logoAlt"
+                :url="$centerConfig->url"
+                :search-url="$centerConfig->searchUrl"
+                :small="$centerConfig->small"
+                :light="$light || $centerConfig->light"
+            >{{ $center }}</x-slot:center>
+        @endif
+        @if ($navbarConfig)
+            <x-slot:navbar
+                :light="$light || $navbarConfig->light"
+                :sticky="$navbarConfig->sticky"
+            >{{ $navbar }}</x-slot:navbar>
+        @endif
+    </x-italia::header>
 
     {{ $breadcrumbs ?? '' }}
 
@@ -31,18 +54,14 @@
     </main>
 
     <x-italia::footer
-        :title="$footer['title'] ?? config('app.name')"
-        :subtitle="$footer['subtitle'] ?? null"
-        :logo="$footer['logo'] ?? null"
-        :logo-alt="$footer['logoAlt'] ?? null"
-        :url="$footer['url'] ?? null"
-        :sections="$footer['sections'] ?? []"
-        :contacts="$footer['contacts'] ?? []"
-        :social-links="$footer['socialLinks'] ?? []"
-        :legal-links="$footer['legalLinks'] ?? []"
-        :copyright="$footer['copyright'] ?? null"
-        :light="$light"
-    />
+        :title="$footerConfig->title"
+        :subtitle="$footerConfig->subtitle"
+        :logo="$footerConfig->logo"
+        :logo-alt="$footerConfig->logoAlt"
+        :url="$footerConfig->url"
+        :copyright="$footerConfig->copyright"
+        :light="$light || $footerConfig->light"
+    >{{ $footer ?? '' }}</x-italia::footer>
 
     @designLaravelKitScripts
     @stack('scripts')

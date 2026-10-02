@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\Components\Header;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class HeaderTest extends TestCase
@@ -13,254 +14,185 @@ class HeaderTest extends TestCase
         return [DesignLaravelKitServiceProvider::class];
     }
 
-    private function slim(): array
+    public function test_renders_header_parts_from_named_slots(): void
     {
-        return [
-            'ente' => 'Comune di Roma',
-            'enteUrl' => 'https://www.comune.roma.it',
-            'links' => [
-                ['url' => '/', 'text' => 'Pagina iniziale'],
-            ],
-            'languages' => [
-                ['code' => 'it', 'label' => 'ITA', 'active' => true],
-            ],
-            'loginUrl' => '/login',
-        ];
-    }
-
-    private function center(): array
-    {
-        return [
-            'title' => 'Comune di Roma',
-            'tagline' => 'Portale istituzionale',
-            'searchUrl' => '/search',
-        ];
-    }
-
-    private function navbar(): array
-    {
-        return [
-            'items' => [
-                ['text' => 'Home', 'url' => '/'],
-            ],
-        ];
-    }
-
-    public function test_renders_it_header_wrapper(): void
-    {
-        $html = (string) $this->blade('<x-italia::header />');
-
-        $this->assertStringContainsString('it-header-wrapper', $html);
-    }
-
-    public function test_accepts_custom_id_attribute(): void
-    {
-        $html = (string) $this->blade('<x-italia::header id="test" />');
-
-        $this->assertMatchesRegularExpression('/^\s*<header\b[^>]*\bid="test"/', $html);
-    }
-
-    public function test_accepts_custom_data_attribute(): void
-    {
-        $html = (string) $this->blade('<x-italia::header data-element="foo" />');
-
-        $this->assertMatchesRegularExpression('/^\s*<header\b[^>]*\bdata-element="foo"/', $html);
-    }
-
-    public function test_wrapper_class_still_present(): void
-    {
-        $html = (string) $this->blade('<x-italia::header />');
-
-        $this->assertStringContainsString('class="it-header-wrapper"', $html);
-    }
-
-    public function test_sticky_adds_class_and_data_toggle(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :center="$center" sticky />', ['center' => $this->center()]);
-
-        $this->assertStringContainsString('it-header-wrapper it-header-sticky', $html);
-        $this->assertStringContainsString('data-bs-toggle="sticky"', $html);
-    }
-
-    public function test_light_adds_theme_light_to_wrapper(): void
-    {
-        $html = (string) $this->blade('<x-italia::header light />');
-
-        $this->assertStringContainsString('it-header-wrapper theme-light', $html);
-    }
-
-    public function test_small_adds_it_header_small(): void
-    {
-        $html = (string) $this->blade('<x-italia::header small />');
-
-        $this->assertStringContainsString('it-header-wrapper it-header-small', $html);
-    }
-
-    public function test_small_is_passed_to_center(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :center="$center" small />', ['center' => $this->center()]);
-
-        $this->assertStringContainsString('it-header-center-wrapper it-small-header', $html);
-    }
-
-    public function test_renders_slim_when_provided(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :slim="$slim" />', ['slim' => $this->slim()]);
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header>
+    <x-slot:slim ente="Comune di Roma" login-url="/login"></x-slot:slim>
+    <x-slot:center title="Comune di Roma" tagline="Portale istituzionale" search-url="/search"></x-slot:center>
+    <x-slot:navbar><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar>
+</x-italia::header>
+BLADE);
 
         $this->assertStringContainsString('it-header-slim-wrapper', $html);
-        $this->assertStringContainsString('Comune di Roma', $html);
+        $this->assertStringContainsString('it-header-center-wrapper', $html);
+        $this->assertStringContainsString('it-header-navbar-wrapper', $html);
         $this->assertStringContainsString('href="/login"', $html);
-    }
-
-    public function test_does_not_render_slim_when_empty(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :center="$center" />', ['center' => $this->center()]);
-
-        $this->assertStringNotContainsString('it-header-slim-wrapper', $html);
-    }
-
-    public function test_renders_center_when_provided(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :center="$center" />', ['center' => $this->center()]);
-
-        $this->assertStringContainsString('it-header-center-wrapper', $html);
-        $this->assertStringContainsString('Portale istituzionale', $html);
         $this->assertStringContainsString('href="/search"', $html);
-    }
-
-    public function test_does_not_render_center_when_empty(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :slim="$slim" />', ['slim' => $this->slim()]);
-
-        $this->assertStringNotContainsString('it-header-center-wrapper', $html);
-    }
-
-    public function test_renders_navbar_when_provided(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :navbar="$navbar" />', ['navbar' => $this->navbar()]);
-
-        $this->assertStringContainsString('it-header-navbar-wrapper', $html);
-        $this->assertStringContainsString('<ul class="navbar-nav">', $html);
-    }
-
-    public function test_does_not_render_navbar_when_empty(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :slim="$slim" />', ['slim' => $this->slim()]);
-
-        $this->assertStringNotContainsString('it-header-navbar-wrapper', $html);
-    }
-
-    public function test_light_is_forwarded_to_all_parts(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :slim="$slim" :center="$center" :navbar="$navbar" light />', [
-            'slim' => $this->slim(),
-            'center' => $this->center(),
-            'navbar' => $this->navbar(),
-        ]);
-
-        $this->assertSame(4, substr_count($html, 'theme-light'));
-        $this->assertStringContainsString('it-header-wrapper theme-light', $html);
-        $this->assertStringContainsString('it-header-slim-wrapper theme-light', $html);
-        $this->assertStringContainsString('it-header-center-wrapper theme-light', $html);
-        $this->assertStringContainsString('it-header-navbar-wrapper theme-light', $html);
-    }
-
-    public function test_renders_all_parts_together(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :slim="$slim" :center="$center" :navbar="$navbar" />', [
-            'slim' => $this->slim(),
-            'center' => $this->center(),
-            'navbar' => $this->navbar(),
-        ]);
-
-        $this->assertStringContainsString('it-header-slim-wrapper', $html);
-        $this->assertStringContainsString('it-header-center-wrapper', $html);
-        $this->assertStringContainsString('it-header-navbar-wrapper', $html);
-    }
-
-    public function test_center_and_navbar_are_siblings_inside_it_nav_wrapper(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :center="$center" :navbar="$navbar" />', [
-            'center' => $this->center(),
-            'navbar' => $this->navbar(),
-        ]);
-
-        $navWrapper = substr($html, strpos($html, 'it-nav-wrapper'));
-
-        $this->assertStringContainsString('it-header-center-wrapper', $navWrapper);
-        $this->assertStringContainsString('it-header-navbar-wrapper', $navWrapper);
-        $this->assertLessThan(strpos($navWrapper, 'it-header-navbar-wrapper'), strpos($navWrapper, 'it-header-center-wrapper'));
-    }
-
-    public function test_navbar_only_renders_inside_it_nav_wrapper(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :navbar="$navbar" />', ['navbar' => $this->navbar()]);
-
-        $this->assertStringContainsString('it-nav-wrapper', $html);
-        $this->assertStringContainsString('it-header-navbar-wrapper', $html);
-        $this->assertStringNotContainsString('it-header-slim-wrapper', $html);
-        $this->assertStringNotContainsString('it-header-center-wrapper', $html);
-    }
-
-    public function test_slim_only_renders_without_it_nav_wrapper(): void
-    {
-        $html = (string) $this->blade('<x-italia::header :slim="$slim" />', ['slim' => $this->slim()]);
-
-        $this->assertStringContainsString('it-header-slim-wrapper', $html);
-        $this->assertStringNotContainsString('it-nav-wrapper', $html);
+        $this->assertStringContainsString('href="/"', $html);
     }
 
     public function test_empty_header_renders_bare_wrapper(): void
     {
         $html = (string) $this->blade('<x-italia::header />');
 
+        $this->assertStringContainsString('class="it-header-wrapper"', $html);
         $this->assertStringNotContainsString('it-header-slim-wrapper', $html);
         $this->assertStringNotContainsString('it-header-center-wrapper', $html);
         $this->assertStringNotContainsString('it-header-navbar-wrapper', $html);
-        $this->assertStringNotContainsString('it-nav-wrapper', $html);
-        $this->assertSame(1, substr_count(trim($html), 'it-header-wrapper'));
     }
 
-    public function test_children_do_not_render_their_own_sticky_toggle(): void
+    public function test_old_array_attributes_are_rejected(): void
     {
-        $html = (string) $this->blade('<x-italia::header :slim="$slim" :navbar="$navbar" sticky />', [
-            'slim' => $this->slim(),
-            'navbar' => $this->navbar(),
-        ]);
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("The 'slim' array attribute is no longer supported");
+
+        $this->blade('<x-italia::header :slim="[\'ente\' => \'Comune di Roma\']" />');
+    }
+
+    public function test_missing_required_slot_attribute_names_field(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'title'");
+
+        $this->blade('<x-italia::header><x-slot:center></x-slot:center></x-italia::header>');
+    }
+
+    public function test_sticky_light_and_small_options_are_applied(): void
+    {
+        $html = (string) $this->blade('<x-italia::header sticky light small />');
+
+        $this->assertStringContainsString('it-header-wrapper it-header-sticky it-header-small theme-light', $html);
+        $this->assertStringContainsString('data-bs-toggle="sticky"', $html);
+    }
+
+    public function test_child_sticky_toggles_are_not_duplicated(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header sticky>
+    <x-slot:slim ente="Comune" sticky="true"></x-slot:slim>
+    <x-slot:navbar sticky="true"><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar>
+</x-italia::header>
+BLADE);
 
         $this->assertSame(1, substr_count($html, 'data-bs-toggle="sticky"'));
     }
 
-    public function test_merge_slim_props_forces_light_and_disables_sticky(): void
+    public function test_header_class_flags_can_be_created_directly(): void
     {
-        $header = new Header(slim: ['ente' => 'Comune di Roma', 'sticky' => true], light: true);
+        $header = new Header(light: true, small: true);
 
-        $this->assertSame([
-            'ente' => 'Comune di Roma',
-            'sticky' => false,
-            'light' => true,
-        ], $header->mergeSlimProps());
+        $this->assertSame('it-header-wrapper it-header-small theme-light', $header->wrapperClass());
     }
 
-    public function test_merge_center_props_applies_small(): void
+    public function test_slot_attribute_url_is_validated(): void
     {
-        $header = new Header(center: ['title' => 'Comune di Roma'], small: true);
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'searchUrl'");
 
-        $this->assertSame([
-            'title' => 'Comune di Roma',
-            'light' => false,
-            'small' => true,
-        ], $header->mergeCenterProps());
+        $this->blade('<x-italia::header><x-slot:center title="Ente" search-url="bad url"></x-slot:center></x-italia::header>');
     }
 
-    public function test_merge_navbar_props_forces_light_and_disables_sticky(): void
+    public function test_custom_id_and_data_attributes_are_forwarded(): void
     {
-        $header = new Header(navbar: ['items' => [['text' => 'Home']], 'sticky' => true], light: true);
+        $html = (string) $this->blade('<x-italia::header id="site-header" data-element="header" />');
 
-        $this->assertSame([
-            'items' => [['text' => 'Home']],
-            'sticky' => false,
-            'light' => true,
-        ], $header->mergeNavbarProps());
+        $this->assertStringContainsString('id="site-header"', $html);
+        $this->assertStringContainsString('data-element="header"', $html);
+    }
+
+    public function test_small_flag_is_forwarded_to_center_slot(): void
+    {
+        $html = (string) $this->blade('<x-italia::header small><x-slot:center title="Comune"></x-slot:center></x-italia::header>');
+
+        $this->assertStringContainsString('it-header-center-wrapper it-small-header', $html);
+    }
+
+    public function test_light_flag_is_forwarded_to_each_header_part(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header light>
+    <x-slot:slim ente="Comune"></x-slot:slim>
+    <x-slot:center title="Comune"></x-slot:center>
+    <x-slot:navbar><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar>
+</x-italia::header>
+BLADE);
+
+        $this->assertStringContainsString('it-header-wrapper theme-light', $html);
+        $this->assertStringContainsString('it-header-slim-wrapper theme-light', $html);
+        $this->assertStringContainsString('it-header-center-wrapper theme-light', $html);
+        $this->assertStringContainsString('it-header-navbar-wrapper theme-light', $html);
+    }
+
+    public function test_slim_slot_renders_independently(): void
+    {
+        $html = (string) $this->blade('<x-italia::header><x-slot:slim ente="Comune"></x-slot:slim></x-italia::header>');
+
+        $this->assertStringContainsString('it-header-slim-wrapper', $html);
+        $this->assertStringNotContainsString('it-nav-wrapper', $html);
+    }
+
+    public function test_center_slot_renders_independently(): void
+    {
+        $html = (string) $this->blade('<x-italia::header><x-slot:center title="Comune"></x-slot:center></x-italia::header>');
+
+        $this->assertStringContainsString('it-header-center-wrapper', $html);
+        $this->assertStringNotContainsString('it-header-slim-wrapper', $html);
+        $this->assertStringNotContainsString('it-header-navbar-wrapper', $html);
+    }
+
+    public function test_navbar_slot_renders_independently(): void
+    {
+        $html = (string) $this->blade('<x-italia::header><x-slot:navbar><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar></x-italia::header>');
+
+        $this->assertStringContainsString('it-header-navbar-wrapper', $html);
+        $this->assertStringNotContainsString('it-header-slim-wrapper', $html);
+        $this->assertStringNotContainsString('it-header-center-wrapper', $html);
+    }
+
+    public function test_empty_content_in_configured_named_slots_keeps_configured_parts(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header>
+    <x-slot:slim ente="Comune"></x-slot:slim>
+    <x-slot:center title="Comune"></x-slot:center>
+    <x-slot:navbar></x-slot:navbar>
+</x-italia::header>
+BLADE);
+
+        $this->assertStringContainsString('it-header-slim-wrapper', $html);
+        $this->assertStringContainsString('it-header-center-wrapper', $html);
+        $this->assertStringNotContainsString('it-header-navbar-wrapper', $html);
+        $this->assertStringContainsString('it-nav-wrapper', $html);
+    }
+
+    public function test_small_option_affects_only_center_wrapper_class(): void
+    {
+        $header = new Header(small: true);
+
+        $this->assertSame('it-header-wrapper it-header-small', $header->wrapperClass());
+    }
+
+    public function test_slim_only_header_omits_navigation_wrapper(): void
+    {
+        $html = (string) $this->blade('<x-italia::header><x-slot:slim ente="Comune"></x-slot:slim></x-italia::header>');
+
+        $this->assertStringContainsString('it-header-slim-wrapper', $html);
+        $this->assertStringNotContainsString('it-nav-wrapper', $html);
+    }
+
+    public function test_small_and_light_flags_apply_to_center_component(): void
+    {
+        $html = (string) $this->blade('<x-italia::header small light><x-slot:center title="Comune"></x-slot:center></x-italia::header>');
+
+        $this->assertStringContainsString('it-header-center-wrapper it-small-header theme-light', $html);
+    }
+
+    public function test_custom_attributes_are_forwarded_to_header_wrapper(): void
+    {
+        $html = (string) $this->blade('<x-italia::header id="site&amp;header" data-label="portal" />');
+
+        $this->assertStringContainsString('id="site&amp;header"', $html);
+        $this->assertStringContainsString('data-label="portal"', $html);
     }
 }

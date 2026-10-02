@@ -2,28 +2,56 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use Closure;
+use IgorSmoleac\DesignLaravelKit\DTO\SlimConfig;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\ComponentSlot;
 
 class HeaderSlim extends BaseComponent
 {
-    /**
-     * @param  list<array<string, mixed>>  $links
-     * @param  list<array<string, mixed>>  $languages
-     */
+    protected ?SlimConfig $slimConfig = null;
+
+    private bool $linksPresent = false;
+
+    private bool $languagesPresent = false;
+
     public function __construct(
         public string $ente = 'Ente appartenenza',
         public ?string $enteUrl = null,
-        public array $links = [],
-        public array $languages = [],
         public ?string $loginUrl = null,
         public string $loginLabel = 'Accedi',
+        public ?string $languageLabel = null,
         public bool $light = false,
         public bool $sticky = false,
     ) {}
 
-    public function render(): View
+    public function render(): Closure
     {
-        return $this->componentView('design-laravel-kit::components.header-slim');
+        return function (array $data): View {
+            $this->rejectArrayAttributes(['links', 'languages']);
+            $this->slimConfig = SlimConfig::fromArray([
+                'ente' => $this->ente,
+                'enteUrl' => $this->enteUrl,
+                'loginUrl' => $this->loginUrl,
+                'loginLabel' => $this->loginLabel,
+                'light' => $this->light,
+                'sticky' => $this->sticky,
+            ]);
+            $this->linksPresent = $this->hasContent($data['links'] ?? null)
+                || $this->hasContent($data['slot'] ?? null);
+            $this->languagesPresent = $this->hasContent($data['languages'] ?? null);
+
+            return $this->componentView('design-laravel-kit::components.header-slim')
+                ->with($data)
+                ->with(['slimConfig' => $this->slimConfig]);
+        };
+    }
+
+    private function hasContent(mixed $slot): bool
+    {
+        return $slot instanceof ComponentSlot
+            ? $slot->isNotEmpty()
+            : trim((string) $slot) !== '';
     }
 
     public function hasEnteLink(): bool
@@ -33,12 +61,12 @@ class HeaderSlim extends BaseComponent
 
     public function hasLinks(): bool
     {
-        return $this->links !== [];
+        return $this->linksPresent;
     }
 
     public function hasLanguages(): bool
     {
-        return $this->languages !== [];
+        return $this->languagesPresent;
     }
 
     public function hasLogin(): bool
@@ -56,28 +84,5 @@ class HeaderSlim extends BaseComponent
         return collect(['it-header-slim-wrapper', $this->light ? 'theme-light' : null])
             ->filter()
             ->implode(' ');
-    }
-
-    public function currentLanguageLabel(): string
-    {
-        $active = collect($this->languages)->first(fn ($language) => $language['active'] ?? false);
-
-        return $active['label'] ?? $this->languages[0]['label'] ?? '';
-    }
-
-    /**
-     * @param  array<string, mixed>  $link
-     */
-    public function isLinkActive(array $link): bool
-    {
-        return (bool) ($link['active'] ?? false);
-    }
-
-    /**
-     * @param  array<string, mixed>  $language
-     */
-    public function isLanguageActive(array $language): bool
-    {
-        return (bool) ($language['active'] ?? false);
     }
 }

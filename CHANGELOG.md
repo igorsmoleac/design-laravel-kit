@@ -8,8 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- HeaderNavbar: componente `x-italia::header-megamenu` con `x-italia::header-megamenu-section` per megamenu con sezioni e link raggruppati (ripristina la feature di 0.4.x nell'API a slot).
+- Form: nuovo parametro `wrapperClass` per applicare classi all'elemento di wrapping (grid, utility Bootstrap).
+- SpidButton: se `dropdown` è attivo e `providers` è vuoto, viene usato l'elenco predefinito dei provider AgID (configurabile via `config/design-laravel-kit.php`).
+- Componenti `x-italia::header-nav-item` e `x-italia::footer-legal-link` per gli slot di navigazione e footer.
+- Componenti `x-italia::header-social-link`, `x-italia::footer-social-link` e `x-italia::footer-section` per gli slot social e le sezioni del footer.
+- Classi DTO readonly interne (`SlimConfig`, `CenterConfig`, …) usate per costruire le strutture dall'API a slot.
+
+### Changed (breaking)
+- Layout, Header, Footer: rimosso il passaggio di array (`:slim="[…]"`); ora si usano gli slot Blade con attributi denominati (`<x-slot:slim ente="…">`).
 
 ### Changed
+- Accessibilità: uniformato l'uso di `role="alert"` e `aria-live` nei blocchi di errore; rimossa la combinazione contraddittoria.
 
 ### Fixed
 

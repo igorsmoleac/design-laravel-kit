@@ -3,6 +3,7 @@
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class HeaderNavbarTest extends TestCase
@@ -12,195 +13,184 @@ class HeaderNavbarTest extends TestCase
         return [DesignLaravelKitServiceProvider::class];
     }
 
-    public function test_renders_wrapper_structure(): void
+    public function test_renders_nav_items_from_slot_components(): void
     {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header-navbar>
+    <x-italia::header-nav-item text="Home" url="/" active />
+    <x-italia::header-nav-item text="Novità" url="/novita" />
+</x-italia::header-navbar>
+BLADE);
 
         $this->assertStringContainsString('it-header-navbar-wrapper', $html);
-        $this->assertStringContainsString('container-xxl', $html);
-        $this->assertStringContainsString('<nav class="navbar navbar-expand-lg"', $html);
-    }
-
-    public function test_accepts_custom_id_attribute(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" id="test" />');
-
-        $this->assertMatchesRegularExpression('/^\s*<div\b[^>]*\bid="test"/', $html);
-    }
-
-    public function test_accepts_custom_data_attribute(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" data-element="foo" />');
-
-        $this->assertMatchesRegularExpression('/^\s*<div\b[^>]*\bdata-element="foo"/', $html);
-    }
-
-    public function test_wrapper_class_still_present(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        $this->assertStringContainsString('class="it-header-navbar-wrapper"', $html);
-    }
-
-    public function test_nav_class_contains_navbar_expand_lg(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        $this->assertStringContainsString('navbar navbar-expand-lg', $html);
-    }
-
-    public function test_items_render_in_navbar_nav(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\'], [\'text\' => \'Novità\', \'url\' => \'/novita\']]" />');
-
         $this->assertStringContainsString('<ul class="navbar-nav">', $html);
-        $this->assertStringContainsString('Home', $html);
-        $this->assertStringContainsString('Novità', $html);
-    }
-
-    public function test_simple_link_renders_as_nav_link(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        $this->assertMatchesRegularExpression('/<li class="nav-item">\s*<a\s+class="nav-link"\s+href="\/"/s', $html);
-    }
-
-    public function test_active_link_has_active_class_and_aria_current(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\', \'active\' => true]]" />');
-
-        $this->assertMatchesRegularExpression('/<a\s+class="nav-link active"\s+href="\/"/s', $html);
+        $this->assertStringContainsString('nav-link active', $html);
         $this->assertStringContainsString('aria-current="page"', $html);
+        $this->assertStringContainsString('href="/novita"', $html);
     }
 
-    public function test_dropdown_renders_toggle_and_menu(): void
+    public function test_renders_menu_controls_and_custom_attributes(): void
     {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Amministrazione\', \'url\' => \'/amministrazione\', \'dropdown\' => [[\'text\' => \'Giunta\', \'url\' => \'/giunta\']]]]" />');
+        $html = (string) $this->blade('<x-italia::header-navbar id="main-nav" data-element="navigation" light sticky><x-italia::header-nav-item text="Home" url="/" /></x-italia::header-navbar>');
 
-        $this->assertStringContainsString('<li class="nav-item dropdown">', $html);
-        $this->assertStringContainsString('nav-link dropdown-toggle', $html);
-        $this->assertStringContainsString('data-bs-toggle="dropdown"', $html);
-        $this->assertStringContainsString('aria-expanded="false"', $html);
-        $this->assertStringContainsString('dropdown-menu', $html);
-    }
-
-    public function test_dropdown_links_render(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Amministrazione\', \'url\' => \'/amministrazione\', \'dropdown\' => [[\'text\' => \'Giunta\', \'url\' => \'/giunta\'], [\'text\' => \'Consiglio\', \'url\' => \'/consiglio\']]]]" />');
-
-        $this->assertStringContainsString('href="/giunta"', $html);
-        $this->assertStringContainsString('href="/consiglio"', $html);
-        $this->assertStringContainsString('dropdown-item list-item', $html);
-    }
-
-    public function test_megamenu_renders_has_megamenu_on_nav(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Servizi\', \'url\' => \'/servizi\', \'megamenu\' => [[\'heading\' => \'Anagrafe\', \'links\' => [[\'text\' => \'Certificati\', \'url\' => \'/certificati\']]]]]]" />');
-
-        $this->assertStringContainsString('navbar navbar-expand-lg has-megamenu', $html);
-        $this->assertStringContainsString('<li class="nav-item dropdown megamenu">', $html);
-    }
-
-    public function test_no_has_megamenu_without_megamenu_items(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        $this->assertStringNotContainsString('has-megamenu', $html);
-    }
-
-    public function test_megamenu_renders_sections_with_heading_and_links(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Servizi\', \'url\' => \'/servizi\', \'megamenu\' => [[\'heading\' => \'Anagrafe\', \'links\' => [[\'text\' => \'Certificati\', \'url\' => \'/certificati\'], [\'text\' => \'Residenza\', \'url\' => \'/residenza\']]], [\'heading\' => \'Tributi\', \'links\' => [[\'text\' => \'IMU\', \'url\' => \'/imu\']]]]]]" />');
-
-        $this->assertStringContainsString('link-list-heading', $html);
-        $this->assertStringContainsString('Anagrafe', $html);
-        $this->assertStringContainsString('Tributi', $html);
-        $this->assertStringContainsString('href="/certificati"', $html);
-        $this->assertStringContainsString('href="/residenza"', $html);
-        $this->assertStringContainsString('href="/imu"', $html);
-        $this->assertStringContainsString('col-6 col-lg-4', $html);
-    }
-
-    public function test_menu_id_is_linked_to_aria_controls_and_target(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        preg_match('/aria-controls="(dlk-header-navbar-\d+-menu)"/', $html, $controls);
-
-        $this->assertNotEmpty($controls);
-        $this->assertMatchesRegularExpression('/id="' . $controls[1] . '"/', $html);
-        $this->assertMatchesRegularExpression('/data-bs-target="#' . $controls[1] . '"/', $html);
-    }
-
-    public function test_menu_id_is_unique_per_instance(): void
-    {
-        $first = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-        $second = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        preg_match('/id="(dlk-header-navbar-\d+-menu)"/', $first, $firstId);
-        preg_match('/id="(dlk-header-navbar-\d+-menu)"/', $second, $secondId);
-
-        $this->assertNotEmpty($firstId);
-        $this->assertNotEmpty($secondId);
-        $this->assertNotSame($firstId[1], $secondId[1]);
-    }
-
-    public function test_burger_uses_navbarcollapsible_toggle(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        $this->assertStringContainsString('custom-navbar-toggler', $html);
-        $this->assertStringContainsString('data-bs-toggle="navbarcollapsible"', $html);
-        $this->assertStringContainsString('sprites.svg#it-burger', $html);
-        $this->assertStringContainsString('aria-label="Apri il menu"', $html);
-    }
-
-    public function test_close_button_renders(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
-
-        $this->assertStringContainsString('close-div', $html);
-        $this->assertStringContainsString('btn close-menu', $html);
-        $this->assertStringContainsString('sprites.svg#it-close', $html);
-        $this->assertStringContainsString('Chiudi', $html);
-    }
-
-    public function test_light_renders_theme_light(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" light />');
-
-        $this->assertStringContainsString('it-header-navbar-wrapper theme-light', $html);
-    }
-
-    public function test_sticky_renders_data_bs_toggle_sticky(): void
-    {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" sticky />');
-
+        $this->assertStringContainsString('id="main-nav"', $html);
+        $this->assertStringContainsString('data-element="navigation"', $html);
+        $this->assertStringContainsString('theme-light', $html);
         $this->assertStringContainsString('data-bs-toggle="sticky"', $html);
+        $this->assertStringContainsString('navbarcollapsible', $html);
     }
 
-    public function test_empty_items_render_nothing(): void
+    public function test_empty_default_slot_renders_nothing(): void
     {
         $html = (string) $this->blade('<x-italia::header-navbar />');
 
         $this->assertSame('', trim($html));
     }
 
-    public function test_mixed_item_types_render(): void
+    public function test_old_items_array_attribute_is_rejected(): void
     {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\', \'active\' => true], [\'text\' => \'Amministrazione\', \'url\' => \'/amministrazione\', \'dropdown\' => [[\'text\' => \'Giunta\', \'url\' => \'/giunta\']]], [\'text\' => \'Servizi\', \'url\' => \'/servizi\', \'megamenu\' => [[\'heading\' => \'Anagrafe\', \'links\' => [[\'text\' => \'Certificati\', \'url\' => \'/certificati\']]]]], [\'text\' => \'Novità\', \'url\' => \'/novita\']]" />');
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("The 'items' array attribute is no longer supported");
 
-        $this->assertMatchesRegularExpression('/<a\s+class="nav-link active"\s+href="\/"/s', $html);
-        $this->assertStringContainsString('<li class="nav-item dropdown">', $html);
-        $this->assertStringContainsString('<li class="nav-item dropdown megamenu">', $html);
-        $this->assertStringContainsString('href="/novita"', $html);
-        $this->assertStringContainsString('navbar navbar-expand-lg has-megamenu', $html);
+        $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Home\', \'url\' => \'/\']]" />');
     }
 
-    public function test_dropdown_item_without_url_defaults_to_hash(): void
+    public function test_nav_item_rejects_invalid_url(): void
     {
-        $html = (string) $this->blade('<x-italia::header-navbar :items="[[\'text\' => \'Amministrazione\', \'url\' => \'/amministrazione\', \'dropdown\' => [[\'text\' => \'Giunta\']]]]" />');
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'url'");
 
-        $this->assertStringContainsString('href="#">Giunta', $html);
+        $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Home" url="bad url" /></x-italia::header-navbar>');
+    }
+
+    public function test_toggler_targets_menu_and_exposes_custom_data(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar id="nav" data-test="menu"><x-italia::header-nav-item text="Home" url="/" /></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('aria-controls="nav-menu"', $html);
+        $this->assertStringContainsString('data-bs-target="#nav-menu"', $html);
+        $this->assertStringContainsString('data-test="menu"', $html);
+    }
+
+    public function test_header_nav_item_renders_dropdown_with_nested_slot_items(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header-navbar>
+    <x-italia::header-nav-item text="Servizi" url="/servizi" dropdown>
+        <li><a class="dropdown-item list-item" href="/anagrafe">Anagrafe</a></li>
+        <li><a class="dropdown-item list-item" href="/tributi">Tributi</a></li>
+    </x-italia::header-nav-item>
+</x-italia::header-navbar>
+BLADE);
+
+        $this->assertStringContainsString('class="nav-item dropdown"', $html);
+        $this->assertStringContainsString('class="nav-link dropdown-toggle"', $html);
+        $this->assertStringContainsString('data-bs-toggle="dropdown" aria-expanded="false"', $html);
+        $this->assertStringContainsString('href="/anagrafe">Anagrafe</a>', $html);
+        $this->assertStringContainsString('href="/tributi">Tributi</a>', $html);
+    }
+
+    public function test_header_nav_item_active_state_has_accessible_current_page_marker(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Home" url="/" active /></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('class="nav-link active"', $html);
+        $this->assertStringContainsString('aria-current="page"', $html);
+    }
+
+    public function test_nav_item_escapes_text_and_rejects_missing_required_fields(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="<script>Home</script>" url="/" /></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('&lt;script&gt;Home&lt;/script&gt;', $html);
+        $this->assertStringNotContainsString('<script>Home</script>', $html);
+
+        try {
+            $this->blade('<x-italia::header-navbar><x-italia::header-nav-item url="/" /></x-italia::header-navbar>');
+            $this->fail('A navigation item without text must be rejected.');
+        } catch (ViewException $exception) {
+            $this->assertStringContainsString("Field 'text'", $exception->getMessage());
+        }
+    }
+
+    public function test_navbar_has_accessible_label_and_close_control(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Home" url="/" /></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('aria-label="Menu principale"', $html);
+        $this->assertStringContainsString('aria-label="Apri il menu"', $html);
+        $this->assertStringContainsString('class="btn close-menu"', $html);
+    }
+
+    public function test_two_navbars_have_distinct_menu_ids(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar id="primary"><x-italia::header-nav-item text="Home" url="/" /></x-italia::header-navbar><x-italia::header-navbar id="secondary"><x-italia::header-nav-item text="Home" url="/" /></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('id="primary-menu"', $html);
+        $this->assertStringContainsString('aria-controls="primary-menu"', $html);
+        $this->assertStringContainsString('id="secondary-menu"', $html);
+        $this->assertStringContainsString('aria-controls="secondary-menu"', $html);
+    }
+
+    public function test_navbar_empty_named_slot_omits_wrapper(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar />');
+
+        $this->assertStringNotContainsString('it-header-navbar-wrapper', $html);
+    }
+
+    public function test_dropdown_can_contain_multiple_nested_links_in_declared_order(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Servizi" url="/servizi" dropdown><li><a href="/anagrafe">Anagrafe</a></li><li><a href="/tributi">Tributi</a></li></x-italia::header-nav-item></x-italia::header-navbar>');
+
+        $this->assertLessThan(strpos($html, 'href="/tributi"'), strpos($html, 'href="/anagrafe"'));
+        $this->assertStringContainsString('class="dropdown-menu"', $html);
+    }
+
+    public function test_dropdown_parent_text_is_escaped_and_child_markup_is_preserved(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="<script>Menu</script>" url="/menu" dropdown><li><a href="/child">Child</a></li></x-italia::header-nav-item></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('&lt;script&gt;Menu&lt;/script&gt;', $html);
+        $this->assertStringNotContainsString('<script>Menu</script>', $html);
+        $this->assertStringContainsString('<a href="/child">Child</a>', $html);
+    }
+
+    public function test_megamenu_adds_special_nav_class(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-megamenu text="Servizi"><x-italia::header-megamenu-section heading="Anagrafe"></x-italia::header-megamenu-section></x-italia::header-megamenu></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('class="navbar navbar-expand-lg has-megamenu"', $html);
+    }
+
+    public function test_navbar_without_megamenu_has_no_special_nav_class(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Servizi" url="/servizi" /></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('class="navbar navbar-expand-lg"', $html);
+        $this->assertStringNotContainsString('navbar navbar-expand-lg has-megamenu', $html);
+    }
+
+    public function test_megamenu_detection_preserves_mixed_nav_item_types(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header-navbar>
+    <x-italia::header-nav-item text="Home" url="/" active />
+    <x-italia::header-nav-item text="Servizi" url="/servizi" dropdown>
+        <li><a class="dropdown-item list-item" href="/anagrafe">Anagrafe</a></li>
+    </x-italia::header-nav-item>
+    <x-italia::header-megamenu text="Temi" url="/temi">
+        <x-italia::header-megamenu-section heading="Ambiente">
+            <x-italia::header-nav-item text="Verde" url="/verde" />
+        </x-italia::header-megamenu-section>
+    </x-italia::header-megamenu>
+</x-italia::header-navbar>
+BLADE);
+
+        $this->assertStringContainsString('class="navbar navbar-expand-lg has-megamenu"', $html);
+        $this->assertStringContainsString('class="nav-link active"', $html);
+        $this->assertStringContainsString('class="nav-item dropdown"', $html);
+        $this->assertStringContainsString('class="nav-item dropdown megamenu"', $html);
+        $this->assertStringContainsString('href="/verde"', $html);
     }
 }

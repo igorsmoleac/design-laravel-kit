@@ -2,42 +2,47 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use Closure;
+use IgorSmoleac\DesignLaravelKit\DTO\CenterConfig;
+use IgorSmoleac\DesignLaravelKit\DTO\NavbarConfig;
+use IgorSmoleac\DesignLaravelKit\DTO\SlimConfig;
 use Illuminate\Contracts\View\View;
 
 class Header extends BaseComponent
 {
-    /**
-     * @param  array<string, mixed>  $slim
-     * @param  array<string, mixed>  $center
-     * @param  array<string, mixed>  $navbar
-     */
+    protected ?SlimConfig $slimConfig = null;
+
+    protected ?CenterConfig $centerConfig = null;
+
+    protected ?NavbarConfig $navbarConfig = null;
+
     public function __construct(
-        public array $slim = [],
-        public array $center = [],
-        public array $navbar = [],
         public bool $light = false,
         public bool $sticky = false,
         public bool $small = false,
     ) {}
 
-    public function render(): View
+    public function render(): Closure
     {
-        return $this->componentView('design-laravel-kit::components.header');
-    }
+        return function (array $data): View {
+            $this->rejectArrayAttributes(['slim', 'center', 'navbar']);
 
-    public function hasSlim(): bool
-    {
-        return $this->slim !== [];
-    }
+            $slim = $this->slotAttributes($data, 'slim');
+            $center = $this->slotAttributes($data, 'center');
+            $navbar = $this->slotAttributes($data, 'navbar');
 
-    public function hasCenter(): bool
-    {
-        return $this->center !== [];
-    }
+            $this->slimConfig = $slim === null ? null : SlimConfig::fromArray($slim);
+            $this->centerConfig = $center === null ? null : CenterConfig::fromArray($center);
+            $this->navbarConfig = $navbar === null ? null : NavbarConfig::fromArray($navbar);
 
-    public function hasNavbar(): bool
-    {
-        return $this->navbar !== [];
+            return $this->componentView('design-laravel-kit::components.header')
+                ->with($data)
+                ->with([
+                    'slimConfig' => $this->slimConfig,
+                    'centerConfig' => $this->centerConfig,
+                    'navbarConfig' => $this->navbarConfig,
+                ]);
+        };
     }
 
     public function wrapperClass(): string
@@ -48,38 +53,5 @@ class Header extends BaseComponent
             $this->small ? 'it-header-small' : null,
             $this->light ? 'theme-light' : null,
         ])->filter()->implode(' ');
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function mergeSlimProps(): array
-    {
-        return array_merge($this->slim, [
-            'light' => $this->light,
-            'sticky' => false,
-        ]);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function mergeCenterProps(): array
-    {
-        return array_merge($this->center, [
-            'light' => $this->light,
-            'small' => $this->small || (bool) ($this->center['small'] ?? false),
-        ]);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function mergeNavbarProps(): array
-    {
-        return array_merge($this->navbar, [
-            'light' => $this->light,
-            'sticky' => false,
-        ]);
     }
 }

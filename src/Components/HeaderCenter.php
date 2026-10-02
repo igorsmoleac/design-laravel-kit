@@ -2,28 +2,58 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use Closure;
+use IgorSmoleac\DesignLaravelKit\DTO\CenterConfig;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\ComponentSlot;
 
 class HeaderCenter extends BaseComponent
 {
-    /**
-     * @param  list<array<string, mixed>>  $socialLinks
-     */
+    protected ?CenterConfig $centerConfig = null;
+
+    private bool $socialLinksPresent = false;
+
     public function __construct(
-        public string $title,
+        public string $title = '',
         public ?string $tagline = null,
         public ?string $logo = null,
         public ?string $logoAlt = null,
         public ?string $url = null,
-        public array $socialLinks = [],
         public ?string $searchUrl = null,
         public bool $small = false,
         public bool $light = false,
     ) {}
 
-    public function render(): View
+    public function render(): Closure
     {
-        return $this->componentView('design-laravel-kit::components.header-center');
+        return function (array $data): View {
+            $this->rejectArrayAttributes(['socialLinks', 'social-links']);
+            $this->centerConfig = CenterConfig::fromArray([
+                'title' => $this->title,
+                'tagline' => $this->tagline,
+                'logo' => $this->logo,
+                'logoAlt' => $this->logoAlt,
+                'url' => $this->url,
+                'searchUrl' => $this->searchUrl,
+                'small' => $this->small,
+                'light' => $this->light,
+            ]);
+
+            $social = $data['socialLinks'] ?? $data['social-links'] ?? $data['social'] ?? null;
+            $slot = $data['slot'] ?? null;
+            $this->socialLinksPresent = $this->hasContent($social) || $this->hasContent($slot);
+
+            return $this->componentView('design-laravel-kit::components.header-center')
+                ->with($data)
+                ->with(['centerConfig' => $this->centerConfig]);
+        };
+    }
+
+    private function hasContent(mixed $slot): bool
+    {
+        return $slot instanceof ComponentSlot
+            ? $slot->isNotEmpty()
+            : trim((string) $slot) !== '';
     }
 
     public function hasTagline(): bool
@@ -38,7 +68,7 @@ class HeaderCenter extends BaseComponent
 
     public function hasSocialLinks(): bool
     {
-        return $this->socialLinks !== [];
+        return $this->socialLinksPresent;
     }
 
     public function hasSearch(): bool

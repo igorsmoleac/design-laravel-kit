@@ -14,7 +14,12 @@ class HeaderSlimComponentTest extends TestCase
 
     public function test_renders_full_header_slim(): void
     {
-        $this->blade('<x-italia::header-slim ente="Comune di Roma" ente-url="https://www.comune.roma.it" :links="[[\'url\' => \'/\', \'text\' => \'Pagina iniziale\']]" :languages="[[\'code\' => \'it\', \'label\' => \'ITA\', \'active\' => true]]" login-url="/login" />')
+        $this->blade(<<<'BLADE'
+<x-italia::header-slim ente="Comune di Roma" ente-url="https://www.comune.roma.it" login-url="/login">
+    <x-slot:links><li><a class="dropdown-item list-item" href="/">Pagina iniziale</a></li></x-slot:links>
+    <x-slot:languages><li><a class="dropdown-item list-item" href="/">ITA</a></li></x-slot:languages>
+</x-italia::header-slim>
+BLADE)
             ->assertSee('it-header-slim-wrapper', false)
             ->assertSee('Comune di Roma')
             ->assertSee('Accedi')

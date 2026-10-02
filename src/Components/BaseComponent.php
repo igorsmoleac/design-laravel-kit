@@ -5,6 +5,7 @@ namespace IgorSmoleac\DesignLaravelKit\Components;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
+use Illuminate\View\ComponentSlot;
 
 abstract class BaseComponent extends Component
 {
@@ -24,6 +25,42 @@ abstract class BaseComponent extends Component
     protected function componentView(string $viewName): View
     {
         return view()->make($viewName);
+    }
+
+    /** @param list<string> $names */
+    protected function rejectArrayAttributes(array $names): void
+    {
+        foreach ($names as $name) {
+            if (is_array($this->attributes?->get($name))) {
+                throw new \InvalidArgumentException(
+                    "The '{$name}' array attribute is no longer supported; use named Blade slots."
+                );
+            }
+        }
+    }
+
+    /** @param array<string, mixed> $data
+     * @return array<string, mixed>|null
+     */
+    protected function slotAttributes(array $data, string $name): ?array
+    {
+        $slot = $data[$name] ?? null;
+
+        if (! $slot instanceof ComponentSlot) {
+            return null;
+        }
+
+        $attributes = $slot->attributes->all();
+
+        foreach ($attributes as $attribute => $value) {
+            if (is_array($value)) {
+                throw new \InvalidArgumentException(
+                    "Slot '{$name}' attribute '{$attribute}' must be a named scalar value, not an array."
+                );
+            }
+        }
+
+        return $attributes;
     }
 
     /* ------------------------------------------------------------------
