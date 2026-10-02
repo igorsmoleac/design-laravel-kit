@@ -16,33 +16,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.0] - 2026-10-02
 
 ### Changed (breaking)
-- Layout, Header, HeaderSlim, HeaderCenter, HeaderNavbar, Footer: rimossi i parametri array (`:slim="[…]"`, `:center="[…]"`, `:navbar="[…]"`, `:footer="[…]"`); le configurazioni ora si passano tramite slot Blade con attributi denominati. Le classi DTO readonly interne (`SlimConfig`, `CenterConfig`, `NavbarConfig`, `FooterConfig`, `LegalLinkConfig`, `SocialLinkConfig`, `NavItemConfig`) sostituiscono gli array nella costruzione delle strutture. Vedi "Migrazione da 0.4.x" nel README.
+- Layout, Header, HeaderSlim, HeaderCenter, HeaderNavbar, Footer: rimossi i parametri array (`:slim="[…]"`, `:center="[…]"`, `:navbar="[…]"`, `:footer="[…]"`); le configurazioni ora si passano tramite slot Blade con attributi denominati. Le classi DTO readonly interne (`SlimConfig`, `CenterConfig`, `NavbarConfig`, `FooterConfig`, `LegalLinkConfig`, `SocialLinkConfig`, `NavItemConfig`) sostituiscono gli array nella costruzione delle strutture. La megamenu dell'HeaderNavbar è ora configurata tramite `x-italia::header-megamenu` e `x-italia::header-megamenu-section`. Vedi "Migrazione da 0.4.x" nel README.
 
 ### Added
 - Componenti `x-italia::header-nav-item`, `x-italia::header-megamenu`, `x-italia::header-megamenu-section`, `x-italia::header-social-link` per l'API a slot dell'header.
 - Componenti `x-italia::footer-legal-link`, `x-italia::footer-section`, `x-italia::footer-social-link` per l'API a slot del footer.
 - Form: nuovo parametro `wrapperClass` per applicare classi all'elemento di wrapping (grid, utility Bootstrap).
 - SpidButton: se `dropdown` è attivo e `providers` è vuoto, viene usato l'elenco predefinito dei provider AgID (configurabile via `config/design-laravel-kit.php`).
-- IconSize: aggiunto il valore `xs` (16px), allineato a Bootstrap Italia 2.18.3.
 - Layout: la configurazione del footer è ora accessibile tramite attributi dello slot `footer` (`title`, `subtitle`, `logo`, `logo-alt`, `url`, `copyright`) e quattro slot aggiuntivi (`footer-sections`, `footer-contacts`, `footer-social`, `footer-legal-links`).
-- Documentazione sulle limitazioni degli ID generati (`spl_object_id`): stabili solo all'interno dello stesso render.
 
 ### Changed
 - Accessibilità: uniformato l'uso di `role="alert"` nei blocchi di errore; rimossa la combinazione contraddittoria con `aria-live="polite"`.
-- PublishAssetsCommand: ampliati i prefissi di pubblicazione consentiti (`vendor/`, `assets/`, `build/`); la protezione contro path traversal resta attiva ed è applicata anche senza `--force`.
-- Documentazione SPID/CIE: chiarito che i pulsanti non sono 1:1 con il kit ufficiale `italia/spid-sp-access-button`.
 
 ### Fixed
 - ConfigValidator: accetta `data:image/*` URI per il campo `logo` (ripristina la compatibilità con 0.4.x); gli altri campi URL restano limitati a http(s) e percorsi root-relative.
 - HeaderCenter, Footer: `hasLogo()` restituisce `false` anche per stringa vuota, evitando `<img src="">`.
 - Layout: ripristinato il passaggio completo dei parametri al footer (subtitle, logo, url, sections, contacts, social, legal-links, copyright) tramite slot e attributi nominati.
-- Componente Alert: corretto il livello del titolo da `<h4>` a `<h3>` per rispettare la gerarchia dei titoli (WCAG 1.3.1).
-
-### Removed
-- HeaderNavbar: rimossa la configurazione megamenu tramite array; sostituita dai componenti slot `header-megamenu` e `header-megamenu-section`.
-
-### Dependencies
-- Larastan 3.x (dev): analisi statica a livello 6, comando `composer analyse`, step dedicato nella matrice CI.
 
 ## [0.4.3] - 2026-10-02
 
