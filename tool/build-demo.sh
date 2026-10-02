@@ -59,6 +59,7 @@ if [[ ! -s "$TMP_HTML" ]]; then
     exit 1
 fi
 
+rm -rf "$DOCS_DIR/vendor/design-laravel-kit"
 mkdir -p "$DOCS_DIR/vendor/design-laravel-kit"
 cp "$TMP_HTML" "$DOCS_DIR/index.html"
 cp -R "$ASSETS_SOURCE/." "$DOCS_DIR/vendor/design-laravel-kit/"
@@ -76,32 +77,16 @@ html = re.sub(r"http:\\/\\/127\.0\.0\.1:\d+\\/vendor\\/", "vendor/", html)
 html = re.sub(r"http:\\/\\/127\.0\.0\.1:\d+\\/", "./", html)
 html = html.replace('href="/catalog"', 'href="./"')
 html = html.replace('action="/catalog"', 'action="./"')
-html = html.replace(
-    "</head>",
-    """    <style>
-        #card .catalog-example,
-        #select .catalog-example {
-            background: transparent;
-            border: 0;
-            padding: 0;
-        }
-        #card .catalog-example .card-wrapper,
-        #select .catalog-example .form-group {
-            background: #fff;
-            border: 1px solid var(--bs-border-color, #e0e0e0);
-            border-radius: 4px;
-            padding: 24px;
-        }
-    </style>
-    </head>""",
-    1,
-)
-
 if "127.0.0.1" in html:
     raise SystemExit("ERROR: localhost URLs remain in generated HTML")
 
 page.write_text(html, encoding="utf-8")
 PY
+
+if grep -nE '#(card|select)[^{]*\.catalog-example' "$DOCS_DIR/index.html"; then
+    echo "ERROR: stale #card/#select CSS found in docs/index.html" >&2
+    exit 1
+fi
 
 HTML_BYTES="$(wc -c < "$DOCS_DIR/index.html" | tr -d ' ')"
 ASSET_COUNT="$(python3 - "$DOCS_DIR/vendor" <<'PY'

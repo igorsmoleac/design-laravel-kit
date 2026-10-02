@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.4.2] - 2026-10-02
+
+### Added
 - Analisi statica con Larastan a livello 6 su `src/` e `config/`; comando `composer analyse` e step dedicato nella matrice CI PHP/Laravel.
 
 ### Changed
