@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# Форматируем только изменённые PHP-файлы перед коммитом
 CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep '\.php$' || true)
 
 if [ -z "$CHANGED" ]; then
