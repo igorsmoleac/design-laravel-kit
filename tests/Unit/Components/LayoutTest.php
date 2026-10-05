@@ -417,4 +417,43 @@ BLADE);
 
         $this->assertStringContainsString('<h2 class="no_toc">Laravel</h2>', $html);
     }
+
+    public function test_footer_is_rendered_by_default(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout title="Home" />');
+
+        $this->assertStringContainsString('<footer', $html);
+    }
+
+    public function test_show_footer_false_removes_footer_but_keeps_header_and_main(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout title="Login" :show-footer="false">
+    <x-slot:navbar><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar>
+    <h1>Accesso</h1>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringNotContainsString('<footer', $html);
+        $this->assertStringContainsString('it-header-navbar-wrapper', $html);
+        $this->assertStringContainsString('<main id="main"', $html);
+        $this->assertStringContainsString('<h1>Accesso</h1>', $html);
+    }
+
+    public function test_footer_slots_are_ignored_when_footer_is_disabled(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout title="Login" :show-footer="false">
+    <x-slot:footer-sections>
+        <x-italia::footer-section title="Amministrazione" url="/amministrazione">
+            <li><a href="/uffici">Uffici</a></li>
+        </x-italia::footer-section>
+    </x-slot:footer-sections>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringNotContainsString('<footer', $html);
+        $this->assertStringNotContainsString('/amministrazione', $html);
+        $this->assertStringContainsString('design-laravel-kit.js', $html);
+    }
 }

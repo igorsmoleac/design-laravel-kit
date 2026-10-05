@@ -160,6 +160,8 @@ Configurare l'ente, la navigazione, i dati del footer, i suoi slot per sezioni, 
 
 Il parametro `csrf` (default `true`) aggiunge il meta tag csrf-token. Impostare `:csrf="false"` per pagine pubbliche cacheabili su CDN.
 
+Il parametro `showFooter` (default `true`) controlla il rendering del footer. Impostare `:show-footer="false"` per pagine senza footer (login, layout minimali).
+
 ### Form di segnalazione
 
 I componenti form collegano gli errori della sessione Laravel e ripristinano i valori inviati in precedenza. `wrapper-class` applica classi al contenitore; `class` resta sul controllo:
