@@ -186,6 +186,31 @@ BLADE);
         $this->assertStringContainsString('class="navbar navbar-expand-lg has-megamenu"', $html);
     }
 
+    public function test_plain_nav_item_with_megamenu_text_does_not_add_special_nav_class(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="dropdown megamenu" url="/menu" /></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('class="navbar navbar-expand-lg"', $html);
+        $this->assertStringNotContainsString('has-megamenu', $html);
+    }
+
+    public function test_multiple_megamenus_add_special_nav_class_once(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header-navbar>
+    <x-italia::header-megamenu text="Servizi" url="/servizi">
+        <x-italia::header-megamenu-section heading="Anagrafe"></x-italia::header-megamenu-section>
+    </x-italia::header-megamenu>
+    <x-italia::header-megamenu text="Temi" url="/temi">
+        <x-italia::header-megamenu-section heading="Ambiente"></x-italia::header-megamenu-section>
+    </x-italia::header-megamenu>
+</x-italia::header-navbar>
+BLADE);
+
+        $this->assertSame(1, substr_count($html, 'navbar navbar-expand-lg has-megamenu'));
+        $this->assertStringContainsString('class="nav-item dropdown megamenu"', $html);
+    }
+
     public function test_navbar_without_megamenu_has_no_special_nav_class(): void
     {
         $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Servizi" url="/servizi" /></x-italia::header-navbar>');
