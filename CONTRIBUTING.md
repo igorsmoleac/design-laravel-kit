@@ -6,7 +6,7 @@ Thanks for considering a contribution to Design Laravel Kit.
 
 - PHP 8.3+
 - Laravel 12 or 13
-- Node.js 20+ (only for rebuilding assets)
+- Node.js ^22 (only for rebuilding assets)
 - Composer
 - Git
 
