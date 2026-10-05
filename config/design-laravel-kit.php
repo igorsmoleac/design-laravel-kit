@@ -3,6 +3,7 @@
 return [
     'id_prefix' => 'dlk',
     'assets_path' => 'vendor/design-laravel-kit',
+    'csp_nonce' => env('DESIGN_LARAVEL_KIT_CSP_NONCE'),
     'spid' => [
         'providers' => [
             ['name' => 'Poste Italiane', 'url' => '/spid/login/poste'],

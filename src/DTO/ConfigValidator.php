@@ -160,6 +160,21 @@ final class ConfigValidator
         return $url;
     }
 
+    public static function cspNonce(?string $explicit, ?string $configured): ?string
+    {
+        $nonce = $explicit !== null && trim($explicit) !== '' ? $explicit : $configured;
+
+        if ($nonce === null || trim($nonce) === '') {
+            return null;
+        }
+
+        if (preg_match('/^[A-Za-z0-9+\/=_-]+$/', $nonce) !== 1) {
+            throw new InvalidArgumentException("Field 'csp_nonce' value '{$nonce}' may contain only base64-like characters (A-Z, a-z, 0-9, +, /, =, _, -) without quotes or spaces.");
+        }
+
+        return $nonce;
+    }
+
     private static function throwInvalidUrl(string $url, string $field): never
     {
         $displayUrl = Str::length($url) > 80 ? Str::substr($url, 0, 77) . '...' : $url;
