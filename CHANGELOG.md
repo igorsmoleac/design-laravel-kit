@@ -8,17 +8,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Direttiva @designLaravelKitScripts: supporto nonce per Content Security Policy restrittive; il nonce può essere passato come argomento o configurato in config/design-laravel-kit.php (csp_nonce).
-- Layout: parametro `showFooter` (default true) per disattivare il rendering del footer in pagine come login o layout minimali.
-- Select: supporto per opzioni via $slot (Blade-idiomatic); nuovo parametro `placeholderDisabled` (default true) per permettere la selezione dell'opzione vuota nei filtri.
 
 ### Changed
-- HeaderNavbar: il rilevamento del megamenu non usa più str_contains sull'HTML; un flag esplicito evita falsi positivi quando una normale voce di menu contiene il testo 'dropdown megamenu'.
-- README: aggiunto il riferimento dei parametri principali per i componenti con API non banale; esteso il documento sulla politica URL (schemi ammessi e rifiutati); aggiunti i punti di migrazione 0.4 → 0.5 relativi alla validazione URL.
 
 ### Fixed
-- SpidButton: la lista di provider SPID ora viene validata; un provider senza 'name' o 'url' genera un'eccezione esplicita invece di un errore PHP poco chiaro.
-- PublishAssetsCommandTest: il test non modifica più la directory reale resources/dist; l'assenza di dist viene simulata in modo isolato.
+
+## [0.5.2] - 2026-10-05
+
+### Added
+- Layout: parametro `showFooter` (default `true`) per disattivare il rendering del footer in pagine come login o layout minimali.
+- Select: supporto per opzioni via `$slot` (Blade-idiomatic); nuovo parametro `placeholderDisabled` (default `true`) per permettere la selezione dell'opzione vuota nei filtri.
+- Direttiva `@designLaravelKitScripts`: supporto nonce per Content Security Policy restrittive; il nonce può essere passato come argomento o configurato in `config/design-laravel-kit.php` (`csp_nonce`).
+
+### Changed
+- HeaderNavbar: il rilevamento del megamenu non usa più `str_contains` sull'HTML; un flag esplicito evita falsi positivi quando una normale voce di menu contiene il testo `dropdown megamenu`.
+
+### Fixed
+- SpidButton: la lista di provider SPID ora viene validata; un provider senza `name` o `url` genera un'eccezione esplicita invece di un errore PHP poco chiaro.
+- `PublishAssetsCommandTest`: il test non modifica più la directory reale `resources/dist`; l'assenza di dist viene simulata in modo isolato.
+
+### Docs
+- README: aggiunto il riferimento dei parametri principali per i componenti con API non banale; esteso il documento sulla politica URL (schemi ammessi e rifiutati); aggiunti i punti di migrazione 0.4 → 0.5 relativi alla validazione URL.
 
 ## [0.5.1] - 2026-10-05
 
