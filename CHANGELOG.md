@@ -11,7 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Layout: nuovo parametro `csrf` (default true) per disattivare il meta tag csrf-token nelle pagine pubbliche cacheabili su CDN.
+- Textarea: il parametro `value` ora accetta `string|int|float|\BackedEnum|null`, coerente con Input, Radio, Checkbox e Select.
+
 ### Fixed
+- Componenti SPID/CIE/Header: le stringhe UI (etichette, aria-label) ora passano attraverso __() con namespace design-laravel-kit::; aggiunte le traduzioni in en.json.
 - ConfigValidator: la validazione URL ora accetta #fragment, mailto:, tel:, percorsi relativi e URL con caratteri non-ASCII; le schemi pericolose (javascript:, data:, vbscript:, file:) restano rifiutate. Ripristina la compatibilità con 0.4.x per i link di navigazione e footer.
 - PublishAssetsCommand: la validazione di assets_path ora richiede una sottocartella dopo il prefisso (vendor/, assets/, build/). Percorsi come `vendor/` o `build/` vengono rifiutati per evitare la cancellazione di asset di altri pacchetti durante --force.
 - Componenti helper (header-nav-item, header-social-link, footer-legal-link, footer-social-link, footer-section): ripristinata la propagazione degli attributi HTML (class, id, target, rel, data-*) all'elemento radice. Regressione introdotta nel refactoring 0.5.0.

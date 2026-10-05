@@ -7,12 +7,15 @@ use Illuminate\Contracts\View\View;
 
 class CieButton extends BaseComponent
 {
+    public string $label;
+
     public function __construct(
         public ?string $href = null,
         public string $size = 'm',
-        public string $label = 'Entra con CIE',
+        ?string $label = null,
     ) {
         ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+        $this->label = $label ?? __('design-laravel-kit::Entra con CIE');
     }
 
     public function render(): View

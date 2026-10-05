@@ -9,16 +9,16 @@
             </svg>
             <span class="dlk-spid-label">{{ $label }}</span>
         </button>
-        <ul class="dropdown-menu" aria-label="Identity Provider SPID">
+        <ul class="dropdown-menu" aria-label="{{ __('design-laravel-kit::Identity Provider SPID') }}">
             @foreach ($providerList() as $provider)
                 <li><a class="dropdown-item" href="{{ $provider['url'] }}">{{ $provider['name'] }}</a></li>
             @endforeach
             @if ($providerList() !== [])
                 <li><hr class="dropdown-divider"></li>
             @endif
-            <li><a class="dropdown-item" href="https://www.spid.gov.it">Maggiori informazioni</a></li>
-            <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">Non hai SPID?</a></li>
-            <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">Serve aiuto?</a></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it">{{ __('design-laravel-kit::Maggiori informazioni') }}</a></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">{{ __('design-laravel-kit::Non hai SPID?') }}</a></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">{{ __('design-laravel-kit::Serve aiuto?') }}</a></li>
         </ul>
     </div>
 @else

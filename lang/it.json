@@ -12,5 +12,13 @@
     "design-laravel-kit::Cerca": "Cerca",
     "design-laravel-kit::Seguici su": "Seguici su",
     "design-laravel-kit::Contatti": "Contatti",
-    "design-laravel-kit::Link utili": "Link utili"
+    "design-laravel-kit::Link utili": "Link utili",
+    "design-laravel-kit::Entra con SPID": "Entra con SPID",
+    "design-laravel-kit::Entra con CIE": "Entra con CIE",
+    "design-laravel-kit::Maggiori informazioni": "Maggiori informazioni",
+    "design-laravel-kit::Non hai SPID?": "Non hai SPID?",
+    "design-laravel-kit::Serve aiuto?": "Serve aiuto?",
+    "design-laravel-kit::Identity Provider SPID": "Identity Provider SPID",
+    "design-laravel-kit::Accedi": "Accedi",
+    "design-laravel-kit::Ente appartenenza": "Ente appartenenza"
 }

@@ -9,6 +9,10 @@ use Illuminate\View\ComponentSlot;
 
 class HeaderSlim extends BaseComponent
 {
+    public string $ente;
+
+    public string $loginLabel;
+
     protected ?SlimConfig $slimConfig = null;
 
     private bool $linksPresent = false;
@@ -16,14 +20,17 @@ class HeaderSlim extends BaseComponent
     private bool $languagesPresent = false;
 
     public function __construct(
-        public string $ente = 'Ente appartenenza',
+        ?string $ente = null,
         public ?string $enteUrl = null,
         public ?string $loginUrl = null,
-        public string $loginLabel = 'Accedi',
+        ?string $loginLabel = null,
         public ?string $languageLabel = null,
         public bool $light = false,
         public bool $sticky = false,
-    ) {}
+    ) {
+        $this->ente = $ente ?? __('design-laravel-kit::Ente appartenenza');
+        $this->loginLabel = $loginLabel ?? __('design-laravel-kit::Accedi');
+    }
 
     public function render(): Closure
     {

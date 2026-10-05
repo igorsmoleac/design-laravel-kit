@@ -7,17 +7,20 @@ use Illuminate\Contracts\View\View;
 
 class SpidButton extends BaseComponent
 {
+    public string $label;
+
     /**
      * @param  list<array<string, mixed>>  $providers
      */
     public function __construct(
         public ?string $href = null,
         public string $size = 'm',
-        public string $label = 'Entra con SPID',
+        ?string $label = null,
         public bool $dropdown = false,
         public array $providers = [],
     ) {
         ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+        $this->label = $label ?? __('design-laravel-kit::Entra con SPID');
     }
 
     public function render(): View

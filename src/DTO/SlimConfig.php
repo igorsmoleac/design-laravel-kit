@@ -10,7 +10,7 @@ final readonly class SlimConfig
         public string $ente,
         public ?string $enteUrl = null,
         public ?string $loginUrl = null,
-        public string $loginLabel = 'Accedi',
+        public ?string $loginLabel = null,
         public bool $light = false,
         public bool $sticky = false,
     ) {
@@ -18,7 +18,7 @@ final readonly class SlimConfig
             throw new InvalidArgumentException("Field 'ente' must be a non-empty string.");
         }
 
-        if (trim($this->loginLabel) === '') {
+        if ($this->loginLabel !== null && trim($this->loginLabel) === '') {
             throw new InvalidArgumentException("Field 'loginLabel' must be a non-empty string.");
         }
 
@@ -35,7 +35,7 @@ final readonly class SlimConfig
             ente: ConfigValidator::requiredString($data, 'ente'),
             enteUrl: ConfigValidator::optionalUrl($data, 'enteUrl'),
             loginUrl: ConfigValidator::optionalUrl($data, 'loginUrl'),
-            loginLabel: ConfigValidator::optionalString($data, 'loginLabel', 'Accedi') ?? 'Accedi',
+            loginLabel: ConfigValidator::optionalString($data, 'loginLabel'),
             light: ConfigValidator::boolean($data, 'light'),
             sticky: ConfigValidator::boolean($data, 'sticky'),
         );
