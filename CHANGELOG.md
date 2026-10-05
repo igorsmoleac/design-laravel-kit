@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - ConfigValidator: la validazione URL ora accetta #fragment, mailto:, tel:, percorsi relativi e URL con caratteri non-ASCII; le schemi pericolose (javascript:, data:, vbscript:, file:) restano rifiutate. Ripristina la compatibilità con 0.4.x per i link di navigazione e footer.
-- PublishAssetsCommand: la validazione di assets_path ora richiede un sottocartella dopo il prefisso (vendor/, assets/, build/). Percorsi come `vendor/` o `build/` vengono rifiutati per evitare la cancellazione di asset di altri pacchetti durante --force.
+- PublishAssetsCommand: la validazione di assets_path ora richiede una sottocartella dopo il prefisso (vendor/, assets/, build/). Percorsi come `vendor/` o `build/` vengono rifiutati per evitare la cancellazione di asset di altri pacchetti durante --force.
 
 ## [0.5.0] - 2026-10-02
 
