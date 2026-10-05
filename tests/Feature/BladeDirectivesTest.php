@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Feature;
 
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class BladeDirectivesTest extends TestCase
@@ -56,5 +57,49 @@ class BladeDirectivesTest extends TestCase
         $this->assertStringContainsString('DOMContentLoaded', $html);
         $this->assertStringContainsString('window.bootstrap.loadFonts(', $html);
         $this->assertStringContainsString('vendor\\/design-laravel-kit\\/fonts', $html);
+    }
+
+    public function test_scripts_directive_renders_no_nonce_attribute_by_default(): void
+    {
+        $html = Blade::render('@designLaravelKitScripts');
+
+        $this->assertStringContainsString('<script src="', $html);
+        $this->assertStringNotContainsString('nonce=', $html);
+    }
+
+    public function test_scripts_directive_accepts_nonce_argument(): void
+    {
+        $html = Blade::render("@designLaravelKitScripts('abc123')");
+
+        $this->assertStringContainsString('<script nonce="abc123" src="', $html);
+        $this->assertStringContainsString('<script nonce="abc123">document.addEventListener', $html);
+    }
+
+    public function test_scripts_directive_uses_csp_nonce_from_config(): void
+    {
+        config(['design-laravel-kit.csp_nonce' => 'xyz']);
+
+        $html = Blade::render('@designLaravelKitScripts');
+
+        $this->assertStringContainsString('<script nonce="xyz" src="', $html);
+        $this->assertStringContainsString('<script nonce="xyz">document.addEventListener', $html);
+    }
+
+    public function test_scripts_directive_argument_overrides_config_nonce(): void
+    {
+        config(['design-laravel-kit.csp_nonce' => 'from-config']);
+
+        $html = Blade::render("@designLaravelKitScripts('from-argument')");
+
+        $this->assertStringContainsString('nonce="from-argument"', $html);
+        $this->assertStringNotContainsString('nonce="from-config"', $html);
+    }
+
+    public function test_scripts_directive_rejects_invalid_nonce(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'csp_nonce'");
+
+        Blade::render("@designLaravelKitScripts('bad nonce with spaces')");
     }
 }

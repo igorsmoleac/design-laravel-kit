@@ -82,11 +82,14 @@ php artisan vendor:publish --tag=design-laravel-kit-config --force
 |--------|------|---------|-------------|
 | `id_prefix` | `string` | `'dlk'` | Prefisso degli ID HTML generati dai componenti |
 | `assets_path` | `string` | `'vendor/design-laravel-kit'` | Percorso pubblico degli asset |
+| `csp_nonce` | `?string` | `null` | Nonce per i tag `<script>` quando l'app usa CSP restrittive |
 
 La versione degli asset è risolta automaticamente da `Composer\InstalledVersions`.
 
 `assets_path` deve includere una sottocartella del pacchetto sotto `vendor/`, `assets/` o `build/`, ad esempio `vendor/design-laravel-kit`; non impostarlo sul solo prefisso.
 Questo evita che `--force` cancelli gli asset di altri pacchetti.
+
+Se l'applicazione usa una Content Security Policy restrittiva, impostare `csp_nonce` o passare il nonce come argomento alla direttiva: `@designLaravelKitScripts($nonce)`. L'argomento ha precedenza sulla configurazione; un nonce con caratteri non validi (virgolette, spazi) genera un'eccezione.
 
 ### Traduzioni
 
