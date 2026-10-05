@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Components;
 
 use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use Illuminate\Contracts\View\View;
+use InvalidArgumentException;
 
 class SpidButton extends BaseComponent
 {
@@ -67,11 +68,15 @@ class SpidButton extends BaseComponent
     private function validatedProviders(array $providers): array
     {
         foreach ($providers as $index => $provider) {
-            if (! is_array($provider) || ! is_string($provider['url'] ?? null)) {
-                continue;
+            if (! is_array($provider)
+                || ! is_string($provider['name'] ?? null)
+                || ! is_string($provider['url'] ?? null)
+            ) {
+                throw new InvalidArgumentException("SPID provider at index {$index} must have 'name' and 'url' keys.");
             }
 
-            ConfigValidator::assertUrl($provider['url'], "providers.{$index}.url");
+            ConfigValidator::requiredString($provider, 'name');
+            ConfigValidator::requiredUrl($provider, 'url');
         }
 
         return $providers;

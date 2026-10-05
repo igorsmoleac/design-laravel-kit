@@ -148,12 +148,32 @@ class SpidButtonTest extends TestCase
         $this->blade('<x-italia::spid-button href="javascript:alert(1)" />');
     }
 
+    public function test_provider_without_url_is_rejected(): void
+    {
+        $providers = [['name' => 'Incomplete IdP']];
+
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("SPID provider at index 0 must have 'name' and 'url' keys.");
+
+        $this->blade('<x-italia::spid-button dropdown :providers="$providers" />', ['providers' => $providers]);
+    }
+
+    public function test_provider_without_name_is_rejected(): void
+    {
+        $providers = [['url' => '/spid/login/custom']];
+
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("SPID provider at index 0 must have 'name' and 'url' keys.");
+
+        $this->blade('<x-italia::spid-button dropdown :providers="$providers" />', ['providers' => $providers]);
+    }
+
     public function test_provider_with_javascript_url_is_rejected(): void
     {
         $providers = [['name' => 'Evil IdP', 'url' => 'javascript:alert(1)']];
 
         $this->expectException(ViewException::class);
-        $this->expectExceptionMessage('providers.0.url');
+        $this->expectExceptionMessage("Field 'url'");
 
         $this->blade('<x-italia::spid-button dropdown :providers="$providers" />', ['providers' => $providers]);
     }
