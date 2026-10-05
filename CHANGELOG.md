@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - HeaderNavbar: il rilevamento del megamenu non usa più str_contains sull'HTML; un flag esplicito evita falsi positivi quando una normale voce di menu contiene il testo 'dropdown megamenu'.
+- README: aggiunto il riferimento dei parametri principali per i componenti con API non banale; esteso il documento sulla politica URL (schemi ammessi e rifiutati); aggiunti i punti di migrazione 0.4 → 0.5 relativi alla validazione URL.
 
 ### Fixed
 - SpidButton: la lista di provider SPID ora viene validata; un provider senza 'name' o 'url' genera un'eccezione esplicita invece di un errore PHP poco chiaro.
