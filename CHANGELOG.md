@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ConfigValidator: la validazione URL ora accetta #fragment, mailto:, tel:, percorsi relativi e URL con caratteri non-ASCII; le schemi pericolose (javascript:, data:, vbscript:, file:) restano rifiutate. Ripristina la compatibilità con 0.4.x per i link di navigazione e footer.
 - PublishAssetsCommand: la validazione di assets_path ora richiede una sottocartella dopo il prefisso (vendor/, assets/, build/). Percorsi come `vendor/` o `build/` vengono rifiutati per evitare la cancellazione di asset di altri pacchetti durante --force.
 - Componenti helper (header-nav-item, header-social-link, footer-legal-link, footer-social-link, footer-section): ripristinata la propagazione degli attributi HTML (class, id, target, rel, data-*) all'elemento radice. Regressione introdotta nel refactoring 0.5.0.
+- Componenti helper: rimossi i default `= ''` dai parametri obbligatori, che mascheravano l'obbligatorietà al IDE e facevano fallire il rendering invece della costruzione.
 
 ## [0.5.0] - 2026-10-02
 

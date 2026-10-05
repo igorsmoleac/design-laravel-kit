@@ -21,7 +21,11 @@ class Footer extends BaseComponent
         public ?string $url = null,
         public ?string $copyright = null,
         public bool $light = false,
-    ) {}
+    ) {
+        if ($this->title === '') {
+            $this->title = (string) config('app.name', '');
+        }
+    }
 
     public function render(): Closure
     {
