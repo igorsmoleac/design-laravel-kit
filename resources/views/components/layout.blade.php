@@ -55,28 +55,30 @@
         {{ $slot }}
     </main>
 
-    <x-italia::footer
-        :title="$footerConfig->title"
-        :subtitle="$footerConfig->subtitle"
-        :logo="$footerConfig->logo"
-        :logo-alt="$footerConfig->logoAlt"
-        :url="$footerConfig->url"
-        :copyright="$footerConfig->copyright"
-        :light="$light || $footerConfig->light"
-    >
-        @isset($footerSections)
-            <x-slot:sections>{{ $footerSections }}</x-slot:sections>
-        @endisset
-        @isset($footerContacts)
-            <x-slot:contacts>{{ $footerContacts }}</x-slot:contacts>
-        @endisset
-        @isset($footerSocial)
-            <x-slot:social>{{ $footerSocial }}</x-slot:social>
-        @endisset
-        @isset($footerLegalLinks)
-            <x-slot:legal-links>{{ $footerLegalLinks }}</x-slot:legal-links>
-        @endisset
-    </x-italia::footer>
+    @if ($showFooter)
+        <x-italia::footer
+            :title="$footerConfig->title"
+            :subtitle="$footerConfig->subtitle"
+            :logo="$footerConfig->logo"
+            :logo-alt="$footerConfig->logoAlt"
+            :url="$footerConfig->url"
+            :copyright="$footerConfig->copyright"
+            :light="$light || $footerConfig->light"
+        >
+            @isset($footerSections)
+                <x-slot:sections>{{ $footerSections }}</x-slot:sections>
+            @endisset
+            @isset($footerContacts)
+                <x-slot:contacts>{{ $footerContacts }}</x-slot:contacts>
+            @endisset
+            @isset($footerSocial)
+                <x-slot:social>{{ $footerSocial }}</x-slot:social>
+            @endisset
+            @isset($footerLegalLinks)
+                <x-slot:legal-links>{{ $footerLegalLinks }}</x-slot:legal-links>
+            @endisset
+        </x-italia::footer>
+    @endif
 
     @designLaravelKitScripts
     @stack('scripts')

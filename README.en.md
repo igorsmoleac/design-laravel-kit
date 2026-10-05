@@ -160,6 +160,8 @@ Configure the institution, navigation, footer attributes, footer slots for secti
 
 The `csrf` parameter (default `true`) adds the csrf-token meta tag. Set `:csrf="false"` for public pages cacheable on a CDN.
 
+The `showFooter` parameter (default `true`) controls footer rendering. Set `:show-footer="false"` for pages without a footer (login, minimal layouts).
+
 ### Service request form
 
 Form components bind Laravel session errors and restore previous input after an invalid submission. `wrapper-class` adds classes to the wrapper; `class` remains on the control:
