@@ -244,6 +244,8 @@ Blade components use the `<x-italia::` prefix.
 | `<x-italia::footer-section>` | Footer section with slotted content |
 | `<x-italia::footer-social-link>` | Social link for the footer |
 
+Header and footer helper components accept standard Blade HTML attributes such as `class`, `id`, and `data-*`.
+
 ### URL policy
 
 URL fields accept absolute `http`/`https` URLs, `mailto:`, `tel:`, `#fragment` anchors, root-relative paths, and relative paths.

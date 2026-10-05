@@ -244,6 +244,8 @@ I componenti Blade usano il prefisso `<x-italia::`.
 | `<x-italia::footer-section>` | Sezione del footer con contenuto nello slot |
 | `<x-italia::footer-social-link>` | Link social per il footer |
 
+I componenti helper dell'header e del footer accettano attributi HTML standard di Blade, come `class`, `id` e `data-*`.
+
 ### Politica URL
 
 I campi URL accettano URL assoluti `http`/`https`, `mailto:`, `tel:`, ancore `#fragment`, percorsi root-relative e percorsi relativi.

@@ -1,5 +1,5 @@
 @if ($dropdown)
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown" {{ $attributes }}>
         <a class="nav-link dropdown-toggle" href="{{ $config()->url ?: '#' }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span>{{ $config()->text }}</span>
             <x-italia::icon name="it-expand" />
@@ -11,7 +11,7 @@
         </div>
     </li>
 @else
-    <li class="nav-item">
+    <li class="nav-item" {{ $attributes }}>
         <a
             class="nav-link{{ $config()->active ? ' active' : '' }}"
             href="{{ $config()->url }}"
