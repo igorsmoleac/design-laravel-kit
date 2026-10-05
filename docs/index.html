@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="NrSU6AJd9MoO9Xbk62lX8Gwlro7FWwX8oebckDMM">
-    <title>Catalogo dei componenti — design-laravel-kit</title>
+            <meta name="csrf-token" content="bIacZXcuO0zsBwZ9qVFloMZzDDEphIW962k9qLh7">
+        <title>Catalogo dei componenti — design-laravel-kit</title>
             <meta name="description" content="Catalogo di tutti i componenti di design-laravel-kit">
         <link rel="stylesheet" href="vendor/design-laravel-kit/css/design-laravel-kit.css?v=dev-dev">            <style>
             html { scroll-behavior: smooth; }
@@ -105,11 +105,11 @@
                     <div class="it-brand-wrapper">
                         <a href="./">
                                                             <img class="icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjIiIGZpbGw9IjAwNjZjYyIvPjwvc3ZnPg==" alt="design-laravel-kit">
-                                                        <div class="it-brand-text">
-                                <div class="it-brand-title">design-laravel-kit</div>
-                                                                    <div class="it-brand-tagline d-none d-md-block">Componenti Bootstrap Italia per Laravel</div>
-                                                            </div>
-                        </a>
+                                                                                        <div class="it-brand-text">
+                                    <div class="it-brand-title">design-laravel-kit</div>
+                                                                            <div class="it-brand-tagline d-none d-md-block">Componenti Bootstrap Italia per Laravel</div>
+                                                                    </div>
+                                                    </a>
                     </div>
 
                                     </div>
@@ -153,7 +153,7 @@
                                 </button>
                             </div>
                             <div class="menu-wrapper">
-                                <ul class="navbar-nav"><li class="nav-item">
+                                <ul class="navbar-nav"><li class="nav-item" >
         <a
             class="nav-link active"
             href="./"
@@ -228,6 +228,98 @@
     &lt;/x-slot:footer&gt;
     &lt;x-slot:breadcrumbs&gt;...&lt;/x-slot:breadcrumbs&gt;
     Contenuto della pagina
+&lt;/x-italia::layout&gt;</code></pre>
+                </details>
+
+                <details class="catalog-code">
+                    <summary>Layout senza footer</summary>
+                    <div class="catalog-example">
+                        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="csrf-token" content="bIacZXcuO0zsBwZ9qVFloMZzDDEphIW962k9qLh7">
+        <title>Pagina senza footer</title>
+        <link rel="stylesheet" href="vendor/design-laravel-kit/css/design-laravel-kit.css?v=dev-dev">            <style>
+            html { scroll-behavior: smooth; }
+            .catalog-section { scroll-margin-top: 80px; }
+            .catalog-nav {
+                position: sticky;
+                top: 80px;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+                background: var(--bs-gray-100, #f5f5f5);
+                border-radius: 4px;
+                padding: 16px;
+            }
+            .catalog-section {
+                border-top: 1px solid var(--bs-border-color, #e0e0e0);
+                padding-top: 32px;
+                margin-top: 32px;
+            }
+            .catalog-section:first-of-type {
+                border-top: none;
+                padding-top: 0;
+                margin-top: 0;
+            }
+            .catalog-example {
+                background: #f8f9fa;
+                border-radius: 4px;
+                padding: 24px;
+                margin-bottom: 16px;
+            }
+            .catalog-example + .catalog-example {
+                margin-top: 16px;
+            }
+            .catalog-code { margin: 16px 0; }
+            .catalog-code summary {
+                cursor: pointer;
+                padding: 8px 12px;
+                background: var(--bs-gray-100, #f5f5f5);
+                border-radius: 4px;
+                font-weight: 600;
+            }
+            .catalog-code pre {
+                background: #1c1c1c;
+                color: #f5f5f5;
+                padding: 20px;
+                border-radius: 4px;
+                overflow-x: auto;
+                font-family: ui-monospace, 'Roboto Mono', Menlo, Monaco, monospace;
+                font-size: 13px;
+                line-height: 1.6;
+                white-space: pre;
+            }
+            .catalog-code pre code {
+                color: inherit;
+                font-size: inherit;
+            }
+            .catalog-icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 16px; }
+            .catalog-icon-grid .catalog-icon-item { text-align: center; }
+        </style>
+    </head>
+<body class="bg-white">
+            <a class="visually-hidden-focusable" href="#main">Skip to main content</a>
+    
+    <header class="it-header-wrapper" >
+    
+    </header>
+
+    
+
+    <main id="main" class="container my-4">
+        <h2 class="h4">Accesso al servizio</h2>
+                            <p>Pagina di esempio senza footer, ideale per il login e per i layout minimali.</p>
+    </main>
+
+    
+    <script src="vendor/design-laravel-kit/js/design-laravel-kit.js?v=dev-dev" defer></script><script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts('vendor/design-laravel-kit\/fonts'); } });</script>    </body>
+</html>
+                    </div>
+                                        <pre><code>&lt;x-italia::layout title=&quot;Pagina senza footer&quot; :show-footer=&quot;false&quot;&gt;
+    &lt;h2 class=&quot;h4&quot;&gt;Accesso al servizio&lt;/h2&gt;
+    &lt;p&gt;Pagina di esempio senza footer, ideale per il login e per i layout minimali.&lt;/p&gt;
 &lt;/x-italia::layout&gt;</code></pre>
                 </details>
             </section>
@@ -612,37 +704,37 @@
                 <p>Pulsante di accesso SPID, compatibile con <code>italia/spid-laravel</code> (percorso predefinito <code>/spid/login</code>). Include il testo ufficiale AgID «Entra con SPID» e un logo ufficiale integrato.</p>
 
                 <div class="catalog-example">
-                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-m" aria-label="Entra con SPID">
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-m" aria-label="Login with SPID">
         <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
             <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
             <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
             <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
         </svg>
-        <span class="dlk-spid-label">Entra con SPID</span>
+        <span class="dlk-spid-label">Login with SPID</span>
     </a>
-                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-s" aria-label="Entra con SPID">
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-s" aria-label="Login with SPID">
         <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
             <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
             <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
             <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
         </svg>
-        <span class="dlk-spid-label">Entra con SPID</span>
+        <span class="dlk-spid-label">Login with SPID</span>
     </a>
-                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-l" aria-label="Entra con SPID">
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-l" aria-label="Login with SPID">
         <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
             <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
             <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
             <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
         </svg>
-        <span class="dlk-spid-label">Entra con SPID</span>
+        <span class="dlk-spid-label">Login with SPID</span>
     </a>
-                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-xl" aria-label="Entra con SPID">
+                    <a href="/spid/login" class="dlk-spid-button dlk-spid-button-xl" aria-label="Login with SPID">
         <svg class="dlk-spid-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 587.6 587.6" aria-hidden="true" focusable="false">
             <path fill="#fff" d="M587.6 293.8c0 162.3-131.5 293.8-293.8 293.8C131.6 587.6 0 456.1 0 293.8S131.6 0 293.8 0c162.3 0 293.8 131.5 293.8 293.8"/>
             <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
             <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
         </svg>
-        <span class="dlk-spid-label">Entra con SPID</span>
+        <span class="dlk-spid-label">Login with SPID</span>
     </a>
                 </div>
                 <div class="catalog-example">
@@ -664,15 +756,15 @@
                 <path fill="#06c" d="M294.6 319c-24.4 0-44.5-8.2-60.3-24.8-15.8-16.5-23.7-37-23.7-61.4 0-24.5 7.9-44.8 23.6-61 15.7-16.2 35.7-24.3 60.2-24.3 24.4 0 44.3 8.2 59.6 24.9 15.3 16.6 23 37 23 61.5 0 24.3-7.7 44.6-23 60.8-15.3 16.1-35 24.3-59.4 24.3"/>
                 <path fill="#06c" d="M210.6 439.1c0-24.5 7.9-44.8 23.5-61 15.7-16.2 35.7-24.3 60.4-24.3 24.4 0 44.3 8.2 59.5 24.9 15.3 16.7 23 37.1 23 61.5"/>
             </svg>
-            <span class="dlk-spid-label">Entra con SPID</span>
+            <span class="dlk-spid-label">Login with SPID</span>
         </button>
-        <ul class="dropdown-menu" aria-label="Identity Provider SPID">
+        <ul class="dropdown-menu" aria-label="SPID Identity Provider">
                             <li><a class="dropdown-item" href="/spid/login/aruba">Aruba ID</a></li>
                             <li><a class="dropdown-item" href="/spid/login/poste">Poste ID</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="https://www.spid.gov.it">Maggiori informazioni</a></li>
-            <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">Non hai SPID?</a></li>
-            <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">Serve aiuto?</a></li>
+                        <li><a class="dropdown-item" href="https://www.spid.gov.it">More information</a></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">Don&#039;t have SPID?</a></li>
+            <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">Need help?</a></li>
         </ul>
     </div>
                 </div>
@@ -683,21 +775,21 @@
                 <p>Pulsante di accesso CIE (Carta d'Identità Elettronica), con percorso predefinito <code>/cie/login</code>.</p>
 
                 <div class="catalog-example">
-                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-m" aria-label="Entra con CIE">
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-m" aria-label="Login with CIE">
     <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
-    <span class="dlk-cie-label">Entra con CIE</span>
+    <span class="dlk-cie-label">Login with CIE</span>
 </a>
-                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-s" aria-label="Entra con CIE">
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-s" aria-label="Login with CIE">
     <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
-    <span class="dlk-cie-label">Entra con CIE</span>
+    <span class="dlk-cie-label">Login with CIE</span>
 </a>
-                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-l" aria-label="Entra con CIE">
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-l" aria-label="Login with CIE">
     <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
-    <span class="dlk-cie-label">Entra con CIE</span>
+    <span class="dlk-cie-label">Login with CIE</span>
 </a>
-                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-xl" aria-label="Entra con CIE">
+                    <a href="/cie/login" class="dlk-cie-button dlk-cie-button-xl" aria-label="Login with CIE">
     <img class="dlk-cie-logo" src="data:image/png;base64,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" alt="" aria-hidden="true">
-    <span class="dlk-cie-label">Entra con CIE</span>
+    <span class="dlk-cie-label">Login with CIE</span>
 </a>
                 </div>
                 <div class="catalog-example">
@@ -1077,76 +1169,76 @@
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-nome-455"
+            id="dlk-nome-461"
             name="nome"
             value=""
             class="form-control"
         >
-        <label for="dlk-nome-455" >Nome</label>
+        <label for="dlk-nome-461" >Nome</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-cf_demo-405"
+            id="dlk-cf_demo-404"
             name="cf_demo"
             value=""
             class="form-control" placeholder="RSSMRA80A01H501U"
         >
-        <label for="dlk-cf_demo-405"  class="active" >Codice Fiscale (demo)</label>
+        <label for="dlk-cf_demo-404"  class="active" >Codice Fiscale (demo)</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="email"
-            id="dlk-email-417"
+            id="dlk-email-398"
             name="email"
             value=""
-            aria-describedby="dlk-email-417-hint" aria-required="true" required="required" class="form-control"
+            aria-describedby="dlk-email-398-hint" aria-required="true" required="required" class="form-control"
         >
-        <label for="dlk-email-417" >Email            <span class="text-danger" aria-hidden="true">*</span>
+        <label for="dlk-email-398" >Email            <span class="text-danger" aria-hidden="true">*</span>
             <span class="visually-hidden">(required)</span>
         </label>
-                <small class="form-text" id="dlk-email-417-hint">name@example.com</small>
+                <small class="form-text" id="dlk-email-398-hint">name@example.com</small>
         </div>
                             <div class="form-group dlk-floating">
             <input
             type="password"
-            id="dlk-password-484"
+            id="dlk-password-485"
             name="password"
             value=""
             class="form-control"
         >
-        <label for="dlk-password-484" >Password</label>
+        <label for="dlk-password-485" >Password</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="number"
-            id="dlk-eta-466"
+            id="dlk-eta-472"
             name="eta"
             value=""
-            aria-describedby="dlk-eta-466-hint" class="form-control"
+            aria-describedby="dlk-eta-472-hint" class="form-control"
         >
-        <label for="dlk-eta-466" >Età</label>
-                <small class="form-text" id="dlk-eta-466-hint">Minimo 18 anni</small>
+        <label for="dlk-eta-472" >Età</label>
+                <small class="form-text" id="dlk-eta-472-hint">Minimo 18 anni</small>
         </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-demo-411"
+            id="dlk-demo-422"
             name="demo"
             value=""
-            aria-invalid="true" aria-describedby="dlk-demo-411-hint dlk-demo-411-error" class="form-control is-invalid"
+            aria-invalid="true" aria-describedby="dlk-demo-422-hint dlk-demo-422-error" class="form-control is-invalid"
         >
-        <label for="dlk-demo-411" >Con errore di validazione</label>
-                <small class="form-text" id="dlk-demo-411-hint">Questo suggerimento viene nascosto quando compare un errore</small>
-                <div class="invalid-feedback" id="dlk-demo-411-error" role="alert">Esempio di messaggio di errore di validazione.</div>
+        <label for="dlk-demo-422" >Con errore di validazione</label>
+                <small class="form-text" id="dlk-demo-422-hint">Questo suggerimento viene nascosto quando compare un errore</small>
+                <div class="invalid-feedback" id="dlk-demo-422-error" role="alert">Esempio di messaggio di errore di validazione.</div>
     </div>
                             <div class="form-group">
-            <label class="form-label" for="dlk-semplice-480">Senza etichetta flottante</label>
+            <label class="form-label" for="dlk-semplice-481">Senza etichetta flottante</label>
         <input
             type="text"
-            id="dlk-semplice-480"
+            id="dlk-semplice-481"
             name="semplice"
             value=""
             class="form-control"
@@ -1174,38 +1266,38 @@
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-paese-492"
+        id="dlk-paese-493"
         name="paese"
-        aria-describedby="dlk-paese-492-hint" aria-required="true" required="required" class="form-select"
+        aria-describedby="dlk-paese-493-hint" aria-required="true" required="required" class="form-select"
     >
                     <option value="" disabled selected>Seleziona...</option>
-                                            <option value="it">Italia</option>
-                                                <option value="fr">Francia</option>
-                                                <option value="de">Germania</option>
-                        </select>
-            <label for="dlk-paese-492" class="active">Paese            <span class="text-danger" aria-hidden="true">*</span>
+                                                                <option value="it">Italia</option>
+                                                                <option value="fr">Francia</option>
+                                                                <option value="de">Germania</option>
+                                        </select>
+            <label for="dlk-paese-493" class="active">Paese            <span class="text-danger" aria-hidden="true">*</span>
             <span class="visually-hidden">(required)</span>
         </label>
-                <small class="form-text" id="dlk-paese-492-hint">Seleziona il paese di residenza</small>
+                <small class="form-text" id="dlk-paese-493-hint">Seleziona il paese di residenza</small>
         </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-citta-393"
+        id="dlk-citta-439"
         name="citta"
         class="form-select"
     >
-                                            <optgroup label="Nord">
-                                            <option value="mi">Milano</option>
-                                            <option value="to">Torino</option>
-                                    </optgroup>
-                                                <optgroup label="Sud">
-                                            <option value="na">Napoli</option>
-                                            <option value="pa">Palermo</option>
-                                    </optgroup>
-                        </select>
-            <label for="dlk-citta-393" class="active">Città (optgroup)</label>
+                                                                <optgroup label="Nord">
+                                                    <option value="mi">Milano</option>
+                                                    <option value="to">Torino</option>
+                                            </optgroup>
+                                                                <optgroup label="Sud">
+                                                    <option value="na">Napoli</option>
+                                                    <option value="pa">Palermo</option>
+                                            </optgroup>
+                                        </select>
+            <label for="dlk-citta-439" class="active">Città (optgroup)</label>
             </div>
                         </div>
                     </div>
@@ -1213,16 +1305,16 @@
                 <div class="catalog-example">
                     <div class="form-group dlk-floating">
         <select
-        id="dlk-ruoli-421"
+        id="dlk-ruoli-379"
         name="ruoli[]"
-        multiple="multiple" aria-describedby="dlk-ruoli-421-hint" class="form-select"
+        multiple="multiple" aria-describedby="dlk-ruoli-379-hint" class="form-select"
     >
-                                            <option value="admin">Amministratore</option>
-                                                <option value="editor">Editor</option>
-                                                <option value="viewer">Visualizzatore</option>
-                        </select>
-            <label for="dlk-ruoli-421" class="active">Ruoli (selezione multipla)</label>
-                <small class="form-text" id="dlk-ruoli-421-hint">Ctrl+clic per selezionare più ruoli</small>
+                                                                <option value="admin">Amministratore</option>
+                                                                <option value="editor">Editor</option>
+                                                                <option value="viewer">Visualizzatore</option>
+                                        </select>
+            <label for="dlk-ruoli-379" class="active">Ruoli (selezione multipla)</label>
+                <small class="form-text" id="dlk-ruoli-379-hint">Ctrl+clic per selezionare più ruoli</small>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1230,6 +1322,52 @@
                     <pre><code>&lt;x-italia::select name=&quot;paese&quot; label=&quot;Paese&quot; required :options=&quot;[&#039;it&#039; =&gt; &#039;Italia&#039;, ...]&quot; placeholder=&quot;Seleziona...&quot; /&gt;
 &lt;x-italia::select name=&quot;citta&quot; label=&quot;Città&quot; :options=&quot;[&#039;Nord&#039; =&gt; [&#039;mi&#039; =&gt; &#039;Milano&#039;, ...], ...]&quot; /&gt;
 &lt;x-italia::select name=&quot;ruoli&quot; label=&quot;Ruoli&quot; :options=&quot;[...]&quot; multiple /&gt;</code></pre>
+                </details>
+
+                <div class="catalog-example">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="form-group dlk-floating">
+        <select
+        id="dlk-citta-slot-415"
+        name="citta-slot"
+        class="form-select"
+    >
+                            <option value="mi">Milano</option>
+                                <option value="na">Napoli</option>
+                                <option value="rm">Roma</option>
+                                <option value="to">Torino</option>
+            </select>
+            <label for="dlk-citta-slot-415" class="active">Città (slot)</label>
+            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group dlk-floating">
+        <select
+        id="dlk-citta-filtro-402"
+        name="citta-filtro"
+        class="form-select"
+    >
+                    <option value="" selected>Tutte le città</option>
+                                                                <option value="mi">Milano</option>
+                                                                <option value="na">Napoli</option>
+                                                                <option value="rm">Roma</option>
+                                        </select>
+            <label for="dlk-citta-filtro-402" class="active">Città (filtro)</label>
+            </div>
+                        </div>
+                    </div>
+                </div>
+                                <details class="catalog-code">
+                    <summary>Mostra il codice</summary>
+                    <pre><code>&lt;x-italia::select name=&quot;citta-slot&quot; label=&quot;Città (slot)&quot;&gt;
+    &lt;option value=&quot;mi&quot;&gt;Milano&lt;/option&gt;
+    &lt;option value=&quot;na&quot;&gt;Napoli&lt;/option&gt;
+    &lt;option value=&quot;rm&quot;&gt;Roma&lt;/option&gt;
+    &lt;option value=&quot;to&quot;&gt;Torino&lt;/option&gt;
+&lt;/x-italia::select&gt;
+
+&lt;x-italia::select name=&quot;citta-filtro&quot; label=&quot;Città (filtro)&quot; placeholder=&quot;Tutte le città&quot; :placeholder-disabled=&quot;false&quot; :options=&quot;[&#039;mi&#039; =&gt; &#039;Milano&#039;, &#039;na&#039; =&gt; &#039;Napoli&#039;, &#039;rm&#039; =&gt; &#039;Roma&#039;]&quot; /&gt;</code></pre>
                 </details>
             </section>
 
@@ -1239,22 +1377,22 @@
                 <div class="catalog-example">
                     <div class="form-group dlk-floating">
             <textarea
-            id="dlk-bio-488"
+            id="dlk-bio-474"
             name="bio"
             rows="3"
-            aria-describedby="dlk-bio-488-hint" class="form-control"
+            aria-describedby="dlk-bio-474-hint" class="form-control"
         ></textarea>
-        <label for="dlk-bio-488" >Biografia</label>
-                <small class="form-text" id="dlk-bio-488-hint">Max 500 caratteri</small>
+        <label for="dlk-bio-474" >Biografia</label>
+                <small class="form-text" id="dlk-bio-474-hint">Max 500 caratteri</small>
         </div>
                     <div class="form-group dlk-floating">
             <textarea
-            id="dlk-note-455"
+            id="dlk-note-419"
             name="note"
             rows="5"
             class="form-control"
         ></textarea>
-        <label for="dlk-note-455" >Note (5 righe)</label>
+        <label for="dlk-note-419" >Note (5 righe)</label>
             </div>
                 </div>
                                 <details class="catalog-code">
@@ -1271,68 +1409,68 @@
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-termini-479"
+        id="dlk-termini-441"
         name="termini"
                 aria-required="true" required="required" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-termini-479">Accetto i termini        <span class="text-danger" aria-hidden="true">*</span>
+    <label class="form-check-label" for="dlk-termini-441">Accetto i termini        <span class="text-danger" aria-hidden="true">*</span>
         <span class="visually-hidden">(required)</span>
     </label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-newsletter-498"
+        id="dlk-newsletter-435"
         name="newsletter"
          value="yes"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-newsletter-498">Iscriviti alla newsletter</label>
+    <label class="form-check-label" for="dlk-newsletter-435">Iscriviti alla newsletter</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-promo-392"
+        id="dlk-promo-424"
         name="promo"
                 checked="checked" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-promo-392">Pre-selezionata</label>
+    <label class="form-check-label" for="dlk-promo-424">Pre-selezionata</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-sms-382"
+        id="dlk-sms-401"
         name="sms"
                 disabled="disabled" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-sms-382">Disabilitata</label>
+    <label class="form-check-label" for="dlk-sms-401">Disabilitata</label>
         </div>
                     <p class="mb-2"><strong>Gruppo (<code>interessi[]</code>)</strong></p>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-349"
+        id="dlk-interessi-488"
         name="interessi[]"
          value="sport"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-349">Sport</label>
+    <label class="form-check-label" for="dlk-interessi-488">Sport</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-389"
+        id="dlk-interessi-447"
         name="interessi[]"
          value="musica"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-389">Musica</label>
+    <label class="form-check-label" for="dlk-interessi-447">Musica</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-493"
+        id="dlk-interessi-490"
         name="interessi[]"
          value="viaggi"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-493">Viaggi</label>
+    <label class="form-check-label" for="dlk-interessi-490">Viaggi</label>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1353,44 +1491,44 @@
                 <h2 class="h3 mb-3">Gruppo checkbox</h2>
                 <p>Gruppo di checkbox in un fieldset con un solo messaggio di errore di validazione.</p>
                 <form method="get" action="./" class="catalog-example">
-                    <fieldset class="form-group" id="dlk-demo-393"
-     aria-invalid="true"      aria-describedby="dlk-demo-393-hint dlk-demo-393-error"
+                    <fieldset class="form-group" id="dlk-demo-415"
+     aria-invalid="true"      aria-describedby="dlk-demo-415-hint dlk-demo-415-error"
     >
             <legend>
             Interessi
                     </legend>
     
-            <small class="form-text" id="dlk-demo-393-hint">Seleziona uno o più interessi</small>
+            <small class="form-text" id="dlk-demo-415-hint">Seleziona uno o più interessi</small>
     
     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-484"
+        id="dlk-demo-501"
         name="demo[]"
-         value="sport"         aria-invalid="true" aria-describedby="dlk-demo-393-error" class="form-check-input is-invalid"
+         value="sport"         aria-invalid="true" aria-describedby="dlk-demo-415-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-484">Sport</label>
+    <label class="form-check-label" for="dlk-demo-501">Sport</label>
         </div>
                         <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-447"
+        id="dlk-demo-453"
         name="demo[]"
-         value="musica"         aria-invalid="true" aria-describedby="dlk-demo-393-error" class="form-check-input is-invalid"
+         value="musica"         aria-invalid="true" aria-describedby="dlk-demo-415-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-447">Musica</label>
+    <label class="form-check-label" for="dlk-demo-453">Musica</label>
         </div>
                         <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-469"
+        id="dlk-demo-410"
         name="demo[]"
-         value="viaggi"         aria-invalid="true" aria-describedby="dlk-demo-393-error" class="form-check-input is-invalid"
+         value="viaggi"         aria-invalid="true" aria-describedby="dlk-demo-415-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-469">Viaggi</label>
+    <label class="form-check-label" for="dlk-demo-410">Viaggi</label>
         </div>
 
-            <div class="invalid-feedback d-block" id="dlk-demo-393-error" role="alert">
+            <div class="invalid-feedback d-block" id="dlk-demo-415-error" role="alert">
             Esempio di messaggio di errore di validazione.
         </div>
     </fieldset>
@@ -1415,38 +1553,38 @@
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-502"
+        id="dlk-genere-483"
         name="genere"
          value="m"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-502">Maschio</label>
+    <label class="form-check-label" for="dlk-genere-483">Maschio</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-478"
+        id="dlk-genere-462"
         name="genere"
          value="f"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-478">Femmina</label>
+    <label class="form-check-label" for="dlk-genere-462">Femmina</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-432"
+        id="dlk-genere-438"
         name="genere"
          value="o"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-432">Altro</label>
+    <label class="form-check-label" for="dlk-genere-438">Altro</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-475"
+        id="dlk-genere-499"
         name="genere"
          value="x"         disabled="disabled" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-475">Disabilitata</label>
+    <label class="form-check-label" for="dlk-genere-499">Disabilitata</label>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1462,8 +1600,8 @@
                 <h2 class="h3 mb-3">Gruppo radio</h2>
                 <p>Gruppo di radio accessibile con fieldset, legend e un unico messaggio di errore.</p>
                 <form method="get" action="./" class="catalog-example">
-                    <fieldset class="form-group" id="dlk-demo-494"
-     aria-invalid="true"      aria-describedby="dlk-demo-494-hint dlk-demo-494-error"
+                    <fieldset class="form-group" id="dlk-demo-477"
+     aria-invalid="true"      aria-describedby="dlk-demo-477-hint dlk-demo-477-error"
     >
             <legend>
             Genere
@@ -1471,37 +1609,37 @@
                 <span class="visually-hidden">(required)</span>
                     </legend>
     
-            <small class="form-text" id="dlk-demo-494-hint">Seleziona un&#039;opzione</small>
+            <small class="form-text" id="dlk-demo-477-hint">Seleziona un&#039;opzione</small>
     
     <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-485"
+        id="dlk-demo-467"
         name="demo"
-         value="m"         aria-invalid="true" aria-describedby="dlk-demo-494-error" class="form-check-input is-invalid"
+         value="m"         aria-invalid="true" aria-describedby="dlk-demo-477-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-485">Maschio</label>
+    <label class="form-check-label" for="dlk-demo-467">Maschio</label>
         </div>
                         <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-426"
+        id="dlk-demo-398"
         name="demo"
-         value="f"         aria-invalid="true" aria-describedby="dlk-demo-494-error" class="form-check-input is-invalid"
+         value="f"         aria-invalid="true" aria-describedby="dlk-demo-477-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-426">Femmina</label>
+    <label class="form-check-label" for="dlk-demo-398">Femmina</label>
         </div>
                         <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-388"
+        id="dlk-demo-445"
         name="demo"
-         value="o"         aria-invalid="true" aria-describedby="dlk-demo-494-error" class="form-check-input is-invalid"
+         value="o"         aria-invalid="true" aria-describedby="dlk-demo-477-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-388">Altro</label>
+    <label class="form-check-label" for="dlk-demo-445">Altro</label>
         </div>
 
-            <div class="invalid-feedback d-block" id="dlk-demo-494-error" role="alert">
+            <div class="invalid-feedback d-block" id="dlk-demo-477-error" role="alert">
             Esempio di messaggio di errore di validazione.
         </div>
     </fieldset>
@@ -1522,7 +1660,7 @@
     </div>
     </main>
 
-    <footer class="it-footer">
+            <footer class="it-footer">
     <div class="it-footer-main">
         <div class="container">
             <section>
@@ -1536,11 +1674,11 @@
     >
     <use href="vendor/design-laravel-kit/svg/sprites.svg#it-code-circle"></use>
 </svg>
-                                                                <div class="it-brand-text">
-                                    <h2 class="no_toc">design-laravel-kit</h2>
-                                                                            <h3 class="no_toc d-none d-md-block">Componenti Bootstrap Italia per Laravel</h3>
-                                                                    </div>
-                            </a>
+                                                                                                    <div class="it-brand-text">
+                                        <h2 class="no_toc">design-laravel-kit</h2>
+                                                                                    <h3 class="no_toc d-none d-md-block">Componenti Bootstrap Italia per Laravel</h3>
+                                                                            </div>
+                                                            </a>
                         </div>
                     </div>
                 </div>
@@ -1555,7 +1693,7 @@
             <div class="container">
                                     <h3 class="visually-hidden">Useful links</h3>
                     <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
-                        <li class="list-inline-item">
+                        <li class="list-inline-item" >
     <a
         href="./"
             >Catalogo dei componenti</a>
@@ -1565,6 +1703,6 @@
                             </div>
         </div>
     </footer>
-
+    
     <script src="vendor/design-laravel-kit/js/design-laravel-kit.js?v=dev-dev" defer></script><script>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts('vendor/design-laravel-kit\/fonts'); } });</script>    </body>
 </html>
