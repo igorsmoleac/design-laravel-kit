@@ -311,4 +311,33 @@ class TextareaTest extends TestCase
 
         $this->assertStringNotContainsString('is-invalid', $default);
     }
+
+    public function test_integer_value_is_rendered_as_string(): void
+    {
+        $html = (string) $this->blade('<x-italia::textarea name="quantity" :value="42" />');
+
+        $this->assertStringContainsString('>42</textarea>', $html);
+    }
+
+    public function test_float_value_is_rendered_as_string(): void
+    {
+        $html = (string) $this->blade('<x-italia::textarea name="ratio" :value="1.5" />');
+
+        $this->assertStringContainsString('>1.5</textarea>', $html);
+    }
+
+    public function test_backed_enum_value_renders_its_underlying_value(): void
+    {
+        $html = (string) $this->blade(
+            '<x-italia::textarea name="status" :value="$value" />',
+            ['value' => TextareaTestStatus::Active],
+        );
+
+        $this->assertStringContainsString('>active</textarea>', $html);
+    }
+}
+
+enum TextareaTestStatus: string
+{
+    case Active = 'active';
 }

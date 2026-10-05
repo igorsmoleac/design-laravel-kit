@@ -14,7 +14,7 @@ class Textarea extends BaseFormComponent
     public function __construct(
         public string $name,
         public ?string $label = null,
-        public ?string $value = null,
+        public string|int|float|\BackedEnum|null $value = null,
         public ?string $hint = null,
         public int $rows = 3,
         public bool $required = false,
