@@ -155,6 +155,8 @@ Configurare l'ente, la navigazione, i dati del footer, i suoi slot per sezioni, 
 </x-italia::layout>
 ```
 
+Il parametro `csrf` (default `true`) aggiunge il meta tag csrf-token. Impostare `:csrf="false"` per pagine pubbliche cacheabili su CDN.
+
 ### Form di segnalazione
 
 I componenti form collegano gli errori della sessione Laravel e ripristinano i valori inviati in precedenza. `wrapper-class` applica classi al contenitore; `class` resta sul controllo:

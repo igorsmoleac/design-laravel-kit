@@ -37,6 +37,7 @@ class Layout extends BaseComponent
         public ?string $footerLogoAlt = null,
         public ?string $footerUrl = null,
         public ?string $footerCopyright = null,
+        public bool $csrf = true,
     ) {
         $this->skipLabel = $skipLabel ?? __('design-laravel-kit::Vai al contenuto principale');
     }

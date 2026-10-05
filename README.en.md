@@ -155,6 +155,8 @@ Configure the institution, navigation, footer attributes, footer slots for secti
 </x-italia::layout>
 ```
 
+The `csrf` parameter (default `true`) adds the csrf-token meta tag. Set `:csrf="false"` for public pages cacheable on a CDN.
+
 ### Service request form
 
 Form components bind Laravel session errors and restore previous input after an invalid submission. `wrapper-class` adds classes to the wrapper; `class` remains on the control:

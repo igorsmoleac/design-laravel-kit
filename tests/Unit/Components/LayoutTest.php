@@ -206,6 +206,20 @@ BLADE);
         $this->assertStringContainsString('name="csrf-token" content="test-csrf-token"', $html);
     }
 
+    public function test_csrf_meta_tag_is_rendered_by_default(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout />');
+
+        $this->assertStringContainsString('<meta name="csrf-token"', $html);
+    }
+
+    public function test_csrf_meta_tag_is_removed_when_csrf_is_false(): void
+    {
+        $html = (string) $this->blade('<x-italia::layout :csrf="false" />');
+
+        $this->assertStringNotContainsString('csrf-token', $html);
+    }
+
     public function test_breadcrumb_slot_precedes_main_and_is_omitted_when_empty(): void
     {
         $html = (string) $this->blade(<<<'BLADE'
