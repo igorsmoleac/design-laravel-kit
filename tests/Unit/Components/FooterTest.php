@@ -156,21 +156,27 @@ BLADE);
         $this->assertStringContainsString('href="/organi"', $html);
     }
 
-    public function test_footer_section_requires_title_and_validates_url(): void
+    public function test_missing_footer_section_title_fails_during_construction(): void
     {
-        try {
-            new FooterSection;
-            $this->fail('A footer section without a title must be rejected during construction.');
-        } catch (\ArgumentCountError $exception) {
-            $this->assertStringContainsString('Too few arguments', $exception->getMessage());
-        }
+        $this->expectException(\ArgumentCountError::class);
 
-        try {
-            $this->blade('<x-italia::footer title="Comune"><x-slot:sections><x-italia::footer-section title="Servizi" url="bad url" /></x-slot:sections></x-italia::footer>');
-            $this->fail('A footer section with an invalid URL must be rejected.');
-        } catch (ViewException $exception) {
-            $this->assertStringContainsString("Field 'url'", $exception->getMessage());
-        }
+        new FooterSection;
+    }
+
+    public function test_empty_footer_section_title_is_rejected_during_construction(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Field 'title'");
+
+        new FooterSection(title: '');
+    }
+
+    public function test_footer_section_url_is_validated(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'url'");
+
+        $this->blade('<x-italia::footer title="Comune"><x-slot:sections><x-italia::footer-section title="Servizi" url="bad url" /></x-slot:sections></x-italia::footer>');
     }
 
     public function test_footer_legal_link_supports_camel_case_data_element(): void

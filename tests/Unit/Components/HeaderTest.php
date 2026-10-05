@@ -50,12 +50,12 @@ BLADE);
         $this->blade('<x-italia::header :slim="[\'ente\' => \'Comune di Roma\']" />');
     }
 
-    public function test_missing_required_slot_attribute_names_field(): void
+    public function test_center_slot_without_title_renders_without_brand_text(): void
     {
-        $this->expectException(ViewException::class);
-        $this->expectExceptionMessage("Field 'title'");
+        $html = (string) $this->blade('<x-italia::header><x-slot:center></x-slot:center></x-italia::header>');
 
-        $this->blade('<x-italia::header><x-slot:center></x-slot:center></x-italia::header>');
+        $this->assertStringContainsString('it-header-center-wrapper', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
     }
 
     public function test_sticky_light_and_small_options_are_applied(): void
