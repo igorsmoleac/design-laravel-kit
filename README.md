@@ -10,7 +10,7 @@
 
 🇮🇹 **Italiano** | [🇬🇧 English](README.en.md)
 
-Design Laravel Kit è un pacchetto Composer per applicazioni Laravel della Pubblica Amministrazione italiana. Espone componenti Blade basati su Bootstrap Italia 2.18.3 per layout istituzionali, navigazione, moduli, messaggi e accesso tramite SPID e CIE. Il bundle distribuito è circa 250 KB gzip; Node.js serve solo per compilare gli asset del pacchetto.
+Design Laravel Kit è un pacchetto Composer per applicazioni Laravel della Pubblica Amministrazione italiana. Espone componenti Blade basati su Bootstrap Italia 2.18.3 per layout istituzionali, navigazione, moduli, messaggi e accesso tramite SPID e CIE. Il bundle distribuito è circa 375 KB gzip; Node.js serve solo per compilare gli asset del pacchetto.
 
 È destinato ad agenzie digitali, system integrator e sviluppatori che realizzano siti e servizi digitali per enti pubblici. Il pacchetto fornisce componenti e asset; la verifica di conformità del servizio resta a carico del progetto che lo integra.
 
@@ -82,7 +82,8 @@ php artisan vendor:publish --tag=design-laravel-kit-config --force
 |--------|------|---------|-------------|
 | `id_prefix` | `string` | `'dlk'` | Prefisso degli ID HTML generati dai componenti |
 | `assets_path` | `string` | `'vendor/design-laravel-kit'` | Percorso pubblico degli asset |
-| `version` | `string` | `'0.1.0'` | Versione aggiunta agli URL degli asset per il cache-busting |
+
+La versione degli asset è risolta automaticamente da `Composer\InstalledVersions`.
 
 `assets_path` deve includere una sottocartella del pacchetto sotto `vendor/`, `assets/` o `build/`, ad esempio `vendor/design-laravel-kit`; non impostarlo sul solo prefisso.
 Questo evita che `--force` cancelli gli asset di altri pacchetti.
@@ -239,6 +240,8 @@ I componenti Blade usano il prefisso `<x-italia::`.
 | `<x-italia::spid-button>` | Pulsante di accesso SPID |
 | `<x-italia::cie-button>` | Pulsante di accesso CIE |
 | `<x-italia::header-nav-item>` | Voce di navigazione per lo slot navbar |
+| `<x-italia::header-megamenu>` | Megamenu per lo slot navbar, con sezioni di link raggruppate |
+| `<x-italia::header-megamenu-section>` | Sezione di link del megamenu con intestazione |
 | `<x-italia::header-social-link>` | Link social per HeaderCenter |
 | `<x-italia::footer-legal-link>` | Link legale per il footer |
 | `<x-italia::footer-section>` | Sezione del footer con contenuto nello slot |
