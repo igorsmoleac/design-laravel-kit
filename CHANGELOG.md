@@ -11,16 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Layout: nuovo parametro `csrf` (default true) per disattivare il meta tag csrf-token nelle pagine pubbliche cacheabili su CDN.
+### Fixed
+
+## [0.5.1] - 2026-10-05
+
+### Added
+- Layout: parametro `csrf` (default `true`) per disattivare il meta tag csrf-token nelle pagine pubbliche cacheabili su CDN.
+
+### Changed
 - Textarea: il parametro `value` ora accetta `string|int|float|\BackedEnum|null`, coerente con Input, Radio, Checkbox e Select.
 
 ### Fixed
-- Componenti SPID/CIE/Header: le stringhe UI (etichette, aria-label) ora passano attraverso __() con namespace design-laravel-kit::; aggiunte le traduzioni in en.json.
-- ConfigValidator: la validazione URL ora accetta #fragment, mailto:, tel:, percorsi relativi e URL con caratteri non-ASCII; le schemi pericolose (javascript:, data:, vbscript:, file:) restano rifiutate. Ripristina la compatibilità con 0.4.x per i link di navigazione e footer.
-- PublishAssetsCommand: la validazione di assets_path ora richiede una sottocartella dopo il prefisso (vendor/, assets/, build/). Percorsi come `vendor/` o `build/` vengono rifiutati per evitare la cancellazione di asset di altri pacchetti durante --force.
-- Componenti helper (header-nav-item, header-social-link, footer-legal-link, footer-social-link, footer-section): ripristinata la propagazione degli attributi HTML (class, id, target, rel, data-*) all'elemento radice. Regressione introdotta nel refactoring 0.5.0.
-- Footer e HeaderCenter: il titolo è ora opzionale; quando manca, il blocco brand-text non viene renderizzato e il componente non fallisce. `<x-italia::layout />` funziona anche senza config('app.name').
-- Button, Card, Badge, SpidButton, CieButton: aggiunta la validazione delle schemi URL, coerente con i componenti DTO. `javascript:`, `data:` (tranne `data:image/*` per Card::$image) e altre schemi pericolose vengono rifiutate.
+- ConfigValidator: la validazione URL ora accetta `#fragment`, `mailto:`, `tel:`, percorsi relativi e URL con caratteri non-ASCII; le schemi pericolose (`javascript:`, `data:`, `vbscript:`, `file:`) restano rifiutate. Ripristina la compatibilità con 0.4.x per i link di navigazione e footer.
+- PublishAssetsCommand: la validazione di `assets_path` ora richiede una sottocartella dopo il prefisso (`vendor/`, `assets/`, `build/`). Percorsi come `vendor/` o `build/` vengono rifiutati per evitare la cancellazione di asset di altri pacchetti durante `--force`.
+- Componenti helper (`header-nav-item`, `header-social-link`, `footer-legal-link`, `footer-social-link`, `footer-section`): ripristinata la propagazione degli attributi HTML (`class`, `id`, `target`, `rel`, `data-*`) all'elemento radice.
+- Componenti helper: rimossi i default `= ''` dai parametri obbligatori, che mascheravano l'obbligatorietà al IDE e facevano fallire il rendering invece della costruzione.
+- Footer e HeaderCenter: il titolo è ora opzionale; quando manca, il blocco brand-text non viene renderizzato e il componente non fallisce. `<x-italia::layout />` funziona anche senza `config('app.name')`.
+- Button, Card, Badge, SpidButton, CieButton: aggiunta la validazione delle schemi URL, coerente con i componenti DTO. `javascript:`, `data:` (tranne `data:image/*` per `Card::$image`) e altre schemi pericolose vengono rifiutate.
+- Componenti SPID/CIE/Header: le stringhe UI (etichette, aria-label) ora passano attraverso `__()` con namespace `design-laravel-kit::`; aggiunte le traduzioni in `en.json`.
+- `publiccode.yml`: aggiornata `softwareVersion` a 0.5.0 e `releaseDate`; `SECURITY.md`: aggiornata la tabella delle versioni supportate; README: rimossa la descrizione obsoleta del parametro `version`, aggiornato il peso del bundle e la tabella dei componenti.
 
 ## [0.5.0] - 2026-10-02
 
