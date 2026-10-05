@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+- ConfigValidator: la validazione URL ora accetta #fragment, mailto:, tel:, percorsi relativi e URL con caratteri non-ASCII; le schemi pericolose (javascript:, data:, vbscript:, file:) restano rifiutate. Ripristina la compatibilità con 0.4.x per i link di navigazione e footer.
 
 ## [0.5.0] - 2026-10-02
 

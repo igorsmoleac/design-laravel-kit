@@ -241,6 +241,12 @@ I componenti Blade usano il prefisso `<x-italia::`.
 | `<x-italia::footer-section>` | Sezione del footer con contenuto nello slot |
 | `<x-italia::footer-social-link>` | Link social per il footer |
 
+### Politica URL
+
+I campi URL accettano URL assoluti `http`/`https`, `mailto:`, `tel:`, ancore `#fragment`, percorsi root-relative e percorsi relativi.
+Sono ammessi caratteri non ASCII, inclusi quelli accentati, negli URL.
+Gli schemi diversi da quelli consentiti, come `javascript:`, `data:`, `vbscript:` e `file:`, vengono rifiutati; `data:image/*` è ammesso solo per `logo`.
+
 Gli slot `slim`, `center`, `navbar`, `footer`, `sections`, `social` e `legal-links` usano attributi Blade nominati, non array. Anche `HeaderSlim`, `HeaderCenter` e `HeaderNavbar` autonomi usano attributi scalari e slot, non array. I DTO readonly (`SlimConfig`, `CenterConfig`, ecc.) sono dettagli interni: non vanno passati dai template.
 
 ## Migrazione da 0.4.x

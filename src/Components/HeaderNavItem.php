@@ -18,13 +18,19 @@ class HeaderNavItem extends BaseComponent
 
     public function render(): View
     {
-        $this->itemConfig = NavItemConfig::fromArray(['text' => $this->text, 'url' => $this->url, 'active' => $this->active]);
+        $this->itemConfig = $this->config();
 
         return $this->componentView('design-laravel-kit::components.header-nav-item');
     }
 
     public function config(): NavItemConfig
     {
-        return $this->itemConfig ??= NavItemConfig::fromArray(['text' => $this->text, 'url' => $this->url, 'active' => $this->active]);
+        if ($this->itemConfig !== null) {
+            return $this->itemConfig;
+        }
+
+        $url = $this->dropdown && $this->url === '' ? '#' : $this->url;
+
+        return $this->itemConfig = NavItemConfig::fromArray(['text' => $this->text, 'url' => $url, 'active' => $this->active]);
     }
 }
