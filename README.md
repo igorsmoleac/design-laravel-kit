@@ -269,11 +269,87 @@ I componenti Blade usano il prefisso `<x-italia::`.
 
 I componenti helper dell'header e del footer accettano attributi HTML standard di Blade, come `class`, `id` e `data-*`.
 
+### Riferimento parametri
+
+Parametri dei componenti con API non banale. Gli attributi HTML comuni (`class`, `id`, `data-*`) vengono propagati all'elemento radice; i tipi sono quelli PHP.
+
+| Parametro | Tipo | Descrizione |
+|---|---|---|
+| **`x-italia::layout`** | | |
+| `title` | `string` | Titolo `<title>`; se vuoto, `config('app.name')` |
+| `description` | `?string` | Meta description |
+| `lang` | `?string` | Attributo `lang` di `<html>`; se null, locale dell'app |
+| `light`, `sticky` | `bool` | Tema e comportamento sticky per l'header |
+| `skipToContent`, `skipLabel` | `bool`, `?string` | Link «salta al contenuto» e sua etichetta |
+| `bodyClass`, `mainClass` | `string`, `?string` | Classi di `<body>` e `<main>` |
+| `footerTitle`, `footerSubtitle`, `footerLogo`, `footerLogoAlt`, `footerUrl`, `footerCopyright` | `?string` | Dati del brand per il footer; di norma via slot `footer` |
+| `csrf` | `bool` | Meta tag csrf-token |
+| `showFooter` | `bool` | Rendering del footer |
+| Slot | | `slim`, `center`, `navbar`, `footer`, `footer-sections`, `footer-contacts`, `footer-social`, `footer-legal-links`, `breadcrumbs` |
+| **`x-italia::header`** | | |
+| `light`, `sticky`, `small` | `bool` | Tema, sticky e versione compatta |
+| Slot | | `slim`, `center`, `navbar` |
+| **`x-italia::header-center`** | | |
+| `title`, `tagline` | `?string` | Nome dell'ente e tagline |
+| `logo`, `logoAlt` | `?string` | Logo (HTTP(S), root-relative, `data:image/*`) e testo alt |
+| `url` | `?string` | Link del brand |
+| `searchUrl` | `?string` | La presenza abilita il form di ricerca |
+| `small`, `light` | `bool` | Versione compatta e tema |
+| Slot | | `social-links` |
+| **`x-italia::card`** | | |
+| `title`, `subtitle` | `?string` | Titolo e sottotitolo |
+| `image`, `imageAlt` | `?string` | Immagine (anche `data:image/*`) e testo alt |
+| `href` | `?string` | Link stretched-link; richiede `title` |
+| `big`, `teaser` | `bool` | Varianti `card-big` e `card-teaser` |
+| `headingLevel` | `int` | Livello del titolo, 2–6 (default 3) |
+| Slot | | contenuto e `actions` |
+| **`x-italia::alert`** | | |
+| `variant` | `string\|AlertVariant` | `info` (default), `success`, `warning`, `danger`; valore sconosciuto → `info` |
+| `title` | `?string` | Titolo |
+| `dismissible` | `bool` | Pulsante di chiusura |
+| `icon` | `bool` | Icona in base alla variante |
+| **`x-italia::modal`** | | |
+| `title` | `string` | Titolo, obbligatorio |
+| `id` (attributo) | `string` | Necessario per collegare `data-bs-target` |
+| `description` | `?string` | Testo collegato via `aria-describedby` |
+| `size` | `?string` | `sm`, `lg`, `xl` |
+| `centered`, `scrollable`, `static`, `dismissible` | `bool` | Comportamento della finestra |
+| Slot | | contenuto e `footer` |
+| **`x-italia::select`** | | |
+| `name` | `string` | Nome del campo |
+| `options` | `array\|Collection\|Arrayable` | `value => label`; array annidato → `optgroup` |
+| `selected` | `string\|int\|float\|BackedEnum\|array\|null` | Valore o valori selezionati |
+| `placeholder` | `?string` | Opzione vuota in testa |
+| `placeholderDisabled` | `bool` | Default `true`; con `false` l'opzione vuota resta selezionabile (filtri) |
+| `multiple` | `bool` | Selezione multipla, il nome riceve `[]` |
+| `label`, `hint` | `?string` | Etichetta e suggerimento |
+| `required`, `disabled`, `floating` | `bool` | Stato del campo |
+| `bag` | `string` | Error bag |
+| Slot | | `<option>` manuali; ha precedenza su `options` |
+| **`x-italia::input`** | | |
+| `name`, `type` | `string` | Nome e tipo del campo |
+| `value` | `string\|int\|float\|BackedEnum\|null` | Valore del campo |
+| `label`, `hint` | `?string` | Etichetta e suggerimento |
+| `required`, `disabled`, `readonly`, `floating` | `bool` | Stato del campo |
+| `bag` | `string` | Error bag |
+| `wrapperClass` | `?string` | Classi del contenitore |
+
 ### Politica URL
 
-I campi URL accettano URL assoluti `http`/`https`, `mailto:`, `tel:`, ancore `#fragment`, percorsi root-relative e percorsi relativi.
-Sono ammessi caratteri non ASCII, inclusi quelli accentati, negli URL.
-Gli schemi diversi da quelli consentiti, come `javascript:`, `data:`, `vbscript:` e `file:`, vengono rifiutati; `data:image/*` è ammesso solo per `logo`.
+I campi URL dei componenti accettano:
+
+| Forma | Esempio |
+|---|---|
+| `http` / `https` | `https://www.comune.roma.it` |
+| `mailto:` / `tel:` | `mailto:info@comune.it`, `tel:+39060000000` |
+| Ancora | `#sezione` |
+| Root-relative | `/servizi` |
+| Relativo | `pagina.html`, `./pagine/` |
+| Caratteri non ASCII | `/città/servizi` |
+
+Sono rifiutati: `javascript:`, `vbscript:`, `file:`, `ftp:`, ogni altro schema non ammesso, `data:` (tranne `data:image/*` per `logo` e `Card::$image`) e la stringa vuota.
+
+La validazione è applicata nei componenti helper (`header-nav-item`, `footer-legal-link`, `footer-social-link`, ecc.) e in `button`, `card`, `badge`, `spid-button`, `cie-button`. Un URL non valido genera `InvalidArgumentException` con l'elenco delle forme ammesse nel messaggio.
 
 Gli slot `slim`, `center`, `navbar`, `footer`, `sections`, `social` e `legal-links` usano attributi Blade nominati, non array. Anche `HeaderSlim`, `HeaderCenter` e `HeaderNavbar` autonomi usano attributi scalari e slot, non array. I DTO readonly (`SlimConfig`, `CenterConfig`, ecc.) sono dettagli interni: non vanno passati dai template.
 
@@ -286,6 +362,12 @@ I componenti `Layout`, `Header` e `Footer` non accettano più array di configura
 | Layout | `<x-italia::layout :slim="$slim" :center="$center" :navbar="$navbar" :footer="$footer" />` | `<x-italia::layout><x-slot:slim ente="Comune di Roma"></x-slot:slim><x-slot:center title="Comune di Roma"></x-slot:center><x-slot:navbar><x-italia::header-nav-item text="Servizi" url="/servizi" /></x-slot:navbar><x-slot:footer title="Comune di Roma"><x-italia::footer-legal-link url="/privacy" text="Privacy" /></x-slot:footer></x-italia::layout>` |
 | Header | `<x-italia::header :slim="$slim" :center="$center" :navbar="$navbar" />` | `<x-italia::header><x-slot:slim ente="Comune di Roma"></x-slot:slim><x-slot:center title="Comune di Roma"></x-slot:center><x-slot:navbar><x-italia::header-nav-item text="Servizi" url="/servizi" /></x-slot:navbar></x-italia::header>` |
 | Footer | `<x-italia::footer title="Comune" :legal-links="$legal" />` | `<x-italia::footer title="Comune"><x-slot:legal-links><x-italia::footer-legal-link url="/privacy" text="Privacy" /></x-slot:legal-links></x-italia::footer>` |
+
+Comportamenti cambiati rispetto a 0.4.x:
+
+- **Validazione URL**: gli URL non validi generano ora `InvalidArgumentException` invece di essere renderizzati così come sono (vedi «Politica URL»).
+- **Voce di navigazione senza `url`**: una voce normale senza `url` genera un'eccezione esplicita; le voci `dropdown` mantengono il fallback `href="#"`.
+- **Slot self-closing**: `<x-slot:slim />` non è supportato in Laravel 13; usare la forma esplicita `<x-slot:slim></x-slot:slim>`.
 
 ### Nota sui pulsanti SPID e CIE
 
