@@ -3,6 +3,7 @@
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class CieButtonTest extends TestCase
@@ -81,5 +82,13 @@ class CieButtonTest extends TestCase
 
         $this->assertStringContainsString('<a ', $html);
         $this->assertStringNotContainsString('<button', $html);
+    }
+
+    public function test_javascript_login_url_is_rejected(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'href'");
+
+        $this->blade('<x-italia::cie-button href="javascript:alert(1)" />');
     }
 }

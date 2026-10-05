@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\Components\Card;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class CardTest extends TestCase
@@ -205,5 +206,28 @@ class CardTest extends TestCase
         $html = (string) $this->blade('<x-italia::card class="mb-4">Testo</x-italia::card>');
 
         $this->assertStringContainsString('card-wrapper mb-4', $html);
+    }
+
+    public function test_javascript_href_is_rejected(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'href'");
+
+        $this->blade('<x-italia::card title="T" href="javascript:alert(1)">Testo</x-italia::card>');
+    }
+
+    public function test_javascript_image_is_rejected(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'image'");
+
+        $this->blade('<x-italia::card title="T" image="javascript:alert(1)">Testo</x-italia::card>');
+    }
+
+    public function test_data_image_uri_is_allowed(): void
+    {
+        $html = (string) $this->blade('<x-italia::card title="T" image="data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=">Testo</x-italia::card>');
+
+        $this->assertStringContainsString('src="data:image/svg+xml;base64,PHN2Zz48L3N2Zz4="', $html);
     }
 }

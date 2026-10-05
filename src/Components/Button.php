@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use IgorSmoleac\DesignLaravelKit\Enums\ButtonSize;
 use IgorSmoleac\DesignLaravelKit\Enums\ButtonVariant;
 use Illuminate\Contracts\View\View;
@@ -21,6 +22,8 @@ class Button extends BaseComponent
         public bool $loading = false,
         public bool $block = false,
     ) {
+        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+
         $this->variantClass = $variant instanceof ButtonVariant
             ? $variant->cssClass()
             : ButtonVariant::tryFrom($variant)?->cssClass() ?? 'btn-' . $variant;

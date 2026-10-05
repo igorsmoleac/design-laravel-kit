@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PublishAssetsCommand: la validazione di assets_path ora richiede una sottocartella dopo il prefisso (vendor/, assets/, build/). Percorsi come `vendor/` o `build/` vengono rifiutati per evitare la cancellazione di asset di altri pacchetti durante --force.
 - Componenti helper (header-nav-item, header-social-link, footer-legal-link, footer-social-link, footer-section): ripristinata la propagazione degli attributi HTML (class, id, target, rel, data-*) all'elemento radice. Regressione introdotta nel refactoring 0.5.0.
 - Footer e HeaderCenter: il titolo è ora opzionale; quando manca, il blocco brand-text non viene renderizzato e il componente non fallisce. `<x-italia::layout />` funziona anche senza config('app.name').
+- Button, Card, Badge, SpidButton, CieButton: aggiunta la validazione delle schemi URL, coerente con i componenti DTO. `javascript:`, `data:` (tranne `data:image/*` per Card::$image) e altre schemi pericolose vengono rifiutate.
 
 ## [0.5.0] - 2026-10-02
 
