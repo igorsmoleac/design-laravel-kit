@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 class FooterSection extends BaseComponent
 {
     public function __construct(
-        public string $title = '',
+        public string $title,
         public ?string $url = null,
     ) {
         ConfigValidator::requiredString(['title' => $this->title], 'title');

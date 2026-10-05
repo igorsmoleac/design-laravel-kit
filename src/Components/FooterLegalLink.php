@@ -10,8 +10,8 @@ class FooterLegalLink extends BaseComponent
     private ?LegalLinkConfig $linkConfig = null;
 
     public function __construct(
-        public string $url = '',
-        public string $text = '',
+        public string $url,
+        public string $text,
         public ?string $dataElement = null,
     ) {}
 

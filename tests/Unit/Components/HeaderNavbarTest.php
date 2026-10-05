@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\HeaderNavItem;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
@@ -128,10 +129,10 @@ BLADE);
         $this->assertStringNotContainsString('<script>Home</script>', $html);
 
         try {
-            $this->blade('<x-italia::header-navbar><x-italia::header-nav-item url="/" /></x-italia::header-navbar>');
-            $this->fail('A navigation item without text must be rejected.');
-        } catch (ViewException $exception) {
-            $this->assertStringContainsString("Field 'text'", $exception->getMessage());
+            new HeaderNavItem(url: '/');
+            $this->fail('A navigation item without text must be rejected during construction.');
+        } catch (\ArgumentCountError $exception) {
+            $this->assertStringContainsString('$text', $exception->getMessage());
         }
     }
 

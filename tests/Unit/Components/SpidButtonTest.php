@@ -3,6 +3,7 @@
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class SpidButtonTest extends TestCase
@@ -137,5 +138,23 @@ class SpidButtonTest extends TestCase
 
         $this->assertStringContainsString('aria-hidden="true"', $html);
         $this->assertStringContainsString('focusable="false"', $html);
+    }
+
+    public function test_javascript_login_url_is_rejected(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'href'");
+
+        $this->blade('<x-italia::spid-button href="javascript:alert(1)" />');
+    }
+
+    public function test_provider_with_javascript_url_is_rejected(): void
+    {
+        $providers = [['name' => 'Evil IdP', 'url' => 'javascript:alert(1)']];
+
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage('providers.0.url');
+
+        $this->blade('<x-italia::spid-button dropdown :providers="$providers" />', ['providers' => $providers]);
     }
 }

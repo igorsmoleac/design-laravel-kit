@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\HeaderNavItem;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -47,6 +48,13 @@ class HeaderNavItemTest extends TestCase
 
         $this->assertStringContainsString('class="nav-item dropdown"', $html);
         $this->assertStringContainsString('class="custom"', $this->rootTag($html));
+    }
+
+    public function test_missing_text_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new HeaderNavItem(url: '/home');
     }
 
     private function rootTag(string $html): string

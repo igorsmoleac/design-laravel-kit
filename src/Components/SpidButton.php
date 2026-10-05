@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use Illuminate\Contracts\View\View;
 
 class SpidButton extends BaseComponent
@@ -15,7 +16,9 @@ class SpidButton extends BaseComponent
         public string $label = 'Entra con SPID',
         public bool $dropdown = false,
         public array $providers = [],
-    ) {}
+    ) {
+        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+    }
 
     public function render(): View
     {
@@ -46,11 +49,28 @@ class SpidButton extends BaseComponent
         }
 
         if ($this->providers !== []) {
-            return $this->providers;
+            return $this->validatedProviders($this->providers);
         }
 
         $providers = config('design-laravel-kit.spid.providers', []);
 
-        return is_array($providers) ? $providers : [];
+        return is_array($providers) ? $this->validatedProviders($providers) : [];
+    }
+
+    /**
+     * @param  array<array-key, mixed>  $providers
+     * @return array<array-key, mixed>
+     */
+    private function validatedProviders(array $providers): array
+    {
+        foreach ($providers as $index => $provider) {
+            if (! is_array($provider) || ! is_string($provider['url'] ?? null)) {
+                continue;
+            }
+
+            ConfigValidator::assertUrl($provider['url'], "providers.{$index}.url");
+        }
+
+        return $providers;
     }
 }

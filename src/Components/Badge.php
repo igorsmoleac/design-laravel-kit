@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use Illuminate\Contracts\View\View;
 
 class Badge extends BaseComponent
@@ -10,7 +11,9 @@ class Badge extends BaseComponent
         public string $variant = 'primary',
         public bool $pill = false,
         public ?string $href = null,
-    ) {}
+    ) {
+        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+    }
 
     public function render(): View
     {

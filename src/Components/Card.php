@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use Illuminate\Contracts\View\View;
 
 class Card extends BaseComponent
@@ -15,7 +16,13 @@ class Card extends BaseComponent
         public bool $big = false,
         public bool $teaser = false,
         public int $headingLevel = 3,
-    ) {}
+    ) {
+        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+
+        if ($this->image !== null) {
+            ConfigValidator::logoUrl($this->image, 'image');
+        }
+    }
 
     public function headingTag(): string
     {

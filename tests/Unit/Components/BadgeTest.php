@@ -3,6 +3,7 @@
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class BadgeTest extends TestCase
@@ -83,5 +84,13 @@ class BadgeTest extends TestCase
         $html = (string) $this->blade('<x-italia::badge aria-label="3 nuovi messaggi">3</x-italia::badge>');
 
         $this->assertStringContainsString('aria-label="3 nuovi messaggi"', $html);
+    }
+
+    public function test_javascript_href_is_rejected(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'href'");
+
+        $this->blade('<x-italia::badge href="javascript:alert(1)">x</x-italia::badge>');
     }
 }

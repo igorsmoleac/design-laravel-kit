@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use Illuminate\Contracts\View\View;
 
 class CieButton extends BaseComponent
@@ -10,7 +11,9 @@ class CieButton extends BaseComponent
         public ?string $href = null,
         public string $size = 'm',
         public string $label = 'Entra con CIE',
-    ) {}
+    ) {
+        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+    }
 
     public function render(): View
     {

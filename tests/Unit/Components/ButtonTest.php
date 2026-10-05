@@ -2,7 +2,9 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Button;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class ButtonTest extends TestCase
@@ -135,5 +137,43 @@ class ButtonTest extends TestCase
         $html = (string) $this->blade('<x-italia::button variant="magenta">X</x-italia::button>');
 
         $this->assertStringContainsString('btn-magenta', $html);
+    }
+
+    public function test_javascript_href_is_rejected(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'href'");
+
+        $this->blade('<x-italia::button href="javascript:alert(1)">X</x-italia::button>');
+    }
+
+    public function test_javascript_href_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new Button(href: 'javascript:alert(1)');
+    }
+
+    public function test_https_href_is_allowed(): void
+    {
+        $html = (string) $this->blade('<x-italia::button href="https://example.com">Link</x-italia::button>');
+
+        $this->assertStringContainsString('<a', $html);
+        $this->assertStringContainsString('href="https://example.com"', $html);
+    }
+
+    public function test_fragment_href_is_allowed(): void
+    {
+        $html = (string) $this->blade('<x-italia::button href="#">Top</x-italia::button>');
+
+        $this->assertStringContainsString('href="#"', $html);
+    }
+
+    public function test_null_href_renders_button_without_href(): void
+    {
+        $html = (string) $this->blade('<x-italia::button :href="null">X</x-italia::button>');
+
+        $this->assertStringContainsString('<button', $html);
+        $this->assertStringNotContainsString('href=', $html);
     }
 }

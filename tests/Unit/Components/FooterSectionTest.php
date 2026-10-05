@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\FooterSection;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -40,6 +41,13 @@ class FooterSectionTest extends TestCase
         $html = (string) $this->blade('<x-italia::footer-section title="Services" id="anchor" />');
 
         $this->assertStringContainsString('id="anchor"', $this->rootTag($html));
+    }
+
+    public function test_missing_title_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new FooterSection;
     }
 
     private function rootTag(string $html): string

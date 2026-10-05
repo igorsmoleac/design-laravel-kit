@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\HeaderMegamenuSection;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
@@ -45,5 +46,12 @@ BLADE);
 
         $this->assertStringContainsString('&lt;script&gt;Anagrafe&lt;/script&gt;', $html);
         $this->assertStringNotContainsString('<script>Anagrafe</script>', $html);
+    }
+
+    public function test_missing_heading_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new HeaderMegamenuSection;
     }
 }

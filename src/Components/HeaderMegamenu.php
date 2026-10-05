@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 class HeaderMegamenu extends BaseComponent
 {
     public function __construct(
-        public string $text = '',
+        public string $text,
         public ?string $url = null,
         public bool $active = false,
     ) {
