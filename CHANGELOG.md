@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - SpidButton: la lista di provider SPID ora viene validata; un provider senza 'name' o 'url' genera un'eccezione esplicita invece di un errore PHP poco chiaro.
+- PublishAssetsCommandTest: il test non modifica più la directory reale resources/dist; l'assenza di dist viene simulata in modo isolato.
 
 ## [0.5.1] - 2026-10-05
 
