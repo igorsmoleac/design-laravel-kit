@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+- Input: per `type="password"` il valore non viene più renderizzato nell'attributo `value`; evita la fuga di vecchi input in HTML per campi non inclusi nel default `$dontFlash` di Laravel.
 
 ## [0.5.2] - 2026-10-05
 

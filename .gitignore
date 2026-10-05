@@ -9,4 +9,5 @@ node_modules/
 *.log
 AGENTS.md
 STYLE.md
+AUDIT_KNOWN.md
 playground/
