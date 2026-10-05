@@ -84,6 +84,9 @@ php artisan vendor:publish --tag=design-laravel-kit-config --force
 | `assets_path` | `string` | `'vendor/design-laravel-kit'` | Public path for assets |
 | `version` | `string` | `'0.1.0'` | Version appended to asset URLs for cache busting |
 
+`assets_path` must include a package subdirectory under `vendor/`, `assets/`, or `build/`, for example `vendor/design-laravel-kit`; do not use the prefix alone.
+This prevents `--force` from deleting assets belonging to other packages.
+
 ### Translations
 
 The package includes Italian and English translation files. To customize them or add other languages:

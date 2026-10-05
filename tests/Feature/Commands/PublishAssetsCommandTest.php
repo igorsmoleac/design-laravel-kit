@@ -5,6 +5,7 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Feature\Commands;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class PublishAssetsCommandTest extends TestCase
 {
@@ -140,5 +141,121 @@ class PublishAssetsCommandTest extends TestCase
         $this->artisan('design-laravel-kit:publish-assets')->assertSuccessful();
 
         $this->assertFileExists(public_path('assets/design-laravel-kit/css/design-laravel-kit.css'));
+    }
+
+    #[DataProvider('acceptedAssetsPaths')]
+    public function test_accepts_paths_with_a_package_subdirectory(string $assetsPath, string $publishedPath, string $cleanupPath): void
+    {
+        config()->set('design-laravel-kit.assets_path', $assetsPath);
+
+        $files = $this->app->make(Filesystem::class);
+        $destination = public_path($publishedPath);
+        $cleanupDirectory = public_path($cleanupPath);
+        $destinationExisted = $files->exists($destination);
+        $cleanupDirectoryExisted = $files->exists($cleanupDirectory);
+
+        try {
+            $this->artisan('design-laravel-kit:publish-assets')->assertSuccessful();
+        } finally {
+            if (! $destinationExisted) {
+                $files->deleteDirectory($destination);
+            }
+
+            if (! $cleanupDirectoryExisted && $cleanupDirectory !== $destination) {
+                $files->deleteDirectory($cleanupDirectory);
+            }
+        }
+    }
+
+    /** @return array<string, array{string, string, string}> */
+    public static function acceptedAssetsPaths(): array
+    {
+        return [
+            'vendor prefix' => ['vendor/design-laravel-kit', 'vendor/design-laravel-kit', 'vendor/design-laravel-kit'],
+            'assets prefix' => ['assets/design-laravel-kit', 'assets/design-laravel-kit', 'assets/design-laravel-kit'],
+            'build prefix' => ['build/design-laravel-kit', 'build/design-laravel-kit', 'build/design-laravel-kit'],
+            'repeated separators' => ['vendor//design-laravel-kit', 'vendor/design-laravel-kit', 'vendor/design-laravel-kit'],
+            'leading dot segment' => ['./vendor/design-laravel-kit', 'vendor/design-laravel-kit', 'vendor/design-laravel-kit'],
+            'nested package path' => ['vendor/design-laravel-kit/sub', 'vendor/design-laravel-kit/sub', 'vendor/design-laravel-kit'],
+        ];
+    }
+
+    #[DataProvider('rejectedAssetsPaths')]
+    public function test_rejects_unsafe_assets_paths_with_specific_reasons(string $assetsPath, string $reason): void
+    {
+        config()->set('design-laravel-kit.assets_path', $assetsPath);
+
+        try {
+            $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
+            $this->fail('Expected the unsafe assets_path to be rejected.');
+        } catch (\RuntimeException $exception) {
+            $this->assertStringContainsString('assets_path', $exception->getMessage());
+            $this->assertStringContainsString("value '{$assetsPath}'", $exception->getMessage());
+            $this->assertStringContainsString($reason, $exception->getMessage());
+            $this->assertStringContainsString('vendor/<package-name>', $exception->getMessage());
+        }
+    }
+
+    /** @return array<string, array{string, string}> */
+    public static function rejectedAssetsPaths(): array
+    {
+        return [
+            'vendor root with slash' => ['vendor/', 'must include a package subdirectory'],
+            'vendor root' => ['vendor', 'must include a package subdirectory'],
+            'assets root' => ['assets/', 'must include a package subdirectory'],
+            'build root' => ['build/', 'must include a package subdirectory'],
+            'empty' => ['', 'is empty'],
+            'unix absolute' => ['/etc/passwd', 'absolute path'],
+            'windows absolute' => ['C:\\Windows', 'absolute path'],
+            'traversal in path' => ['vendor/../etc', 'contains ".."'],
+            'traversal at end' => ['vendor/..', 'contains ".."'],
+            'traversal at start' => ['../vendor/design-laravel-kit', 'contains ".."'],
+            'unapproved prefix' => ['other/design-laravel-kit', 'must start with "vendor/", "assets/" or "build/"'],
+        ];
+    }
+
+    public function test_force_deletes_only_the_valid_target_and_preserves_neighbor_files(): void
+    {
+        config()->set('design-laravel-kit.assets_path', 'vendor/design-laravel-kit');
+
+        $files = $this->app->make(Filesystem::class);
+        $targetDirectory = public_path('vendor/design-laravel-kit');
+        $staleFile = $targetDirectory . '/stale.txt';
+        $neighborFile = public_path('vendor/other-package-' . spl_object_id($this) . '.txt');
+        $files->makeDirectory(dirname($neighborFile), 0755, true, true);
+        $files->makeDirectory($targetDirectory, 0755, true, true);
+        $files->put($neighborFile, 'keep');
+        $files->put($staleFile, 'remove');
+
+        try {
+            $this->artisan('design-laravel-kit:publish-assets', ['--force' => true])->assertSuccessful();
+
+            $this->assertFileExists($neighborFile);
+            $this->assertFileDoesNotExist($staleFile);
+            $this->assertFileExists($targetDirectory . '/css/design-laravel-kit.css');
+        } finally {
+            $files->delete($neighborFile);
+            $files->deleteDirectory($targetDirectory);
+        }
+    }
+
+    public function test_force_rejects_vendor_root_without_deleting_neighbor_files(): void
+    {
+        config()->set('design-laravel-kit.assets_path', 'vendor/');
+
+        $files = $this->app->make(Filesystem::class);
+        $neighborFile = public_path('vendor/other-package-' . spl_object_id($this) . '.txt');
+        $files->makeDirectory(dirname($neighborFile), 0755, true, true);
+        $files->put($neighborFile, 'keep');
+
+        try {
+            $this->artisan('design-laravel-kit:publish-assets', ['--force' => true]);
+            $this->fail('Expected the vendor root to be rejected before deletion.');
+        } catch (\RuntimeException $exception) {
+            $this->assertStringContainsString('must include a package subdirectory', $exception->getMessage());
+            $this->assertFileExists($neighborFile);
+        } finally {
+            $files->delete($neighborFile);
+        }
     }
 }

@@ -50,9 +50,7 @@ class PublishAssetsCommand extends Command
     protected function assertSafeAssetsPath(string $assetsPath): void
     {
         if ($assetsPath === '') {
-            throw new \RuntimeException(
-                'Refusing to publish assets: assets_path is empty.'
-            );
+            $this->refuseUnsafeAssetsPath($assetsPath, 'is empty');
         }
 
         if (
@@ -60,27 +58,35 @@ class PublishAssetsCommand extends Command
             || str_starts_with($assetsPath, '\\')
             || preg_match('/^[A-Za-z]:/', $assetsPath) === 1
         ) {
-            throw new \RuntimeException(
-                'Refusing to publish assets to an absolute path.'
-            );
+            $this->refuseUnsafeAssetsPath($assetsPath, 'must not be an absolute path');
         }
 
         if (str_contains($assetsPath, '..')) {
-            throw new \RuntimeException(
-                'Refusing to publish assets: assets_path contains "..".'
-            );
+            $this->refuseUnsafeAssetsPath($assetsPath, 'contains ".." (path traversal)');
         }
 
-        $allowedPrefixes = ['vendor/', 'assets/', 'build/'];
+        $pathSegments = array_values(array_filter(
+            explode('/', trim($assetsPath, '/')),
+            static fn (string $pathSegment): bool => $pathSegment !== '' && $pathSegment !== '.',
+        ));
 
-        foreach ($allowedPrefixes as $prefix) {
-            if (str_starts_with($assetsPath, $prefix)) {
-                return;
-            }
+        if ($pathSegments === []) {
+            $this->refuseUnsafeAssetsPath($assetsPath, 'is empty after normalization');
         }
 
+        if (! in_array($pathSegments[0], ['vendor', 'assets', 'build'], true)) {
+            $this->refuseUnsafeAssetsPath($assetsPath, 'must start with "vendor/", "assets/" or "build/"');
+        }
+
+        if (! isset($pathSegments[1])) {
+            $this->refuseUnsafeAssetsPath($assetsPath, 'must include a package subdirectory after the prefix');
+        }
+    }
+
+    private function refuseUnsafeAssetsPath(string $assetsPath, string $reason): never
+    {
         throw new \RuntimeException(
-            'Refusing to publish assets: assets_path must start with "vendor/", "assets/" or "build/".'
+            "Refusing to publish assets: assets_path {$reason}; value '{$assetsPath}'. Allowed example: 'vendor/<package-name>'."
         );
     }
 }
