@@ -10,7 +10,7 @@ class HeaderNavItem extends BaseComponent
     private ?NavItemConfig $itemConfig = null;
 
     public function __construct(
-        public string $text = '',
+        public string $text,
         public string $url = '',
         public bool $active = false,
         public bool $dropdown = false,

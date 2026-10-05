@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\FooterLegalLink;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -40,6 +41,20 @@ class FooterLegalLinkTest extends TestCase
         $html = (string) $this->blade('<x-italia::footer-legal-link url="/privacy" text="Privacy" id="anchor" />');
 
         $this->assertStringContainsString('id="anchor"', $this->rootTag($html));
+    }
+
+    public function test_missing_text_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new FooterLegalLink(url: '/privacy');
+    }
+
+    public function test_missing_url_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new FooterLegalLink(text: 'Privacy');
     }
 
     private function rootTag(string $html): string

@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\HeaderMegamenu;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
@@ -79,5 +80,12 @@ BLADE);
         $this->expectExceptionMessage("The 'megamenu' array attribute is no longer supported");
 
         $this->blade('<x-italia::header-navbar><x-italia::header-megamenu text="Servizi" :megamenu="[]" /></x-italia::header-navbar>');
+    }
+
+    public function test_missing_text_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new HeaderMegamenu(url: '/services');
     }
 }

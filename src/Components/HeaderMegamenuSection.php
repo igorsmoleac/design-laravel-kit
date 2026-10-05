@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 
 class HeaderMegamenuSection extends BaseComponent
 {
-    public function __construct(public string $heading = '')
+    public function __construct(public string $heading)
     {
         ConfigValidator::requiredString(['heading' => $this->heading], 'heading');
     }

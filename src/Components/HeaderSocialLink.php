@@ -10,8 +10,8 @@ class HeaderSocialLink extends BaseComponent
     private ?SocialLinkConfig $linkConfig = null;
 
     public function __construct(
-        public string $url = '',
-        public string $label = '',
+        public string $url,
+        public string $label,
         public string $icon = 'it-link',
     ) {}
 
