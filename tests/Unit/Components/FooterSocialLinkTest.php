@@ -2,7 +2,9 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\FooterSocialLink;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
 class FooterSocialLinkTest extends TestCase
@@ -40,6 +42,28 @@ class FooterSocialLinkTest extends TestCase
         $html = (string) $this->blade('<x-italia::footer-social-link url="https://example.com" label="Social" id="anchor" />');
 
         $this->assertStringContainsString('id="anchor"', $this->rootTag($html));
+    }
+
+    public function test_missing_url_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new FooterSocialLink(label: 'Social');
+    }
+
+    public function test_missing_label_fails_during_construction(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+
+        new FooterSocialLink(url: 'https://example.com');
+    }
+
+    public function test_empty_label_is_rejected_during_render(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'label'");
+
+        $this->blade('<x-italia::footer-social-link url="https://example.com" label="" />');
     }
 
     private function rootTag(string $html): string
