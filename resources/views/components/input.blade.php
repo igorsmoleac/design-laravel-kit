@@ -4,7 +4,9 @@
             type="{{ $type }}"
             id="{{ $fieldId() }}"
             name="{{ $name }}"
-            value="{{ $inputValue() }}"
+            @if ($type !== 'password')
+                value="{{ $inputValue() }}"
+            @endif
             {{ $attributes->except('id')->class([$inputClass])->merge([
                 'aria-invalid' => $hasError() ? 'true' : null,
                 'aria-describedby' => $describedBy() ?: null,
@@ -27,7 +29,9 @@
             type="{{ $type }}"
             id="{{ $fieldId() }}"
             name="{{ $name }}"
-            value="{{ $inputValue() }}"
+            @if ($type !== 'password')
+                value="{{ $inputValue() }}"
+            @endif
             {{ $attributes->except('id')->class([$inputClass()])->merge([
                 'aria-invalid' => $hasError() ? 'true' : null,
                 'aria-describedby' => $describedBy() ?: null,

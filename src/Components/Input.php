@@ -8,7 +8,9 @@ use Illuminate\Contracts\View\View;
 
 class Input extends BaseFormComponent
 {
-    use HandlesFieldValue;
+    use HandlesFieldValue {
+        inputValue as parentInputValue;
+    }
     use HandlesFormField;
 
     public function __construct(
@@ -25,6 +27,15 @@ class Input extends BaseFormComponent
         ?string $wrapperClass = null,
     ) {
         $this->wrapperClass = $wrapperClass;
+    }
+
+    public function inputValue(): ?string
+    {
+        if ($this->type === 'password') {
+            return null;
+        }
+
+        return $this->parentInputValue();
     }
 
     public function render(): View

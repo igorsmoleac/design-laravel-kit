@@ -267,6 +267,40 @@ class InputTest extends TestCase
         $this->assertStringContainsString('value="Default"', $html);
     }
 
+    public function test_password_input_does_not_render_old_value(): void
+    {
+        $this->withSession(['_old_input' => ['new_password' => 'Secret123']]);
+
+        $html = (string) $this->blade('<x-italia::input type="password" name="new_password" />');
+
+        $this->assertStringNotContainsString('value="Secret123"', $html);
+        $this->assertStringNotContainsString('value=', $html);
+    }
+
+    public function test_password_input_does_not_render_explicit_value(): void
+    {
+        $html = (string) $this->blade('<x-italia::input type="password" name="new_password" value="Secret" />');
+
+        $this->assertStringNotContainsString('value="Secret"', $html);
+        $this->assertStringNotContainsString('value=', $html);
+    }
+
+    public function test_text_input_still_renders_old_value(): void
+    {
+        $this->withSession(['_old_input' => ['codice' => 'RSSMRA80A01H501U']]);
+
+        $html = (string) $this->blade('<x-italia::input name="codice" />');
+
+        $this->assertStringContainsString('value="RSSMRA80A01H501U"', $html);
+    }
+
+    public function test_text_input_without_value_renders_empty_value_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::input name="email" />');
+
+        $this->assertStringContainsString('value=""', $html);
+    }
+
     public function test_custom_class_passed_through(): void
     {
         $html = (string) $this->blade('<x-italia::input name="email" class="custom" />');
