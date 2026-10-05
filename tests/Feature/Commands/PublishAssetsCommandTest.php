@@ -34,18 +34,19 @@ class PublishAssetsCommandTest extends TestCase
 
     public function test_fails_when_dist_is_missing(): void
     {
-        $dist = realpath(__DIR__ . '/../../../resources/dist');
-        $backup = $dist . '_backup';
+        $this->app->bind(Filesystem::class, fn () => new class extends Filesystem
+        {
+            public function isDirectory($path): bool
+            {
+                return str_ends_with($path, 'resources/dist') ? false : parent::isDirectory($path);
+            }
+        });
 
-        rename($dist, $backup);
+        $this->artisan('design-laravel-kit:publish-assets')
+            ->expectsOutput('Assets not built. Run: npm install && npm run build')
+            ->assertFailed();
 
-        try {
-            $this->artisan('design-laravel-kit:publish-assets')
-                ->expectsOutput('Assets not built. Run: npm install && npm run build')
-                ->assertFailed();
-        } finally {
-            rename($backup, $dist);
-        }
+        $this->assertFileDoesNotExist(public_path('vendor/design-laravel-kit'));
     }
 
     public function test_does_not_overwrite_without_force(): void
