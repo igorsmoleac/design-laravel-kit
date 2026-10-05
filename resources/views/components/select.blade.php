@@ -18,19 +18,23 @@
         ]) }}
     >
         @if ($placeholder)
-            <option value="" disabled{{ ! $hasValue() ? ' selected' : '' }}>{{ $placeholder }}</option>
+            <option value=""{{ $placeholderDisabled ? ' disabled' : '' }}{{ ! $hasValue() ? ' selected' : '' }}>{{ $placeholder }}</option>
         @endif
-        @foreach ($options as $optionValue => $optionLabel)
-            @if (is_array($optionLabel))
-                <optgroup label="{{ $optionValue }}">
-                    @foreach ($optionLabel as $subValue => $subLabel)
-                        <option value="{{ $subValue }}"{{ $isSelected($subValue) ? ' selected' : '' }}>{{ $subLabel }}</option>
-                    @endforeach
-                </optgroup>
-            @else
-                <option value="{{ $optionValue }}"{{ $isSelected($optionValue) ? ' selected' : '' }}>{{ $optionLabel }}</option>
-            @endif
-        @endforeach
+        @if ($hasSlotOptions($slot))
+            {{ $slot }}
+        @else
+            @foreach ($options as $optionValue => $optionLabel)
+                @if (is_array($optionLabel))
+                    <optgroup label="{{ $optionValue }}">
+                        @foreach ($optionLabel as $subValue => $subLabel)
+                            <option value="{{ $subValue }}"{{ $isSelected($subValue) ? ' selected' : '' }}>{{ $subLabel }}</option>
+                        @endforeach
+                    </optgroup>
+                @else
+                    <option value="{{ $optionValue }}"{{ $isSelected($optionValue) ? ' selected' : '' }}>{{ $optionLabel }}</option>
+                @endif
+            @endforeach
+        @endif
     </select>
     @if ($floating)
         <label for="{{ $fieldId() }}" class="active">{{ $labelText() }}@if ($required)

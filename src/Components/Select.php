@@ -6,6 +6,7 @@ use IgorSmoleac\DesignLaravelKit\Components\Concerns\HandlesFormField;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\View\ComponentSlot;
 
 class Select extends BaseFormComponent
 {
@@ -31,6 +32,7 @@ class Select extends BaseFormComponent
         public bool $floating = true,
         public string $bag = 'default',
         ?string $wrapperClass = null,
+        public bool $placeholderDisabled = true,
     ) {
         $this->options = $this->normalizeOptions($options);
         $this->wrapperClass = $wrapperClass;
@@ -52,6 +54,13 @@ class Select extends BaseFormComponent
     public function render(): View
     {
         return $this->componentView('design-laravel-kit::components.select');
+    }
+
+    public function hasSlotOptions(mixed $slot): bool
+    {
+        return $slot instanceof ComponentSlot
+            ? $slot->isNotEmpty()
+            : trim((string) $slot) !== '';
     }
 
     public function inputClass(): string

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Direttiva @designLaravelKitScripts: supporto nonce per Content Security Policy restrittive; il nonce può essere passato come argomento o configurato in config/design-laravel-kit.php (csp_nonce).
 - Layout: parametro `showFooter` (default true) per disattivare il rendering del footer in pagine come login o layout minimali.
+- Select: supporto per opzioni via $slot (Blade-idiomatic); nuovo parametro `placeholderDisabled` (default true) per permettere la selezione dell'opzione vuota nei filtri.
 
 ### Changed
 - HeaderNavbar: il rilevamento del megamenu non usa più str_contains sull'HTML; un flag esplicito evita falsi positivi quando una normale voce di menu contiene il testo 'dropdown megamenu'.

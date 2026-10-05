@@ -175,6 +175,19 @@ Form components bind Laravel session errors and restore previous input after an 
 </form>
 ```
 
+### Select with custom options
+
+Options can also be provided as a Blade slot, which takes precedence over `:options`:
+
+```blade
+<x-italia::select name="city" label="City" placeholder="All cities" :placeholder-disabled="false">
+    <option value="mi">Milan</option>
+    <option value="na">Naples</option>
+</x-italia::select>
+```
+
+The `placeholderDisabled` parameter (default `true`) keeps the placeholder non-selectable as before; with `:placeholder-disabled="false"` the empty option stays selectable, useful in filters (e.g. "All cities").
+
 ### Header in an existing view
 
 Use the header component without adopting the layout component:

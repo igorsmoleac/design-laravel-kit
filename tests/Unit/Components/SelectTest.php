@@ -396,4 +396,35 @@ class SelectTest extends TestCase
 
         $this->assertStringNotContainsString('is-invalid', $default);
     }
+
+    public function test_options_can_be_provided_via_slot(): void
+    {
+        $html = (string) $this->blade('<x-italia::select name="city"><option value="mi">Milano</option><option value="na">Napoli</option></x-italia::select>');
+
+        $this->assertStringContainsString('<option value="mi">Milano</option>', $html);
+        $this->assertStringContainsString('<option value="na">Napoli</option>', $html);
+    }
+
+    public function test_slot_options_take_precedence_over_options_prop(): void
+    {
+        $html = (string) $this->blade('<x-italia::select name="city" :options="[\'fr\' => \'Francia\']"><option value="mi">Milano</option></x-italia::select>');
+
+        $this->assertStringContainsString('<option value="mi">Milano</option>', $html);
+        $this->assertStringNotContainsString('<option value="fr">Francia</option>', $html);
+    }
+
+    public function test_placeholder_can_be_selectable_when_not_disabled(): void
+    {
+        $html = (string) $this->blade('<x-italia::select name="city" placeholder="Tutte le città" :placeholder-disabled="false" :options="[\'mi\' => \'Milano\']" />');
+
+        $this->assertStringContainsString('<option value="" selected>Tutte le città</option>', $html);
+        $this->assertStringNotContainsString('<option value="" disabled', $html);
+    }
+
+    public function test_placeholder_is_disabled_by_default(): void
+    {
+        $html = (string) $this->blade('<x-italia::select name="city" placeholder="Seleziona..." :options="[\'mi\' => \'Milano\']" />');
+
+        $this->assertStringContainsString('<option value="" disabled selected>Seleziona...</option>', $html);
+    }
 }

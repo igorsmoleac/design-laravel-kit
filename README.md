@@ -175,6 +175,19 @@ I componenti form collegano gli errori della sessione Laravel e ripristinano i v
 </form>
 ```
 
+### Select con opzioni personalizzate
+
+Le opzioni possono essere passate anche come slot Blade, che ha precedenza su `:options`:
+
+```blade
+<x-italia::select name="city" label="Città" placeholder="Tutte le città" :placeholder-disabled="false">
+    <option value="mi">Milano</option>
+    <option value="na">Napoli</option>
+</x-italia::select>
+```
+
+Il parametro `placeholderDisabled` (default `true`) mantiene il placeholder non selezionabile come prima; con `:placeholder-disabled="false"` l'opzione vuota resta selezionabile, utile nei filtri (es. «Tutte le città»).
+
 ### Header in una vista esistente
 
 Usare il componente header senza adottare il componente layout:
