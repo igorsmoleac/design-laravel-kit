@@ -10,12 +10,16 @@
                             @else
                                 <x-italia::icon name="it-code-circle" size="xl" />
                             @endif
-                            <div class="it-brand-text">
-                                <div class="it-brand-title">{{ $title }}</div>
-                                @if ($hasTagline())
-                                    <div class="it-brand-tagline d-none d-md-block">{{ $tagline }}</div>
-                                @endif
-                            </div>
+                            @if ($title)
+                                <div class="it-brand-text">
+                                    <div class="it-brand-title">{{ $title }}</div>
+                                    @if ($hasTagline())
+                                        <div class="it-brand-tagline d-none d-md-block">{{ $tagline }}</div>
+                                    @endif
+                                </div>
+                            @elseif ($hasTagline())
+                                <div class="it-brand-tagline d-none d-md-block">{{ $tagline }}</div>
+                            @endif
                         </a>
                     </div>
 

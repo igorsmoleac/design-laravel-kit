@@ -29,6 +29,8 @@ class ConfigDtoTest extends TestCase
         ]);
 
         $this->assertSame('Comune di Roma', $slim->ente);
+        $this->assertSame('Comune di Roma', $center->title);
+        $this->assertSame('Comune di Roma', $footer->title);
         $this->assertSame('/search', $center->searchUrl);
         $this->assertInstanceOf(NavItemConfig::class, $navbar->items[0]);
         $this->assertInstanceOf(LegalLinkConfig::class, $footer->legalLinks[0]);
@@ -60,6 +62,26 @@ class ConfigDtoTest extends TestCase
         $this->assertSame('/it/servizi', $footer->sections[0]['url']);
     }
 
+    public function test_footer_config_accepts_a_null_title(): void
+    {
+        $this->assertNull(FooterConfig::fromArray(['title' => null])->title);
+    }
+
+    public function test_footer_config_normalizes_an_empty_title_to_null(): void
+    {
+        $this->assertNull(FooterConfig::fromArray(['title' => ''])->title);
+    }
+
+    public function test_center_config_accepts_a_null_title(): void
+    {
+        $this->assertNull(CenterConfig::fromArray(['title' => null])->title);
+    }
+
+    public function test_center_config_normalizes_an_empty_title_to_null(): void
+    {
+        $this->assertNull(CenterConfig::fromArray(['title' => ''])->title);
+    }
+
     public function test_nested_lists_become_typed_dtos(): void
     {
         $navbar = NavbarConfig::fromArray([
@@ -79,14 +101,12 @@ class ConfigDtoTest extends TestCase
     public function test_empty_required_fields_name_the_invalid_field(): void
     {
         $this->assertInvalidArgument(fn () => SlimConfig::fromArray(['ente' => '']), 'ente');
-        $this->assertInvalidArgument(fn () => CenterConfig::fromArray(['title' => '  ']), 'title');
         $this->assertInvalidArgument(fn () => NavItemConfig::fromArray(['text' => '', 'url' => '/']), 'text');
         $this->assertInvalidArgument(fn () => NavItemConfig::fromArray(['text' => 'Home', 'url' => '']), 'url');
         $this->assertInvalidArgument(fn () => LegalLinkConfig::fromArray(['url' => '', 'text' => 'Privacy']), 'url');
         $this->assertInvalidArgument(fn () => LegalLinkConfig::fromArray(['url' => '/privacy', 'text' => '']), 'text');
         $this->assertInvalidArgument(fn () => SocialLinkConfig::fromArray(['url' => '', 'label' => 'Social']), 'url');
         $this->assertInvalidArgument(fn () => SocialLinkConfig::fromArray(['url' => '/social', 'label' => '']), 'label');
-        $this->assertInvalidArgument(fn () => FooterConfig::fromArray(['title' => '']), 'title');
     }
 
     public function test_invalid_http_urls_name_the_invalid_field(): void

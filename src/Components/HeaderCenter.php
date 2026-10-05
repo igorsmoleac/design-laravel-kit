@@ -14,7 +14,7 @@ class HeaderCenter extends BaseComponent
     private bool $socialLinksPresent = false;
 
     public function __construct(
-        public string $title = '',
+        public ?string $title = null,
         public ?string $tagline = null,
         public ?string $logo = null,
         public ?string $logoAlt = null,
@@ -22,11 +22,7 @@ class HeaderCenter extends BaseComponent
         public ?string $searchUrl = null,
         public bool $small = false,
         public bool $light = false,
-    ) {
-        if ($this->title === '') {
-            $this->title = (string) config('app.name', '');
-        }
-    }
+    ) {}
 
     public function render(): Closure
     {

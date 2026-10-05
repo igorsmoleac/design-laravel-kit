@@ -56,26 +56,45 @@ BLADE);
         $this->assertStringContainsString('aria-label="Cerca"', $html);
     }
 
-    public function test_title_defaults_to_application_name_when_omitted(): void
+    public function test_omitted_title_does_not_use_application_name(): void
     {
         config(['app.name' => 'Comune']);
 
         $html = (string) $this->blade('<x-italia::header-center />');
 
-        $this->assertStringContainsString('Comune', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
     }
 
-    public function test_header_center_rejects_missing_title_when_application_name_is_empty(): void
+    public function test_header_center_renders_without_title_when_application_name_is_empty(): void
     {
         config(['app.name' => '']);
 
-        try {
-            $this->blade('<x-italia::header-center />');
-            $this->fail('A header center without a title or application name must be rejected.');
-        } catch (ViewException $exception) {
-            $this->assertInstanceOf(\InvalidArgumentException::class, $exception->getPrevious());
-            $this->assertStringContainsString("Field 'title'", $exception->getPrevious()->getMessage());
-        }
+        $html = (string) $this->blade('<x-italia::header-center />');
+
+        $this->assertStringContainsString('it-header-center-wrapper', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
+        $this->assertStringNotContainsString('it-brand-title', $html);
+    }
+
+    public function test_logo_renders_without_a_title(): void
+    {
+        config(['app.name' => '']);
+
+        $html = (string) $this->blade('<x-italia::header-center logo="/logo.svg" />');
+
+        $this->assertStringContainsString('src="/logo.svg" alt=""', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
+    }
+
+    public function test_tagline_renders_without_a_title(): void
+    {
+        config(['app.name' => '']);
+
+        $html = (string) $this->blade('<x-italia::header-center tagline="Services" />');
+
+        $this->assertStringContainsString('it-brand-tagline', $html);
+        $this->assertStringContainsString('Services', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
     }
 
     public function test_invalid_search_url_is_rejected(): void
