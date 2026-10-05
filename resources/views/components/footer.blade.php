@@ -11,12 +11,14 @@
                                 @else
                                     <x-italia::icon name="it-code-circle" />
                                 @endif
-                                <div class="it-brand-text">
-                                    <h2 class="no_toc">{{ $title }}</h2>
-                                    @if ($hasSubtitle())
-                                        <h3 class="no_toc d-none d-md-block">{{ $subtitle }}</h3>
-                                    @endif
-                                </div>
+                                @if ($title)
+                                    <div class="it-brand-text">
+                                        <h2 class="no_toc">{{ $title }}</h2>
+                                        @if ($hasSubtitle())
+                                            <h3 class="no_toc d-none d-md-block">{{ $subtitle }}</h3>
+                                        @endif
+                                    </div>
+                                @endif
                             </a>
                         </div>
                     </div>

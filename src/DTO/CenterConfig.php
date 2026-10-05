@@ -2,12 +2,12 @@
 
 namespace IgorSmoleac\DesignLaravelKit\DTO;
 
-use InvalidArgumentException;
-
 final readonly class CenterConfig
 {
+    public ?string $title;
+
     public function __construct(
-        public string $title,
+        ?string $title = null,
         public ?string $tagline = null,
         public ?string $logo = null,
         public ?string $logoAlt = null,
@@ -16,9 +16,7 @@ final readonly class CenterConfig
         public bool $small = false,
         public bool $light = false,
     ) {
-        if (trim($this->title) === '') {
-            throw new InvalidArgumentException("Field 'title' must be a non-empty string.");
-        }
+        $this->title = $title === '' ? null : $title;
 
         if ($this->logo !== null && $this->logo !== '') {
             ConfigValidator::logoUrl($this->logo, 'logo');
@@ -34,7 +32,7 @@ final readonly class CenterConfig
         $data = ConfigValidator::normalize($data);
 
         return new self(
-            title: ConfigValidator::requiredString($data, 'title'),
+            title: ConfigValidator::optionalString($data, 'title'),
             tagline: ConfigValidator::optionalString($data, 'tagline'),
             logo: ConfigValidator::optionalString($data, 'logo'),
             logoAlt: ConfigValidator::optionalString($data, 'logoAlt'),

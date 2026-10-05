@@ -65,17 +65,14 @@ BLADE);
         $this->assertStringContainsString('href="/privacy"', $html);
     }
 
-    public function test_footer_rejects_missing_title_when_application_name_is_empty(): void
+    public function test_footer_renders_without_title_when_application_name_is_empty(): void
     {
         config(['app.name' => '']);
 
-        try {
-            $this->blade('<x-italia::footer />');
-            $this->fail('A footer without a title or application name must be rejected.');
-        } catch (ViewException $exception) {
-            $this->assertInstanceOf(\InvalidArgumentException::class, $exception->getPrevious());
-            $this->assertStringContainsString("Field 'title'", $exception->getPrevious()->getMessage());
-        }
+        $html = (string) $this->blade('<x-italia::footer />');
+
+        $this->assertStringContainsString('class="it-footer"', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
     }
 
     public function test_invalid_brand_url_is_rejected(): void
@@ -324,19 +321,46 @@ BLADE);
         $this->assertStringContainsString('<img class="icon"', $html);
     }
 
-    public function test_footer_uses_laravel_application_name_when_title_is_omitted(): void
+    public function test_standalone_footer_does_not_infer_title_from_application_name(): void
     {
         config(['app.name' => 'Laravel']);
 
         $html = (string) $this->blade('<x-italia::footer />');
 
-        $this->assertStringContainsString('<h2 class="no_toc">Laravel</h2>', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
     }
 
     public function test_footer_renders_with_an_explicit_title(): void
     {
-        $html = (string) $this->blade('<x-italia::footer title="X" />');
+        $html = (string) $this->blade('<x-italia::footer title="Comune" />');
 
-        $this->assertStringContainsString('<h2 class="no_toc">X</h2>', $html);
+        $this->assertStringContainsString('<h2 class="no_toc">Comune</h2>', $html);
+    }
+
+    public function test_footer_renders_logo_and_copyright_without_title(): void
+    {
+        config(['app.name' => '']);
+
+        $html = (string) $this->blade('<x-italia::footer logo="/logo.svg" copyright="© Comune" />');
+
+        $this->assertStringContainsString('src="/logo.svg" alt=""', $html);
+        $this->assertStringContainsString('© Comune', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
+    }
+
+    public function test_footer_renders_sections_and_legal_links_without_title(): void
+    {
+        config(['app.name' => '']);
+
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::footer>
+    <x-slot:sections><div>Services</div></x-slot:sections>
+    <x-slot:legal-links><x-italia::footer-legal-link url="/privacy" text="Privacy" /></x-slot:legal-links>
+</x-italia::footer>
+BLADE);
+
+        $this->assertStringContainsString('Services', $html);
+        $this->assertStringContainsString('href="/privacy"', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
     }
 }

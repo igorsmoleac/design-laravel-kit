@@ -375,4 +375,32 @@ BLADE);
         $this->assertStringContainsString('href="/privacy"', $html);
         $this->assertStringContainsString('data-element="privacy-policy-link"', $html);
     }
+
+    public function test_layout_renders_without_footer_title_when_application_name_is_empty(): void
+    {
+        config(['app.name' => '']);
+
+        $html = (string) $this->blade('<x-italia::layout />');
+
+        $this->assertStringContainsString('<footer', $html);
+        $this->assertStringNotContainsString('it-brand-text', $html);
+    }
+
+    public function test_layout_uses_explicit_footer_title_when_application_name_is_empty(): void
+    {
+        config(['app.name' => '']);
+
+        $html = (string) $this->blade('<x-italia::layout footer-title="X" />');
+
+        $this->assertStringContainsString('<h2 class="no_toc">X</h2>', $html);
+    }
+
+    public function test_layout_uses_laravel_as_default_footer_title(): void
+    {
+        config(['app.name' => 'Laravel']);
+
+        $html = (string) $this->blade('<x-italia::layout />');
+
+        $this->assertStringContainsString('<h2 class="no_toc">Laravel</h2>', $html);
+    }
 }
