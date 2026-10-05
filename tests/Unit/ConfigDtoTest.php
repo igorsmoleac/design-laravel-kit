@@ -39,6 +39,27 @@ class ConfigDtoTest extends TestCase
         }
     }
 
+    public function test_all_config_dtos_accept_safe_url_forms(): void
+    {
+        $slim = SlimConfig::fromArray(['ente' => 'Comune', 'ente-url' => 'https://www.comune.it/città']);
+        $center = CenterConfig::fromArray(['title' => 'Comune', 'url' => '#', 'search-url' => '../servizi']);
+        $navbar = NavbarConfig::fromArray(['items' => [['text' => 'Servizi', 'url' => 'servizi.html']]]);
+        $footer = FooterConfig::fromArray([
+            'title' => 'Comune',
+            'url' => 'tel:+3906000000',
+            'legal-links' => [['url' => 'mailto:info@example.it', 'text' => 'Privacy']],
+            'social' => [['url' => './social', 'label' => 'Social']],
+            'sections' => [['title' => 'Servizi', 'url' => '/it/servizi']],
+        ]);
+
+        $this->assertSame('https://www.comune.it/città', $slim->enteUrl);
+        $this->assertSame('#', $center->url);
+        $this->assertSame('servizi.html', $navbar->items[0]->url);
+        $this->assertSame('mailto:info@example.it', $footer->legalLinks[0]->url);
+        $this->assertSame('./social', $footer->social[0]->url);
+        $this->assertSame('/it/servizi', $footer->sections[0]['url']);
+    }
+
     public function test_nested_lists_become_typed_dtos(): void
     {
         $navbar = NavbarConfig::fromArray([

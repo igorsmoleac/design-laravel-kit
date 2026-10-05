@@ -72,6 +72,28 @@ BLADE);
         $this->assertStringContainsString('data-test="menu"', $html);
     }
 
+    public function test_dropdown_nav_item_without_url_uses_hash_fallback(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Servizi" dropdown><li><a href="/anagrafe">Anagrafe</a></li></x-italia::header-nav-item></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('class="nav-link dropdown-toggle" href="#"', $html);
+    }
+
+    public function test_nav_item_without_dropdown_still_requires_a_url(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage("Field 'url'");
+
+        $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Home" /></x-italia::header-navbar>');
+    }
+
+    public function test_dropdown_nav_item_uses_provided_url_unchanged(): void
+    {
+        $html = (string) $this->blade('<x-italia::header-navbar><x-italia::header-nav-item text="Servizi" url="/servizi" dropdown><li><a href="/anagrafe">Anagrafe</a></li></x-italia::header-nav-item></x-italia::header-navbar>');
+
+        $this->assertStringContainsString('class="nav-link dropdown-toggle" href="/servizi"', $html);
+    }
+
     public function test_header_nav_item_renders_dropdown_with_nested_slot_items(): void
     {
         $html = (string) $this->blade(<<<'BLADE'

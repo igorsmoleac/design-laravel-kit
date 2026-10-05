@@ -79,20 +79,46 @@ final class ConfigValidator
 
     public static function assertUrl(?string $url, string $field): void
     {
-        if ($url === null || $url === '') {
+        if ($url === null) {
             return;
         }
 
-        if (str_starts_with($url, '/') && ! str_starts_with($url, '//')) {
-            if (preg_match('/[\s<>"\']/', $url) === 1) {
-                throw new InvalidArgumentException("Field '{$field}' must be a valid HTTP(S) URL or root-relative path.");
+        $normalizedUrl = ltrim($url, " \t");
+        $hasScheme = preg_match('/^([a-z][a-z0-9+.-]*):/i', $normalizedUrl, $schemeMatch) === 1;
+        $scheme = $hasScheme ? strtolower($schemeMatch[1]) : null;
+
+        if ($hasScheme && ! in_array($scheme, ['http', 'https', 'mailto', 'tel'], true)) {
+            self::throwInvalidUrl($url, $field);
+        }
+
+        if ($url === '' || preg_match('/[\x00-\x20\x7F<>"\'\\\\]/', $url) === 1) {
+            self::throwInvalidUrl($url, $field);
+        }
+
+        if ($url[0] === '#') {
+            return;
+        }
+
+        if ($scheme === 'mailto' || $scheme === 'tel') {
+            if (substr($normalizedUrl, strlen($schemeMatch[0])) === '') {
+                self::throwInvalidUrl($url, $field);
             }
 
             return;
         }
 
-        if (! preg_match('#^https?://#i', $url) || filter_var($url, FILTER_VALIDATE_URL) === false) {
-            throw new InvalidArgumentException("Field '{$field}' must be a valid HTTP(S) URL or root-relative path.");
+        $parsedUrl = parse_url($url);
+
+        if ($scheme === 'http' || $scheme === 'https') {
+            if (! is_array($parsedUrl) || empty($parsedUrl['host'])) {
+                self::throwInvalidUrl($url, $field);
+            }
+
+            return;
+        }
+
+        if (str_starts_with($url, '//') || ! is_array($parsedUrl) || empty($parsedUrl['path'])) {
+            self::throwInvalidUrl($url, $field);
         }
     }
 
@@ -123,9 +149,21 @@ final class ConfigValidator
     /** @param array<string, mixed> $data */
     public static function requiredUrl(array $data, string $field): string
     {
-        $url = self::requiredString($data, $field);
+        $url = self::optionalString($data, $field);
+
+        if ($url === null) {
+            return self::requiredString($data, $field);
+        }
+
         self::assertUrl($url, $field);
 
         return $url;
+    }
+
+    private static function throwInvalidUrl(string $url, string $field): never
+    {
+        $displayUrl = Str::length($url) > 80 ? Str::substr($url, 0, 77) . '...' : $url;
+
+        throw new InvalidArgumentException("Field '{$field}' value '{$displayUrl}' is not a valid link. Allowed: http(s), mailto:, tel:, #fragment, root-relative, relative path.");
     }
 }

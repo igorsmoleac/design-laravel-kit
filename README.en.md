@@ -241,6 +241,12 @@ Blade components use the `<x-italia::` prefix.
 | `<x-italia::footer-section>` | Footer section with slotted content |
 | `<x-italia::footer-social-link>` | Social link for the footer |
 
+### URL policy
+
+URL fields accept absolute `http`/`https` URLs, `mailto:`, `tel:`, `#fragment` anchors, root-relative paths, and relative paths.
+Non-ASCII characters, including accented characters, are allowed in URLs.
+Other schemes such as `javascript:`, `data:`, `vbscript:`, and `file:` are rejected; `data:image/*` is accepted only for `logo`.
+
 The `slim`, `center`, `navbar`, `footer`, `sections`, `social`, and `legal-links` slots use named Blade attributes, not arrays. Standalone `HeaderSlim`, `HeaderCenter`, and `HeaderNavbar` components also use scalar attributes and slots, not arrays. Readonly DTOs (`SlimConfig`, `CenterConfig`, etc.) are internal implementation details and must not be passed from Blade templates.
 
 ## Migration from 0.4.x
