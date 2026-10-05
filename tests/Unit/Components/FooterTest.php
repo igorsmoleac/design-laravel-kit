@@ -3,6 +3,8 @@
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\Components\Footer;
+use IgorSmoleac\DesignLaravelKit\Components\FooterSection;
+use IgorSmoleac\DesignLaravelKit\Components\FooterSocialLink;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
@@ -63,12 +65,17 @@ BLADE);
         $this->assertStringContainsString('href="/privacy"', $html);
     }
 
-    public function test_missing_required_title_is_rejected(): void
+    public function test_footer_rejects_missing_title_when_application_name_is_empty(): void
     {
-        $this->expectException(ViewException::class);
-        $this->expectExceptionMessage("Field 'title'");
+        config(['app.name' => '']);
 
-        $this->blade('<x-italia::footer />');
+        try {
+            $this->blade('<x-italia::footer />');
+            $this->fail('A footer without a title or application name must be rejected.');
+        } catch (ViewException $exception) {
+            $this->assertInstanceOf(\InvalidArgumentException::class, $exception->getPrevious());
+            $this->assertStringContainsString("Field 'title'", $exception->getPrevious()->getMessage());
+        }
     }
 
     public function test_invalid_brand_url_is_rejected(): void
@@ -155,10 +162,10 @@ BLADE);
     public function test_footer_section_requires_title_and_validates_url(): void
     {
         try {
-            $this->blade('<x-italia::footer title="Comune"><x-slot:sections><x-italia::footer-section /></x-slot:sections></x-italia::footer>');
-            $this->fail('A footer section without a title must be rejected.');
-        } catch (ViewException $exception) {
-            $this->assertStringContainsString("Field 'title'", $exception->getMessage());
+            new FooterSection;
+            $this->fail('A footer section without a title must be rejected during construction.');
+        } catch (\ArgumentCountError $exception) {
+            $this->assertStringContainsString('Too few arguments', $exception->getMessage());
         }
 
         try {
@@ -214,10 +221,10 @@ BLADE);
         $this->assertStringContainsString('sprites.svg#it-facebook', $html);
 
         try {
-            $this->blade('<x-italia::footer title="Comune"><x-slot:social><x-italia::footer-social-link url="https://example.com" /></x-slot:social></x-italia::footer>');
-            $this->fail('A social link without a label must be rejected.');
-        } catch (ViewException $exception) {
-            $this->assertStringContainsString("Field 'label'", $exception->getMessage());
+            new FooterSocialLink(url: 'https://example.com');
+            $this->fail('A social link without a label must be rejected during construction.');
+        } catch (\ArgumentCountError $exception) {
+            $this->assertStringContainsString('Too few arguments', $exception->getMessage());
         }
     }
 
@@ -315,5 +322,21 @@ BLADE);
 
         $this->assertStringContainsString('src="data:image/svg+xml;base64,PHN2Zy8+"', $html);
         $this->assertStringContainsString('<img class="icon"', $html);
+    }
+
+    public function test_footer_uses_laravel_application_name_when_title_is_omitted(): void
+    {
+        config(['app.name' => 'Laravel']);
+
+        $html = (string) $this->blade('<x-italia::footer />');
+
+        $this->assertStringContainsString('<h2 class="no_toc">Laravel</h2>', $html);
+    }
+
+    public function test_footer_renders_with_an_explicit_title(): void
+    {
+        $html = (string) $this->blade('<x-italia::footer title="X" />');
+
+        $this->assertStringContainsString('<h2 class="no_toc">X</h2>', $html);
     }
 }

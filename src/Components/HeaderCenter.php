@@ -22,7 +22,11 @@ class HeaderCenter extends BaseComponent
         public ?string $searchUrl = null,
         public bool $small = false,
         public bool $light = false,
-    ) {}
+    ) {
+        if ($this->title === '') {
+            $this->title = (string) config('app.name', '');
+        }
+    }
 
     public function render(): Closure
     {

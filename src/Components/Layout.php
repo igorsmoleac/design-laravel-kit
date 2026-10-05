@@ -62,7 +62,8 @@ class Layout extends BaseComponent
                 'url' => $this->footerUrl,
                 'copyright' => $this->footerCopyright,
             ];
-            $this->footerConfig = FooterConfig::fromArray(array_merge($footerDefaults, $footer ?? []));
+            $footerAttributes = array_merge($footerDefaults, $footer ?? []);
+            $this->footerConfig = FooterConfig::fromArray($footerAttributes);
             $footerSections = $data['footerSections'] ?? $data['footer-sections'] ?? null;
             $footerContacts = $data['footerContacts'] ?? $data['footer-contacts'] ?? null;
             $footerSocial = $data['footerSocial'] ?? $data['footer-social'] ?? null;

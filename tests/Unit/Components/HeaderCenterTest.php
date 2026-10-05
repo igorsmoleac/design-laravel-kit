@@ -2,6 +2,7 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\HeaderSocialLink;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
@@ -55,12 +56,26 @@ BLADE);
         $this->assertStringContainsString('aria-label="Cerca"', $html);
     }
 
-    public function test_missing_required_title_is_rejected(): void
+    public function test_title_defaults_to_application_name_when_omitted(): void
     {
-        $this->expectException(ViewException::class);
-        $this->expectExceptionMessage("Field 'title'");
+        config(['app.name' => 'Comune']);
 
-        $this->blade('<x-italia::header-center />');
+        $html = (string) $this->blade('<x-italia::header-center />');
+
+        $this->assertStringContainsString('Comune', $html);
+    }
+
+    public function test_header_center_rejects_missing_title_when_application_name_is_empty(): void
+    {
+        config(['app.name' => '']);
+
+        try {
+            $this->blade('<x-italia::header-center />');
+            $this->fail('A header center without a title or application name must be rejected.');
+        } catch (ViewException $exception) {
+            $this->assertInstanceOf(\InvalidArgumentException::class, $exception->getPrevious());
+            $this->assertStringContainsString("Field 'title'", $exception->getPrevious()->getMessage());
+        }
     }
 
     public function test_invalid_search_url_is_rejected(): void
@@ -123,10 +138,10 @@ BLADE);
         $this->assertStringNotContainsString('it-search-wrapper', $html);
 
         try {
-            $this->blade('<x-italia::header-center title="Comune"><x-slot:social-links><x-italia::header-social-link url="https://example.com" /></x-slot:social-links></x-italia::header-center>');
-            $this->fail('A header social link without a label must be rejected.');
-        } catch (ViewException $exception) {
-            $this->assertStringContainsString("Field 'label'", $exception->getMessage());
+            new HeaderSocialLink(url: 'https://example.com');
+            $this->fail('A header social link without a label must be rejected during construction.');
+        } catch (\ArgumentCountError $exception) {
+            $this->assertStringContainsString('Too few arguments', $exception->getMessage());
         }
     }
 
