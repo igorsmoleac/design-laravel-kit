@@ -96,14 +96,23 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
 
     protected function registerBladeDirectives(): void
     {
-        Blade::directive('designLaravelKitStyles', fn () => <<<'PHP'
+        Blade::directive('designLaravelKitStyles', function ($expression) {
+            $nonceExpression = trim((string) $expression) !== '' ? "({$expression})" : '(null)';
+
+            return str_replace(
+                '__DLK_NONCE_EXPRESSION__',
+                $nonceExpression,
+                <<<'PHP'
 <?php
 $designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
 $designLaravelKitVersion = config('design-laravel-kit.version');
-echo '<link rel="stylesheet" href="' . e(asset($designLaravelKitAssetsPath . '/css/design-laravel-kit.css') . '?v=' . $designLaravelKitVersion) . '">';
+$designLaravelKitNonce = \IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator::cspNonce(__DLK_NONCE_EXPRESSION__, config('design-laravel-kit.csp_nonce'));
+$designLaravelKitNonceAttribute = $designLaravelKitNonce === null ? '' : ' nonce="' . $designLaravelKitNonce . '"';
+echo '<link' . $designLaravelKitNonceAttribute . ' rel="stylesheet" href="' . e(asset($designLaravelKitAssetsPath . '/css/design-laravel-kit.css') . '?v=' . $designLaravelKitVersion) . '">';
 ?>
 PHP
-        );
+            );
+        });
 
         Blade::directive('designLaravelKitScripts', function ($expression) {
             $nonceExpression = trim((string) $expression) !== '' ? "({$expression})" : '(null)';

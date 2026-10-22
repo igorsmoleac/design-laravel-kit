@@ -102,4 +102,20 @@ class BladeDirectivesTest extends TestCase
 
         Blade::render("@designLaravelKitScripts('bad nonce with spaces')");
     }
+
+    public function test_styles_directive_accepts_nonce_argument(): void
+    {
+        $html = Blade::render("@designLaravelKitStyles('abc123')");
+
+        $this->assertStringContainsString('<link nonce="abc123" rel="stylesheet"', $html);
+    }
+
+    public function test_styles_directive_uses_csp_nonce_from_config(): void
+    {
+        config(['design-laravel-kit.csp_nonce' => 'xyz']);
+
+        $html = Blade::render('@designLaravelKitStyles');
+
+        $this->assertStringContainsString('<link nonce="xyz" rel="stylesheet"', $html);
+    }
 }
