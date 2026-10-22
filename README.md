@@ -488,6 +488,8 @@ Il codice del pacchetto è rilasciato con licenza [BSD-3-Clause](LICENSE), che c
 
 I loghi SPID e CIE inclusi nei rispettivi pulsanti sono marchi dei titolari, non coperti dalla BSD-3-Clause: il logo SPID è fornito da [AgID](https://github.com/italia/spid-sp-access-button) e il logo CIE dal [Ministero dell'Interno](https://idserver.servizicie.interno.gov.it/idp/images/cielogo.png). Il loro uso è limitato al contesto previsto dalle indicazioni dei titolari.
 
+L'elenco completo degli asset di terze parti distribuiti con il pacchetto (Bootstrap Italia, font, loghi) è in [NOTICE.md](NOTICE.md).
+
 ## Riferimenti
 
 - Il design system incluso è [Bootstrap Italia 2.18.3](https://italia.github.io/bootstrap-italia).
