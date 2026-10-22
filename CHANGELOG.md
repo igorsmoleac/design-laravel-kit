@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Direttiva `@designLaravelKitStyles`: supporto nonce per Content Security Policy restrittive.
+
 ### Changed
 
 ### Fixed
