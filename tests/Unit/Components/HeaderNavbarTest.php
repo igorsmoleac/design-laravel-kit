@@ -241,4 +241,35 @@ BLADE);
         $this->assertStringContainsString('class="nav-item dropdown megamenu"', $html);
         $this->assertStringContainsString('href="/verde"', $html);
     }
+
+    public function test_megamenu_in_first_navbar_does_not_leak_into_second(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header-navbar id="first">
+    <x-italia::header-megamenu text="Servizi" url="/servizi">
+        <x-italia::header-megamenu-section heading="Anagrafe"></x-italia::header-megamenu-section>
+    </x-italia::header-megamenu>
+</x-italia::header-navbar>
+<x-italia::header-navbar id="second">
+    <x-italia::header-nav-item text="Home" url="/" />
+</x-italia::header-navbar>
+BLADE);
+
+        $this->assertSame(1, substr_count($html, 'has-megamenu'));
+    }
+
+    public function test_standalone_megamenu_does_not_affect_subsequent_navbar(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header-megamenu text="Servizi" url="/servizi">
+    <x-italia::header-megamenu-section heading="Anagrafe"></x-italia::header-megamenu-section>
+</x-italia::header-megamenu>
+<x-italia::header-navbar id="after">
+    <x-italia::header-nav-item text="Home" url="/" />
+</x-italia::header-navbar>
+BLADE);
+
+        $this->assertStringContainsString('data-dlk-megamenu="true"', $html);
+        $this->assertStringNotContainsString('has-megamenu', $html);
+    }
 }

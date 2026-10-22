@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Badge, Spinner, Modal, Icon, Button: i parametri variant/size/spacing ora accettano enum dedicati (BadgeVariant, SpinnerSize, ecc.) o stringhe validate; stringhe non valide generano InvalidArgumentException.
 - Alert: il parametro `variant` ora usa la validazione enum stringente come Badge, Spinner, Modal e Button; valori non validi generano `InvalidArgumentException` invece di fallback silenzioso a Info.
+- HeaderNavbar: il rilevamento del megamenu usa un attributo data esplicito invece di uno stato globale condiviso; evita la propagazione tra navbar consecutivi e la dipendenza dall'ordine di render.
 
 ### Fixed
 - Input: per `type="password"` il valore non viene più renderizzato nell'attributo `value`; evita la fuga di vecchi input in HTML per campi non inclusi nel default `$dontFlash` di Laravel.

@@ -1,4 +1,4 @@
-<li {{ $attributes->except('id')->class(['nav-item', 'dropdown', 'megamenu']) }}>
+<li data-dlk-megamenu="true" {{ $attributes->except('id')->class(['nav-item', 'dropdown', 'megamenu']) }}>
     <a
         class="nav-link dropdown-toggle{{ $active ? ' active' : '' }}"
         href="{{ $url ?: '#' }}"
