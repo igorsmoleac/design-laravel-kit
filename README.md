@@ -187,6 +187,15 @@ Le opzioni possono essere passate anche come slot Blade, che ha precedenza su `:
 </x-italia::select>
 ```
 
+Con `<option>` scritti a mano lo stato `selected` va impostato manualmente (es. `@selected(old('city') === 'mi')`). In alternativa usare `<x-italia::select-option>`, che applica automaticamente `selected` in base a old input e al parametro `selected`:
+
+```blade
+<x-italia::select name="city" label="Città">
+    <x-italia::select-option value="mi">Milano</x-italia::select-option>
+    <x-italia::select-option value="na">Napoli</x-italia::select-option>
+</x-italia::select>
+```
+
 Il parametro `placeholderDisabled` (default `true`) mantiene il placeholder non selezionabile come prima; con `:placeholder-disabled="false"` l'opzione vuota resta selezionabile, utile nei filtri (es. «Tutte le città»).
 
 ### Header in una vista esistente

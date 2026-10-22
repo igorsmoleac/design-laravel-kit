@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Direttiva `@designLaravelKitStyles`: supporto nonce per Content Security Policy restrittive.
+- Select: nuovo componente `x-italia::select-option` per gestire automaticamente lo stato `selected` quando si usa lo slot.
 
 ### Changed
 

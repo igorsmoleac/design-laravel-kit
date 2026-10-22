@@ -427,4 +427,14 @@ class SelectTest extends TestCase
 
         $this->assertStringContainsString('<option value="" disabled selected>Seleziona...</option>', $html);
     }
+
+    public function test_slot_select_option_gets_selected_from_old_input(): void
+    {
+        $this->withSession(['_old_input' => ['city' => 'na']]);
+
+        $html = (string) $this->blade('<x-italia::select name="city" label="Città"><x-italia::select-option value="mi">Milano</x-italia::select-option><x-italia::select-option value="na">Napoli</x-italia::select-option></x-italia::select>');
+
+        $this->assertStringContainsString('<option value="na" selected>Napoli</option>', $html);
+        $this->assertStringNotContainsString('<option value="mi" selected', $html);
+    }
 }
