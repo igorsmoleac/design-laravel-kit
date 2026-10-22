@@ -158,6 +158,32 @@ BLADE);
         $this->assertStringContainsString('it-footer theme-light', $html);
     }
 
+    public function test_sticky_option_renders_sticky_header(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout title="T" sticky>
+    <x-slot:slim ente="Comune"></x-slot:slim>
+    <x-slot:navbar><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar>
+</x-italia::layout>
+BLADE);
+
+        $this->assertStringContainsString('it-header-sticky', $html);
+        $this->assertSame(1, substr_count($html, 'data-bs-toggle="sticky"'));
+    }
+
+    public function test_navbar_slot_sticky_renders_sticky_toggle_when_layout_is_not_sticky(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::layout title="T">
+    <x-slot:slim ente="Comune"></x-slot:slim>
+    <x-slot:navbar sticky="true"><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar>
+</x-italia::layout>
+BLADE);
+
+        $this->assertSame(1, substr_count($html, 'data-bs-toggle="sticky"'));
+        $this->assertStringContainsString('it-header-navbar-wrapper', $html);
+    }
+
     public function test_lang_attribute_overrides_application_locale(): void
     {
         config(['app.locale' => 'it']);

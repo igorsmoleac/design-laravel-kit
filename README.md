@@ -448,7 +448,7 @@ Finestra di dialogo con attributi ARIA e focus trap automatico (tramite il JavaS
 
 Senza `id`, il componente genera un ID univoco (`dlk-modal-...`) che non può essere collegato a un trigger statico `data-bs-target`.
 
-Gli esempi d'uso dei componenti sono nel [catalogo del playground](https://github.com/igorsmoleac/design-laravel-kit/blob/main/playground/resources/views/catalog.blade.php), usato per lo sviluppo.
+Gli esempi d'uso dei componenti sono nel [catalogo online](https://igorsmoleac.github.io/design-laravel-kit/), generato da `docs/` e usato per lo sviluppo.
 
 ## Accessibilità
 

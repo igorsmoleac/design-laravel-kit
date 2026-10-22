@@ -448,7 +448,7 @@ Dialog with ARIA attributes and automatic focus trap (via Bootstrap Italia JavaS
 
 Without `id`, the component generates a unique ID (`dlk-modal-...`) that cannot be referenced by a static `data-bs-target` trigger.
 
-Component examples are in the [playground catalog](https://github.com/igorsmoleac/design-laravel-kit/blob/main/playground/resources/views/catalog.blade.php), which is used during development.
+Component examples are in the [online catalog](https://igorsmoleac.github.io/design-laravel-kit/), generated from `docs/` and used during development.
 
 ## Accessibility
 
