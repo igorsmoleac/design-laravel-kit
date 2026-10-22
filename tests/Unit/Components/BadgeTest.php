@@ -2,7 +2,9 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Badge;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use IgorSmoleac\DesignLaravelKit\Enums\BadgeVariant;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
@@ -27,6 +29,21 @@ class BadgeTest extends TestCase
 
             $this->assertStringContainsString('bg-' . $variant, $html);
         }
+    }
+
+    public function test_variant_accepts_enum_case(): void
+    {
+        $badge = new Badge(variant: BadgeVariant::Danger);
+
+        $this->assertSame('badge bg-danger', $badge->cssClass());
+    }
+
+    public function test_unknown_variant_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown BadgeVariant');
+
+        new Badge(variant: 'magenta');
     }
 
     public function test_pill_renders_rounded_pill(): void

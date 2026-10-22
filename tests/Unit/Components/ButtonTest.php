@@ -4,6 +4,8 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
 use IgorSmoleac\DesignLaravelKit\Components\Button;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use IgorSmoleac\DesignLaravelKit\Enums\ButtonSize;
+use IgorSmoleac\DesignLaravelKit\Enums\ButtonVariant;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
@@ -132,11 +134,28 @@ class ButtonTest extends TestCase
         $this->assertStringNotContainsString('w-100', $html);
     }
 
-    public function test_unknown_variant_falls_back_to_class_without_error(): void
+    public function test_unknown_variant_throws_invalid_argument_exception(): void
     {
-        $html = (string) $this->blade('<x-italia::button variant="magenta">X</x-italia::button>');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown ButtonVariant');
 
-        $this->assertStringContainsString('btn-magenta', $html);
+        new Button(variant: 'magenta');
+    }
+
+    public function test_unknown_size_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown ButtonSize');
+
+        new Button(size: 'huge');
+    }
+
+    public function test_variant_and_size_accept_enum_cases(): void
+    {
+        $button = new Button(variant: ButtonVariant::Secondary, size: ButtonSize::Large);
+
+        $this->assertStringContainsString('btn-secondary', $button->cssClass());
+        $this->assertStringContainsString('btn-lg', $button->cssClass());
     }
 
     public function test_javascript_href_is_rejected(): void

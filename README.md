@@ -322,7 +322,7 @@ Parametri dei componenti con API non banale. Gli attributi HTML comuni (`class`,
 | `title` | `string` | Titolo, obbligatorio |
 | `id` (attributo) | `string` | Necessario per collegare `data-bs-target` |
 | `description` | `?string` | Testo collegato via `aria-describedby` |
-| `size` | `?string` | `sm`, `lg`, `xl` |
+| `size` | `?string\|ModalSize` | `sm`, `lg`, `xl`; stringa non valida → eccezione |
 | `centered`, `scrollable`, `static`, `dismissible` | `bool` | Comportamento della finestra |
 | Slot | | contenuto e `footer` |
 | **`x-italia::select`** | | |
@@ -343,6 +343,21 @@ Parametri dei componenti con API non banale. Gli attributi HTML comuni (`class`,
 | `required`, `disabled`, `readonly`, `floating` | `bool` | Stato del campo |
 | `bag` | `string` | Error bag |
 | `wrapperClass` | `?string` | Classi del contenitore |
+| **`x-italia::icon`** | | |
+| `name` | `string` | Nome dell'icona; prefisso `it-` aggiunto se mancante |
+| `size` | `string\|IconSize` | `xs`, `sm`, `md` (default), `lg`, `xl`; stringa non valida → eccezione |
+| `spacing` | `?string\|IconSpacing` | `left`, `right`, `padded`; stringa non valida → eccezione |
+| `label` | `?string` | Testo per screen reader; senza label l'icona è decorativa |
+| **`x-italia::button`** | | |
+| `variant` | `string\|ButtonVariant` | `primary` (default), `secondary`, `danger`, `outline`, `link`; stringa non valida → eccezione |
+| `size` | `string\|ButtonSize` | `sm`, `md` (default), `lg`; stringa non valida → eccezione |
+| `href`, `loading`, `block` | `?string`, `bool`, `bool` | Pulsante-link, stato di caricamento, larghezza piena |
+| **`x-italia::badge`** | | |
+| `variant` | `string\|BadgeVariant` | `primary` (default), `secondary`, `success`, `danger`, `warning`, `info`, `light`, `dark`; stringa non valida → eccezione |
+| `pill`, `href` | `bool`, `?string` | Variante pill e link |
+| **`x-italia::spinner`** | | |
+| `size` | `string\|SpinnerSize` | `sm`, `md` (default), `lg`, `xl`; stringa non valida → eccezione |
+| `double`, `label`, `decorative` | `bool`, `?string`, `bool` | Spinner doppio, etichetta ARIA, versione decorativa |
 
 ### Politica URL
 

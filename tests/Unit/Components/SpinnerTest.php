@@ -2,7 +2,9 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Spinner;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use IgorSmoleac\DesignLaravelKit\Enums\SpinnerSize;
 use Orchestra\Testbench\TestCase;
 
 class SpinnerTest extends TestCase
@@ -46,6 +48,21 @@ class SpinnerTest extends TestCase
         $html = (string) $this->blade('<x-italia::spinner size="xl" />');
 
         $this->assertStringContainsString('size-xl', $html);
+    }
+
+    public function test_size_accepts_enum_case(): void
+    {
+        $spinner = new Spinner(size: SpinnerSize::Large);
+
+        $this->assertStringContainsString('size-lg', $spinner->cssClass());
+    }
+
+    public function test_unknown_size_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown SpinnerSize');
+
+        new Spinner(size: 'huge');
     }
 
     public function test_spinner_has_role_status_by_default(): void

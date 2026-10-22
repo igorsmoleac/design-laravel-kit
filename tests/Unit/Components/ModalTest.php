@@ -2,7 +2,9 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Modal;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use IgorSmoleac\DesignLaravelKit\Enums\ModalSize;
 use Orchestra\Testbench\TestCase;
 
 class ModalTest extends TestCase
@@ -132,6 +134,30 @@ class ModalTest extends TestCase
         $this->assertStringContainsString('modal-dialog modal-lg', $lg);
         $this->assertStringContainsString('modal-dialog modal-sm', $sm);
         $this->assertStringContainsString('modal-dialog modal-xl', $xl);
+    }
+
+    public function test_size_accepts_enum_case(): void
+    {
+        $modal = new Modal(title: 'T', size: ModalSize::Large);
+
+        $this->assertStringContainsString('modal-lg', $modal->dialogClass());
+    }
+
+    public function test_null_size_renders_no_size_class(): void
+    {
+        $modal = new Modal(title: 'T');
+
+        $this->assertStringNotContainsString('modal-sm', $modal->dialogClass());
+        $this->assertStringNotContainsString('modal-lg', $modal->dialogClass());
+        $this->assertStringNotContainsString('modal-xl', $modal->dialogClass());
+    }
+
+    public function test_unknown_size_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown ModalSize');
+
+        new Modal(title: 'T', size: 'huge');
     }
 
     public function test_static_renders_backdrop_and_keyboard_attributes(): void
