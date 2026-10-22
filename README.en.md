@@ -488,6 +488,8 @@ The package code is released under the [BSD-3-Clause](LICENSE) license, which pe
 
 The SPID and CIE logos included in their respective buttons are trademarks of their owners and are not covered by BSD-3-Clause: the SPID logo is provided by [AgID](https://github.com/italia/spid-sp-access-button), and the CIE logo by the [Italian Ministry of the Interior](https://idserver.servizicie.interno.gov.it/idp/images/cielogo.png). Their use is limited to the context defined by their owners' guidance.
 
+The full list of third-party assets distributed with the package (Bootstrap Italia, fonts, logos) is in [NOTICE.md](NOTICE.md).
+
 ## References
 
 - The included design system is [Bootstrap Italia 2.18.3](https://italia.github.io/bootstrap-italia).
