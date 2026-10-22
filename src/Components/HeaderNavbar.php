@@ -30,8 +30,7 @@ class HeaderNavbar extends BaseComponent
 
             $slotHtml = (string) ($data['slot'] ?? '');
             $this->itemsPresent = trim($slotHtml) !== '';
-            $this->megamenuPresent = view()->shared('dlkHasMegamenu', false) === true;
-            view()->share('dlkHasMegamenu', false);
+            $this->megamenuPresent = str_contains($slotHtml, 'data-dlk-megamenu');
 
             return $this->componentView('design-laravel-kit::components.header-navbar')
                 ->with($data)

@@ -22,8 +22,6 @@ class HeaderMegamenu extends BaseComponent
         return function (array $data): View {
             $this->rejectArrayAttributes(['items', 'megamenu', 'sections']);
 
-            view()->share('dlkHasMegamenu', true);
-
             return $this->componentView('design-laravel-kit::components.header-megamenu')
                 ->with($data);
         };
