@@ -3,9 +3,9 @@ publiccodeYmlVersion: "0"
 name: Design Laravel Kit
 url: "https://github.com/igorsmoleac/design-laravel-kit"
 landingURL: "https://igorsmoleac.github.io/design-laravel-kit/"
-releaseDate: "2026-10-05"
-softwareVersion: "0.5.2"
-developmentStatus: "development"
+releaseDate: "2026-10-22"
+softwareVersion: "1.0.0"
+developmentStatus: "stable"
 softwareType: "library"
 
 platforms:
