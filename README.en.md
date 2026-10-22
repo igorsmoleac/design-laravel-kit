@@ -4,6 +4,7 @@
 [![Laravel 12|13](https://img.shields.io/badge/Laravel-12%20%7C%2013-red.svg)](https://laravel.com)
 [![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-blue.svg)](https://php.net)
 [![Tests](https://github.com/igorsmoleac/design-laravel-kit/actions/workflows/tests.yml/badge.svg)](https://github.com/igorsmoleac/design-laravel-kit/actions)
+[![Developers Italia Catalog](https://img.shields.io/badge/Developers%20Italia-Catalogo-blue)](https://catalogo-software.developers.italia.it/software/ba117856-1ce2-491c-befb-279bf00db715)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/igorsmoleac/design-laravel-kit.svg?style=flat-square)](https://packagist.org/packages/igorsmoleac/design-laravel-kit)
 
 🌐 **[Demo interattiva](https://igorsmoleac.github.io/design-laravel-kit/)**
