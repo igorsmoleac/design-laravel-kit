@@ -314,7 +314,7 @@ Parametri dei componenti con API non banale. Gli attributi HTML comuni (`class`,
 | `headingLevel` | `int` | Livello del titolo, 2–6 (default 3) |
 | Slot | | contenuto e `actions` |
 | **`x-italia::alert`** | | |
-| `variant` | `string\|AlertVariant` | `info` (default), `success`, `warning`, `danger`; valore sconosciuto → `info` |
+| `variant` | `string\|AlertVariant` | `info` (default), `success`, `warning`, `danger`; stringa non valida → eccezione |
 | `title` | `?string` | Titolo |
 | `dismissible` | `bool` | Pulsante di chiusura |
 | `icon` | `bool` | Icona in base alla variante |

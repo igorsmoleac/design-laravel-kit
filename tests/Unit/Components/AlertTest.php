@@ -2,7 +2,9 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Components\Alert;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
+use IgorSmoleac\DesignLaravelKit\Enums\AlertVariant;
 use Orchestra\Testbench\TestCase;
 
 class AlertTest extends TestCase
@@ -34,12 +36,19 @@ class AlertTest extends TestCase
         $this->assertStringContainsString('alert-danger', $danger);
     }
 
-    public function test_unknown_variant_falls_back_to_info(): void
+    public function test_variant_accepts_enum_case(): void
     {
-        $html = (string) $this->blade('<x-italia::alert variant="purple">x</x-italia::alert>');
+        $alert = new Alert(variant: AlertVariant::Danger);
 
-        $this->assertStringContainsString('alert-info', $html);
-        $this->assertStringNotContainsString('alert-purple', $html);
+        $this->assertSame('alert alert-danger', $alert->cssClass());
+    }
+
+    public function test_unknown_variant_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown AlertVariant');
+
+        new Alert(variant: 'oops');
     }
 
     public function test_title_renders_in_alert_heading(): void

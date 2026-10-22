@@ -314,7 +314,7 @@ Parameters of the components with a non-trivial API. Common HTML attributes (`cl
 | `headingLevel` | `int` | Heading level, 2–6 (default 3) |
 | Slots | | content and `actions` |
 | **`x-italia::alert`** | | |
-| `variant` | `string\|AlertVariant` | `info` (default), `success`, `warning`, `danger`; unknown value → `info` |
+| `variant` | `string\|AlertVariant` | `info` (default), `success`, `warning`, `danger`; invalid string → exception |
 | `title` | `?string` | Title |
 | `dismissible` | `bool` | Dismiss button |
 | `icon` | `bool` | Icon based on the variant |
