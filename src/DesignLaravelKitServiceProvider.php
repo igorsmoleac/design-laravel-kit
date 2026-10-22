@@ -106,7 +106,7 @@ class DesignLaravelKitServiceProvider extends ServiceProvider
 <?php
 $designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
 $designLaravelKitVersion = config('design-laravel-kit.version');
-$designLaravelKitNonce = \IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator::cspNonce(__DLK_NONCE_EXPRESSION__, config('design-laravel-kit.csp_nonce'));
+$designLaravelKitNonce = \IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator::cspNonce(__DLK_NONCE_EXPRESSION__, app(\Illuminate\Foundation\Vite::class)->cspNonce());
 $designLaravelKitNonceAttribute = $designLaravelKitNonce === null ? '' : ' nonce="' . $designLaravelKitNonce . '"';
 echo '<link' . $designLaravelKitNonceAttribute . ' rel="stylesheet" href="' . e(asset($designLaravelKitAssetsPath . '/css/design-laravel-kit.css') . '?v=' . $designLaravelKitVersion) . '">';
 ?>
@@ -124,7 +124,7 @@ PHP
 <?php
 $designLaravelKitAssetsPath = config('design-laravel-kit.assets_path');
 $designLaravelKitVersion = config('design-laravel-kit.version');
-$designLaravelKitNonce = \IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator::cspNonce(__DLK_NONCE_EXPRESSION__, config('design-laravel-kit.csp_nonce'));
+$designLaravelKitNonce = \IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator::cspNonce(__DLK_NONCE_EXPRESSION__, app(\Illuminate\Foundation\Vite::class)->cspNonce());
 $designLaravelKitNonceAttribute = $designLaravelKitNonce === null ? '' : ' nonce="' . $designLaravelKitNonce . '"';
 echo '<script' . $designLaravelKitNonceAttribute . ' src="' . e(asset($designLaravelKitAssetsPath . '/js/design-laravel-kit.js') . '?v=' . $designLaravelKitVersion) . '" defer></script>';
 echo '<script' . $designLaravelKitNonceAttribute . '>document.addEventListener("DOMContentLoaded", function () { if (window.bootstrap && window.bootstrap.loadFonts) { window.bootstrap.loadFonts(' . \Illuminate\Support\Js::from(asset($designLaravelKitAssetsPath . '/fonts')) . '); } });</script>';

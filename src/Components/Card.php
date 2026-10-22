@@ -17,10 +17,10 @@ class Card extends BaseComponent
         public bool $teaser = false,
         public int $headingLevel = 3,
     ) {
-        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+        $this->href = ConfigValidator::optionalUrl(['href' => $this->href], 'href');
 
         if ($this->image !== null) {
-            ConfigValidator::logoUrl($this->image, 'image');
+            $this->image = ConfigValidator::logoUrl($this->image, 'image');
         }
     }
 

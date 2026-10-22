@@ -83,14 +83,14 @@ php artisan vendor:publish --tag=design-laravel-kit-config --force
 |--------|------|---------|-------------|
 | `id_prefix` | `string` | `'dlk'` | Prefisso degli ID HTML generati dai componenti |
 | `assets_path` | `string` | `'vendor/design-laravel-kit'` | Percorso pubblico degli asset |
-| `csp_nonce` | `?string` | `null` | Nonce per i tag `<script>` e per il `<link>` degli stili quando l'app usa CSP restrittive |
+| `strict_urls` | `bool` | `true` in locale, `false` altrove | URL non validi: in locale generano un'eccezione, altrove vengono sostituiti con `#` con un warning nel log |
 
 La versione degli asset è risolta automaticamente da `Composer\InstalledVersions`.
 
 `assets_path` deve includere una sottocartella del pacchetto sotto `vendor/`, `assets/` o `build/`, ad esempio `vendor/design-laravel-kit`; non impostarlo sul solo prefisso.
 Questo evita che `--force` cancelli gli asset di altri pacchetti.
 
-Se l'applicazione usa una Content Security Policy restrittiva, impostare `csp_nonce` o passare il nonce come argomento alle direttive: `@designLaravelKitStyles($nonce)` e `@designLaravelKitScripts($nonce)`. L'argomento ha precedenza sulla configurazione; un nonce con caratteri non validi (virgolette, spazi) genera un'eccezione.
+Se l'applicazione usa una Content Security Policy restrittiva (`style-src`/`script-src` con nonce), passare il nonce come argomento alle direttive: `@designLaravelKitStyles($nonce)` e `@designLaravelKitScripts($nonce)`, oppure impostarlo a livello di applicazione con `Vite::useCspNonce($nonce)`: le direttive lo usano automaticamente. L'argomento ha precedenza sul nonce di Vite; un nonce con caratteri non validi (virgolette, spazi) genera un'eccezione.
 
 ### Traduzioni
 
@@ -405,6 +405,8 @@ Per una conformità AgID rigorosa su siti PA in produzione:
 - sovrascrivere le classi `.dlk-spid-button` e `.dlk-cie-button` con CSS personalizzato conforme alla specifica ufficiale.
 
 #### Dropdown SPID
+
+> **Attenzione**: gli URL dei provider predefiniti in `config('design-laravel-kit.spid.providers')` sono segnaposto e restituiscono 404 finché non li si sostituisce con le route reali dell'applicazione.
 
 Con `dropdown` attivo e `providers` vuoto, viene usato `config('design-laravel-kit.spid.providers')`. È possibile sostituire l'elenco e adattare gli URL alle route SPID dell'applicazione:
 

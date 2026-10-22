@@ -14,7 +14,7 @@ class CieButton extends BaseComponent
         public string $size = 'm',
         ?string $label = null,
     ) {
-        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+        $this->href = ConfigValidator::optionalUrl(['href' => $this->href], 'href');
         $this->label = $label ?? __('design-laravel-kit::Entra con CIE');
     }
 

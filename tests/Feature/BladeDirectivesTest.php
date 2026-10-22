@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Feature;
 
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\View\ViewException;
 use Orchestra\Testbench\TestCase;
 
@@ -75,24 +76,26 @@ class BladeDirectivesTest extends TestCase
         $this->assertStringContainsString('<script nonce="abc123">document.addEventListener', $html);
     }
 
-    public function test_scripts_directive_uses_csp_nonce_from_config(): void
+    public function test_directives_use_vite_csp_nonce(): void
     {
-        config(['design-laravel-kit.csp_nonce' => 'xyz']);
+        Vite::useCspNonce('xyz');
 
-        $html = Blade::render('@designLaravelKitScripts');
+        $styles = Blade::render('@designLaravelKitStyles');
+        $scripts = Blade::render('@designLaravelKitScripts');
 
-        $this->assertStringContainsString('<script nonce="xyz" src="', $html);
-        $this->assertStringContainsString('<script nonce="xyz">document.addEventListener', $html);
+        $this->assertStringContainsString('<link nonce="xyz" rel="stylesheet"', $styles);
+        $this->assertStringContainsString('<script nonce="xyz" src="', $scripts);
+        $this->assertStringContainsString('<script nonce="xyz">document.addEventListener', $scripts);
     }
 
-    public function test_scripts_directive_argument_overrides_config_nonce(): void
+    public function test_scripts_directive_argument_overrides_vite_nonce(): void
     {
-        config(['design-laravel-kit.csp_nonce' => 'from-config']);
+        Vite::useCspNonce('from-vite');
 
         $html = Blade::render("@designLaravelKitScripts('from-argument')");
 
         $this->assertStringContainsString('nonce="from-argument"', $html);
-        $this->assertStringNotContainsString('nonce="from-config"', $html);
+        $this->assertStringNotContainsString('nonce="from-vite"', $html);
     }
 
     public function test_scripts_directive_rejects_invalid_nonce(): void
@@ -108,14 +111,5 @@ class BladeDirectivesTest extends TestCase
         $html = Blade::render("@designLaravelKitStyles('abc123')");
 
         $this->assertStringContainsString('<link nonce="abc123" rel="stylesheet"', $html);
-    }
-
-    public function test_styles_directive_uses_csp_nonce_from_config(): void
-    {
-        config(['design-laravel-kit.csp_nonce' => 'xyz']);
-
-        $html = Blade::render('@designLaravelKitStyles');
-
-        $this->assertStringContainsString('<link nonce="xyz" rel="stylesheet"', $html);
     }
 }

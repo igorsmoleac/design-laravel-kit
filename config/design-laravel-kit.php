@@ -3,8 +3,9 @@
 return [
     'id_prefix' => 'dlk',
     'assets_path' => 'vendor/design-laravel-kit',
-    'csp_nonce' => env('DESIGN_LARAVEL_KIT_CSP_NONCE'),
+    'strict_urls' => env('DESIGN_LARAVEL_KIT_STRICT_URLS', env('APP_ENV', 'production') === 'local'),
     'spid' => [
+        // ATTENZIONE: Questi URL sono segnaposto. Sostituiscili con le route reali della tua applicazione prima del deploy in produzione.
         'providers' => [
             ['name' => 'Poste Italiane', 'url' => '/spid/login/poste'],
             ['name' => 'Aruba PEC', 'url' => '/spid/login/aruba'],

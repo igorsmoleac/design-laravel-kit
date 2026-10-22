@@ -2,16 +2,22 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Tests\Unit;
 
+use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use IgorSmoleac\DesignLaravelKit\DTO\CenterConfig;
 use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use IgorSmoleac\DesignLaravelKit\DTO\FooterConfig;
 use IgorSmoleac\DesignLaravelKit\DTO\NavItemConfig;
 use InvalidArgumentException;
+use Orchestra\Testbench\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 
 class ConfigValidatorTest extends TestCase
 {
+    protected function getPackageProviders($app): array
+    {
+        return [DesignLaravelKitServiceProvider::class];
+    }
+
     #[DataProvider('validUrlExamples')]
     public function test_assert_url_accepts_supported_link_forms(string $url): void
     {
@@ -170,6 +176,34 @@ class ConfigValidatorTest extends TestCase
         );
         $this->assertInvalidArgument(
             fn () => NavItemConfig::fromArray(['text' => 'Logo', 'url' => $dataUri]),
+            'url',
+        );
+    }
+
+    public function test_lenient_mode_replaces_invalid_url_with_hash(): void
+    {
+        config(['design-laravel-kit.strict_urls' => false]);
+
+        $this->assertSame('#', ConfigValidator::optionalUrl(['url' => 'javascript:alert(1)'], 'url'));
+        $this->assertSame('#', ConfigValidator::requiredUrl(['url' => 'not a url'], 'url'));
+        $this->assertSame('#', ConfigValidator::logoUrl('javascript:alert(1)', 'logo'));
+    }
+
+    public function test_lenient_mode_does_not_throw_in_assert_url(): void
+    {
+        config(['design-laravel-kit.strict_urls' => false]);
+
+        ConfigValidator::assertUrl('javascript:alert(1)', 'url');
+
+        $this->assertTrue(true);
+    }
+
+    public function test_strict_mode_still_throws_for_invalid_url(): void
+    {
+        config(['design-laravel-kit.strict_urls' => true]);
+
+        $this->assertInvalidArgument(
+            fn () => ConfigValidator::optionalUrl(['url' => 'javascript:alert(1)'], 'url'),
             'url',
         );
     }
