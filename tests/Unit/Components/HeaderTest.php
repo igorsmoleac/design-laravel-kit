@@ -78,6 +78,18 @@ BLADE);
         $this->assertSame(1, substr_count($html, 'data-bs-toggle="sticky"'));
     }
 
+    public function test_child_sticky_applies_when_header_is_not_sticky(): void
+    {
+        $html = (string) $this->blade(<<<'BLADE'
+<x-italia::header>
+    <x-slot:slim ente="Comune" sticky="true"></x-slot:slim>
+    <x-slot:navbar sticky="true"><x-italia::header-nav-item text="Home" url="/" /></x-slot:navbar>
+</x-italia::header>
+BLADE);
+
+        $this->assertSame(2, substr_count($html, 'data-bs-toggle="sticky"'));
+    }
+
     public function test_header_class_flags_can_be_created_directly(): void
     {
         $header = new Header(light: true, small: true);

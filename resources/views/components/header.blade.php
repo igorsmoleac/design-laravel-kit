@@ -6,7 +6,7 @@
             :login-url="$slimConfig->loginUrl"
             :login-label="$slimConfig->loginLabel"
             :light="$light || $slimConfig->light"
-            :sticky="false"
+            :sticky="! $sticky && $slimConfig->sticky"
         >{{ $slim ?? '' }}</x-italia::header-slim>
     @endif
 
@@ -28,7 +28,7 @@
             @if ($navbarConfig)
                 <x-italia::header-navbar
                     :light="$light || $navbarConfig->light"
-                    :sticky="false"
+                    :sticky="! $sticky && $navbarConfig->sticky"
                 >{{ $navbar ?? '' }}</x-italia::header-navbar>
             @endif
         </div>

@@ -19,7 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HeaderNavbar: il rilevamento del megamenu usa un attributo data esplicito invece di uno stato globale condiviso; evita la propagazione tra navbar consecutivi e la dipendenza dall'ordine di render.
 
 ### Fixed
+- Header: lo sticky degli slot `slim` e `navbar` non viene più ignorato; se l'header non è sticky, le parti figlie ricevono il proprio `data-bs-toggle="sticky"`.
 - Input: per `type="password"` il valore non viene più renderizzato nell'attributo `value`; evita la fuga di vecchi input in HTML per campi non inclusi nel default `$dontFlash` di Laravel.
+
+### Docs
+- README: la link al catalogo del playground, non disponibile nel repository, è sostituita dal catalogo online.
 
 ## [0.5.2] - 2026-10-05
 
