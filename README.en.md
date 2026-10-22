@@ -318,6 +318,7 @@ Parameters of the components with a non-trivial API. Common HTML attributes (`cl
 | `title` | `?string` | Title |
 | `dismissible` | `bool` | Dismiss button |
 | `icon` | `bool` | Icon based on the variant |
+| `live` | `bool\|string` | Default `true` → `role="alert"`; `false` → no role (static messages); string → custom role (e.g. `status`) |
 | **`x-italia::modal`** | | |
 | `title` | `string` | Title, required |
 | `id` (attribute) | `string` | Required to bind a `data-bs-target` trigger |

@@ -318,6 +318,7 @@ Parametri dei componenti con API non banale. Gli attributi HTML comuni (`class`,
 | `title` | `?string` | Titolo |
 | `dismissible` | `bool` | Pulsante di chiusura |
 | `icon` | `bool` | Icona in base alla variante |
+| `live` | `bool\|string` | Default `true` → `role="alert"`; `false` → senza role (messaggi statici); stringa → role personalizzata (es. `status`) |
 | **`x-italia::modal`** | | |
 | `title` | `string` | Titolo, obbligatorio |
 | `id` (attributo) | `string` | Necessario per collegare `data-bs-target` |

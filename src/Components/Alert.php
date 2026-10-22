@@ -15,6 +15,7 @@ class Alert extends BaseComponent
         public ?string $title = null,
         public bool $dismissible = false,
         public bool $icon = false,
+        public bool|string $live = true,
     ) {
         $this->variant = $variant instanceof AlertVariant
             ? $variant

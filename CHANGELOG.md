@@ -19,7 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HeaderNavbar: il rilevamento del megamenu usa un attributo data esplicito invece di uno stato globale condiviso; evita la propagazione tra navbar consecutivi e la dipendenza dall'ordine di render.
 
 ### Fixed
-- Header: lo sticky degli slot `slim` e `navbar` non viene più ignorato; se l'header non è sticky, le parti figlie ricevono il proprio `data-bs-toggle="sticky"`.
+- Checkbox/Radio: il prop `checked` ora viene rispettato anche quando esiste old input per altri campi ma non per il campo stesso; prima veniva ignorato in presenza di qualsiasi sessione old input.
+- Alert: nuovo parametro `live` (default `true`); con `false` l'attributo `role="alert"` non viene renderizzato, per messaggi statici che non devono interrompere lo screen reader; una stringa imposta una role personalizzata (es. `status`).
 - Input: per `type="password"` il valore non viene più renderizzato nell'attributo `value`; evita la fuga di vecchi input in HTML per campi non inclusi nel default `$dontFlash` di Laravel.
 
 ### Docs
