@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="csrf-token" content="bIacZXcuO0zsBwZ9qVFloMZzDDEphIW962k9qLh7">
+            <meta name="csrf-token" content="MnPV2ocSnpKKbcYYUm2WxAcEUQmXG3x9FwwW36Qm">
         <title>Catalogo dei componenti — design-laravel-kit</title>
             <meta name="description" content="Catalogo di tutti i componenti di design-laravel-kit">
         <link rel="stylesheet" href="vendor/design-laravel-kit/css/design-laravel-kit.css?v=dev-dev">            <style>
@@ -76,7 +76,7 @@
                                             <a class="d-none d-lg-block navbar-brand" href="https://github.com/igorsmoleac/design-laravel-kit">design-laravel-kit</a>
                                                                 <div class="nav-mobile">
                             <nav aria-label="Secondary navigation">
-                                <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#dlk-header-slim-511-mobile-menu" role="button" aria-expanded="false" aria-controls="dlk-header-slim-511-mobile-menu">
+                                <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#dlk-header-slim-548-mobile-menu" role="button" aria-expanded="false" aria-controls="dlk-header-slim-548-mobile-menu">
                                     <span>design-laravel-kit</span>
                                     <svg
     class="icon"
@@ -85,7 +85,7 @@
     <use href="vendor/design-laravel-kit/svg/sprites.svg#it-expand"></use>
 </svg>
                                 </a>
-                                <div class="link-list-wrapper collapse" id="dlk-header-slim-511-mobile-menu">
+                                <div class="link-list-wrapper collapse" id="dlk-header-slim-548-mobile-menu">
                                     <ul class="link-list"><li><a href="./">Catalogo</a></li></ul>
                                 </div>
                             </nav>
@@ -97,7 +97,7 @@
 </div>
     
             <div class="it-nav-wrapper">
-                            <div id="dlk-header-center-541" class="it-header-center-wrapper">
+                            <div id="dlk-header-center-578" class="it-header-center-wrapper">
     <div class="container-xxl">
         <div class="row">
             <div class="col-12">
@@ -126,11 +126,11 @@
                         <button
                             class="custom-navbar-toggler"
                             type="button"
-                            aria-controls="dlk-header-navbar-540-menu"
+                            aria-controls="dlk-header-navbar-582-menu"
                             aria-expanded="false"
                             aria-label="Open menu"
                             data-bs-toggle="navbarcollapsible"
-                            data-bs-target="#dlk-header-navbar-540-menu"
+                            data-bs-target="#dlk-header-navbar-582-menu"
                         >
                             <svg
     class="icon"
@@ -139,7 +139,7 @@
     <use href="vendor/design-laravel-kit/svg/sprites.svg#it-burger"></use>
 </svg>
                         </button>
-                        <div class="navbar-collapsable" id="dlk-header-navbar-540-menu">
+                        <div class="navbar-collapsable" id="dlk-header-navbar-582-menu">
                             <div class="overlay"></div>
                             <div class="close-div">
                                 <button class="btn close-menu" type="button">
@@ -239,7 +239,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="csrf-token" content="bIacZXcuO0zsBwZ9qVFloMZzDDEphIW962k9qLh7">
+            <meta name="csrf-token" content="MnPV2ocSnpKKbcYYUm2WxAcEUQmXG3x9FwwW36Qm">
         <title>Pagina senza footer</title>
         <link rel="stylesheet" href="vendor/design-laravel-kit/css/design-laravel-kit.css?v=dev-dev">            <style>
             html { scroll-behavior: smooth; }
@@ -356,6 +356,14 @@
     &lt;x-slot:navbar&gt;
         &lt;x-italia::header-nav-item text=&quot;Home&quot; url=&quot;/&quot; active /&gt;
     &lt;/x-slot:navbar&gt;
+&lt;/x-italia::header&gt;
+
+// Sticky solo per il navbar (quando l&#039;header non è sticky):
+&lt;x-italia::header&gt;
+    &lt;x-slot:slim ente=&quot;Comune di Roma&quot;&gt;&lt;/x-slot:slim&gt;
+    &lt;x-slot:navbar sticky=&quot;true&quot;&gt;
+        &lt;x-italia::header-nav-item text=&quot;Home&quot; url=&quot;/&quot; /&gt;
+    &lt;/x-slot:navbar&gt;
 &lt;/x-italia::header&gt;</code></pre>
                 </details>
             </section>
@@ -397,20 +405,24 @@
                 <h2 class="h3 mb-3">Alert</h2>
                 <p>Messaggi di notifica con quattro varianti, titolo opzionale e versione chiudibile. L'icona della variante è resa dal CSS di Bootstrap Italia.</p>
                 <div class="catalog-example">
-                    <div role="alert" class="alert alert-info">
+                    <div  role="alert"  class="alert alert-info">
             <div>Informazione importante.</div>
     </div>
-                    <div role="alert" class="alert alert-success">
+                    <div  role="alert"  class="alert alert-success">
                 <h3 class="alert-heading">Fatto!</h3>
         <div>Operazione completata.</div>
     </div>
-                    <div role="alert" class="alert alert-warning">
+                    <div  role="alert"  class="alert alert-warning">
             <div>Attenzione a questo elemento.</div>
     </div>
-                    <div role="alert" class="alert alert-danger alert-dismissible fade show">
+                    <div  role="alert"  class="alert alert-danger alert-dismissible fade show">
                 <h3 class="alert-heading">Errore</h3>
         <div>Qualcosa è andato storto.</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+                    <div  class="alert alert-info">
+                <h3 class="alert-heading">Informazione statica</h3>
+        <div>Messaggio statico: senza <code>role="alert"</code> lo screen reader non interrompe la lettura.</div>
     </div>
                 </div>
                                 <details class="catalog-code">
@@ -418,7 +430,10 @@
                     <pre><code>&lt;x-italia::alert variant=&quot;info&quot;&gt;Informazione importante.&lt;/x-italia::alert&gt;
 &lt;x-italia::alert variant=&quot;success&quot; title=&quot;Fatto!&quot;&gt;Operazione completata.&lt;/x-italia::alert&gt;
 &lt;x-italia::alert variant=&quot;warning&quot;&gt;Attenzione a questo elemento.&lt;/x-italia::alert&gt;
-&lt;x-italia::alert variant=&quot;danger&quot; title=&quot;Errore&quot; dismissible&gt;Qualcosa è andato storto.&lt;/x-italia::alert&gt;</code></pre>
+&lt;x-italia::alert variant=&quot;danger&quot; title=&quot;Errore&quot; dismissible&gt;Qualcosa è andato storto.&lt;/x-italia::alert&gt;
+
+// :live=&quot;false&quot; — senza role=&quot;alert&quot;, per messaggi statici (default true)
+&lt;x-italia::alert variant=&quot;info&quot; :live=&quot;false&quot; title=&quot;Informazione statica&quot;&gt;Messaggio statico per lo screen reader.&lt;/x-italia::alert&gt;</code></pre>
                 </details>
             </section>
 
@@ -442,7 +457,10 @@
                     <pre><code>&lt;x-italia::badge&gt;Principale&lt;/x-italia::badge&gt;
 &lt;x-italia::badge variant=&quot;success&quot;&gt;Successo&lt;/x-italia::badge&gt;
 &lt;x-italia::badge variant=&quot;danger&quot; pill&gt;3 nuovi&lt;/x-italia::badge&gt;
-&lt;x-italia::badge variant=&quot;info&quot; href=&quot;/foo&quot;&gt;Badge con link&lt;/x-italia::badge&gt;</code></pre>
+&lt;x-italia::badge variant=&quot;info&quot; href=&quot;/foo&quot;&gt;Badge con link&lt;/x-italia::badge&gt;
+
+// Variante come enum: :variant=&quot;\IgorSmoleac\DesignLaravelKit\Enums\BadgeVariant::Primary&quot;
+// Le stringhe non valide (es. variant=&quot;magenta&quot;) generano InvalidArgumentException</code></pre>
                 </details>
             </section>
 
@@ -695,7 +713,10 @@
 // Varianti
 &lt;x-italia::modal title=&quot;...&quot; size=&quot;lg&quot; centered /&gt;
 &lt;x-italia::modal title=&quot;...&quot; size=&quot;xl&quot; scrollable /&gt;
-&lt;x-italia::modal title=&quot;...&quot; static /&gt;</code></pre>
+&lt;x-italia::modal title=&quot;...&quot; static /&gt;
+
+// Dimensione come enum: :size=&quot;\IgorSmoleac\DesignLaravelKit\Enums\ModalSize::Large&quot;
+// Le stringhe non valide generano InvalidArgumentException</code></pre>
                 </details>
             </section>
 
@@ -896,7 +917,12 @@
 &lt;x-italia::button size=&quot;lg&quot;&gt;Grande&lt;/x-italia::button&gt;
 &lt;x-italia::button disabled&gt;Disabilitato&lt;/x-italia::button&gt;
 &lt;x-italia::button loading&gt;Caricamento…&lt;/x-italia::button&gt;
-&lt;x-italia::button href=&quot;/catalog&quot;&gt;Link con aspetto da pulsante&lt;/x-italia::button&gt;</code></pre>
+&lt;x-italia::button href=&quot;/catalog&quot;&gt;Link con aspetto da pulsante&lt;/x-italia::button&gt;
+
+// Varianti e dimensioni come enum:
+// :variant=&quot;\IgorSmoleac\DesignLaravelKit\Enums\ButtonVariant::Secondary&quot;
+// :size=&quot;\IgorSmoleac\DesignLaravelKit\Enums\ButtonSize::Large&quot;
+// Le stringhe non valide generano InvalidArgumentException</code></pre>
                 </details>
             </section>
 
@@ -935,7 +961,10 @@
 &lt;x-italia::spinner /&gt;
 &lt;x-italia::spinner size=&quot;lg&quot; /&gt;
 &lt;x-italia::spinner size=&quot;xl&quot; label=&quot;Caricamento in corso&quot; /&gt;
-&lt;x-italia::spinner :double=&quot;false&quot; size=&quot;lg&quot; /&gt;</code></pre>
+&lt;x-italia::spinner :double=&quot;false&quot; size=&quot;lg&quot; /&gt;
+
+// Dimensione come enum: :size=&quot;\IgorSmoleac\DesignLaravelKit\Enums\SpinnerSize::Large&quot;
+// Le stringhe non valide generano InvalidArgumentException</code></pre>
                 </details>
             </section>
 
@@ -1169,79 +1198,78 @@
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-nome-461"
+            id="dlk-nome-382"
             name="nome"
-            value=""
-            class="form-control"
+                            value=""
+                        class="form-control"
         >
-        <label for="dlk-nome-461" >Nome</label>
+        <label for="dlk-nome-382" >Nome</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-cf_demo-404"
+            id="dlk-cf_demo-517"
             name="cf_demo"
-            value=""
-            class="form-control" placeholder="RSSMRA80A01H501U"
+                            value=""
+                        class="form-control" placeholder="RSSMRA80A01H501U"
         >
-        <label for="dlk-cf_demo-404"  class="active" >Codice Fiscale (demo)</label>
+        <label for="dlk-cf_demo-517"  class="active" >Codice Fiscale (demo)</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="email"
-            id="dlk-email-398"
+            id="dlk-email-501"
             name="email"
-            value=""
-            aria-describedby="dlk-email-398-hint" aria-required="true" required="required" class="form-control"
+                            value=""
+                        aria-describedby="dlk-email-501-hint" aria-required="true" required="required" class="form-control"
         >
-        <label for="dlk-email-398" >Email            <span class="text-danger" aria-hidden="true">*</span>
+        <label for="dlk-email-501" >Email            <span class="text-danger" aria-hidden="true">*</span>
             <span class="visually-hidden">(required)</span>
         </label>
-                <small class="form-text" id="dlk-email-398-hint">name@example.com</small>
+                <small class="form-text" id="dlk-email-501-hint">name@example.com</small>
         </div>
                             <div class="form-group dlk-floating">
             <input
             type="password"
-            id="dlk-password-485"
+            id="dlk-password-527"
             name="password"
-            value=""
-            class="form-control"
+                        class="form-control"
         >
-        <label for="dlk-password-485" >Password</label>
+        <label for="dlk-password-527" >Password</label>
             </div>
                             <div class="form-group dlk-floating">
             <input
             type="number"
-            id="dlk-eta-472"
+            id="dlk-eta-430"
             name="eta"
-            value=""
-            aria-describedby="dlk-eta-472-hint" class="form-control"
+                            value=""
+                        aria-describedby="dlk-eta-430-hint" class="form-control"
         >
-        <label for="dlk-eta-472" >Età</label>
-                <small class="form-text" id="dlk-eta-472-hint">Minimo 18 anni</small>
+        <label for="dlk-eta-430" >Età</label>
+                <small class="form-text" id="dlk-eta-430-hint">Minimo 18 anni</small>
         </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
             <input
             type="text"
-            id="dlk-demo-422"
+            id="dlk-demo-519"
             name="demo"
-            value=""
-            aria-invalid="true" aria-describedby="dlk-demo-422-hint dlk-demo-422-error" class="form-control is-invalid"
+                            value=""
+                        aria-invalid="true" aria-describedby="dlk-demo-519-hint dlk-demo-519-error" class="form-control is-invalid"
         >
-        <label for="dlk-demo-422" >Con errore di validazione</label>
-                <small class="form-text" id="dlk-demo-422-hint">Questo suggerimento viene nascosto quando compare un errore</small>
-                <div class="invalid-feedback" id="dlk-demo-422-error" role="alert">Esempio di messaggio di errore di validazione.</div>
+        <label for="dlk-demo-519" >Con errore di validazione</label>
+                <small class="form-text" id="dlk-demo-519-hint">Questo suggerimento viene nascosto quando compare un errore</small>
+                <div class="invalid-feedback" id="dlk-demo-519-error" role="alert">Esempio di messaggio di errore di validazione.</div>
     </div>
                             <div class="form-group">
-            <label class="form-label" for="dlk-semplice-481">Senza etichetta flottante</label>
+            <label class="form-label" for="dlk-semplice-504">Senza etichetta flottante</label>
         <input
             type="text"
-            id="dlk-semplice-481"
+            id="dlk-semplice-504"
             name="semplice"
-            value=""
-            class="form-control"
+                            value=""
+                        class="form-control"
         >
             </div>
                         </div>
@@ -1266,25 +1294,25 @@
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-paese-493"
+        id="dlk-paese-531"
         name="paese"
-        aria-describedby="dlk-paese-493-hint" aria-required="true" required="required" class="form-select"
+        aria-describedby="dlk-paese-531-hint" aria-required="true" required="required" class="form-select"
     >
                     <option value="" disabled selected>Seleziona...</option>
                                                                 <option value="it">Italia</option>
                                                                 <option value="fr">Francia</option>
                                                                 <option value="de">Germania</option>
                                         </select>
-            <label for="dlk-paese-493" class="active">Paese            <span class="text-danger" aria-hidden="true">*</span>
+            <label for="dlk-paese-531" class="active">Paese            <span class="text-danger" aria-hidden="true">*</span>
             <span class="visually-hidden">(required)</span>
         </label>
-                <small class="form-text" id="dlk-paese-493-hint">Seleziona il paese di residenza</small>
+                <small class="form-text" id="dlk-paese-531-hint">Seleziona il paese di residenza</small>
         </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-citta-439"
+        id="dlk-citta-407"
         name="citta"
         class="form-select"
     >
@@ -1297,7 +1325,7 @@
                                                     <option value="pa">Palermo</option>
                                             </optgroup>
                                         </select>
-            <label for="dlk-citta-439" class="active">Città (optgroup)</label>
+            <label for="dlk-citta-407" class="active">Città (optgroup)</label>
             </div>
                         </div>
                     </div>
@@ -1305,16 +1333,16 @@
                 <div class="catalog-example">
                     <div class="form-group dlk-floating">
         <select
-        id="dlk-ruoli-379"
+        id="dlk-ruoli-460"
         name="ruoli[]"
-        multiple="multiple" aria-describedby="dlk-ruoli-379-hint" class="form-select"
+        multiple="multiple" aria-describedby="dlk-ruoli-460-hint" class="form-select"
     >
                                                                 <option value="admin">Amministratore</option>
                                                                 <option value="editor">Editor</option>
                                                                 <option value="viewer">Visualizzatore</option>
                                         </select>
-            <label for="dlk-ruoli-379" class="active">Ruoli (selezione multipla)</label>
-                <small class="form-text" id="dlk-ruoli-379-hint">Ctrl+clic per selezionare più ruoli</small>
+            <label for="dlk-ruoli-460" class="active">Ruoli (selezione multipla)</label>
+                <small class="form-text" id="dlk-ruoli-460-hint">Ctrl+clic per selezionare più ruoli</small>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1329,7 +1357,7 @@
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-citta-slot-415"
+        id="dlk-citta-slot-476"
         name="citta-slot"
         class="form-select"
     >
@@ -1338,13 +1366,13 @@
                                 <option value="rm">Roma</option>
                                 <option value="to">Torino</option>
             </select>
-            <label for="dlk-citta-slot-415" class="active">Città (slot)</label>
+            <label for="dlk-citta-slot-476" class="active">Città (slot)</label>
             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group dlk-floating">
         <select
-        id="dlk-citta-filtro-402"
+        id="dlk-citta-filtro-469"
         name="citta-filtro"
         class="form-select"
     >
@@ -1353,18 +1381,19 @@
                                                                 <option value="na">Napoli</option>
                                                                 <option value="rm">Roma</option>
                                         </select>
-            <label for="dlk-citta-filtro-402" class="active">Città (filtro)</label>
+            <label for="dlk-citta-filtro-469" class="active">Città (filtro)</label>
             </div>
                         </div>
                     </div>
                 </div>
                                 <details class="catalog-code">
                     <summary>Mostra il codice</summary>
-                    <pre><code>&lt;x-italia::select name=&quot;citta-slot&quot; label=&quot;Città (slot)&quot;&gt;
-    &lt;option value=&quot;mi&quot;&gt;Milano&lt;/option&gt;
-    &lt;option value=&quot;na&quot;&gt;Napoli&lt;/option&gt;
-    &lt;option value=&quot;rm&quot;&gt;Roma&lt;/option&gt;
-    &lt;option value=&quot;to&quot;&gt;Torino&lt;/option&gt;
+                    <pre><code>// select-option applica automaticamente selected da old input e dal prop selected
+&lt;x-italia::select name=&quot;citta-slot&quot; label=&quot;Città (slot)&quot;&gt;
+    &lt;x-italia::select-option value=&quot;mi&quot;&gt;Milano&lt;/x-italia::select-option&gt;
+    &lt;x-italia::select-option value=&quot;na&quot;&gt;Napoli&lt;/x-italia::select-option&gt;
+    &lt;x-italia::select-option value=&quot;rm&quot;&gt;Roma&lt;/x-italia::select-option&gt;
+    &lt;x-italia::select-option value=&quot;to&quot;&gt;Torino&lt;/x-italia::select-option&gt;
 &lt;/x-italia::select&gt;
 
 &lt;x-italia::select name=&quot;citta-filtro&quot; label=&quot;Città (filtro)&quot; placeholder=&quot;Tutte le città&quot; :placeholder-disabled=&quot;false&quot; :options=&quot;[&#039;mi&#039; =&gt; &#039;Milano&#039;, &#039;na&#039; =&gt; &#039;Napoli&#039;, &#039;rm&#039; =&gt; &#039;Roma&#039;]&quot; /&gt;</code></pre>
@@ -1377,22 +1406,22 @@
                 <div class="catalog-example">
                     <div class="form-group dlk-floating">
             <textarea
-            id="dlk-bio-474"
+            id="dlk-bio-530"
             name="bio"
             rows="3"
-            aria-describedby="dlk-bio-474-hint" class="form-control"
+            aria-describedby="dlk-bio-530-hint" class="form-control"
         ></textarea>
-        <label for="dlk-bio-474" >Biografia</label>
-                <small class="form-text" id="dlk-bio-474-hint">Max 500 caratteri</small>
+        <label for="dlk-bio-530" >Biografia</label>
+                <small class="form-text" id="dlk-bio-530-hint">Max 500 caratteri</small>
         </div>
                     <div class="form-group dlk-floating">
             <textarea
-            id="dlk-note-419"
+            id="dlk-note-474"
             name="note"
             rows="5"
             class="form-control"
         ></textarea>
-        <label for="dlk-note-419" >Note (5 righe)</label>
+        <label for="dlk-note-474" >Note (5 righe)</label>
             </div>
                 </div>
                                 <details class="catalog-code">
@@ -1409,68 +1438,68 @@
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-termini-441"
+        id="dlk-termini-466"
         name="termini"
                 aria-required="true" required="required" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-termini-441">Accetto i termini        <span class="text-danger" aria-hidden="true">*</span>
+    <label class="form-check-label" for="dlk-termini-466">Accetto i termini        <span class="text-danger" aria-hidden="true">*</span>
         <span class="visually-hidden">(required)</span>
     </label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-newsletter-435"
+        id="dlk-newsletter-470"
         name="newsletter"
          value="yes"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-newsletter-435">Iscriviti alla newsletter</label>
+    <label class="form-check-label" for="dlk-newsletter-470">Iscriviti alla newsletter</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-promo-424"
+        id="dlk-promo-499"
         name="promo"
                 checked="checked" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-promo-424">Pre-selezionata</label>
+    <label class="form-check-label" for="dlk-promo-499">Pre-selezionata</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-sms-401"
+        id="dlk-sms-519"
         name="sms"
                 disabled="disabled" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-sms-401">Disabilitata</label>
+    <label class="form-check-label" for="dlk-sms-519">Disabilitata</label>
         </div>
                     <p class="mb-2"><strong>Gruppo (<code>interessi[]</code>)</strong></p>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-488"
+        id="dlk-interessi-543"
         name="interessi[]"
          value="sport"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-488">Sport</label>
+    <label class="form-check-label" for="dlk-interessi-543">Sport</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-447"
+        id="dlk-interessi-428"
         name="interessi[]"
          value="musica"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-447">Musica</label>
+    <label class="form-check-label" for="dlk-interessi-428">Musica</label>
         </div>
                     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-interessi-490"
+        id="dlk-interessi-498"
         name="interessi[]"
          value="viaggi"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-interessi-490">Viaggi</label>
+    <label class="form-check-label" for="dlk-interessi-498">Viaggi</label>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1491,44 +1520,44 @@
                 <h2 class="h3 mb-3">Gruppo checkbox</h2>
                 <p>Gruppo di checkbox in un fieldset con un solo messaggio di errore di validazione.</p>
                 <form method="get" action="./" class="catalog-example">
-                    <fieldset class="form-group" id="dlk-demo-415"
-     aria-invalid="true"      aria-describedby="dlk-demo-415-hint dlk-demo-415-error"
+                    <fieldset class="form-group" id="dlk-demo-537"
+     aria-invalid="true"      aria-describedby="dlk-demo-537-hint dlk-demo-537-error"
     >
             <legend>
             Interessi
                     </legend>
     
-            <small class="form-text" id="dlk-demo-415-hint">Seleziona uno o più interessi</small>
+            <small class="form-text" id="dlk-demo-537-hint">Seleziona uno o più interessi</small>
     
     <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-501"
+        id="dlk-demo-533"
         name="demo[]"
-         value="sport"         aria-invalid="true" aria-describedby="dlk-demo-415-error" class="form-check-input is-invalid"
+         value="sport"         aria-invalid="true" aria-describedby="dlk-demo-537-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-501">Sport</label>
+    <label class="form-check-label" for="dlk-demo-533">Sport</label>
         </div>
                         <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-453"
+        id="dlk-demo-518"
         name="demo[]"
-         value="musica"         aria-invalid="true" aria-describedby="dlk-demo-415-error" class="form-check-input is-invalid"
+         value="musica"         aria-invalid="true" aria-describedby="dlk-demo-537-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-453">Musica</label>
+    <label class="form-check-label" for="dlk-demo-518">Musica</label>
         </div>
                         <div class="form-check">
     <input
         type="checkbox"
-        id="dlk-demo-410"
+        id="dlk-demo-525"
         name="demo[]"
-         value="viaggi"         aria-invalid="true" aria-describedby="dlk-demo-415-error" class="form-check-input is-invalid"
+         value="viaggi"         aria-invalid="true" aria-describedby="dlk-demo-537-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-410">Viaggi</label>
+    <label class="form-check-label" for="dlk-demo-525">Viaggi</label>
         </div>
 
-            <div class="invalid-feedback d-block" id="dlk-demo-415-error" role="alert">
+            <div class="invalid-feedback d-block" id="dlk-demo-537-error" role="alert">
             Esempio di messaggio di errore di validazione.
         </div>
     </fieldset>
@@ -1553,38 +1582,38 @@
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-483"
+        id="dlk-genere-539"
         name="genere"
          value="m"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-483">Maschio</label>
+    <label class="form-check-label" for="dlk-genere-539">Maschio</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-462"
+        id="dlk-genere-407"
         name="genere"
          value="f"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-462">Femmina</label>
+    <label class="form-check-label" for="dlk-genere-407">Femmina</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-438"
+        id="dlk-genere-514"
         name="genere"
          value="o"         class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-438">Altro</label>
+    <label class="form-check-label" for="dlk-genere-514">Altro</label>
         </div>
                     <div class="form-check">
     <input
         type="radio"
-        id="dlk-genere-499"
+        id="dlk-genere-426"
         name="genere"
          value="x"         disabled="disabled" class="form-check-input"
     >
-    <label class="form-check-label" for="dlk-genere-499">Disabilitata</label>
+    <label class="form-check-label" for="dlk-genere-426">Disabilitata</label>
         </div>
                 </div>
                                 <details class="catalog-code">
@@ -1600,8 +1629,8 @@
                 <h2 class="h3 mb-3">Gruppo radio</h2>
                 <p>Gruppo di radio accessibile con fieldset, legend e un unico messaggio di errore.</p>
                 <form method="get" action="./" class="catalog-example">
-                    <fieldset class="form-group" id="dlk-demo-477"
-     aria-invalid="true"      aria-describedby="dlk-demo-477-hint dlk-demo-477-error"
+                    <fieldset class="form-group" id="dlk-demo-463"
+     aria-invalid="true"      aria-describedby="dlk-demo-463-hint dlk-demo-463-error"
     >
             <legend>
             Genere
@@ -1609,37 +1638,37 @@
                 <span class="visually-hidden">(required)</span>
                     </legend>
     
-            <small class="form-text" id="dlk-demo-477-hint">Seleziona un&#039;opzione</small>
+            <small class="form-text" id="dlk-demo-463-hint">Seleziona un&#039;opzione</small>
     
     <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-467"
+        id="dlk-demo-504"
         name="demo"
-         value="m"         aria-invalid="true" aria-describedby="dlk-demo-477-error" class="form-check-input is-invalid"
+         value="m"         aria-invalid="true" aria-describedby="dlk-demo-463-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-467">Maschio</label>
+    <label class="form-check-label" for="dlk-demo-504">Maschio</label>
         </div>
                         <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-398"
+        id="dlk-demo-441"
         name="demo"
-         value="f"         aria-invalid="true" aria-describedby="dlk-demo-477-error" class="form-check-input is-invalid"
+         value="f"         aria-invalid="true" aria-describedby="dlk-demo-463-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-398">Femmina</label>
+    <label class="form-check-label" for="dlk-demo-441">Femmina</label>
         </div>
                         <div class="form-check">
     <input
         type="radio"
-        id="dlk-demo-445"
+        id="dlk-demo-545"
         name="demo"
-         value="o"         aria-invalid="true" aria-describedby="dlk-demo-477-error" class="form-check-input is-invalid"
+         value="o"         aria-invalid="true" aria-describedby="dlk-demo-463-error" class="form-check-input is-invalid"
     >
-    <label class="form-check-label" for="dlk-demo-445">Altro</label>
+    <label class="form-check-label" for="dlk-demo-545">Altro</label>
         </div>
 
-            <div class="invalid-feedback d-block" id="dlk-demo-477-error" role="alert">
+            <div class="invalid-feedback d-block" id="dlk-demo-463-error" role="alert">
             Esempio di messaggio di errore di validazione.
         </div>
     </fieldset>
