@@ -4,6 +4,7 @@ namespace IgorSmoleac\DesignLaravelKit\Components;
 
 use IgorSmoleac\DesignLaravelKit\Enums\AlertVariant;
 use Illuminate\Contracts\View\View;
+use InvalidArgumentException;
 
 class Alert extends BaseComponent
 {
@@ -17,7 +18,7 @@ class Alert extends BaseComponent
     ) {
         $this->variant = $variant instanceof AlertVariant
             ? $variant
-            : AlertVariant::tryFrom($variant) ?? AlertVariant::Info;
+            : AlertVariant::tryFrom($variant) ?? throw new InvalidArgumentException("Unknown AlertVariant: {$variant}");
     }
 
     public function render(): View

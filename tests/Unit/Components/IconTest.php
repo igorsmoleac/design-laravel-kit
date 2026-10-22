@@ -5,6 +5,7 @@ namespace IgorSmoleac\DesignLaravelKit\Tests\Unit\Components;
 use IgorSmoleac\DesignLaravelKit\Components\Icon;
 use IgorSmoleac\DesignLaravelKit\DesignLaravelKitServiceProvider;
 use IgorSmoleac\DesignLaravelKit\Enums\IconSize;
+use IgorSmoleac\DesignLaravelKit\Enums\IconSpacing;
 use Orchestra\Testbench\TestCase;
 
 class IconTest extends TestCase
@@ -39,6 +40,27 @@ class IconTest extends TestCase
         $icon = new Icon('search', spacing: 'right');
 
         $this->assertSame('icon icon-right', $icon->svgClass());
+    }
+
+    public function test_spacing_accepts_enum_case(): void
+    {
+        $this->assertSame('icon icon-padded', (new Icon('search', spacing: IconSpacing::Padded))->svgClass());
+    }
+
+    public function test_unknown_spacing_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown IconSpacing');
+
+        new Icon('search', spacing: 'huge');
+    }
+
+    public function test_unknown_size_throws_invalid_argument_exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown IconSize');
+
+        new Icon('search', 'huge');
     }
 
     public function test_name_receives_it_prefix(): void

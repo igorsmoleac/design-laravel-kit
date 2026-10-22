@@ -2,23 +2,38 @@
 
 namespace IgorSmoleac\DesignLaravelKit\Components;
 
+use IgorSmoleac\DesignLaravelKit\Enums\ModalSize;
 use Illuminate\Contracts\View\View;
+use InvalidArgumentException;
 
 class Modal extends BaseComponent
 {
+    protected ?ModalSize $size = null;
+
     public function __construct(
         public string $title,
         public bool $centered = false,
         public bool $scrollable = false,
-        public ?string $size = null,
+        ModalSize|string|null $size = null,
         public bool $static = false,
         public bool $dismissible = true,
         public ?string $description = null,
-    ) {}
+    ) {
+        $this->size = $size === null
+            ? null
+            : ($size instanceof ModalSize
+                ? $size
+                : ModalSize::tryFrom($size) ?? throw new InvalidArgumentException("Unknown ModalSize: {$size}"));
+    }
 
     public function render(): View
     {
         return $this->componentView('design-laravel-kit::components.modal');
+    }
+
+    public function size(): ?ModalSize
+    {
+        return $this->size;
     }
 
     /**
@@ -58,7 +73,7 @@ class Modal extends BaseComponent
             'modal-dialog',
             $this->centered ? 'modal-dialog-centered' : null,
             $this->scrollable ? 'modal-dialog-scrollable' : null,
-            $this->size !== null ? 'modal-' . $this->size : null,
+            $this->size?->cssClass(),
         ])->filter()
             ->implode(' ');
     }

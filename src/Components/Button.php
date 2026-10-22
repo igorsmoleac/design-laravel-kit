@@ -6,12 +6,13 @@ use IgorSmoleac\DesignLaravelKit\DTO\ConfigValidator;
 use IgorSmoleac\DesignLaravelKit\Enums\ButtonSize;
 use IgorSmoleac\DesignLaravelKit\Enums\ButtonVariant;
 use Illuminate\Contracts\View\View;
+use InvalidArgumentException;
 
 class Button extends BaseComponent
 {
-    protected string $sizeClass;
+    protected ButtonVariant $variant;
 
-    protected string $variantClass;
+    protected ButtonSize $size;
 
     public function __construct(
         string|ButtonVariant $variant = ButtonVariant::Primary,
@@ -24,13 +25,13 @@ class Button extends BaseComponent
     ) {
         ConfigValidator::optionalUrl(['href' => $this->href], 'href');
 
-        $this->variantClass = $variant instanceof ButtonVariant
-            ? $variant->cssClass()
-            : ButtonVariant::tryFrom($variant)?->cssClass() ?? 'btn-' . $variant;
+        $this->variant = $variant instanceof ButtonVariant
+            ? $variant
+            : ButtonVariant::tryFrom($variant) ?? throw new InvalidArgumentException("Unknown ButtonVariant: {$variant}");
 
-        $this->sizeClass = $size instanceof ButtonSize
-            ? $size->cssClass()
-            : ButtonSize::tryFrom($size)?->cssClass() ?? 'btn-' . $size;
+        $this->size = $size instanceof ButtonSize
+            ? $size
+            : ButtonSize::tryFrom($size) ?? throw new InvalidArgumentException("Unknown ButtonSize: {$size}");
     }
 
     public function render(): View
@@ -38,12 +39,22 @@ class Button extends BaseComponent
         return $this->componentView('design-laravel-kit::components.button');
     }
 
+    public function variant(): ButtonVariant
+    {
+        return $this->variant;
+    }
+
+    public function size(): ButtonSize
+    {
+        return $this->size;
+    }
+
     public function cssClass(): string
     {
         return collect([
             'btn',
-            $this->sizeClass,
-            $this->variantClass,
+            $this->size->cssClass(),
+            $this->variant->cssClass(),
             $this->block ? 'w-100' : null,
             $this->isLink() && $this->isDisabled() ? 'disabled' : null,
         ])->filter()->unique()->implode(' ');

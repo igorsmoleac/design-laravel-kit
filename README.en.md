@@ -314,7 +314,7 @@ Parameters of the components with a non-trivial API. Common HTML attributes (`cl
 | `headingLevel` | `int` | Heading level, 2–6 (default 3) |
 | Slots | | content and `actions` |
 | **`x-italia::alert`** | | |
-| `variant` | `string\|AlertVariant` | `info` (default), `success`, `warning`, `danger`; unknown value → `info` |
+| `variant` | `string\|AlertVariant` | `info` (default), `success`, `warning`, `danger`; invalid string → exception |
 | `title` | `?string` | Title |
 | `dismissible` | `bool` | Dismiss button |
 | `icon` | `bool` | Icon based on the variant |
@@ -322,7 +322,7 @@ Parameters of the components with a non-trivial API. Common HTML attributes (`cl
 | `title` | `string` | Title, required |
 | `id` (attribute) | `string` | Required to bind a `data-bs-target` trigger |
 | `description` | `?string` | Text linked via `aria-describedby` |
-| `size` | `?string` | `sm`, `lg`, `xl` |
+| `size` | `?string\|ModalSize` | `sm`, `lg`, `xl`; invalid string → exception |
 | `centered`, `scrollable`, `static`, `dismissible` | `bool` | Dialog behaviour |
 | Slots | | content and `footer` |
 | **`x-italia::select`** | | |
@@ -343,6 +343,21 @@ Parameters of the components with a non-trivial API. Common HTML attributes (`cl
 | `required`, `disabled`, `readonly`, `floating` | `bool` | Field state |
 | `bag` | `string` | Error bag |
 | `wrapperClass` | `?string` | Wrapper classes |
+| **`x-italia::icon`** | | |
+| `name` | `string` | Icon name; `it-` prefix added if missing |
+| `size` | `string\|IconSize` | `xs`, `sm`, `md` (default), `lg`, `xl`; invalid string → exception |
+| `spacing` | `?string\|IconSpacing` | `left`, `right`, `padded`; invalid string → exception |
+| `label` | `?string` | Screen reader text; without a label the icon is decorative |
+| **`x-italia::button`** | | |
+| `variant` | `string\|ButtonVariant` | `primary` (default), `secondary`, `danger`, `outline`, `link`; invalid string → exception |
+| `size` | `string\|ButtonSize` | `sm`, `md` (default), `lg`; invalid string → exception |
+| `href`, `loading`, `block` | `?string`, `bool`, `bool` | Link button, loading state, full width |
+| **`x-italia::badge`** | | |
+| `variant` | `string\|BadgeVariant` | `primary` (default), `secondary`, `success`, `danger`, `warning`, `info`, `light`, `dark`; invalid string → exception |
+| `pill`, `href` | `bool`, `?string` | Pill variant and link |
+| **`x-italia::spinner`** | | |
+| `size` | `string\|SpinnerSize` | `sm`, `md` (default), `lg`, `xl`; invalid string → exception |
+| `double`, `label`, `decorative` | `bool`, `?string`, `bool` | Double spinner, ARIA label, decorative version |
 
 ### URL policy
 
