@@ -96,7 +96,7 @@ class Select extends BaseFormComponent
         return $this->normalizeValue($selected);
     }
 
-    public function isSelected(string|int $value): bool
+    public function isSelected(string|int|float|null $value): bool
     {
         $selected = $this->selectedValue();
 
@@ -116,5 +116,13 @@ class Select extends BaseFormComponent
         $selected = $this->selectedValue();
 
         return is_array($selected) ? $selected !== [] : $this->normalizeValue($selected) !== null;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function data(): array
+    {
+        return array_merge(parent::data(), ['select' => $this]);
     }
 }
