@@ -16,7 +16,7 @@ class Badge extends BaseComponent
         public bool $pill = false,
         public ?string $href = null,
     ) {
-        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+        $this->href = ConfigValidator::optionalUrl(['href' => $this->href], 'href');
 
         $this->variant = $variant instanceof BadgeVariant
             ? $variant

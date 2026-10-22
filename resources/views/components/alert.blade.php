@@ -1,4 +1,4 @@
-<div role="alert" {{ $attributes->class([$cssClass()]) }}>
+<div @if ($live === true) role="alert" @elseif (is_string($live) && trim($live) !== '') role="{{ $live }}" @endif {{ $attributes->class([$cssClass()]) }}>
     @if ($icon)
         <x-italia::icon :name="$iconName()" />
     @endif

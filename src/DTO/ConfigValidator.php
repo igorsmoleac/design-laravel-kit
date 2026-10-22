@@ -2,6 +2,8 @@
 
 namespace IgorSmoleac\DesignLaravelKit\DTO;
 
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
@@ -79,8 +81,37 @@ final class ConfigValidator
 
     public static function assertUrl(?string $url, string $field): void
     {
-        if ($url === null) {
+        if ($url === null || self::isValidUrl($url)) {
             return;
+        }
+
+        if (self::strictUrls()) {
+            self::throwInvalidUrl($url, $field);
+        }
+
+        Log::warning("Invalid URL in component field '{$field}': '" . self::displayUrl($url) . "' is not a valid link and is rendered as-is.");
+    }
+
+    /**
+     * True when URLs must throw on invalid values; false for the lenient
+     * mode that logs a warning and renders '#' instead. Defaults to strict
+     * when no application config is available.
+     */
+    public static function strictUrls(): bool
+    {
+        $app = Facade::getFacadeApplication();
+
+        $strict = $app !== null && $app->bound('config')
+            ? config('design-laravel-kit.strict_urls')
+            : null;
+
+        return $strict ?? true;
+    }
+
+    private static function isValidUrl(?string $url): bool
+    {
+        if ($url === null) {
+            return true;
         }
 
         $normalizedUrl = ltrim($url, " \t");
@@ -88,38 +119,48 @@ final class ConfigValidator
         $scheme = $hasScheme ? strtolower($schemeMatch[1]) : null;
 
         if ($hasScheme && ! in_array($scheme, ['http', 'https', 'mailto', 'tel'], true)) {
-            self::throwInvalidUrl($url, $field);
+            return false;
         }
 
         if ($url === '' || preg_match('/[\x00-\x20\x7F<>"\'\\\\]/', $url) === 1) {
-            self::throwInvalidUrl($url, $field);
+            return false;
         }
 
         if ($url[0] === '#') {
-            return;
+            return true;
         }
 
         if ($scheme === 'mailto' || $scheme === 'tel') {
-            if (substr($normalizedUrl, strlen($schemeMatch[0])) === '') {
-                self::throwInvalidUrl($url, $field);
-            }
-
-            return;
+            return substr($normalizedUrl, strlen($schemeMatch[0])) !== '';
         }
 
         $parsedUrl = parse_url($url);
 
         if ($scheme === 'http' || $scheme === 'https') {
-            if (! is_array($parsedUrl) || empty($parsedUrl['host'])) {
-                self::throwInvalidUrl($url, $field);
-            }
-
-            return;
+            return is_array($parsedUrl) && ! empty($parsedUrl['host']);
         }
 
-        if (str_starts_with($url, '//') || ! is_array($parsedUrl) || empty($parsedUrl['path'])) {
+        return ! str_starts_with($url, '//') && is_array($parsedUrl) && ! empty($parsedUrl['path']);
+    }
+
+    /**
+     * Resolves a URL for rendering: valid URLs pass through, invalid ones
+     * throw in strict mode or are replaced with '#' (with a logged warning)
+     * in lenient mode.
+     */
+    private static function resolveUrl(?string $url, string $field): ?string
+    {
+        if ($url === null || self::isValidUrl($url)) {
+            return $url;
+        }
+
+        if (self::strictUrls()) {
             self::throwInvalidUrl($url, $field);
         }
+
+        Log::warning("Invalid URL in component field '{$field}': '" . self::displayUrl($url) . "' is not a valid link and is replaced with '#'.");
+
+        return '#';
     }
 
     public static function logoUrl(string $value, string $field): string
@@ -132,18 +173,13 @@ final class ConfigValidator
             return $value;
         }
 
-        self::assertUrl($value, $field);
-
-        return $value;
+        return self::resolveUrl($value, $field) ?? $value;
     }
 
     /** @param array<string, mixed> $data */
     public static function optionalUrl(array $data, string $field): ?string
     {
-        $url = self::optionalString($data, $field);
-        self::assertUrl($url, $field);
-
-        return $url;
+        return self::resolveUrl(self::optionalString($data, $field), $field);
     }
 
     /** @param array<string, mixed> $data */
@@ -155,9 +191,7 @@ final class ConfigValidator
             return self::requiredString($data, $field);
         }
 
-        self::assertUrl($url, $field);
-
-        return $url;
+        return self::resolveUrl($url, $field) ?? $url;
     }
 
     public static function cspNonce(?string $explicit, ?string $configured): ?string
@@ -177,8 +211,11 @@ final class ConfigValidator
 
     private static function throwInvalidUrl(string $url, string $field): never
     {
-        $displayUrl = Str::length($url) > 80 ? Str::substr($url, 0, 77) . '...' : $url;
+        throw new InvalidArgumentException("Field '{$field}' value '" . self::displayUrl($url) . "' is not a valid link. Allowed: http(s), mailto:, tel:, #fragment, root-relative, relative path.");
+    }
 
-        throw new InvalidArgumentException("Field '{$field}' value '{$displayUrl}' is not a valid link. Allowed: http(s), mailto:, tel:, #fragment, root-relative, relative path.");
+    private static function displayUrl(string $url): string
+    {
+        return Str::length($url) > 80 ? Str::substr($url, 0, 77) . '...' : $url;
     }
 }

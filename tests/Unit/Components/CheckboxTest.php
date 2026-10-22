@@ -242,13 +242,13 @@ class CheckboxTest extends TestCase
         $this->assertStringNotContainsString('checked=', $travel);
     }
 
-    public function test_checkbox_stays_unchecked_after_failed_validation(): void
+    public function test_checkbox_falls_back_to_checked_prop_when_old_input_lacks_field(): void
     {
-        $this->withSession(['_old_input' => []]);
+        $this->withSession(['_old_input' => ['other' => 'value']]);
 
         $html = (string) $this->blade('<x-italia::checkbox name="terms" value="1" :checked="true" />');
 
-        $this->assertStringNotContainsString('checked=', $html);
+        $this->assertStringContainsString('checked="checked"', $html);
     }
 
     public function test_custom_attributes_passed_through(): void

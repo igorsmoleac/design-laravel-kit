@@ -51,6 +51,21 @@ class AlertTest extends TestCase
         new Alert(variant: 'oops');
     }
 
+    public function test_live_false_renders_no_role_attribute(): void
+    {
+        $html = (string) $this->blade('<x-italia::alert :live="false">x</x-italia::alert>');
+
+        $this->assertStringNotContainsString('role=', $html);
+    }
+
+    public function test_live_string_renders_custom_role(): void
+    {
+        $html = (string) $this->blade('<x-italia::alert live="status">x</x-italia::alert>');
+
+        $this->assertStringContainsString('role="status"', $html);
+        $this->assertStringNotContainsString('role="alert"', $html);
+    }
+
     public function test_title_renders_in_alert_heading(): void
     {
         $html = (string) $this->blade('<x-italia::alert title="Errore">x</x-italia::alert>');

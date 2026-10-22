@@ -20,7 +20,7 @@ class SpidButton extends BaseComponent
         public bool $dropdown = false,
         public array $providers = [],
     ) {
-        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+        $this->href = ConfigValidator::optionalUrl(['href' => $this->href], 'href');
         $this->label = $label ?? __('design-laravel-kit::Entra con SPID');
     }
 

@@ -210,6 +210,15 @@ class RadioTest extends TestCase
         $this->assertStringNotContainsString('checked=', $male);
     }
 
+    public function test_radio_falls_back_to_checked_prop_when_old_input_lacks_field(): void
+    {
+        $this->withSession(['_old_input' => ['other' => 'value']]);
+
+        $html = (string) $this->blade('<x-italia::radio name="gender" value="f" :checked="true" />');
+
+        $this->assertStringContainsString('checked="checked"', $html);
+    }
+
     public function test_custom_attributes_passed_through(): void
     {
         $html = (string) $this->blade('<x-italia::radio name="gender" value="m" class="custom" data-test="foo" />');

@@ -14,7 +14,7 @@ class HeaderMegamenu extends BaseComponent
         public bool $active = false,
     ) {
         ConfigValidator::requiredString(['text' => $this->text], 'text');
-        ConfigValidator::assertUrl($this->url, 'url');
+        $this->url = ConfigValidator::optionalUrl(['url' => $this->url], 'url');
     }
 
     public function render(): Closure

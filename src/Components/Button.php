@@ -23,7 +23,7 @@ class Button extends BaseComponent
         public bool $loading = false,
         public bool $block = false,
     ) {
-        ConfigValidator::optionalUrl(['href' => $this->href], 'href');
+        $this->href = ConfigValidator::optionalUrl(['href' => $this->href], 'href');
 
         $this->variant = $variant instanceof ButtonVariant
             ? $variant

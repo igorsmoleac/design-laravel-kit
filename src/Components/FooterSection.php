@@ -12,7 +12,7 @@ class FooterSection extends BaseComponent
         public ?string $url = null,
     ) {
         ConfigValidator::requiredString(['title' => $this->title], 'title');
-        ConfigValidator::assertUrl($this->url, 'url');
+        $this->url = ConfigValidator::optionalUrl(['url' => $this->url], 'url');
     }
 
     public function render(): View

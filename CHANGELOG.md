@@ -17,13 +17,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Badge, Spinner, Modal, Icon, Button: i parametri variant/size/spacing ora accettano enum dedicati (BadgeVariant, SpinnerSize, ecc.) o stringhe validate; stringhe non valide generano InvalidArgumentException.
 - Alert: il parametro `variant` ora usa la validazione enum stringente come Badge, Spinner, Modal e Button; valori non validi generano `InvalidArgumentException` invece di fallback silenzioso a Info.
 - HeaderNavbar: il rilevamento del megamenu usa un attributo data esplicito invece di uno stato globale condiviso; evita la propagazione tra navbar consecutivi e la dipendenza dall'ordine di render.
+- Direttive `@designLaravelKitStyles`/`@designLaravelKitScripts`: il nonce CSP ora proviene da `Vite::useCspNonce()` o dall'argomento della direttiva; la chiave di configurazione `csp_nonce` è stata rimossa.
 
 ### Fixed
-- Header: lo sticky degli slot `slim` e `navbar` non viene più ignorato; se l'header non è sticky, le parti figlie ricevono il proprio `data-bs-toggle="sticky"`.
+- URL: con `strict_urls` disabilitato (default fuori da `local`) gli URL non validi non generano più eccezioni: vengono sostituiti con `#` e segnalati con un warning nel log; utile quando i valori arrivano da dati applicativi.
+- Checkbox/Radio: il prop `checked` ora viene rispettato anche quando esiste old input per altri campi ma non per il campo stesso; prima veniva ignorato in presenza di qualsiasi sessione old input.
+- Alert: nuovo parametro `live` (default `true`); con `false` l'attributo `role="alert"` non viene renderizzato, per messaggi statici che non devono interrompere lo screen reader; una stringa imposta una role personalizzata (es. `status`).
 - Input: per `type="password"` il valore non viene più renderizzato nell'attributo `value`; evita la fuga di vecchi input in HTML per campi non inclusi nel default `$dontFlash` di Laravel.
 
 ### Docs
 - README: la link al catalogo del playground, non disponibile nel repository, è sostituita dal catalogo online.
+- README: avviso sui provider SPID segnaposto nel dropdown.
 
 ## [0.5.2] - 2026-10-05
 
